@@ -14,7 +14,7 @@ public class Main {
 
         PaycalApp app = context.getBean(PaycalApp.class);
 
-        app.doMain();
+        app.run();
     }
 }
 

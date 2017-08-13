@@ -24,7 +24,7 @@ public class PaycalApp {
         now = gettingTime();
     }
 
-    public void doMain(){
+    public void run(){
         feedBack.printIntro();
         // This leads with header for the app
 

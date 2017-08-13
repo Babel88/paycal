@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/paycal.iml" filepath="$PROJECT_DIR$/.idea/modules/paycal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/paycal.iml" filepath="$PROJECT_DIR$/paycal.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/paycal_main.iml" filepath="$PROJECT_DIR$/.idea/modules/paycal_main.iml" group="paycal" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/paycal_test.iml" filepath="$PROJECT_DIR$/.idea/modules/paycal_test.iml" group="paycal" />
     </modules>
