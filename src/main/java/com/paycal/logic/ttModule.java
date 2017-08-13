@@ -6,6 +6,7 @@ import com.paycal.models.Invoice;
 import com.paycal.view.Notifications;
 import com.paycal.api.PayCalView;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 import static java.lang.System.out;
@@ -44,8 +45,8 @@ class ttModule {
      * @param WithTaxRate// "WithTax_Rate" variable in the main method
      * @return //returns the reverse Invoice amount
      */
-    private static double getReverseInvoice(
-            double Invoiced,
+    private static BigDecimal getReverseInvoice(
+            BigDecimal Invoiced,
             double WithTaxRate,
             String decide) {
 
@@ -58,7 +59,7 @@ class ttModule {
          * we proceed to calculate the ReverseInvoice
          */
 
-        double ReverseInvoice;//Return variable
+        BigDecimal ReverseInvoice;//Return variable
         if (isInclusive) {
 
             ReverseInvoice = Invoiced;
@@ -112,11 +113,11 @@ class ttModule {
      * @return //Reverse Vat chargeable
      */
 
-    private static double getReverseVat(
-            double reverseInvoiceAmount,
+    private static BigDecimal getReverseVat(
+            BigDecimal reverseInvoiceAmount,
             double vatRate
     ) {
-        double ReverseVat;//this is the return variable
+        BigDecimal ReverseVat;//this is the return variable
         ReverseVat = (reverseInvoiceAmount * (vatRate / 100));/*
          * well, E.G. VAT=NET*16%
          */
@@ -137,8 +138,8 @@ class ttModule {
      * @return //The formula here gives the withholding tax amount chargeable
      */
 
-    private static double getwithholdingTaxAmount(double reverseInvoiceAmount,
-                                                  double withHoldingTaxRate) {
+    private static BigDecimal getwithholdingTaxAmount(BigDecimal reverseInvoiceAmount,
+                                                      double withHoldingTaxRate) {
         return reverseInvoiceAmount * withHoldingTaxRate / 100;
     }
 
@@ -158,11 +159,11 @@ class ttModule {
      * @param VatAmount
      * @return // "Total Expense=Reverse Invoice*(1+Vat Rate)"
      */
-    private static double getTotalExpense(double ReverseInvoice,
-                                          double VatRate,
-                                          String Decision,
-                                          double Invoiced,
-                                          double VatAmount
+    private static int getTotalExpense(BigDecimal ReverseInvoice,
+                                       double VatRate,
+                                       String Decision,
+                                       BigDecimal Invoiced,
+                                       BigDecimal VatAmount
     ) {
         if (Decision.equals("yes")) {
             return ReverseInvoice + VatAmount;
@@ -185,9 +186,9 @@ class ttModule {
      * taxes are withheld on the total expense incurred by the company
      */
 
-    private static double getPaySupplier(double total,
-                                         double WithTax,
-                                         double Vat
+    private static BigDecimal getPaySupplier(BigDecimal total,
+                                             BigDecimal WithTax,
+                                             BigDecimal Vat
     ) {
         return total - WithTax - Vat;
     }
@@ -274,7 +275,7 @@ class ttModule {
             double WithTax_Rate = invoiced.withHoldingTaxRate();
 
         /*Step3 Now we get the Invoice amount*/
-            double Invoiced = invoiced.invoiceAmount();
+            BigDecimal Invoiced = invoiced.invoiceAmount();
 
         /*Step4 We are calculating ReverseInvoice in*/
 
@@ -283,20 +284,20 @@ class ttModule {
 
 
         /*Step6 calculate the reverse Invoice amount*/
-            double ReverseInvoice = getReverseInvoice(Invoiced,
+            BigDecimal ReverseInvoice = getReverseInvoice(Invoiced,
                     WithTax_Rate,
                     Decision
             );
 
         /*Step6 we calculate the amount of reverse VAT*/
-            double ReverseVat = getReverseVat(ReverseInvoice, Vat_Rate);/*
+            BigDecimal ReverseVat = getReverseVat(ReverseInvoice, Vat_Rate);/*
 
 
         /*Step 7 Calling function 9 calculate withholding tax amount*/
-            double WithTax = getwithholdingTaxAmount(ReverseInvoice, WithTax_Rate);/*
+            BigDecimal WithTax = getwithholdingTaxAmount(ReverseInvoice, WithTax_Rate);/*
 
         /*Step 8 Calculate TotalExpense*/
-            double TotalExpense;
+            BigDecimal TotalExpense;
             TotalExpense = getTotalExpense(ReverseInvoice,
                     Vat_Rate,
                     Decision,
@@ -305,7 +306,7 @@ class ttModule {
             );
 
         /*Step 9 Calculate Amount owed supplier*/
-            double forSupplier = getPaySupplier(TotalExpense,
+            BigDecimal forSupplier = getPaySupplier(TotalExpense,
                     WithTax,
                     ReverseVat
             );
@@ -315,19 +316,19 @@ class ttModule {
             * The following are values for the Display class to print
              */
 
-            double withHoldingVat = ReverseVat;
+            BigDecimal withHoldingVat = ReverseVat;
             // Amount to be withheld by us
 
-            double withHoldingTax = WithTax;
+            BigDecimal withHoldingTax = WithTax;
             // Amount withheld on consultancy
 
-            double total = TotalExpense;
+            BigDecimal total = TotalExpense;
             // Amount for the expense/ wip account
 
-            double toPayee = forSupplier;
+            BigDecimal toPayee = forSupplier;
             // Amounts due for immediate transfer
 
-            double toPrepay = 0.00;
+            BigDecimal toPrepay = 0.00;
             // This variable is there for compliance with the
             // Display class methods
 

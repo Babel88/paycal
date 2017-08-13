@@ -1,18 +1,20 @@
 package com.paycal.api;
 
+import java.math.BigDecimal;
+
 /**
  * Created by edwin.njeru on 09/08/2017.
  */
 public interface Logic {
-    void normal(double InvoiceAmount, PayCalView payCalView);
+    void normal(BigDecimal InvoiceAmount);
 
-    void vatGiven(double InvoiceAmount, double vat);
+    void vatGiven(BigDecimal InvoiceAmount, double vat);
 
-    void contractor(double invoiceAmount);
+    void contractor(BigDecimal invoiceAmount);
 
-    void taxToWithhold(double InvoiceAmount);
+    void taxToWithhold(BigDecimal InvoiceAmount);
 
-    void withPrepayment(double InvoiceAmount);
+    void withPrepayment(BigDecimal InvoiceAmount);
 
     void tt();
 }

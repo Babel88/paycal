@@ -3,13 +3,13 @@ package com.paycal.config;
 import com.paycal.PaycalApp;
 import com.paycal.PaymentFactory;
 import com.paycal.api.*;
-import com.paycal.logic.BusinessLogic;
-import com.paycal.logic.ContractorPayments;
-import com.paycal.logic.SimplePrepayments;
+import com.paycal.logic.*;
 import com.paycal.models.Invoice;
+import com.paycal.models.PaymentParameters;
 import com.paycal.view.Display;
 import com.paycal.view.Notifications;
 import com.paycal.view.reporting.PaymentAdvice;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -52,7 +52,7 @@ public class PaycalConfig {
     @Bean
     public Logic logic(){
 
-        return new BusinessLogic(contractor(),view(), prepayable());
+        return new BusinessLogic();
     }
 
     @Bean
@@ -71,5 +71,24 @@ public class PaycalConfig {
     public PaymentAdvice paymentAdvice() {
 
         return new PaymentAdvice();
+    }
+
+    @Bean
+    public PaymentParameters parameters(){
+
+        return new PaymentParameters();
+    }
+
+    @Bean
+    public TypicalPayment typicalPayment(){
+
+        return new TypicalPayment();
+    }
+
+    @Bean
+    public TypicalWithholdingTaxPayment withholdingTaxPayment(){
+
+        return new TypicalWithholdingTaxPayment();
+
     }
 }

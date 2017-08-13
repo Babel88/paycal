@@ -4,6 +4,7 @@ import com.paycal.api.FeedBack;
 import com.paycal.api.InvoiceDetails;
 import com.paycal.view.Notifications;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 /**
@@ -37,7 +38,7 @@ public class Invoice implements InvoiceDetails {
      * @return the string is parsed to remove any spaces and converted to Double
      */
     @Override
-    public double invoiceAmount(){
+    public BigDecimal invoiceAmount(){
 
         notice.invoiceAmount();
         notice.mainPrompt();
@@ -46,7 +47,7 @@ public class Invoice implements InvoiceDetails {
 
         String strToConvert = str.trim();
 
-        Double invoice = Double.parseDouble(strToConvert);
+        BigDecimal invoice = Double.parseDouble(strToConvert);
 
         return invoice;
     }

@@ -2,13 +2,29 @@ package com.paycal.logic;
 
 import com.paycal.api.Contractor;
 import com.paycal.models.PaymentParameters;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.math.BigDecimal;
 
 /**
  * Created by edwin.njeru on 10/07/2017.
  */
 public class ContractorPayments implements Contractor {
 
+    private final BigDecimal vatRate;
+    private final BigDecimal withholdingTaxRate;
+    private final BigDecimal withholdingVatRate;
+    private BigDecimal b4Tax;
+
+    @Autowired
+    private PaymentParameters parameters;
+
     public ContractorPayments() {
+
+        vatRate = parameters.getVatRate().divide(BigDecimal.valueOf(100));
+        withholdingTaxRate = parameters.getWithholdingTaxContractor().divide(BigDecimal.valueOf(100));
+        withholdingVatRate = parameters.getWithholdingVatRate().divide(BigDecimal.valueOf(100));
+
     }
 
     /**
@@ -18,22 +34,18 @@ public class ContractorPayments implements Contractor {
      * @return the calculated amount payable to contractor
      */
     @Override
-    public double calculatePayableToContractor(double total) {
+    public BigDecimal calculatePayableToContractor(BigDecimal total) {
 
-        // vat rate
-        double vatRate = PaymentParameters.VAT_RATE/100;
-        double withholdingTaxRate = PaymentParameters.WITHHOLDING_TAX_CONTRACTOR/100;
-        double withholdingVatRate = PaymentParameters.WITHHOLDING_VAT_RATE/100;
 
-        double invoiceTotal = total;
+        BigDecimal invoiceTotal = total;
 
-        double b4Tax = total/(1+vatRate);
+        BigDecimal b4Tax = total.divide(vatRate.add(BigDecimal.ONE));
 
-        double withholdingTax = b4Tax * withholdingTaxRate;
+        BigDecimal withholdingTax = b4Tax.multiply(withholdingTaxRate);
 
-        double vatWithholding = b4Tax * withholdingVatRate;
+        BigDecimal vatWithholding = b4Tax.multiply(withholdingVatRate);
 
-        return invoiceTotal-withholdingTax-vatWithholding;
+        return invoiceTotal.subtract(withholdingTax).subtract(vatWithholding);
     }
 
     /**
@@ -43,16 +55,14 @@ public class ContractorPayments implements Contractor {
      * @return 3% of withholding tax to withhold
      */
     @Override
-    public double calculateContractorWithholdingTax(double total) {
-        // vat rate
-        double vatRate = PaymentParameters.VAT_RATE/100;
-        double withholdingTaxRate = PaymentParameters.WITHHOLDING_TAX_CONTRACTOR/100;
+    public BigDecimal calculateContractorWithholdingTax(BigDecimal total) {
 
-        double invoiceTotal = total;
 
-        double b4Tax = total/(1+vatRate);
+        BigDecimal invoiceTotal = total;
 
-        double withholdingTax = b4Tax * withholdingTaxRate;
+        BigDecimal b4Tax = total.divide(vatRate.add(BigDecimal.ONE));
+
+        BigDecimal withholdingTax = b4Tax.multiply(withholdingTaxRate);
 
         return withholdingTax;
     }
@@ -64,16 +74,16 @@ public class ContractorPayments implements Contractor {
      * @return 3% of withholding tax to withhold
      */
     @Override
-    public double calculateContractorWithholdingVat(double total) {
+    public BigDecimal calculateContractorWithholdingVat(BigDecimal total) {
         // vat rate
-        double vatRate = PaymentParameters.VAT_RATE/100;
-        double withholdingVatRate = PaymentParameters.WITHHOLDING_VAT_RATE/100;
+        double vatRate = PaymentParameters.vatRate /100;
+        double withholdingVatRate = PaymentParameters.withholdingVatRate /100;
 
-        double invoiceTotal = total;
+        BigDecimal invoiceTotal = total;
 
         double b4Tax = total/(1+vatRate);
 
-        double vatWithholding = b4Tax * withholdingVatRate;
+        BigDecimal vatWithholding = b4Tax * withholdingVatRate;
 
         return vatWithholding;
     }

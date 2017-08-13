@@ -1,10 +1,12 @@
 package com.paycal.api;
 
+import java.math.BigDecimal;
+
 /**
  * Created by edwin.njeru on 10/07/2017.
  */
 public interface InvoiceDetails {
-    double invoiceAmount();
+    BigDecimal invoiceAmount();
 
     double vatAmount();
 

@@ -8,6 +8,7 @@ import com.paycal.view.reporting.PaymentAdvice;
 import com.paycal.view.tables.TableMaker;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Date;
 
@@ -36,11 +37,11 @@ public class Display implements PayCalView {
     public Display(){}
 
     @Override
-    public void displayResults(Double total,
-                               Double vatWithheld,
-                               Double withholdingTax,
-                               Double toPrepay,
-                               Double toPayee){
+    public void displayResults(BigDecimal total,
+                               BigDecimal vatWithheld,
+                               BigDecimal withholdingTax,
+                               BigDecimal toPrepay,
+                               BigDecimal toPayee){
         // Pending:
         // To convert numbers to string than view them
         // Dsiplay zero values for number not given, e.g.
@@ -57,7 +58,7 @@ public class Display implements PayCalView {
 
         String expensed = makeString(total);
 
-        Double toPay = roundTwoDecimals(total)+roundTwoDecimals(toPrepay)-
+        double toPay = roundTwoDecimals(total)+roundTwoDecimals(toPrepay)-
                 roundUp(vatWithheld)-roundUp(withholdingTax);
         String paid = toPay.toString();
 
@@ -129,19 +130,19 @@ public class Display implements PayCalView {
 
     }
 
-    private String makeString(Double number){
+    private String makeString(BigDecimal number){
         Double nbr = new Double(roundTwoDecimals(number));
 
         return nbr.toString();
     }
 
-    private String makeStringUp(Double number){
+    private String makeStringUp(BigDecimal number){
         Double nbr = new Double(roundUp(roundTwoDecimals(number)));
 
         return nbr.toString();
     }
 
-    private double roundUp(double number) {
+    private BigDecimal roundUp(BigDecimal number) {
         // return the value added up by one, if there be
         // any decimal value
 
@@ -157,7 +158,7 @@ public class Display implements PayCalView {
         // returns true if the number is exactly an integer
         // if not it will return false
 
-        double reviewed = 0;
+        BigDecimal reviewed = 0;
         // This is the carrier for the value to be returned
 
         if (isEqual)
@@ -174,7 +175,7 @@ public class Display implements PayCalView {
         return reviewed;
     }
 
-    private double roundTwoDecimals(double number) {
+    private BigDecimal roundTwoDecimals(BigDecimal number) {
         // rounds number to 2 decimal places
 
         DecimalFormat dformat = new DecimalFormat("#.##");

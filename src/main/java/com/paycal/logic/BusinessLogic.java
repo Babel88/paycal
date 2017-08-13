@@ -4,6 +4,10 @@ import com.paycal.api.Contractor;
 import com.paycal.api.Prepayable;
 import com.paycal.models.PaymentParameters;
 import com.paycal.api.PayCalView;
+import com.paycal.api.Logic;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.math.BigDecimal;
 
 /**
  * Created by edwin.njeru on 18/07/2016.
@@ -12,60 +16,52 @@ import com.paycal.api.PayCalView;
  * Ideally this is the heart of the entre program
  * Ideally all of those methods are likely to crowd the class but will try to keep the methods to small sizes
  */
-public class BusinessLogic implements com.paycal.api.Logic {
+public class BusinessLogic implements Logic {
+
+    @Autowired
     private Contractor contractor;
+
+    @Autowired
     private Prepayable prepay;
+
+    @Autowired
     private PayCalView payCalView;
 
-    /*@Autowired
-    private Contractor contractor;
+    @Autowired
+    private TypicalPayment typicalPayment;
 
     @Autowired
-    private Prepayable prepayable;
+    private PaymentParameters parameters;
 
     @Autowired
-    private Display view;*/
+    TypicalWithholdingTaxPayment withholdingTaxPayment;
 
-    /*public BusinessLogic() {
-    }*/
-
-
-    public BusinessLogic(Contractor contractor, PayCalView payCalView, Prepayable prepay) {
-
-        this.contractor = contractor;
-        this.payCalView = payCalView;
-        this.prepay = prepay;
-
+    public BusinessLogic() {
     }
 
     @Override
-    public void normal(double InvoiceAmount, PayCalView payCalView) {
+    public void normal(BigDecimal invoiceAmount) {
 
-        /**
-         * <p>Calculates the transaction items with regards to transactions that fulfill the following criteria</p>
-         * <p>a) The payee is not chargeable for withholding tax for consultancy</p>
-         * <p>b) The payee is locally domiciled</p>
-         * <p>c) The payee chargeable to VAT tax</p>
-         * <p>d) The payee needs to pay 6% withholding tax</p>
-         * <p>e) The Invoice amount is not inclusive of any duties</p>
-         */
-        double vRate = PaymentParameters.VAT_RATE / 100;
-        double withholdVatRate = PaymentParameters.WITHHOLDING_VAT_RATE / 100;
-
-        double amountB4Vat = InvoiceAmount / (1 + vRate);
         // This is the Invoice amount exclusive of VAT
+        BigDecimal amountB4Vat =
+                typicalPayment.calculateAmountB4Vat(invoiceAmount);
 
-        double withHoldingVat = amountB4Vat * withholdVatRate;
 
-        double total = InvoiceAmount;
+        BigDecimal withHoldingVat =
+                typicalPayment.calculateWithholdingVat(invoiceAmount);
+
         // i.e. total to be expensed
-        double toPayee = total - withHoldingVat;
+        BigDecimal total  =
+                typicalPayment.calculateTotalExpense(invoiceAmount);
+
+
+        BigDecimal toPayee = typicalPayment.calculateAmountPayable();
 
         // These variables have not been computed but we do need to have them ready
         // as Zero values in the displayResults method
 
-        Double withHoldingTax = 0.00;
-        Double toPrepay = 0.00;
+        BigDecimal withHoldingTax = new BigDecimal(0.00);
+        BigDecimal toPrepay = new BigDecimal(0.00);
 
         payCalView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
         // Results submitted for view
@@ -73,46 +69,35 @@ public class BusinessLogic implements com.paycal.api.Logic {
     }
 
     @Override
-    public void vatGiven(double InvoiceAmount, double vat) {
-        /**
-         * <p>Calculates transaction items for invoices of the following criteria</p>
-         * <p>a) The payee is not chargeable for withholding tax for consultancy</p>
-         * <p>b) The payee is locally domiciled</p>
-         * <p>c) The payee chargeable to VAT tax</p>
-         * <p>d) The payee needs to pay 6% withholding tax</p>
-         * <p>e) The Invoice is encumbered with known or unknown duties and levies</p>
-         * <p>f) Or part of the Invoice amount is not chargeable to tax</p>
-         */
+    public void vatGiven(BigDecimal InvoiceAmount, double vat) {
 
-        double vRate = PaymentParameters.VAT_RATE / 100;
-        double withholdVatRate = PaymentParameters.WITHHOLDING_VAT_RATE / 100;
 
-        double withHoldingVat = (vat / (vRate)) * withholdVatRate;
+        /*BigDecimal withHoldingVat = (vat / (vRate)) * withholdVatRate;
         // That is the amount to be withheld
 
-        double total = InvoiceAmount;
+        BigDecimal total = InvoiceAmount;
         // i.e. total to be expensed
-        double toPayee = total - withHoldingVat;
+        BigDecimal toPayee = total - withHoldingVat;
 
         // These variables have not been computed but we do need to have them ready
         // as Zero values in the displayResults method
 
-        Double withHoldingTax = 0.00;
-        Double toPrepay = 0.00;
+        BigDecimal withHoldingTax = 0.00;
+        BigDecimal toPrepay = 0.00;
 
         //Now we initiate the Display class
         payCalView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
-        // Results submitted for view
+        // Results submitted for view*/
     }
 
     @Override
-    public void contractor(double invoiceAmount) {
+    public void contractor(BigDecimal invoiceAmount) {
 
-        double total = invoiceAmount;
-        double toPrepay = 0.00;
-        double toPayee = contractor.calculatePayableToContractor(total);
-        double withHoldingTax = contractor.calculateContractorWithholdingTax(total);
-        double withHoldingVat = contractor.calculateContractorWithholdingVat(total);
+        BigDecimal total = invoiceAmount;
+        BigDecimal toPrepay = new BigDecimal(0.00);
+        BigDecimal toPayee = contractor.calculatePayableToContractor(total);
+        BigDecimal withHoldingTax = contractor.calculateContractorWithholdingTax(total);
+        BigDecimal withHoldingVat = contractor.calculateContractorWithholdingVat(total);
 
         payCalView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
         // Results submitted for view
@@ -120,75 +105,64 @@ public class BusinessLogic implements com.paycal.api.Logic {
     }
 
     @Override
-    public void taxToWithhold(double InvoiceAmount) {
+    public void taxToWithhold(BigDecimal invoiceAmount) {
 
-        /**
-         * <p>Calculates transaction items for invoices of the following criteria</p>
-         * <p>a) The payee is chargeable for withholding tax for consultancy</p>
-         * <p>b) The payee is locally domiciled</p>
-         * <p>c) The payee chargeable to VAT tax</p>
-         * <p>d) The payee needs to pay 6% withholding tax</p>
-         * <p>e) The Invoice is not encumbered with duties or levies</p>
-         */
 
-        double vRate = PaymentParameters.VAT_RATE / 100;
-        double withholdVatRate = PaymentParameters.WITHHOLDING_VAT_RATE / 100;
-        double withholdTaxRate = PaymentParameters.WITHHOLDING_TAX / 100;
-
-        double amountB4Vat = InvoiceAmount / (1 + vRate);
         // This is the Invoice amount exclusive of VAT
+        BigDecimal amountB4Vat = withholdingTaxPayment.calculateAmountB4Vat(invoiceAmount);
 
-        double withHoldingVat = amountB4Vat * withholdVatRate;
         // Amount to be withheld as VAT
-        double withHoldingTax = amountB4Vat * withholdTaxRate;
+        BigDecimal withHoldingVat =
+                withholdingTaxPayment.calculateWithholdingVat(invoiceAmount);
+
         // Amount of withholding tax on consultancy
+        BigDecimal withHoldingTax =
+                withholdingTaxPayment.calculateWithholdingTax(invoiceAmount);
 
-        double total = InvoiceAmount;
         // i.e. total to be expensed
-        double toPayee = total - withHoldingVat - withHoldingTax;
+        BigDecimal total = withholdingTaxPayment.calculateTotalExpense(invoiceAmount);
+
+
+        BigDecimal toPayee = withholdingTaxPayment.calculateAmountPayable();
 
         // These variables have not been computed but we do need to have them ready
         // as Zero values in the displayResults method
 
-        Double toPrepay = 0.00;
+        BigDecimal toPrepay = BigDecimal.valueOf(0);
 
-        payCalView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
         // Results submitted for view
+        payCalView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
+
 
     }
 
     @Override
-    public void withPrepayment(double InvoiceAmount) {
+    public void withPrepayment(BigDecimal invoiceAmount) {
 
-        /**
-         * <p>Calculates transaction items for invoices of the following criteria</p>
-         * <p>a) The payee is chargeable for withholding tax for consultancy</p>
-         * <p>b) The payee is locally domiciled</p>
-         * <p>c) The payee chargeable to VAT tax</p>
-         * <p>d) The payee needs to pay 6% withholding tax</p>
-         * <p>e) The Invoice is not encumbered with duties or levies</p>
-         * <p>f) The Invoice contains a component that is to be prepaid</p>
-         */
 
-        double vRate = PaymentParameters.VAT_RATE / 100;
-        double withholdVatRate = PaymentParameters.WITHHOLDING_VAT_RATE / 100;
 
-        double amountB4Vat = InvoiceAmount / (1 + vRate);
         // This is the Invoice amount exclusive of VAT
+        //double amountB4Vat = invoiceAmount / (1 + vRate);
+        BigDecimal amountB4Vat = prepay.calculateAmountB4Vat(invoiceAmount);
 
-        double withHoldingVat = amountB4Vat * withholdVatRate;
         // Amount to be withheld as VAT
+        //BigDecimal withHoldingVat = amountB4Vat * withholdVatRate;
+        BigDecimal withHoldingVat = prepay.calculateWithholdingVat(amountB4Vat);
 
-        Double toPrepay = prepay.getPrepay(InvoiceAmount);
         // Calculate prepayment
-        double total = InvoiceAmount - toPrepay;
-        // i.e. total to be expensed
+        BigDecimal toPrepay = prepay.calculatePrepayment(invoiceAmount);
 
-        double toPayee = total + toPrepay - withHoldingVat;
+        // i.e. total to be expensed
+        //BigDecimal total = invoiceAmount.subtract(toPrepay);
+        BigDecimal total = prepay.calculateTotalExpense(invoiceAmount,toPrepay);
+
         // These variables have not been computed but we do need to have them ready
         // as Zero values in the displayResults method
+        //BigDecimal toPayee = total.add(toPrepay).subtract(withHoldingVat);
+        BigDecimal toPayee = prepay.calculateAmountPayable(toPrepay,withHoldingVat);
 
-        Double withHoldingTax = 0.00;
+
+        BigDecimal withHoldingTax = BigDecimal.ZERO;
 
         payCalView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
         // Results submitted for view

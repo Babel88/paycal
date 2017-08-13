@@ -1,5 +1,7 @@
 package com.paycal.api;
 
+import java.math.BigDecimal;
+
 /**
  * Created by edwin.njeru on 10/07/2017.
  */
@@ -11,7 +13,7 @@ public interface Contractor {
      * @param total this is the total amount of the Invoice
      * @return the calculated amount payable to contractor
      */
-    double calculatePayableToContractor(double total);
+    BigDecimal calculatePayableToContractor(BigDecimal total);
 
     /**
      * calculate the amount to withholding on the contractor being 3% of the amount before taxes
@@ -19,7 +21,7 @@ public interface Contractor {
      * @param total this is the total amount of the Invoice
      * @return 3% of withholding tax to withhold
      */
-    double calculateContractorWithholdingTax(double total);
+    BigDecimal calculateContractorWithholdingTax(BigDecimal total);
 
     /**
      * calculates the amount to withhold being 6% of Invoice amount before tax
@@ -27,5 +29,5 @@ public interface Contractor {
      * @param total this is the total amount of the Invoice
      * @return 3% of withholding tax to withhold
      */
-    double calculateContractorWithholdingVat(double total);
+    BigDecimal calculateContractorWithholdingVat(BigDecimal total);
 }

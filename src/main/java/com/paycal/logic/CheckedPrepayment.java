@@ -6,6 +6,7 @@ import com.google.common.collect.ComparisonChain;
 import com.paycal.api.InvoiceDetails;
 import com.paycal.api.Prepayable;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
@@ -24,7 +25,8 @@ public class CheckedPrepayment implements Prepayable {
     // dates used in this class
     private LocalDate startDate, refDate, endDate;
     // variable to store amount to prepayable
-    private double prepaymentAmount, invoiceAmount;
+    private double prepaymentAmount;
+    private BigDecimal invoiceAmount;
     // durations on and before reference date
     private double prepaymentPeriod, invoicePeriod;
     // factor of prepayment period to total invoice period
@@ -181,7 +183,7 @@ public class CheckedPrepayment implements Prepayable {
     }
 
     @Override
-    public double getPrepay(double invoiceAmount) {
+    public BigDecimal calculatePrepayment(BigDecimal invoiceAmount) {
 
         this.invoiceAmount = invoiceAmount;
 
@@ -378,7 +380,7 @@ public class CheckedPrepayment implements Prepayable {
 
     }
 
-    private void compute(double invoiced) {
+    private void compute(BigDecimal invoiced) {
 
         setPrepaymentPeriod();
         setInvoicePeriod();
@@ -425,11 +427,11 @@ public class CheckedPrepayment implements Prepayable {
         return Objects.equal(this, that);
     }
 
-    public double getPrepaymentAmount() {
+    public BigDecimal getPrepaymentAmount() {
         return prepaymentAmount;
     }
 
-    private void setPrepaymentAmount(double _invoiceAmount) {
+    private void setPrepaymentAmount(BigDecimal _invoiceAmount) {
 
         this.invoiceAmount = _invoiceAmount;
 
@@ -437,11 +439,11 @@ public class CheckedPrepayment implements Prepayable {
 
     }
 
-    public double getInvoiceAmount() {
+    public BigDecimal getInvoiceAmount() {
         return invoiceAmount;
     }
 
-    public void setInvoiceAmount(double invoiceAmount) {
+    public void setInvoiceAmount(BigDecimal invoiceAmount) {
         this.invoiceAmount = invoiceAmount;
     }
 

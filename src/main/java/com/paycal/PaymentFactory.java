@@ -3,6 +3,7 @@ package com.paycal;
 import com.paycal.api.InvoiceDetails;
 import com.paycal.api.Logic;
 import com.paycal.api.PayCalView;
+import com.paycal.logic.TypicalPayment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class PaymentFactory {
                 out.println();
                 out.println("Normal transaction:");
                 out.println("-------------------");
-                logic.normal(invoice.invoiceAmount(), view);
+                logic.normal(invoice.invoiceAmount());
                 break;
             case b:
                 out.println();

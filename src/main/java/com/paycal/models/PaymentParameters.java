@@ -2,6 +2,9 @@ package com.paycal.models;
 
 
 import com.paycal.api.InvoiceDetails;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.math.BigDecimal;
 
 /**
  * Created by edwin.njeru on 18/07/2016.
@@ -13,24 +16,40 @@ import com.paycal.api.InvoiceDetails;
  */
 public class PaymentParameters {
 
-    public static final double VAT_RATE = 16;
-    public static final double WITHHOLDING_VAT_RATE = 6;
-    public static final double WITHHOLDING_TAX = 5;
-    public static final double WITHHOLDING_TAX_CONTRACTOR = 3;
+    private final BigDecimal vatRate;
+    private final BigDecimal withholdingVatRate;
+    private final BigDecimal withholdingTax;
+    private final BigDecimal withholdingTaxContractor;
 
+    @Autowired
     InvoiceDetails InvoiceDetails;
 
-    public double getVatRate(){
+    public PaymentParameters() {
 
-        double vat = InvoiceDetails.vatRate();
-
-        return vat;
+        vatRate = BigDecimal.valueOf(16);
+        withholdingVatRate = BigDecimal.valueOf(6);
+        withholdingTax = BigDecimal.valueOf(5);
+        withholdingTaxContractor = BigDecimal.valueOf(3);
     }
 
-    public double getWithholdingVatRate(){
-
-        double withHoldingVatRate = InvoiceDetails.withHoldingVatRate();
-
-        return withHoldingVatRate;
+    public BigDecimal getVatRate() {
+        return vatRate;
     }
+
+    public BigDecimal getWithholdingVatRate() {
+        return withholdingVatRate;
+    }
+
+    public BigDecimal getWithholdingTax() {
+        return withholdingTax;
+    }
+
+    public BigDecimal getWithholdingTaxContractor() {
+        return withholdingTaxContractor;
+    }
+
+    public InvoiceDetails getInvoiceDetails() {
+        return InvoiceDetails;
+    }
+
 }

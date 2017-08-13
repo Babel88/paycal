@@ -31,7 +31,7 @@ public class Notifications implements com.paycal.api.FeedBack {
 
         out.println(paycal+"version 2.0 \n"
                 + "Payments calculator functions \n"
-                + "Written in java 8 update 91 \n"
+                + "Written in java 8 update 141 \n"
                 + "See Oracle Binary code Licence agreement \n"
                 + "http://www.oracle.com/technetwork/java/javase/terms/license/index.html\n"
                 + "All rights reserved \n"

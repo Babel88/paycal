@@ -1,19 +1,45 @@
 package com.paycal.logic;
 
 import com.paycal.api.Prepayable;
+import com.paycal.models.PaymentParameters;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Scanner;
 
 import static java.lang.System.out;
 
 /**
- * Created by edwin.njeru on 10/07/2017.
+ * <p>Calculates transaction items for invoices of the following criteria</p>
+ * <p>a) The payee is chargeable for withholding tax for consultancy</p>
+ * <p>b) The payee is locally domiciled</p>
+ * <p>c) The payee chargeable to VAT tax</p>
+ * <p>d) The payee needs to pay 6% withholding tax</p>
+ * <p>e) The Invoice is not encumbered with duties or levies</p>
+ * <p>f) The Invoice contains a component that is to be prepaid</p>
  */
 public class SimplePrepayments implements Prepayable {
 
+    private BigDecimal vatRate;
+
+    private BigDecimal withholdingVatRate;
+
+    private BigDecimal amountBeforeTax;
+
+    private BigDecimal withholdingVat;
+
+    private BigDecimal totalExpense;
+
+    @Autowired
+    private PaymentParameters parameters;
+
 
     public SimplePrepayments() {
+
+        vatRate = parameters.getVatRate();
+
+        withholdingVatRate = parameters.getWithholdingVatRate();
     }
 
     /**
@@ -87,7 +113,7 @@ public class SimplePrepayments implements Prepayable {
 
 
     /**
-     * CheckedPrepayment module: getPrepay
+     * CheckedPrepayment module: calculatePrepayment
      * We are going to take take the total amount and apportion it
      * to the period for prepayment and hence get the amount to expense
      *
@@ -95,20 +121,50 @@ public class SimplePrepayments implements Prepayable {
      * @return
      */
     @Override
-    public double getPrepay(double invoiceAmount) {
+    public BigDecimal calculatePrepayment(BigDecimal invoiceAmount) {
 
         Scanner keyboard = new Scanner(System.in);//initiating user input
-        double prePay;
-        double prePeriod;
-        double fullPeriod;
+        BigDecimal prePay;
+        BigDecimal prePeriod;
+        BigDecimal fullPeriod;
 
-        double startDate = getStartDate();
-        double refDate = getDateofReference();
-        double endDate = getEndDate();
-        prePeriod = endDate - refDate;
-        fullPeriod = endDate - startDate;
-        prePay = prePeriod / fullPeriod;
+        BigDecimal startDate = BigDecimal.valueOf(getStartDate());
+        BigDecimal refDate = BigDecimal.valueOf(getDateofReference());
+        BigDecimal endDate = BigDecimal.valueOf(getEndDate());
+        prePeriod = endDate.subtract(refDate);
+        fullPeriod = endDate.subtract(startDate);
+        prePay = prePeriod.divide(fullPeriod);
 
-        return prePay * invoiceAmount;
+        return prePay.multiply(invoiceAmount);
+    }
+
+    @Override
+    public BigDecimal calculateAmountB4Vat(BigDecimal invoiceAmount) {
+
+        this.amountBeforeTax = invoiceAmount.divide(vatRate.add(BigDecimal.ONE));
+
+        return amountBeforeTax;
+    }
+
+    @Override
+    public BigDecimal calculateWithholdingVat(BigDecimal amountB4Vat) {
+
+        this.withholdingVat = amountB4Vat.multiply(withholdingVatRate);
+
+        return withholdingVat;
+    }
+
+    @Override
+    public BigDecimal calculateTotalExpense(BigDecimal invoiceAmount, BigDecimal toPrepay) {
+
+        this.totalExpense = invoiceAmount.subtract(toPrepay);
+
+        return totalExpense;
+    }
+
+    @Override
+    public BigDecimal calculateAmountPayable(BigDecimal toPrepay, BigDecimal withHoldingVat) {
+
+        return totalExpense.add(toPrepay).subtract(withHoldingVat);
     }
 }
