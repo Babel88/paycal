@@ -34,7 +34,7 @@ public class BusinessLogic implements Logic {
     private PaymentParameters parameters;
 
     @Autowired
-    TypicalWithholdingTaxPayment withholdingTaxPayment;
+    private TypicalWithholdingTaxPayment withholdingTaxPayment;
 
     public BusinessLogic() {
     }
@@ -69,25 +69,29 @@ public class BusinessLogic implements Logic {
     }
 
     @Override
-    public void vatGiven(BigDecimal InvoiceAmount, double vat) {
+    public void vatGiven(BigDecimal InvoiceAmount, BigDecimal vat) {
+
+        BigDecimal vRate = parameters.getVatRate().divide(BigDecimal.valueOf(100));
+        BigDecimal withholdVatRate = parameters.getWithholdingVatRate().divide(BigDecimal.valueOf(100));
 
 
-        /*BigDecimal withHoldingVat = (vat / (vRate)) * withholdVatRate;
+        BigDecimal withHoldingVat = (vat.divide(vRate)).multiply(withholdVatRate);
         // That is the amount to be withheld
 
         BigDecimal total = InvoiceAmount;
         // i.e. total to be expensed
-        BigDecimal toPayee = total - withHoldingVat;
+        BigDecimal toPayee = total.subtract(withHoldingVat);
 
         // These variables have not been computed but we do need to have them ready
         // as Zero values in the displayResults method
 
-        BigDecimal withHoldingTax = 0.00;
-        BigDecimal toPrepay = 0.00;
+        BigDecimal withHoldingTax = BigDecimal.ZERO;
+
+        BigDecimal toPrepay = BigDecimal.ZERO;
 
         //Now we initiate the Display class
         payCalView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
-        // Results submitted for view*/
+        // Results submitted for view
     }
 
     @Override

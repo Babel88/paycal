@@ -40,7 +40,7 @@ public class PaycalConfig {
     @Bean
     public Contractor contractor(){
 
-        return new ContractorPayments();
+        return new ContractorPayments(parameters());
     }
 
     @Bean
@@ -64,7 +64,7 @@ public class PaycalConfig {
     @Bean
     public PaymentFactory factory(){
 
-        return new PaymentFactory(invoice(),logic());
+        return new PaymentFactory();
     }
 
     @Bean

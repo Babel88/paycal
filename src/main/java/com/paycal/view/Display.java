@@ -6,6 +6,7 @@ import com.paycal.api.PayCalView;
 import com.paycal.api.Tables;
 import com.paycal.view.reporting.PaymentAdvice;
 import com.paycal.view.tables.TableMaker;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -58,8 +59,11 @@ public class Display implements PayCalView {
 
         String expensed = makeString(total);
 
-        double toPay = roundTwoDecimals(total)+roundTwoDecimals(toPrepay)-
-                roundUp(vatWithheld)-roundUp(withholdingTax);
+        BigDecimal toPay = roundTwoDecimals(total)
+                .add(roundTwoDecimals(toPrepay))
+                .subtract(roundUp(vatWithheld))
+                .subtract(roundUp(withholdingTax));
+
         String paid = toPay.toString();
 
 
@@ -131,37 +135,34 @@ public class Display implements PayCalView {
     }
 
     private String makeString(BigDecimal number){
-        Double nbr = new Double(roundTwoDecimals(number));
+        Double nbr = new Double(String.valueOf(roundTwoDecimals(number)));
 
         return nbr.toString();
     }
 
     private String makeStringUp(BigDecimal number){
-        Double nbr = new Double(roundUp(roundTwoDecimals(number)));
+        Double nbr = new Double(String.valueOf(roundUp(roundTwoDecimals(number))));
 
         return nbr.toString();
     }
 
+    /*
+     *return the value added up by one, if there be
+     *any decimal value
+     */
     private BigDecimal roundUp(BigDecimal number) {
-        // return the value added up by one, if there be
-        // any decimal value
 
-        Double zero = new Double("0");
-        // Creates an object containing zero as a number
-
-        double numberMod = number%1;
         // calculates the modulous for given number
+        BigDecimal numberMod = number.remainder(BigDecimal.ONE);
 
-        Double numberObj = new Double(numberMod);
-
-        boolean isEqual = zero.equals(numberObj);
         // returns true if the number is exactly an integer
         // if not it will return false
+        boolean modulusIsZero = BigDecimal.ZERO.equals(numberMod);
 
-        BigDecimal reviewed = 0;
         // This is the carrier for the value to be returned
+        BigDecimal reviewed;
 
-        if (isEqual)
+        if (modulusIsZero)
             // that is if the number is an exact integer
         {
             reviewed = number;
@@ -169,20 +170,23 @@ public class Display implements PayCalView {
             // that is if not an integer, we now round up
             // First we subtract the modulous,
             // Then we add one.
-            reviewed = (number - numberMod)+1;
+            reviewed = number.subtract(numberMod).add(BigDecimal.ONE);
         }
 
         return reviewed;
     }
 
+    // rounds number to 2 decimal places
+    @NotNull
     private BigDecimal roundTwoDecimals(BigDecimal number) {
-        // rounds number to 2 decimal places
 
-        DecimalFormat dformat = new DecimalFormat("#.##");
+
         // Creating object from DecimalFormat class in text
         // we will cast the same to convert to double from string
+        DecimalFormat dformat = new DecimalFormat("#.##");
 
-        return Double.valueOf(dformat.format(number));
+
+        return BigDecimal.valueOf(Double.valueOf(dformat.format(number)));
     }
 }
 

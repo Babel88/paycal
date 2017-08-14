@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 import static java.lang.System.out;
@@ -23,14 +24,14 @@ public class PaymentFactory {
     @Autowired
     private PayCalView view;
 
+    @Autowired
     private InvoiceDetails invoice;
 
+    @Autowired
     private Logic logic;
 
-    public PaymentFactory(InvoiceDetails invoice,Logic logic) {
+    public PaymentFactory() {
 
-        this.invoice = invoice;
-        this.logic = logic;
     }
 
     private String usrChoice(){
@@ -82,7 +83,7 @@ public class PaymentFactory {
                 out.println();
                 out.println("Partially non-taxable payment");
                 out.println("--------------------------------------------");
-                logic.vatGiven(invoice.invoiceAmount(), invoice.vatAmount());
+                logic.vatGiven(invoice.invoiceAmount(), BigDecimal.valueOf(invoice.vatAmount()));
                 break;
             case g:
                 out.println();

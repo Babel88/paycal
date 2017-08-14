@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public interface Logic {
     void normal(BigDecimal InvoiceAmount);
 
-    void vatGiven(BigDecimal InvoiceAmount, double vat);
+    void vatGiven(BigDecimal InvoiceAmount, BigDecimal vat);
 
     void contractor(BigDecimal invoiceAmount);
 

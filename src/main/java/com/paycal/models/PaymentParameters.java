@@ -21,9 +21,6 @@ public class PaymentParameters {
     private final BigDecimal withholdingTax;
     private final BigDecimal withholdingTaxContractor;
 
-    @Autowired
-    InvoiceDetails InvoiceDetails;
-
     public PaymentParameters() {
 
         vatRate = BigDecimal.valueOf(16);
@@ -46,10 +43,6 @@ public class PaymentParameters {
 
     public BigDecimal getWithholdingTaxContractor() {
         return withholdingTaxContractor;
-    }
-
-    public InvoiceDetails getInvoiceDetails() {
-        return InvoiceDetails;
     }
 
 }

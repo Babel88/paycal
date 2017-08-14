@@ -14,16 +14,18 @@ public class ContractorPayments implements Contractor {
     private final BigDecimal vatRate;
     private final BigDecimal withholdingTaxRate;
     private final BigDecimal withholdingVatRate;
-    private BigDecimal b4Tax;
+    private BigDecimal amountBeforeTax;
+    private BigDecimal vatWithholding;
 
-    @Autowired
     private PaymentParameters parameters;
 
-    public ContractorPayments() {
+    public ContractorPayments(PaymentParameters parameters) {
 
-        vatRate = parameters.getVatRate().divide(BigDecimal.valueOf(100));
-        withholdingTaxRate = parameters.getWithholdingTaxContractor().divide(BigDecimal.valueOf(100));
-        withholdingVatRate = parameters.getWithholdingVatRate().divide(BigDecimal.valueOf(100));
+        this.parameters = parameters;
+
+        vatRate = this.parameters.getVatRate().divide(BigDecimal.valueOf(100));
+        withholdingTaxRate = this.parameters.getWithholdingTaxContractor().divide(BigDecimal.valueOf(100));
+        withholdingVatRate = this.parameters.getWithholdingVatRate().divide(BigDecimal.valueOf(100));
 
     }
 
@@ -75,15 +77,13 @@ public class ContractorPayments implements Contractor {
      */
     @Override
     public BigDecimal calculateContractorWithholdingVat(BigDecimal total) {
-        // vat rate
-        double vatRate = PaymentParameters.vatRate /100;
-        double withholdingVatRate = PaymentParameters.withholdingVatRate /100;
+
 
         BigDecimal invoiceTotal = total;
 
-        double b4Tax = total/(1+vatRate);
+        amountBeforeTax = total.divide(vatRate.add(BigDecimal.ONE));
 
-        BigDecimal vatWithholding = b4Tax * withholdingVatRate;
+        vatWithholding = amountBeforeTax.multiply(withholdingVatRate);
 
         return vatWithholding;
     }

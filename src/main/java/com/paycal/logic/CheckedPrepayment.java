@@ -25,7 +25,7 @@ public class CheckedPrepayment implements Prepayable {
     // dates used in this class
     private LocalDate startDate, refDate, endDate;
     // variable to store amount to prepayable
-    private double prepaymentAmount;
+    private BigDecimal prepaymentAmount;
     private BigDecimal invoiceAmount;
     // durations on and before reference date
     private double prepaymentPeriod, invoicePeriod;
@@ -196,6 +196,26 @@ public class CheckedPrepayment implements Prepayable {
         this.compute(this.invoiceAmount);
 
         return prepaymentAmount;
+    }
+
+    @Override
+    public BigDecimal calculateAmountB4Vat(BigDecimal invoiceAmount) {
+        return null;
+    }
+
+    @Override
+    public BigDecimal calculateWithholdingVat(BigDecimal amountB4Vat) {
+        return null;
+    }
+
+    @Override
+    public BigDecimal calculateTotalExpense(BigDecimal invoiceAmount, BigDecimal toPrepay) {
+        return null;
+    }
+
+    @Override
+    public BigDecimal calculateAmountPayable(BigDecimal toPrepay, BigDecimal withHoldingVat) {
+        return null;
     }
 
     private LocalDate toDate(String _date) {
@@ -435,7 +455,7 @@ public class CheckedPrepayment implements Prepayable {
 
         this.invoiceAmount = _invoiceAmount;
 
-        prepaymentAmount = invoiceAmount * prepaymentCoefficient;
+        prepaymentAmount = invoiceAmount.multiply(BigDecimal.valueOf(prepaymentCoefficient));
 
     }
 

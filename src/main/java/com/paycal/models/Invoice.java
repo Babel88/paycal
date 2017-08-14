@@ -47,7 +47,7 @@ public class Invoice implements InvoiceDetails {
 
         String strToConvert = str.trim();
 
-        BigDecimal invoice = Double.parseDouble(strToConvert);
+        BigDecimal invoice = BigDecimal.valueOf(Double.parseDouble(strToConvert));
 
         return invoice;
     }
