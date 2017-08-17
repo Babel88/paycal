@@ -9,45 +9,38 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: com.github.Babel88:WAGU-data-in-table-view:-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Gradle: com.lowagie:itext:2.1.7.js5" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:15.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework:spring-core:4.3.10.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: org.slf4j:log4j-over-slf4j:1.7.25" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:1.5.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:1.3.9" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-bridge:1.8" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.errorprone:error_prone_annotations:2.0.18" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.j2objc:j2objc-annotations:1.1" level="project" />
-    <orderEntry type="library" name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.14" level="project" />
-    <orderEntry type="library" name="Gradle: commons-beanutils:commons-beanutils:1.9.0" level="project" />
-    <orderEntry type="library" name="Gradle: commons-collections:commons-collections:3.2.2" level="project" />
-    <orderEntry type="library" name="Gradle: net.sourceforge.dynamicreports:dynamicreports-adhoc:5.0.0" level="project" />
-    <orderEntry type="library" name="Gradle: net.sourceforge.dynamicreports:dynamicreports-core:5.0.0" level="project" />
-    <orderEntry type="library" name="Gradle: javax.money:money-api:1.0.1" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.velocity:velocity:1.7" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.bmoliveira:snake-yaml:v1.18-android" level="project" />
-    <orderEntry type="library" name="Gradle: joda-time:joda-time:2.9.1" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-awt-util:1.8" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-css:1.8" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-dom:1.8" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-gvt:1.8" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework:spring-context:4.3.10.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.1.11" level="project" />
-    <orderEntry type="library" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.25" level="project" />
-    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.17" level="project" />
     <orderEntry type="library" name="Gradle: com.github.Babel88:java_ascii_art:-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Gradle: org.slf4j:jul-to-slf4j:1.7.25" level="project" />
-    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.1.11" level="project" />
-    <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
-    <orderEntry type="library" name="Gradle: net.sourceforge.dynamicreports:dynamicreports-googlecharts:5.0.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.jfree:jcommon:1.0.23" level="project" />
+    <orderEntry type="library" name="Gradle: com.lowagie:itext:2.1.7.js5" level="project" />
+    <orderEntry type="library" name="Gradle: commons-collections:commons-collections:3.2.2" level="project" />
     <orderEntry type="library" name="Gradle: org.jfree:jfreechart:1.0.19" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jdt.core.compiler:ecj:4.3.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.25" level="project" />
+    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.17" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-gvt:1.8" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:4.3.10.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:jul-to-slf4j:1.7.25" level="project" />
+    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.1.11" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.1.4" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.1.4" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.1.4" level="project" />
     <orderEntry type="library" name="Gradle: com.google.zxing:core:3.2.1" level="project" />
+    <orderEntry type="library" name="Gradle: javax.annotation:javax.annotation-api:1.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-context:4.3.10.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.1.11" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-svg-dom:1.8" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-util:1.8" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-xml:1.8" level="project" />
+    <orderEntry type="library" name="Gradle: xml-apis:xml-apis-ext:1.3.04" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-aop:4.3.10.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" name="Gradle: net.sourceforge.dynamicreports:dynamicreports-googlecharts:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jfree:jcommon:1.0.23" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.velocity:velocity:1.7" level="project" />
+    <orderEntry type="library" name="Gradle: com.intellij:annotations:12.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:15.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.Babel88:jsr354-ri:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-core:4.3.10.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-bridge:1.8" level="project" />
     <orderEntry type="library" name="Gradle: avalon-framework:avalon-framework-impl:4.2.0" level="project" />
     <orderEntry type="library" name="Gradle: xml-apis:xml-apis:1.3.04" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-anim:1.8" level="project" />
@@ -58,12 +51,12 @@
     <orderEntry type="library" name="Gradle: net.sf.barcode4j:barcode4j:2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-parser:1.8" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-script:1.8" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-svg-dom:1.8" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-util:1.8" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-xml:1.8" level="project" />
-    <orderEntry type="library" name="Gradle: xml-apis:xml-apis-ext:1.3.04" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework:spring-aop:4.3.10.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:4.3.10.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.bmoliveira:snake-yaml:v1.18-android" level="project" />
+    <orderEntry type="library" name="Gradle: joda-time:joda-time:2.9.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-awt-util:1.8" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-css:1.8" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.xmlgraphics:batik-dom:1.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.errorprone:error_prone_annotations:2.0.18" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-expression:4.3.10.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter:1.5.6.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.25" level="project" />
@@ -73,8 +66,41 @@
     <orderEntry type="library" name="Gradle: com.google.guava:guava:23.0" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-logging:1.5.6.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: commons-lang:commons-lang:2.6" level="project" />
-    <orderEntry type="library" name="Gradle: com.intellij:annotations:12.0" level="project" />
-    <orderEntry type="library" name="Gradle: javax.annotation:javax.annotation-api:1.2" level="project" />
-    <orderEntry type="library" name="Gradle: com.github.Babel88:jsr354-ri:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:log4j-over-slf4j:1.7.25" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:1.5.6.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:1.3.9" level="project" />
+    <orderEntry type="library" name="Gradle: net.sourceforge.dynamicreports:dynamicreports-adhoc:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: net.sourceforge.dynamicreports:dynamicreports-core:5.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: javax.money:money-api:1.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.j2objc:j2objc-annotations:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.14" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../Java_Libraries/aop/aspectj-1.8.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Gradle: commons-beanutils:commons-beanutils:1.9.0" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../Java_Libraries/aop/aspectjweaver-1.8.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../Java_Libraries/aop/aspectjrt-1.8.10.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

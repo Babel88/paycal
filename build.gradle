@@ -57,4 +57,9 @@ dependencies {
     compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
 
     compile 'com.github.Babel88:jsr354-ri:1.1'
+
+    // aop libs
+    compile files("/home/eddard/Java_Libraries/aop/aspectj-1.8.10.jar")
+    compile files("/home/eddard/Java_Libraries/aop/aspectjrt-1.8.10.jar")
+    compile files("/home/eddard/Java_Libraries/aop/aspectjweaver-1.8.10.jar")
 }
