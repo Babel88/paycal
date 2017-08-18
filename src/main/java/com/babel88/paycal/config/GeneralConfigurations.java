@@ -1,5 +1,7 @@
 package com.babel88.paycal.config;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,5 +66,28 @@ public class GeneralConfigurations {
         this.locale = locale;
         log.debug("Locale set as : ",locale.toString());
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GeneralConfigurations that = (GeneralConfigurations) o;
+        return Objects.equal(log, that.log) &&
+                Objects.equal(dateFormatStyle, that.dateFormatStyle) &&
+                Objects.equal(locale, that.locale);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(log, dateFormatStyle, locale);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("dateFormatStyle", dateFormatStyle)
+                .add("locale", locale)
+                .toString();
     }
 }

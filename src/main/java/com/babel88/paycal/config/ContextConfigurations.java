@@ -4,15 +4,12 @@ import com.babel88.paycal.PaycalApp;
 import com.babel88.paycal.PaymentFactory;
 import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.Logic;
-import com.babel88.paycal.logic.*;
-import com.babel88.paycal.api.*;
-import com.babel88.paycal.api.logic.Contractors;
-import com.babel88.paycal.api.logic.Prepayments;
-import com.babel88.paycal.api.logic.TypicalPayments;
-import com.babel88.paycal.api.logic.WithholdingTaxPayments;
+import com.babel88.paycal.api.PrepaymentDetails;
+import com.babel88.paycal.api.logic.*;
 import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.api.view.PayCalView;
 import com.babel88.paycal.api.view.Tables;
+import com.babel88.paycal.controllers.PrepaymentController;
 import com.babel88.paycal.logic.*;
 import com.babel88.paycal.models.Invoice;
 import com.babel88.paycal.util.aspects.LoggingAspect;
@@ -23,6 +20,8 @@ import com.babel88.paycal.view.tables.TableMaker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+import java.math.BigDecimal;
 
 /**
  * Created by edwin.njeru on 10/08/2017.
@@ -122,11 +121,29 @@ public class ContextConfigurations {
         return new GeneralConfigurations();
     }
 
+//    @Bean
+//    @Deprecated// Use interface instead, testing purposes only
+//    public AbstractPrepayment prepayment(){
+//
+//        return new AbstractPrepayment(generalConfigurations());
+//    }
+
     @Bean
-    @Deprecated// Use interface instead, testing purposes only
-    public AbstractPrepayment abstractPrepayment(){
+    public Prepayable abstractPrepayment(){
 
         return new AbstractPrepayment(generalConfigurations());
+    }
+
+    @Bean
+    public PrepaymentDetails prepaymentDetails(){
+
+        return new Invoice();
+    }
+
+    @Bean
+    public PrepaymentController prepaymentController(){
+
+        return new PrepaymentController(BigDecimal.ZERO);
     }
 
 }

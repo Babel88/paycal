@@ -1,8 +1,9 @@
 package com.babel88.paycal.models;
 
-import com.babel88.paycal.view.Notifications;
-import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.api.InvoiceDetails;
+import com.babel88.paycal.api.PrepaymentDetails;
+import com.babel88.paycal.api.view.FeedBack;
+import com.babel88.paycal.view.Notifications;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
@@ -18,7 +19,7 @@ import java.util.Scanner;
  * e) Withholding tax amount
  * f) Payee's name
  */
-public class Invoice implements InvoiceDetails {
+public class Invoice implements InvoiceDetails,PrepaymentDetails {
 
     FeedBack notice;
     Scanner keyboard;

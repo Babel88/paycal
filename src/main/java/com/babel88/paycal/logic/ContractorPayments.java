@@ -6,6 +6,8 @@ import com.babel88.paycal.config.PaymentParameters;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static java.math.RoundingMode.HALF_EVEN;
+
 /**
  * Created by edwin.njeru on 10/07/2017.
  */
@@ -55,13 +57,13 @@ public class ContractorPayments implements Contractors {
 
         BigDecimal invoiceTotal = total;
 
-        BigDecimal b4Tax = total.divide(vatRate.get().get().add(BigDecimal.ONE));
+        BigDecimal b4Tax = total.divide(vatRate.get().get().add(BigDecimal.ONE), HALF_EVEN);
 
         BigDecimal withholdingTax = b4Tax.multiply(withholdingTaxRate.get().get());
 
         BigDecimal vatWithholding = b4Tax.multiply(withholdingVatRate.get().get());
 
-        return invoiceTotal.subtract(withholdingTax).subtract(vatWithholding).setScale(2);
+        return invoiceTotal.subtract(withholdingTax).subtract(vatWithholding).setScale(2, HALF_EVEN);
     }
 
     /**
@@ -76,11 +78,11 @@ public class ContractorPayments implements Contractors {
 
         BigDecimal invoiceTotal = total;
 
-        BigDecimal b4Tax = total.divide(vatRate.get().get().add(BigDecimal.ONE));
+        BigDecimal b4Tax = total.divide(vatRate.get().get().add(BigDecimal.ONE),HALF_EVEN);
 
         BigDecimal withholdingTax = b4Tax.multiply(withholdingTaxRate.get().get());
 
-        return withholdingTax.setScale(2);
+        return withholdingTax.setScale(2,HALF_EVEN);
     }
 
     /**
@@ -95,11 +97,11 @@ public class ContractorPayments implements Contractors {
 
         BigDecimal invoiceTotal = total;
 
-        BigDecimal amountBeforeTax = total.divide(vatRate.get().get().add(BigDecimal.ONE));
+        BigDecimal amountBeforeTax = total.divide(vatRate.get().get().add(BigDecimal.ONE),HALF_EVEN);
 
         BigDecimal vatWithholding = amountBeforeTax.multiply(withholdingVatRate.get().get());
 
-        return vatWithholding.setScale(2);
+        return vatWithholding.setScale(2,HALF_EVEN);
     }
 
     /**

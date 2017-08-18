@@ -1,5 +1,6 @@
 package com.babel88.paycal.api.logic;
 
+import javax.annotation.Nonnull;
 import java.math.BigDecimal;
 
 @FunctionalInterface
@@ -12,5 +13,6 @@ public interface Prepayable {
      * @param expense amount
      * @return amount of prepayment
      */
-    BigDecimal calculatePrepayment(BigDecimal expense);
+    @Nonnull
+    BigDecimal calculatePrepayment(@Nonnull BigDecimal expense);
 }

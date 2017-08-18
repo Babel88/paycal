@@ -1,12 +1,12 @@
 package com.babel88.paycal.logic;
 
+import com.babel88.paycal.api.logic.TypicalPayments;
 import com.babel88.paycal.config.PaymentParameters;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.babel88.paycal.api.logic.TypicalPayments;
 import static java.math.BigDecimal.ROUND_HALF_UP;
 import static java.math.BigDecimal.valueOf;
 
@@ -71,7 +71,7 @@ public class TypicalPayment implements TypicalPayments {
 
         return calculateAmountBeforeTax(invoiceAmount)
                 .multiply(withholdVatRate.get())
-                .setScale(2, RoundingMode.UNNECESSARY);
+                .setScale(2, RoundingMode.HALF_EVEN);
     }
 
     /**

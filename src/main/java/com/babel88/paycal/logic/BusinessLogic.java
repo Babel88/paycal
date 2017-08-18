@@ -1,13 +1,10 @@
 package com.babel88.paycal.logic;
 
 import com.babel88.paycal.api.Logic;
-import com.babel88.paycal.api.logic.Contractors;
-import com.babel88.paycal.api.*;
-import com.babel88.paycal.api.logic.Prepayments;
-import com.babel88.paycal.api.logic.TypicalPayments;
-import com.babel88.paycal.api.logic.WithholdingTaxPayments;
+import com.babel88.paycal.api.logic.*;
 import com.babel88.paycal.api.view.PayCalView;
 import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.controllers.PrepaymentController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
@@ -25,23 +22,28 @@ import java.math.BigDecimal;
 @ComponentScan
 public class BusinessLogic implements Logic {
 
-    @Autowired
+    //@Autowired at setter
     private Contractors contractor;
 
-    @Autowired
+    //@Autowired at setter
     private Prepayments prepayable;
 
-    @Autowired
+    //@Autowired at setter
     private PayCalView view;
 
-    @Autowired
+    //@Autowired at setter
     private TypicalPayments typicalPayment;
 
-    @Autowired
+    //@Autowired at setter
     private PaymentParameters parameters;
 
-    @Autowired
+    //@Autowired at setter
     private WithholdingTaxPayments withholdingTaxPayment;
+
+    //@Autowired at setter
+    private PrepaymentController prepaymentController;
+
+    private PrepaymentService prepaymentService;
 
     public BusinessLogic() {
     }
@@ -66,10 +68,13 @@ public class BusinessLogic implements Logic {
 
         // These variables have not been computed but we do need to have them ready
         // as Zero values in the displayResults method
-
         BigDecimal withHoldingTax = new BigDecimal(0.00);
-        BigDecimal toPrepay = new BigDecimal(0.00);
 
+        prepaymentController.setExpenseAmount(total);
+
+        BigDecimal toPrepay = ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
+
+        //TODO create controllers and view service for the view objects
         view.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
         // Results submitted for view
 
@@ -94,7 +99,9 @@ public class BusinessLogic implements Logic {
 
         BigDecimal withHoldingTax = BigDecimal.ZERO;
 
-        BigDecimal toPrepay = BigDecimal.ZERO;
+        prepaymentController.setExpenseAmount(total);
+
+        BigDecimal toPrepay = ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
 
         //Now we initiate the Display class
         view.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
@@ -104,12 +111,15 @@ public class BusinessLogic implements Logic {
     @Override
     public void contractor(BigDecimal invoiceAmount) {
 
-        BigDecimal toPrepay = new BigDecimal(0.00);
         BigDecimal toPayee = contractor.calculatePayableToContractor(invoiceAmount);
         BigDecimal withHoldingTax = contractor.calculateContractorWithholdingTax(invoiceAmount);
         BigDecimal withHoldingVat = contractor.calculateContractorWithholdingVat(invoiceAmount);
 //        BigDecimal total = invoiceAmount;
         BigDecimal total = contractor.calculateTotalExpense(invoiceAmount);
+
+        prepaymentController.setExpenseAmount(total);
+
+        BigDecimal toPrepay = ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
 
         view.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
         // Results submitted for view
@@ -137,10 +147,11 @@ public class BusinessLogic implements Logic {
 
         BigDecimal toPayee = withholdingTaxPayment.calculateAmountPayable(invoiceAmount);
 
+        prepaymentController.setExpenseAmount(total);
+
         // These variables have not been computed but we do need to have them ready
         // as Zero values in the displayResults method
-
-        BigDecimal toPrepay = BigDecimal.valueOf(0);
+        BigDecimal toPrepay = ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
 
         // Results submitted for view
         view.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
@@ -201,6 +212,48 @@ public class BusinessLogic implements Logic {
 
         tt.telegraphic();
 
+    }
+
+    @Autowired
+    public BusinessLogic setPrepaymentController(PrepaymentController prepaymentController) {
+        this.prepaymentController = prepaymentController;
+        return this;
+    }
+
+    @Autowired
+    public BusinessLogic setView(PayCalView view) {
+        this.view = view;
+        return this;
+    }
+
+    @Autowired
+    public BusinessLogic setTypicalPayment(TypicalPayments typicalPayment) {
+        this.typicalPayment = typicalPayment;
+        return this;
+    }
+
+    @Autowired
+    public BusinessLogic setParameters(PaymentParameters parameters) {
+        this.parameters = parameters;
+        return this;
+    }
+
+    @Autowired
+    public BusinessLogic setWithholdingTaxPayment(WithholdingTaxPayments withholdingTaxPayment) {
+        this.withholdingTaxPayment = withholdingTaxPayment;
+        return this;
+    }
+
+    @Autowired
+    public BusinessLogic setContractor(Contractors contractor) {
+        this.contractor = contractor;
+        return this;
+    }
+
+    @Autowired
+    public BusinessLogic setPrepayable(Prepayments prepayable) {
+        this.prepayable = prepayable;
+        return this;
     }
 }
 

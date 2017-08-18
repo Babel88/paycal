@@ -1,16 +1,17 @@
 package com.babel88.paycal.logic;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
-import com.google.common.collect.ComparisonChain;
 import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.Prepayable;
+import com.google.common.base.Objects;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.google.common.base.MoreObjects.toStringHelper;
+import static com.google.common.collect.ComparisonChain.start;
 
 /**
  * Created by edwin.njeru on 03/02/2017.
@@ -412,7 +413,7 @@ public class CheckedPrepayment implements Prepayable {
     // Standard objects implementations for hashing works
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(getClass())
+        return toStringHelper(getClass())
                 .add("start date", startDate)
                 .add("ref date", refDate)
                 .add("end date", endDate)
@@ -431,7 +432,7 @@ public class CheckedPrepayment implements Prepayable {
 
     public int compareTo(CheckedPrepayment that) {
 
-        return ComparisonChain.start()
+        return start()
                 .compare(this.invoiceAmount, that.invoiceAmount)
                 .compare(this.startDate, that.startDate)
                 .compare(this.refDate, that.refDate)
