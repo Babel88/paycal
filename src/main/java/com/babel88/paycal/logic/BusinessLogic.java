@@ -48,6 +48,7 @@ public class BusinessLogic implements Logic {
     public BusinessLogic() {
     }
 
+    //TODO create controller for the main calculations
     @Override
     public void normal(BigDecimal invoiceAmount) {
 
@@ -75,6 +76,7 @@ public class BusinessLogic implements Logic {
         BigDecimal toPrepay = ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
 
         //TODO create controllers and view service for the view objects
+        //TODO to subtract prepayment from expense in display
         view.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
         // Results submitted for view
 
@@ -159,6 +161,7 @@ public class BusinessLogic implements Logic {
 
     }
 
+    //TODO to replace depracated prepayment API with new API
     @Override
     public void withPrepayment(BigDecimal invoiceAmount) {
 
@@ -192,6 +195,8 @@ public class BusinessLogic implements Logic {
 
     }
 
+    //TODO introduce prepayment API in international payments
+    //TODO decouple components used for international payments
     @Override
     public void tt() {
 
