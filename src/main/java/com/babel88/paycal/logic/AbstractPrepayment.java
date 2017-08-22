@@ -30,11 +30,7 @@ public class AbstractPrepayment implements com.babel88.paycal.api.logic.Prepayab
 
     private LocalDate invoiceStartDate,invoiceReferenceDate,invoiceEndDate;
 
-    private Double prepaymentPeriod;
-
-    private Double invoicePeriod;
-
-    private Double coefficient;
+    private Double prepaymentPeriod,invoicePeriod,coefficient;
 
     // Keeps track of current date format style
     private Enum<FormatStyle> dateFormatStyle;

@@ -3,9 +3,10 @@ package com.babel88.paycal.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+
 import static java.math.RoundingMode.UNNECESSARY;
 
 /**
@@ -16,6 +17,7 @@ import static java.math.RoundingMode.UNNECESSARY;
  * c) Withholding vat rate
  * d) Methods to effect the change of the above
  */
+@Component
 public class PaymentParameters {
 
     private final ThreadLocal<Logger> log;

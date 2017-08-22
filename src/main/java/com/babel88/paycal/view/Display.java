@@ -2,8 +2,6 @@ package com.babel88.paycal.view;
 
 import com.babel88.paycal.PaycalApp;
 import com.babel88.paycal.api.view.PayCalView;
-import com.babel88.paycal.view.reporting.PaymentAdvice;
-import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.api.view.Tables;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.System.out;
 
@@ -29,15 +28,17 @@ public class Display implements PayCalView {
     private PaycalApp paycalApp;
 
     @Autowired
-    private FeedBack feedBack;
-
-    @Autowired
-    private PaymentAdvice paymentAdvice;
-
-    @Autowired
     public Tables tableString;
 
-    public Display(){}
+    private final AtomicReference<BigDecimal> total,vatWithheld,withholdingTax,toPrepay,toPayee;
+
+    public Display(){
+        total = new AtomicReference<BigDecimal>();
+        vatWithheld = new AtomicReference<BigDecimal>();
+        withholdingTax = new AtomicReference<BigDecimal>();
+        toPrepay = new AtomicReference<BigDecimal>();
+        toPayee = new AtomicReference<BigDecimal>();
+    }
 
     @Override
     public void displayResults(BigDecimal total,BigDecimal vatWithheld,BigDecimal withholdingTax,BigDecimal toPrepay,BigDecimal toPayee){
@@ -78,12 +79,6 @@ public class Display implements PayCalView {
 
 
         out.println(table.toString());
-
-        // new feature, for printing reports
-        Boolean printReport = feedBack.printReport();
-
-        paymentAdvice.setPrintAdvice(printReport).forPayment(paid, vatWithhold, withHold);
-
 
     }
 
@@ -141,5 +136,7 @@ public class Display implements PayCalView {
 
         return BigDecimal.valueOf(Double.valueOf(dformat.format(number)));
     }
+
+
 }
 

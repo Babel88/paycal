@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 
 public class TypicalPaymentTest {
@@ -60,7 +60,7 @@ public class TypicalPaymentTest {
     @Test
     public void calculateAmountPayable() throws Exception {
 
-        BigDecimal payable = typicalPayment.calculateAmountPayable(invoiceAmount);
+        BigDecimal payable = typicalPayment.calculatePayableToVendor(invoiceAmount);
 
         assertEquals(BigDecimal.valueOf(110000).setScale(2),payable);
     }

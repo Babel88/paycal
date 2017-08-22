@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @org.springframework.test.context.ContextConfiguration(classes = ContextConfigurations.class)
@@ -34,7 +34,7 @@ public class ContractorPaymentsTest extends TestUtil<Contractors> {
     @Test
     public void calculatePayableToContractor() throws Exception {
 
-        BigDecimal payable = contractor.calculatePayableToContractor(invoiceAmount);
+        BigDecimal payable = contractor.calculatePayableToVendor(invoiceAmount);
 
         assertEquals(BigDecimal.valueOf(107000).setScale(2),payable);
     }
@@ -42,7 +42,7 @@ public class ContractorPaymentsTest extends TestUtil<Contractors> {
     @Test
     public void calculateContractorWithholdingTax() throws Exception {
 
-        BigDecimal withholdingTax = contractor.calculateContractorWithholdingTax(invoiceAmount);
+        BigDecimal withholdingTax = contractor.calculateWithholdingTax(invoiceAmount);
 
         assertEquals(BigDecimal.valueOf(3000).setScale(2),withholdingTax);
     }
@@ -50,7 +50,7 @@ public class ContractorPaymentsTest extends TestUtil<Contractors> {
     @Test
     public void calculateContractorWithholdingVat() throws Exception {
 
-        BigDecimal withholdingVat = contractor.calculateContractorWithholdingVat(invoiceAmount);
+        BigDecimal withholdingVat = contractor.calculateWithholdingVat(invoiceAmount);
 
         assertEquals(BigDecimal.valueOf(6000).setScale(2),withholdingVat);
     }

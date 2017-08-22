@@ -1,5 +1,6 @@
 package com.babel88.paycal.view.reporting;
 
+import com.babel88.paycal.view.ResultsOutput;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.style.StyleBuilder;
 import net.sf.dynamicreports.report.constant.HorizontalTextAlignment;
@@ -18,7 +19,7 @@ import static net.sf.dynamicreports.report.builder.DynamicReports.*;
 /**
  * Created by edwin.njeru on 8/10/17.
  */
-public class PaymentAdvice {
+public class PaymentAdvice  {
 
     private Logger log = LoggerFactory.getLogger(PaymentAdvice.class);
 
@@ -171,6 +172,14 @@ public class PaymentAdvice {
         }
     }
 
+    public void forPayment(ResultsOutput resultsOutput) {
+
+        forPayment(resultsOutput.getToPayee().toString(),
+                resultsOutput.getVatWithheld().toString(),
+                resultsOutput.getWithholdingTax().toString()
+        );
+    }
+
     public void forPayment(String paid, String vatWithhold, String withHold) {
 
         log.debug("defining payment figures : \n" +
@@ -247,4 +256,6 @@ public class PaymentAdvice {
 
         return new BigDecimal(v);
     }
+
+
 }

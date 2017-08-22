@@ -76,7 +76,7 @@ public class PaymentFactory {
                 out.println();
                 out.println("Foreign transactions (Telegraphic transfers)");
                 out.println("--------------------------------------------");
-                logic.tt();
+                logic.telegraphicTransfer();
                 break;
             case f:
                 out.println();

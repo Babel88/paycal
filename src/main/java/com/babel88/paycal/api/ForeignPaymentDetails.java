@@ -2,35 +2,35 @@ package com.babel88.paycal.api;
 
 import java.math.BigDecimal;
 
-/**
- * Created by edwin.njeru on 10/07/2017.
- */
-public interface InvoiceDetails {
-    BigDecimal invoiceAmount();
+public interface ForeignPaymentDetails {
 
-    double vatAmount();
-
-    double withHoldingTaxAmount();
-
+    /**
+     * Vat rate for the payment given as whole numbers
+     *
+     * @return vat rate as whole
+     */
     double vatRate();
 
+    /**
+     *
+     * The withholding tax rate for foreign payments DTA respective
+     *
+     * @return withholding tax rate
+     */
     double withHoldingTaxRate();
 
-    double withHoldingVatRate();
-
-    String payeeName();
-
-    String getInvoiceStartDate();
-
-    String getInvoiceRefDate();
-
-    String getInvoiceEndDate();
+    /**
+     * The invoice amount as stated in the invoice request
+     *
+     * @return invoice amount
+     */
+    BigDecimal invoiceAmount();
 
     /**
      * The value returned by this method flags whether or not the invoice price
      * is inclusive of withholding tax
      *
-     * @return
+     * @return Boolean : whether the withholding tax is exclusive in the invoice
      */
     Boolean exclusiveOfWithholdingTax();
 

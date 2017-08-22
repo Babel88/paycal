@@ -92,7 +92,7 @@ public class TypicalPayment implements TypicalPayments {
      * @return amount payable to payee
      */
     @Override
-    public BigDecimal calculateAmountPayable(BigDecimal invoiceAmount){
+    public BigDecimal calculatePayableToVendor(BigDecimal invoiceAmount){
 
         BigDecimal withholdVatAmount = calculateWithholdingVat(invoiceAmount);
 
@@ -112,4 +112,18 @@ public class TypicalPayment implements TypicalPayments {
 
         return invoiceAmount.divide(vatRate.get().add(valueOf(1)),ROUND_HALF_UP);
     }
+
+    /**
+     * Calculate the withholding vat
+     *
+     * @param invoiceAmount invoice amount quoted in the invoice request
+     * @return amount before vat
+     */
+    public BigDecimal calculateWithholdingTax(BigDecimal invoiceAmount){
+
+        return BigDecimal.ZERO;
+    }
+
+
+
 }

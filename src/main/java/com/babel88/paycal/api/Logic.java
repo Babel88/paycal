@@ -1,5 +1,7 @@
 package com.babel88.paycal.api;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.math.BigDecimal;
 
 /**
@@ -16,5 +18,6 @@ public interface Logic {
 
     void withPrepayment(BigDecimal InvoiceAmount);
 
-    void tt();
+    @NotNull
+    void telegraphicTransfer();
 }

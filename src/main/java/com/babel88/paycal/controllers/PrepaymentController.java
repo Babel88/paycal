@@ -15,7 +15,7 @@ import static java.lang.System.out;
 
 @Component
 @ComponentScan
-public class PrepaymentController implements com.babel88.paycal.api.logic.PrepaymentController{
+public class PrepaymentController implements com.babel88.paycal.api.controllers.PrepaymentController {
 
     /*
      * Internal flag for whether or not to run prepayment
@@ -139,6 +139,11 @@ public class PrepaymentController implements com.babel88.paycal.api.logic.Prepay
     @Override
     public PrepaymentController setExpenseAmount(BigDecimal expenseAmount) {
         this.expenseAmount = expenseAmount;
+        return this;
+    }
+
+    public PrepaymentController setPrepay(Boolean prepay) {
+        this.prepay = prepay;
         return this;
     }
 }

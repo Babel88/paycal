@@ -1,10 +1,15 @@
 package com.babel88.paycal.logic;
 
+import com.babel88.paycal.api.ForeignPaymentDetails;
+import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.Logic;
+import com.babel88.paycal.api.controllers.TypicalPaymentsControllers;
 import com.babel88.paycal.api.logic.*;
+import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.api.view.PayCalView;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.controllers.PrepaymentController;
+import com.babel88.paycal.view.reporting.PaymentAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
@@ -43,7 +48,24 @@ public class BusinessLogic implements Logic {
     //@Autowired at setter
     private PrepaymentController prepaymentController;
 
-    private PrepaymentService prepaymentService;
+    //@Autowired at setter
+    private InvoiceDetails invoice;
+
+    //@Autowired at setter
+    private ForeignPaymentDetails foreignPaymentDetails;
+
+
+    //@Autowired at setter
+    private TelegraphicTransfers foreignPayments;
+
+    @Autowired
+    private PaymentAdvice paymentAdvice;
+
+    @Autowired
+    private FeedBack feedBack;
+
+    @Autowired
+    public TypicalPaymentsControllers typicalPaymentsController;
 
     public BusinessLogic() {
     }
@@ -52,33 +74,7 @@ public class BusinessLogic implements Logic {
     @Override
     public void normal(BigDecimal invoiceAmount) {
 
-        // This is the Invoice amount exclusive of VAT
-        BigDecimal amountB4Vat =
-                typicalPayment.calculateAmountBeforeTax(invoiceAmount);
-
-
-        BigDecimal withHoldingVat =
-                typicalPayment.calculateWithholdingVat(invoiceAmount);
-
-        // i.e. total to be expensed
-        BigDecimal total  =
-                typicalPayment.calculateTotalExpense(invoiceAmount);
-
-
-        BigDecimal toPayee = typicalPayment.calculateAmountPayable(invoiceAmount);
-
-        // These variables have not been computed but we do need to have them ready
-        // as Zero values in the displayResults method
-        BigDecimal withHoldingTax = new BigDecimal(0.00);
-
-        prepaymentController.setExpenseAmount(total);
-
-        BigDecimal toPrepay = ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
-
-        //TODO create controllers and view service for the view objects
-        //TODO to subtract prepayment from expense in display
-        view.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
-        // Results submitted for view
+        typicalPaymentsController.runCalculation(invoiceAmount);
 
     }
 
@@ -113,9 +109,11 @@ public class BusinessLogic implements Logic {
     @Override
     public void contractor(BigDecimal invoiceAmount) {
 
-        BigDecimal toPayee = contractor.calculatePayableToContractor(invoiceAmount);
-        BigDecimal withHoldingTax = contractor.calculateContractorWithholdingTax(invoiceAmount);
-        BigDecimal withHoldingVat = contractor.calculateContractorWithholdingVat(invoiceAmount);
+        //TODO contractorPaymentController.runCalculation(invoiceAmount);
+
+        BigDecimal toPayee = contractor.calculatePayableToVendor(invoiceAmount);
+        BigDecimal withHoldingTax = contractor.calculateWithholdingTax(invoiceAmount);
+        BigDecimal withHoldingVat = contractor.calculateWithholdingVat(invoiceAmount);
 //        BigDecimal total = invoiceAmount;
         BigDecimal total = contractor.calculateTotalExpense(invoiceAmount);
 
@@ -132,6 +130,7 @@ public class BusinessLogic implements Logic {
     public void taxToWithhold(BigDecimal invoiceAmount) {
 
 
+        //TODO reduce calculation steps by using amount before Vat variable
         // This is the Invoice amount exclusive of VAT
         BigDecimal amountB4Vat = withholdingTaxPayment.calculateAmountBeforeTax(invoiceAmount);
 
@@ -195,27 +194,48 @@ public class BusinessLogic implements Logic {
 
     }
 
-    //TODO introduce prepayment API in international payments
-    //TODO decouple components used for international payments
+    /**
+     * <p>Calculates transaction items for invoices of the following criteria</p>
+     * <p>a) The payee is chargeable for withholding tax for consultancy</p>
+     * <p>b) The payee is not locally domiciled</p>
+     * <p>c) The payee chargeable to VAT tax</p>
+     * <p>d) The Invoice is not encumbered with duties or levies</p>
+     */
     @Override
-    public void tt() {
+    public void telegraphicTransfer() {
 
-        /**
-         * <p>Calculates transaction items for invoices of the following criteria</p>
-         * <p>a) The payee is chargeable for withholding tax for consultancy</p>
-         * <p>b) The payee is not locally domiciled</p>
-         * <p>c) The payee chargeable to VAT tax</p>
-         * <p>d) The Invoice is not encumbered with duties or levies</p>
-         */
+        boolean doAgain;
 
-        // We have tried to do "everything" in the ttModule class.
-        // So now lets initiate the ttModule object
+        do {
+            BigDecimal vatRate = BigDecimal.valueOf(foreignPaymentDetails.vatRate()/100);
 
-        ttModule tt = new ttModule(view);
+            BigDecimal withHoldingTax = BigDecimal.valueOf(foreignPaymentDetails.withHoldingTaxRate()/100);
 
-        // This is the one and most important, method
+            BigDecimal invoiceAmount = foreignPaymentDetails.invoiceAmount();
 
-        tt.telegraphic();
+            Boolean exclusive = foreignPaymentDetails.exclusiveOfWithholdingTax();
+
+            BigDecimal reverseInvoice =
+                    foreignPayments.getReverseInvoice(invoiceAmount, withHoldingTax,exclusive);
+
+            BigDecimal withHoldingVat =
+                    foreignPayments.getReverseVat(reverseInvoice, vatRate);
+
+            BigDecimal total =
+                    foreignPayments.getTotalExpense(reverseInvoice,vatRate,exclusive,invoiceAmount,withHoldingVat);
+
+            BigDecimal toPayee =
+                    foreignPayments.getPaySupplier(total,withHoldingTax,withHoldingVat);
+
+
+            BigDecimal toPrepay =
+                    ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
+
+            view.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
+            // Results submitted for view
+
+            doAgain = foreignPaymentDetails.doAgain();
+        } while (doAgain);
 
     }
 
@@ -258,6 +278,24 @@ public class BusinessLogic implements Logic {
     @Autowired
     public BusinessLogic setPrepayable(Prepayments prepayable) {
         this.prepayable = prepayable;
+        return this;
+    }
+
+    @Autowired
+    public BusinessLogic setInvoice(InvoiceDetails invoice) {
+        this.invoice = invoice;
+        return this;
+    }
+
+    @Autowired
+    public BusinessLogic setForeignPaymentDetails(ForeignPaymentDetails foreignPaymentDetails) {
+        this.foreignPaymentDetails = foreignPaymentDetails;
+        return this;
+    }
+
+    @Autowired
+    public BusinessLogic setForeignPayments(TelegraphicTransfers foreignPayments) {
+        this.foreignPayments = foreignPayments;
         return this;
     }
 }

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Created by edwin.njeru on 09/08/2017.
  */
-public interface PayCalView {
+public interface PayCalView{
 
     /**
      * Displays the various computed amounts on display
@@ -16,5 +16,6 @@ public interface PayCalView {
      * @param toPrepay the amount that should be prepaid
      * @param toPayee amount to be given to the payee/vendor
      */
+    @Deprecated
     void displayResults(BigDecimal total,BigDecimal vatWithheld,BigDecimal withholdingTax,BigDecimal toPrepay,BigDecimal toPayee);
 }

@@ -32,7 +32,7 @@ public class ContractorPayments implements Contractors {
      * @return the calculated amount payable to contractor
      */
     @Override
-    public BigDecimal calculatePayableToContractor(BigDecimal total) {
+    public BigDecimal calculatePayableToVendor(BigDecimal total) {
 
 
         BigDecimal invoiceTotal = total;
@@ -53,7 +53,7 @@ public class ContractorPayments implements Contractors {
      * @return 3% of withholding tax to withhold
      */
     @Override
-    public BigDecimal calculateContractorWithholdingTax(BigDecimal total) {
+    public BigDecimal calculateWithholdingTax(BigDecimal total) {
 
 
         BigDecimal invoiceTotal = total;
@@ -72,7 +72,7 @@ public class ContractorPayments implements Contractors {
      * @return 3% of withholding tax to withhold
      */
     @Override
-    public BigDecimal calculateContractorWithholdingVat(BigDecimal total) {
+    public BigDecimal calculateWithholdingVat(BigDecimal total) {
 
 
         BigDecimal invoiceTotal = total;

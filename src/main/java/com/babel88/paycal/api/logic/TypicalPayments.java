@@ -4,7 +4,7 @@ import com.babel88.paycal.logic.GeneralPayments;
 
 import java.math.BigDecimal;
 
-public interface TypicalPayments extends GeneralPayments {
+public interface TypicalPayments extends GeneralPayments{
     /**
      * returns the invoice amount
      * @return invoice amount requested
@@ -40,7 +40,7 @@ public interface TypicalPayments extends GeneralPayments {
      *
      * @return amount payable to payee
      */
-    BigDecimal calculateAmountPayable(BigDecimal invoiceAmount);
+    BigDecimal calculatePayableToVendor(BigDecimal invoiceAmount);
 
     /**
      * Calculate the invoice amount before adding vat
@@ -48,5 +48,6 @@ public interface TypicalPayments extends GeneralPayments {
      * @param invoiceAmount invoice amount quoted in the invoice request
      * @return amount before vat
      */
+    @Override
     BigDecimal calculateAmountBeforeTax(BigDecimal invoiceAmount);
 }

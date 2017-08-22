@@ -10,7 +10,7 @@ public interface Contractors {
      * @param invoiceAmount this is the total amount of the Invoice
      * @return the calculated amount payable to contractor
      */
-    BigDecimal calculatePayableToContractor(BigDecimal invoiceAmount);
+    BigDecimal calculatePayableToVendor(BigDecimal invoiceAmount);
 
     /**
      * calculate the amount to withholding on the contractor being 3% of the amount before taxes
@@ -18,15 +18,15 @@ public interface Contractors {
      * @param invoiceAmount this is the total amount of the Invoice
      * @return 3% of withholding tax to withhold
      */
-    BigDecimal calculateContractorWithholdingTax(BigDecimal invoiceAmount);
+    BigDecimal calculateWithholdingTax(BigDecimal invoiceAmount);
 
     /**
      * calculates the amount to withhold being 6% of Invoice amount before tax
      *
      * @param invoiceAmount this is the total amount of the Invoice
-     * @return 3% of withholding tax to withhold
+     * @return 6% of withholding vat to withhold
      */
-    BigDecimal calculateContractorWithholdingVat(BigDecimal invoiceAmount);
+    BigDecimal calculateWithholdingVat(BigDecimal invoiceAmount);
 
     /**
      * calculate the total expense for a contractor - involving engagement

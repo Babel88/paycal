@@ -1,4 +1,4 @@
-package com.babel88.paycal.api.logic;
+package com.babel88.paycal.api.controllers;
 
 import javax.annotation.Nonnull;
 import java.math.BigDecimal;
