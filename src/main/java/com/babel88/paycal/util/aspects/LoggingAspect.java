@@ -5,7 +5,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.annotation.Order;
 
 import java.util.Arrays;
@@ -15,7 +14,6 @@ import java.util.Arrays;
  * LoggingAspect aspect definition
  * Created by eddard on 5/23/17.
  */
-@EnableAspectJAutoProxy
 @Aspect
 public class LoggingAspect {
 

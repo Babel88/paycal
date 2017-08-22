@@ -7,29 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ace5915a-547e-46f8-b89e-ee57ef6c1566" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/paycal_jar.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/PaymentModelTypicalControllerUpdate.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModelCareTaker.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModelMemento.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/paycal_main.iml" afterPath="$PROJECT_DIR$/.idea/modules/paycal_main.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/paycal_test.iml" afterPath="$PROJECT_DIR$/.idea/modules/paycal_test.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/undo/PaymentModelUndoHelper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/undo/UndoRedo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/undo/UndoRedoAspect.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/paycal.iml" afterPath="$PROJECT_DIR$/paycal.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/Main.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigControllers.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigControllers.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigLogic.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigLogic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigModels.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigModels.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/TypicalPaymentsController.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/TypicalPaymentsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/AbstractPrepayment.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/AbstractPrepayment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModel.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/Notifications.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/Notifications.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ResultsOutput.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ResultsOutput.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigurations.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigurations.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/PaymentModelTypicalControllerUpdate.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/PaymentModelTypicalControllerUpdate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/util/aspects/LoggingAspect.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/util/aspects/LoggingAspect.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -59,25 +44,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ContextConfigurations.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigurations.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="28" column="23" lean-forward="false" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UndoRedoAspect.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/undo/UndoRedoAspect.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="249">
+              <caret line="15" column="96" lean-forward="false" selection-start-line="15" selection-start-column="96" selection-end-line="15" selection-end-column="96" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="PaymentModelTypicalControllerUpdate.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/PaymentModelTypicalControllerUpdate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="775">
-              <caret line="89" column="19" lean-forward="false" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="19" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2665#2666#0" expanded="true" />
-                <element signature="e#2725#2726#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ContextConfigUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="5" lean-forward="false" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+            <state relative-caret-position="234">
+              <caret line="88" column="13" lean-forward="false" selection-start-line="88" selection-start-column="13" selection-end-line="88" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -85,11 +78,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ContextConfigModels.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigModels.java">
+      <file leaf-file-name="LoggingAspect.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/util/aspects/LoggingAspect.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="22" column="9" lean-forward="false" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+            <state relative-caret-position="-143">
+              <caret line="22" column="56" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -103,6 +96,7 @@
         <option value="Enum" />
         <option value="Interface" />
         <option value="JUnit4 Test Class" />
+        <option value="AnnotationType" />
         <option value="Class" />
       </list>
     </option>
@@ -472,11 +466,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/AbstractPaymentLogic.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/AbstractViewerLogic.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/ViewerTypesProviders.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/PaycalProviders.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/logic/PaymentTypeProviders.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/DependencyModels.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/ControllerDepedencyModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/InvoiceDetails.java" />
@@ -506,7 +495,6 @@
         <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/test/PaycalTestSuite.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/TypicalPaymentsControllerTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigControlllers.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigurations.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/utils/tables/samples/clients/TypicalPaymentsControllerTestClient.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/Notifications.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
@@ -517,12 +505,18 @@
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigLogic.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigControllers.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModelMemento.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/PaymentModelTypicalControllerUpdate.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModelCareTaker.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigModels.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/util/aspects/LoggingAspect.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/PaymentModelUndoHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/undo/PaymentModelUndoHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/undo/UndoRedo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/undo/UndoRedoAspect.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/PaymentModelTypicalControllerUpdate.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigurations.java" />
       </list>
     </option>
   </component>
@@ -653,7 +647,19 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="babel88" type="462c0819:PsiDirectoryNode" />
               <item name="paycal" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="support" type="462c0819:PsiDirectoryNode" />
+              <item name="undo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="paycal" type="b2602c69:ProjectViewProjectNode" />
+              <item name="paycal" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="babel88" type="462c0819:PsiDirectoryNode" />
+              <item name="paycal" type="462c0819:PsiDirectoryNode" />
+              <item name="aspects" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="paycal" type="b2602c69:ProjectViewProjectNode" />
@@ -663,6 +669,16 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="babel88" type="462c0819:PsiDirectoryNode" />
               <item name="samples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="paycal" type="b2602c69:ProjectViewProjectNode" />
+              <item name="paycal" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="babel88" type="462c0819:PsiDirectoryNode" />
+              <item name="samples" type="462c0819:PsiDirectoryNode" />
+              <item name="clients" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="paycal" type="b2602c69:ProjectViewProjectNode" />
@@ -684,30 +700,6 @@
               <item name="paycal" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="paycal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="paycal" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="paycal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="paycal" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="paycal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="paycal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="paycal" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="paycal" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -741,11 +733,11 @@
       <recent name="" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.babel88.paycal.controllers.support.undo" />
       <recent name="com.babel88.paycal.controllers.support" />
       <recent name="com.babel88.paycal.api.controllers" />
       <recent name="com.babel88.paycal.api" />
       <recent name="com.babel88.paycal.view" />
-      <recent name="com.paycal.config" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.babel88.paycal.logic.alpha" />
@@ -774,7 +766,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main (1)">
+  <component name="RunManager" selected="Application.TypicalPaymentsControllerTestClient">
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -847,7 +839,7 @@
     <configuration name="TypicalPaymentsControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.babel88.paycal.controllers.support.*" />
+          <option name="PATTERN" value="com.babel88.paycal.controllers.support.undo.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -977,8 +969,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Application.TypicalPaymentsControllerTestClient" />
+        <item index="0" class="java.lang.String" itemvalue="Application.TypicalPaymentsControllerTestClient" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Main (1)" />
         <item index="2" class="java.lang.String" itemvalue="JUnit.PaycalTestSuite" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.ResultsOutputTest.equalsAndHashcodeContract" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.TypicalPaymentsControllerTest" />
@@ -1051,7 +1043,14 @@
       <option name="project" value="LOCAL" />
       <updated>1503390085969</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="created end points for redo and undo for payment model">
+      <created>1503418455863</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1503418455863</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1136,8 +1135,11 @@
     <MESSAGE value="added prepayment logic to all existing logical models" />
     <MESSAGE value="amended errors for the contractor payment object" />
     <MESSAGE value="created payment model and typicalPaymentsController" />
-    <option name="LAST_COMMIT_MESSAGE" value="created payment model and typicalPaymentsController" />
+    <MESSAGE value="created end points for redo and undo for payment model" />
+    <option name="LAST_COMMIT_MESSAGE" value="created end points for redo and undo for payment model" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1146,17 +1148,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.3.10.RELEASE/b891c5162908b5d092240c24df1b5e972a17768d/spring-context-4.3.10.RELEASE-sources.jar!/org/springframework/context/annotation/AnnotationConfigApplicationContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2502">
-          <caret line="157" column="16" lean-forward="false" selection-start-line="157" selection-start-column="16" selection-end-line="157" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/PaymentTypesContext.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ReportingContexts.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/ControllerDependencyModel.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/AbstractPaymentLogic.java" />
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.3.10.RELEASE/eb22a9c7f612da75e9234cf089c2069e32f44b3c/spring-beans-4.3.10.RELEASE-sources.jar!/org/springframework/beans/factory/support/AbstractAutowireCapableBeanFactory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -1352,16 +1343,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigurations.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="22" column="2" lean-forward="false" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/Notifications.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -1446,14 +1427,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/utils/tables/samples/clients/TypicalPaymentsControllerTestClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/TypicalPaymentsController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="87">
@@ -1485,7 +1458,7 @@
         <state relative-caret-position="162">
           <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1528,33 +1501,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/PaymentModelTypicalControllerUpdate.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigModels.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="775">
-          <caret line="89" column="19" lean-forward="false" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2665#2666#0" expanded="true" />
-            <element signature="e#2725#2726#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="292">
+          <caret line="31" column="35" lean-forward="true" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/UndoRedo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/utils/tables/samples/clients/TypicalPaymentsControllerTestClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="5" lean-forward="false" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+        <state relative-caret-position="321">
+          <caret line="19" column="10" lean-forward="false" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigModels.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/undo/UndoRedo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="22" column="9" lean-forward="false" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+        <state relative-caret-position="216">
+          <caret line="12" column="34" lean-forward="false" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/undo/PaymentModelUndoHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="36" column="3" lean-forward="false" selection-start-line="36" selection-start-column="3" selection-end-line="36" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/util/aspects/LoggingAspect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-143">
+          <caret line="22" column="56" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="56" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/PaymentModelTypicalControllerUpdate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="88" column="13" lean-forward="false" selection-start-line="88" selection-start-column="13" selection-end-line="88" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/ContextConfigurations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="28" column="23" lean-forward="false" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/undo/UndoRedoAspect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="15" column="96" lean-forward="false" selection-start-line="15" selection-start-column="96" selection-end-line="15" selection-end-column="96" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

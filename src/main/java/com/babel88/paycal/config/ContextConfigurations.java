@@ -18,6 +18,7 @@ import com.babel88.paycal.view.reporting.PaymentAdvice;
 import com.babel88.paycal.view.tables.TableMaker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
 import java.util.Scanner;
@@ -25,7 +26,7 @@ import java.util.Scanner;
 /**
  * Created by edwin.njeru on 10/08/2017.
  */
-//@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy
 @Configuration
 @Import({
         ContextConfigModels.class,
