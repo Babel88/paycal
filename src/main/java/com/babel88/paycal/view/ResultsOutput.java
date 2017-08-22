@@ -122,18 +122,19 @@ public class ResultsOutput implements Serializable, ResultsViewer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ResultsOutput resultsOutput = (ResultsOutput) o;
-        return Objects.equal(log, resultsOutput.log) &&
-                Objects.equal(total.get(), resultsOutput.total.get()) &&
-                Objects.equal(vatWithheld.get(), resultsOutput.vatWithheld.get()) &&
-                Objects.equal(withholdingTax.get(), resultsOutput.withholdingTax.get()) &&
-                Objects.equal(toPrepay.get(), resultsOutput.toPrepay.get()) &&
-                Objects.equal(toPayee.get(), resultsOutput.toPayee.get());
+        ResultsOutput that = (ResultsOutput) o;
+        return Objects.equal(log, that.log) &&
+                Objects.equal(total, that.total) &&
+                Objects.equal(vatWithheld, that.vatWithheld) &&
+                Objects.equal(withholdingTax, that.withholdingTax) &&
+                Objects.equal(toPrepay, that.toPrepay) &&
+                Objects.equal(toPayee, that.toPayee) &&
+                Objects.equal(view, that.view);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(log, total.get(), vatWithheld.get(), withholdingTax.get(), toPrepay.get(), toPayee.get());
+        return Objects.hashCode(log, total, vatWithheld, withholdingTax, toPrepay, toPayee, view);
     }
 
     @Override

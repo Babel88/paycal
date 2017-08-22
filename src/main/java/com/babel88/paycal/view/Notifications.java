@@ -31,13 +31,14 @@ public class Notifications implements FeedBack {
                 "|_|            |___/                \n" +
                 "\n";
 
-        out.println(paycal+"version 2.0 \n"
+        out.println(paycal + "4.5-SNAPSHOT \n"
                 + "Payments calculator functions \n"
                 + "Written in java 8 update 141 \n"
                 + "See Oracle Binary code Licence agreement \n"
                 + "http://www.oracle.com/technetwork/java/javase/terms/license/index.html\n"
+                + "Strict Privacy and Confidentiality Conditions Apply"
                 + "All rights reserved \n"
-                + "Finance Dept (c)2015 \n"
+                + "Finance Dept (c)2017 \n"
                 + "====================");
     }
 
@@ -140,13 +141,7 @@ public class Notifications implements FeedBack {
 
         String userInput = keyboard.next();
 
-        if (userInput.equalsIgnoreCase("yes")) {
-
-            print = true;
-        } else {
-
-            print = false;
-        }
+        print = userInput.equalsIgnoreCase("yes");
 
         return print;
     }

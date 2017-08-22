@@ -5,15 +5,17 @@ import com.babel88.paycal.controllers.PrepaymentController;
 import com.babel88.paycal.logic.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
 import java.math.BigDecimal;
 
+@Lazy
 @Configuration
 public class ContextConfigLogic {
 
     @Bean
-    @Scope("prototype")
+    @Scope("singleton")
     public PaymentParameters parameters(){
 
         return new PaymentParameters();

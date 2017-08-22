@@ -5,13 +5,12 @@ import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.math.BigDecimal.ZERO;
 
-public class PaymentModel implements Serializable{
+public class PaymentModelMemento {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -26,27 +25,27 @@ public class PaymentModel implements Serializable{
     private final AtomicReference<BigDecimal> withHoldingTax;
     private final AtomicReference<BigDecimal> toPrepay;
 
-    public PaymentModel() {
+    public PaymentModelMemento(PaymentModel model) {
 
-        log.debug("Creating empty fields");
-        withHoldingVat = new AtomicReference<BigDecimal>();
-        total = new AtomicReference<BigDecimal>();
-        toPayee = new AtomicReference<BigDecimal>();
-        withHoldingTax = new AtomicReference<BigDecimal>();
-        amountB4Vat = new AtomicReference<BigDecimal>();
-        toPrepay = new AtomicReference<BigDecimal>();
+        log.debug("Creating the Payment model memento");
 
-        log.debug("Payment model created : {}.",this.toString());
+        this.amountB4Vat = new AtomicReference<>(model.getAmountB4Vat());
+        this.withHoldingVat = new AtomicReference<>(model.getWithHoldingVat());
+        this.total = new AtomicReference<>(model.getTotal());
+        this.toPayee = new AtomicReference<>(model.getToPayee());
+        this.withHoldingTax = new AtomicReference<>(model.getWithHoldingTax());
+        this.toPrepay = new AtomicReference<>(model.getToPrepay());
 
+        log.debug("Memento object created : {}.", this.toString());
     }
 
     public BigDecimal getAmountB4Vat() {
         return amountB4Vat.get();
     }
 
-    public PaymentModel setAmountB4Vat(BigDecimal amountB4Vat) {
+    public PaymentModelMemento setAmountB4Vat(BigDecimal amountB4Vat) {
 
-        log.debug("Amount before vat set as : {}.",amountB4Vat);
+        log.debug("Amount before vat set as : {}.", amountB4Vat);
         this.amountB4Vat.set(amountB4Vat);
         return this;
     }
@@ -55,9 +54,9 @@ public class PaymentModel implements Serializable{
         return withHoldingVat.get();
     }
 
-    public PaymentModel setWithHoldingVat(BigDecimal withHoldingVat) {
+    public PaymentModelMemento setWithHoldingVat(BigDecimal withHoldingVat) {
 
-        log.debug("Withholding vat set as : {}.",withHoldingVat);
+        log.debug("Withholding vat set as : {}.", withHoldingVat);
         this.withHoldingVat.set(withHoldingVat);
         return this;
     }
@@ -66,9 +65,9 @@ public class PaymentModel implements Serializable{
         return total.get();
     }
 
-    public PaymentModel setTotal(BigDecimal total) {
+    public PaymentModelMemento setTotal(BigDecimal total) {
 
-        log.debug("Total amount payable set as :"+total);
+        log.debug("Total amount payable set as :" + total);
         this.total.set(total);
         return this;
     }
@@ -77,9 +76,9 @@ public class PaymentModel implements Serializable{
         return toPayee.get();
     }
 
-    public PaymentModel setToPayee(BigDecimal toPayee) {
+    public PaymentModelMemento setToPayee(BigDecimal toPayee) {
 
-        log.debug("Amount payable to payee set as : "+toPayee);
+        log.debug("Amount payable to payee set as : " + toPayee);
         this.toPayee.set(toPayee);
         return this;
     }
@@ -88,22 +87,22 @@ public class PaymentModel implements Serializable{
         return withHoldingTax.get();
     }
 
-    public PaymentModel setWithHoldingTax(BigDecimal withHoldingTax) {
+    public PaymentModelMemento setWithHoldingTax(BigDecimal withHoldingTax) {
 
-        log.debug("Withholding tax set as : ",withHoldingTax);
+        log.debug("Withholding tax set as : ", withHoldingTax);
         this.withHoldingTax.set(withHoldingTax);
         return this;
-    }
-
-    public void setToPrepay(BigDecimal toPrepay) {
-        this.toPrepay.set(toPrepay);
     }
 
     public BigDecimal getToPrepay() {
         return toPrepay.get();
     }
 
-    public void init(){
+    public void setToPrepay(BigDecimal toPrepay) {
+        this.toPrepay.set(toPrepay);
+    }
+
+    public void init() {
 
         log.debug("Instantiating the PaymentModel local fields");
         this.setAmountB4Vat(ZERO);
@@ -113,7 +112,7 @@ public class PaymentModel implements Serializable{
         this.setWithHoldingVat(ZERO);
     }
 
-    public void destroy(){
+    public void destroy() {
 
         log.debug("Resetting the PaymentModel object");
         this.setAmountB4Vat(ZERO);
@@ -127,7 +126,7 @@ public class PaymentModel implements Serializable{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PaymentModel that = (PaymentModel) o;
+        PaymentModelMemento that = (PaymentModelMemento) o;
         return Objects.equal(log, that.log) &&
                 Objects.equal(amountB4Vat, that.amountB4Vat) &&
                 Objects.equal(withHoldingVat, that.withHoldingVat) &&
@@ -139,8 +138,7 @@ public class PaymentModel implements Serializable{
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(log, amountB4Vat, withHoldingVat, total,
-                toPayee, withHoldingTax, toPrepay);
+        return Objects.hashCode(log, amountB4Vat, withHoldingVat, total, toPayee, withHoldingTax, toPrepay);
     }
 
     @Override
@@ -153,23 +151,5 @@ public class PaymentModel implements Serializable{
                 .add("withHoldingTax", withHoldingTax)
                 .add("toPrepay", toPrepay)
                 .toString();
-    }
-
-    public PaymentModelMemento saveStateToMemento() {
-
-        log.debug("Saving a new state to payment model memento");
-        return new PaymentModelMemento(this);
-    }
-
-    public void getStateFromMemento(PaymentModelMemento memento) {
-
-        this.setAmountB4Vat(memento.getAmountB4Vat());
-        this.setWithHoldingTax(memento.getWithHoldingTax());
-        this.setWithHoldingVat(memento.getWithHoldingVat());
-        this.setToPayee(memento.getToPayee());
-        this.setToPrepay(memento.getToPrepay());
-        this.setTotal(memento.getTotal());
-
-        log.debug("Payment model successfully restored to former state : {}.", this.toString());
     }
 }

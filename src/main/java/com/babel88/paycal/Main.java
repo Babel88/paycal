@@ -12,9 +12,13 @@ public class Main {
         ApplicationContext context =
                 new AnnotationConfigApplicationContext(ContextConfigurations.class);
 
+        //TODO  context.registerShutdownHook();
+
         PaycalApp app = context.getBean(PaycalApp.class);
 
         app.run();
+
+
     }
 }
 

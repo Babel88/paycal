@@ -1,5 +1,5 @@
 group 'paycal'
-version '1.0-SNAPSHOT'
+version '4.5-SNAPSHOT'
 
 apply plugin: 'java'
 
@@ -62,4 +62,11 @@ dependencies {
     compile files("/home/eddard/Java_Libraries/aop/aspectj-1.8.10.jar")
     compile files("/home/eddard/Java_Libraries/aop/aspectjrt-1.8.10.jar")
     compile files("/home/eddard/Java_Libraries/aop/aspectjweaver-1.8.10.jar")
+}
+
+jar{
+    manifest{
+
+        attributes 'Main-class': 'com.babel88.paycal.Main'
+    }
 }
