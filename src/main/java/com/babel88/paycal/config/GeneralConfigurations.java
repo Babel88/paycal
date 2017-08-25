@@ -22,6 +22,7 @@ public class GeneralConfigurations {
 
     // Keeps track of locale settings
     private Locale locale;
+    private static GeneralConfigurations instance = new GeneralConfigurations();
 
     public GeneralConfigurations() {
 
@@ -30,6 +31,14 @@ public class GeneralConfigurations {
         this.dateFormatStyle = FormatStyle.MEDIUM;
 
         this.locale = Locale.GERMAN;
+    }
+
+    public static GeneralConfigurations getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(GeneralConfigurations instance) {
+        GeneralConfigurations.instance = instance;
     }
 
     public Enum<FormatStyle> getDateFormatStyle() {

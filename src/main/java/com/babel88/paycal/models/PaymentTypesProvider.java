@@ -4,7 +4,7 @@ import com.babel88.paycal.api.logic.Contractors;
 import com.babel88.paycal.api.logic.PaymentTypeProviders;
 import com.babel88.paycal.api.logic.TelegraphicTransfers;
 import com.babel88.paycal.api.logic.TypicalPayments;
-import com.babel88.paycal.config.ContextConfigurations;
+import com.babel88.paycal.config.context.GeneralContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -15,7 +15,7 @@ public class PaymentTypesProvider implements PaymentTypeProviders {
 
     public PaymentTypesProvider() {
 
-        paymentTypesContext = new AnnotationConfigApplicationContext(ContextConfigurations.class);
+        paymentTypesContext = new AnnotationConfigApplicationContext(GeneralContext.class);
     }
 
     @Override

@@ -16,7 +16,13 @@ public class ReportsController implements ReportControllers {
 
     private Boolean printReport;
 
+    private static ReportControllers instance = new ReportsController();
+
     public ReportsController() {
+    }
+
+    public static ReportControllers getInstance() {
+        return instance;
     }
 
     // new feature, for printing reports

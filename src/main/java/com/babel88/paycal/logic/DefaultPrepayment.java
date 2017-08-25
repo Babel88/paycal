@@ -1,7 +1,12 @@
 package com.babel88.paycal.logic;
 
-import com.babel88.paycal.api.logic.Prepayments;
+import com.babel88.paycal.api.DefaultPrepayable;
 import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.config.factory.LogicFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -18,7 +23,11 @@ import static java.lang.System.out;
  * <p>e) The Invoice is not encumbered with duties or levies</p>
  * <p>f) The Invoice contains a component that is to be prepaid</p>
  */
-public class SimplePrepayments implements Prepayments {
+@Component
+@ComponentScan
+public class DefaultPrepayment implements DefaultPrepayable {
+
+    private static DefaultPrepayable instance = new DefaultPrepayment();
 
     private BigDecimal vatRate;
 
@@ -32,15 +41,22 @@ public class SimplePrepayments implements Prepayments {
 
 
     private PaymentParameters parameters;
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 
-    public SimplePrepayments(PaymentParameters parameters) {
+    private DefaultPrepayment() {
 
-        this.parameters = parameters;
+        log.debug("Fetching parameter object from factory....");
+
+        parameters = LogicFactory.getInstance().createPaymentParameters();
 
         vatRate = parameters.getVatRate();
 
         withholdingVatRate = parameters.getWithholdingVatRate();
+    }
+
+    public static DefaultPrepayable getInstance() {
+        return instance;
     }
 
     /**

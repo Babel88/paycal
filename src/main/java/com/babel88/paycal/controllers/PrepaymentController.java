@@ -2,6 +2,7 @@ package com.babel88.paycal.controllers;
 
 import com.babel88.paycal.api.logic.Prepayable;
 import com.babel88.paycal.api.view.FeedBack;
+import com.babel88.paycal.config.factory.LogicFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,19 +41,24 @@ public class PrepaymentController implements com.babel88.paycal.api.controllers.
     private final Logger log =
             LoggerFactory.getLogger(this.getClass());
 
-    /*
-     * This object delivers the standard user prompt for the application
-     */
-    private FeedBack feedBack;
+    private static PrepaymentController instance = new PrepaymentController(BigDecimal.ZERO);
 
     /*
      * This object provides the implementation of the Prepayable interface
      * used here to get the amount to prepay
      */
-    //TODO to create a prepayment service complete with input validation
     private Prepayable abstractPrepayment;
+    /*
+     * This object delivers the standard user prompt for the application
+     */
+    @Autowired
+    private FeedBack feedBack;
 
     public PrepaymentController(BigDecimal expenseAmount) {
+
+        log.debug("Creating payment controller from factory");
+
+        abstractPrepayment = LogicFactory.getInstance().createPrepayable();
 
         this.expenseAmount = expenseAmount;
 
@@ -61,23 +67,15 @@ public class PrepaymentController implements com.babel88.paycal.api.controllers.
         keyboard = new Scanner(System.in);
     }
 
+    public static PrepaymentController getInstance() {
+        return instance;
+    }
+
     private void userPrompt(){
 
         out.println("\nDo you want to prepay part of the expense?");
 
         feedBack.mainPrompt();
-    }
-
-    @Autowired
-    public PrepaymentController setAbstractPrepayment(Prepayable abstractPrepayment) {
-        this.abstractPrepayment = abstractPrepayment;
-        return this;
-    }
-
-    @Autowired
-    public PrepaymentController setFeedBack(FeedBack feedBack) {
-        this.feedBack = feedBack;
-        return this;
     }
 
     /**

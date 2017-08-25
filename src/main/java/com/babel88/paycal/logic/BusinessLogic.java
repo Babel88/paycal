@@ -1,15 +1,21 @@
 package com.babel88.paycal.logic;
 
+import com.babel88.paycal.api.DefaultPrepayable;
 import com.babel88.paycal.api.ForeignPaymentDetails;
-import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.Logic;
+import com.babel88.paycal.api.controllers.PartialTaxPaymentController;
 import com.babel88.paycal.api.controllers.TypicalPaymentsControllers;
-import com.babel88.paycal.api.logic.*;
-import com.babel88.paycal.api.view.FeedBack;
-import com.babel88.paycal.api.view.PayCalView;
-import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.api.factory.Incarnatable;
+import com.babel88.paycal.api.logic.Contractors;
+import com.babel88.paycal.api.logic.PrepaymentService;
+import com.babel88.paycal.api.logic.TelegraphicTransfers;
+import com.babel88.paycal.api.logic.WithholdingTaxPayments;
+import com.babel88.paycal.api.view.PaymentModelViewInterface;
+import com.babel88.paycal.config.factory.ControllerFactory;
+import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.controllers.PrepaymentController;
-import com.babel88.paycal.view.reporting.PaymentAdvice;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
@@ -25,50 +31,54 @@ import java.math.BigDecimal;
  */
 @Component
 @ComponentScan
-public class BusinessLogic implements Logic {
+public class BusinessLogic implements Logic,Incarnatable {
 
-    //@Autowired at setter
+    private static Logic instance = new BusinessLogic();
+
     private Contractors contractor;
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    public DefaultPrepayable defaultPrepayment;
 
-    //@Autowired at setter
-    private Prepayments prepayable;
-
-    //@Autowired at setter
-    private PayCalView view;
-
-    //@Autowired at setter
-    private TypicalPayments typicalPayment;
-
-    //@Autowired at setter
-    private PaymentParameters parameters;
-
-    //@Autowired at setter
     private WithholdingTaxPayments withholdingTaxPayment;
 
-    //@Autowired at setter
     private PrepaymentController prepaymentController;
+    @Autowired
+    private PaymentModelViewInterface paymentModelView;
 
-    //@Autowired at setter
-    private InvoiceDetails invoice;
-
-    //@Autowired at setter
-    private ForeignPaymentDetails foreignPaymentDetails;
-
-
-    //@Autowired at setter
     private TelegraphicTransfers foreignPayments;
-
     @Autowired
-    private PaymentAdvice paymentAdvice;
+    private ForeignPaymentDetails foreignPaymentDetails;
+    private TypicalPaymentsControllers typicalPaymentsController;
+    private PartialTaxPaymentController partialTaxPaymentController;
 
-    @Autowired
-    private FeedBack feedBack;
+    private BusinessLogic() {
 
-    @Autowired
-    public TypicalPaymentsControllers typicalPaymentsController;
+        log.debug("Creating an instance of the main business logic controller");
 
-    public BusinessLogic() {
+        withholdingTaxPayment = LogicFactory.getInstance().createWithholdingTaxPayments();
+
+        contractor = LogicFactory.getInstance().createContractors();
+
+        defaultPrepayment = LogicFactory.getInstance().createDefaultPrepayment();
+
+        foreignPayments = LogicFactory.getInstance().createTelegraphicTransfers();
+
+        log.debug("Fetching controller singleton from Controller Factory");
+
+        prepaymentController = ControllerFactory.getInstance().createPrepaymentController();
+
+        typicalPaymentsController = ControllerFactory.getInstance().createTypicalPaymentsController();
+
+        partialTaxPaymentController = ControllerFactory.getInstance().createPartialTaxPaymentController();
+
     }
+
+    public static Logic getInstance(){
+
+        return instance;
+    }
+
+//    public BusinessLogic(PaymentParameters parameters){}
 
     //TODO create controller for the main calculations
     @Override
@@ -79,31 +89,10 @@ public class BusinessLogic implements Logic {
     }
 
     @Override
-    public void vatGiven(BigDecimal InvoiceAmount, BigDecimal vat) {
+    public void vatGiven() {
 
-        BigDecimal vRate = parameters.getVatRate().divide(BigDecimal.valueOf(100));
-        BigDecimal withholdVatRate = parameters.getWithholdingVatRate().divide(BigDecimal.valueOf(100));
+        partialTaxPaymentController.runCalculation();
 
-
-        BigDecimal withHoldingVat = (vat.divide(vRate)).multiply(withholdVatRate);
-        // That is the amount to be withheld
-
-        BigDecimal total = InvoiceAmount;
-        // i.e. total to be expensed
-        BigDecimal toPayee = total.subtract(withHoldingVat);
-
-        // These variables have not been computed but we do need to have them ready
-        // as Zero values in the displayResults method
-
-        BigDecimal withHoldingTax = BigDecimal.ZERO;
-
-        prepaymentController.setExpenseAmount(total);
-
-        BigDecimal toPrepay = ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
-
-        //Now we initiate the Display class
-        view.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
-        // Results submitted for view
     }
 
     @Override
@@ -121,8 +110,8 @@ public class BusinessLogic implements Logic {
 
         BigDecimal toPrepay = ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
 
-        view.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
-        // Results submitted for view
+        paymentModelView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
+        // Results submitted for paymentModelView
 
     }
 
@@ -154,8 +143,8 @@ public class BusinessLogic implements Logic {
         // as Zero values in the displayResults method
         BigDecimal toPrepay = ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
 
-        // Results submitted for view
-        view.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
+        // Results submitted for paymentModelView
+        paymentModelView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
 
 
     }
@@ -168,29 +157,29 @@ public class BusinessLogic implements Logic {
 
         // This is the Invoice amount exclusive of VAT
         //double amountB4Vat = invoiceAmount / (1 + vRate);
-        BigDecimal amountB4Vat = prepayable.calculateAmountBeforeTax(invoiceAmount);
+        BigDecimal amountB4Vat = defaultPrepayment.calculateAmountBeforeTax(invoiceAmount);
 
         // Amount to be withheld as VAT
         //BigDecimal withHoldingVat = amountB4Vat * withholdVatRate;
-        BigDecimal withHoldingVat = prepayable.calculateWithholdingVat(amountB4Vat);
+        BigDecimal withHoldingVat = defaultPrepayment.calculateWithholdingVat(amountB4Vat);
 
         // Calculate prepayment
-        BigDecimal toPrepay = prepayable.calculatePrepayment(invoiceAmount);
+        BigDecimal toPrepay = defaultPrepayment.calculatePrepayment(invoiceAmount);
 
         // i.e. total to be expensed
         //BigDecimal total = invoiceAmount.subtract(toPrepay);
-        BigDecimal total = prepayable.calculateTotalExpense(invoiceAmount,toPrepay);
+        BigDecimal total = defaultPrepayment.calculateTotalExpense(invoiceAmount,toPrepay);
 
         // These variables have not been computed but we do need to have them ready
         // as Zero values in the displayResults method
         //BigDecimal toPayee = total.add(toPrepay).subtract(withHoldingVat);
-        BigDecimal toPayee = prepayable.calculateAmountPayable(toPrepay,withHoldingVat);
+        BigDecimal toPayee = defaultPrepayment.calculateAmountPayable(toPrepay,withHoldingVat);
 
 
         BigDecimal withHoldingTax = BigDecimal.ZERO;
 
-        view.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
-        // Results submitted for view
+        paymentModelView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
+        // Results submitted for paymentModelView
 
     }
 
@@ -231,73 +220,14 @@ public class BusinessLogic implements Logic {
             BigDecimal toPrepay =
                     ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
 
-            view.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
-            // Results submitted for view
+            paymentModelView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
+            // Results submitted for paymentModelView
 
             doAgain = foreignPaymentDetails.doAgain();
         } while (doAgain);
 
     }
 
-    @Autowired
-    public BusinessLogic setPrepaymentController(PrepaymentController prepaymentController) {
-        this.prepaymentController = prepaymentController;
-        return this;
-    }
-
-    @Autowired
-    public BusinessLogic setView(PayCalView view) {
-        this.view = view;
-        return this;
-    }
-
-    @Autowired
-    public BusinessLogic setTypicalPayment(TypicalPayments typicalPayment) {
-        this.typicalPayment = typicalPayment;
-        return this;
-    }
-
-    @Autowired
-    public BusinessLogic setParameters(PaymentParameters parameters) {
-        this.parameters = parameters;
-        return this;
-    }
-
-    @Autowired
-    public BusinessLogic setWithholdingTaxPayment(WithholdingTaxPayments withholdingTaxPayment) {
-        this.withholdingTaxPayment = withholdingTaxPayment;
-        return this;
-    }
-
-    @Autowired
-    public BusinessLogic setContractor(Contractors contractor) {
-        this.contractor = contractor;
-        return this;
-    }
-
-    @Autowired
-    public BusinessLogic setPrepayable(Prepayments prepayable) {
-        this.prepayable = prepayable;
-        return this;
-    }
-
-    @Autowired
-    public BusinessLogic setInvoice(InvoiceDetails invoice) {
-        this.invoice = invoice;
-        return this;
-    }
-
-    @Autowired
-    public BusinessLogic setForeignPaymentDetails(ForeignPaymentDetails foreignPaymentDetails) {
-        this.foreignPaymentDetails = foreignPaymentDetails;
-        return this;
-    }
-
-    @Autowired
-    public BusinessLogic setForeignPayments(TelegraphicTransfers foreignPayments) {
-        this.foreignPayments = foreignPayments;
-        return this;
-    }
 }
 
 

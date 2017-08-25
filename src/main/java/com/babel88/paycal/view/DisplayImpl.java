@@ -1,10 +1,11 @@
 package com.babel88.paycal.view;
 
 import com.babel88.paycal.PaycalApp;
-import com.babel88.paycal.api.view.PayCalView;
+import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.api.view.Tables;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -22,17 +23,17 @@ import static java.lang.System.out;
  * place. This is because the itax system will round up the tax
  * payable up by 1 if there is anything after the decimal place
  */
-public class Display implements PayCalView {
+@ComponentScan
+public class DisplayImpl implements PaymentModelViewInterface {
 
-    @Autowired
-    private PaycalApp paycalApp;
-
-    @Autowired
+    //@Autowired at setter
     public Tables tableString;
+    //@Autowired at setter
+    private PaycalApp paycalApp;
 
     private final AtomicReference<BigDecimal> total,vatWithheld,withholdingTax,toPrepay,toPayee;
 
-    public Display(){
+    public DisplayImpl(){
         total = new AtomicReference<BigDecimal>();
         vatWithheld = new AtomicReference<BigDecimal>();
         withholdingTax = new AtomicReference<BigDecimal>();
@@ -43,13 +44,13 @@ public class Display implements PayCalView {
     @Override
     public void displayResults(BigDecimal total,BigDecimal vatWithheld,BigDecimal withholdingTax,BigDecimal toPrepay,BigDecimal toPayee){
         // Pending:
-        // To convert numbers to string than view them
+        // To convert numbers to string than paymentModelView them
         // Dsiplay zero values for number not given, e.g.
         // ... when withholding tax is not provided
 
         //Make some changes to the variables
         String vatWithhold = makeStringUp(vatWithheld);
-        // Converts vat withheld to vat to view in String format
+        // Converts vat withheld to vat to paymentModelView in String format
 
         String withHold = makeStringUp(withholdingTax);
         // Withholding tax on consultancy rounded and converted to String
@@ -137,6 +138,16 @@ public class Display implements PayCalView {
         return BigDecimal.valueOf(Double.valueOf(dformat.format(number)));
     }
 
+    @Autowired
+    public DisplayImpl setPaycalApp(PaycalApp paycalApp) {
+        this.paycalApp = paycalApp;
+        return this;
+    }
 
+    @Autowired
+    public DisplayImpl setTableString(Tables tableString) {
+        this.tableString = tableString;
+        return this;
+    }
 }
 

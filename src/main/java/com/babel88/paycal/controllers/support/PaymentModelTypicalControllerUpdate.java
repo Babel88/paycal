@@ -2,6 +2,9 @@ package com.babel88.paycal.controllers.support;
 
 import com.babel88.paycal.api.logic.PrepaymentService;
 import com.babel88.paycal.api.logic.TypicalPayments;
+import com.babel88.paycal.config.factory.ControllerFactory;
+import com.babel88.paycal.config.factory.LogicFactory;
+import com.babel88.paycal.config.factory.UtilFactory;
 import com.babel88.paycal.controllers.PrepaymentController;
 import com.babel88.paycal.controllers.support.undo.PaymentModelUndoHelper;
 import com.babel88.paycal.controllers.support.undo.UndoRedo;
@@ -9,6 +12,7 @@ import com.babel88.paycal.models.PaymentModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -16,26 +20,43 @@ import java.math.BigDecimal;
 import static java.math.BigDecimal.ZERO;
 
 @Component
+@ComponentScan
 public class PaymentModelTypicalControllerUpdate {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    @Autowired
-    private PrepaymentController prepaymentController;
-    @Autowired
-    private PaymentModel paymentModel;
-    @Autowired
-    private TypicalPayments typicalPayment;
 
-    @Autowired
+    private PrepaymentController prepaymentController;
+
+    private PaymentModel paymentModel;
+
+    private TypicalPayments typicalPayment;
+    
     private PaymentModelUndoHelper undoHelper;
 
     private BigDecimal invoiceAmount;
     private BigDecimal total = BigDecimal.ZERO;
+    private static PaymentModelTypicalControllerUpdate instance =
+            new PaymentModelTypicalControllerUpdate();
+    @SuppressWarnings(value = "local Variable")
     private BigDecimal toPrepay = BigDecimal.ZERO;
 
     public PaymentModelTypicalControllerUpdate() {
 
         log.debug("PaymentModelTypicalControllerUpdate invoked...");
+
+        log.debug("Creating typicalPayments object");
+
+        typicalPayment = LogicFactory.getInstance().createTypicalPayments();
+
+        prepaymentController = ControllerFactory.getInstance().createPrepaymentController();
+
+        //paymentModel = logicFactory.createPaymentModel();
+
+        undoHelper = UtilFactory.getInstance().createPaymentModelUndoHelper();
+    }
+
+    public static PaymentModelTypicalControllerUpdate getInstance() {
+        return instance;
     }
 
     public PaymentModelTypicalControllerUpdate setInvoiceAmount(BigDecimal invoiceAmount) {
@@ -108,14 +129,14 @@ public class PaymentModelTypicalControllerUpdate {
 
     @UndoRedo
     private void calculationStep4() {
-        log.debug("Calculating amount payable to vendor for : ", this.invoiceAmount);
+        log.debug("Calculating amount payable to vendor for : {}.", this.invoiceAmount);
         paymentModel.setToPayee(
                 typicalPayment.calculatePayableToVendor(invoiceAmount));
     }
 
     @UndoRedo
     private void calculationStep3() {
-        log.debug("Calculating total expense for : ", this.invoiceAmount);
+        log.debug("Calculating total expense for : {}.", this.invoiceAmount);
         total = typicalPayment.calculateTotalExpense(invoiceAmount);
 
         paymentModel.setTotal(total);
@@ -123,14 +144,14 @@ public class PaymentModelTypicalControllerUpdate {
 
     @UndoRedo
     private void calculationStep2() {
-        log.debug("Calculating withholding vat for : ", this.invoiceAmount);
+        log.debug("Calculating withholding vat for : {}.", this.invoiceAmount);
         paymentModel.setWithHoldingVat(
                 typicalPayment.calculateWithholdingVat(invoiceAmount));
     }
 
     @UndoRedo
     private void calculationStep1() {
-        log.debug("Calculating amount before vat for : ", this.invoiceAmount);
+        log.debug("Calculating amount before vat for : {}.", this.invoiceAmount);
         paymentModel.setAmountB4Vat(
                 typicalPayment.calculateAmountBeforeTax(invoiceAmount));
     }
@@ -156,4 +177,28 @@ public class PaymentModelTypicalControllerUpdate {
             //return paymentModel;
         }
     }*/
+
+    @Autowired
+    public PaymentModelTypicalControllerUpdate setPrepaymentController(PrepaymentController prepaymentController) {
+        this.prepaymentController = prepaymentController;
+        return this;
+    }
+
+    @Autowired
+    public PaymentModelTypicalControllerUpdate setPaymentModel(PaymentModel paymentModel) {
+        this.paymentModel = paymentModel;
+        return this;
+    }
+
+    @Autowired
+    public PaymentModelTypicalControllerUpdate setTypicalPayment(TypicalPayments typicalPayment) {
+        this.typicalPayment = typicalPayment;
+        return this;
+    }
+
+    @Autowired
+    public PaymentModelTypicalControllerUpdate setUndoHelper(PaymentModelUndoHelper undoHelper) {
+        this.undoHelper = undoHelper;
+        return this;
+    }
 }

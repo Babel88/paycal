@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Created by edwin.njeru on 09/08/2017.
  */
-public interface PayCalView{
+public interface PaymentModelViewInterface {
 
     /**
      * Displays the various computed amounts on display

@@ -1,7 +1,7 @@
 package com.babel88.paycal.logic;
 
+import com.babel88.paycal.api.DefaultPrepayable;
 import com.babel88.paycal.api.InvoiceDetails;
-import com.babel88.paycal.api.Prepayable;
 import com.google.common.base.Objects;
 
 import java.math.BigDecimal;
@@ -21,7 +21,7 @@ import static com.google.common.collect.ComparisonChain.start;
  * Revise dateFormatValidation code
  * Check chronoLocalDate functions for nullity
  */
-public class CheckedPrepayment implements Prepayable {
+public class CheckedPrepayment implements DefaultPrepayable {
 
     // dates used in this class
     private LocalDate startDate, refDate, endDate;

@@ -1,7 +1,11 @@
-package com.babel88.paycal.logic;
+package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.TypicalPayments;
 import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.config.factory.LogicFactory;
+import com.babel88.paycal.logic.GeneralPayments;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -21,6 +25,8 @@ import static java.math.BigDecimal.valueOf;
  */
 public class TypicalPayment implements TypicalPayments {
 
+    private static TypicalPayments instance = new TypicalPayment();
+
     /* withholding vat rate */
     private final AtomicReference<BigDecimal> withholdVatRate = new AtomicReference<>();
 
@@ -30,13 +36,21 @@ public class TypicalPayment implements TypicalPayments {
     /** to track change in the invoice amount */
     private final AtomicReference<BigDecimal> invoiceAmount =
             new AtomicReference<>();
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+    private TypicalPayment() {
 
-    public TypicalPayment(PaymentParameters parameters) {
+        log.debug("Creating an instance of the typicalPayment object logic");
+
+        PaymentParameters parameters = LogicFactory.getInstance().createPaymentParameters();
 
         vatRate.set(parameters.getVatRate());
 
         withholdVatRate.set(parameters.getWithholdingVatRate());
+    }
+
+    public static TypicalPayments getInstance() {
+        return instance;
     }
 
     /**

@@ -11,6 +11,7 @@ public class PaymentModelCareTaker {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private List<PaymentModelMemento> paymentModelMementos;
+    private static PaymentModelCareTaker instance = new PaymentModelCareTaker();
 
     public PaymentModelCareTaker() {
 
@@ -19,6 +20,10 @@ public class PaymentModelCareTaker {
 
         log.debug("Payment model caretaker created by invokation of a new ArrayList \n" +
                 "for the payment model memento : {}.", paymentModelMementos.toString());
+    }
+
+    public static PaymentModelCareTaker getInstance() {
+        return instance;
     }
 
     public void add(PaymentModelMemento state) {

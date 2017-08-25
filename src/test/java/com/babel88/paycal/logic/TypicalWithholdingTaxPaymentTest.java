@@ -1,19 +1,15 @@
 package com.babel88.paycal.logic;
 
-import com.babel88.paycal.config.ContextConfigurations;
-import com.babel88.paycal.config.PaymentParameters;
-import com.babel88.paycal.test.TestUtil;
 import com.babel88.paycal.api.logic.WithholdingTaxPayments;
+import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.logic.base.DefaultTypicalWithholdingTaxPayment;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 
 public class TypicalWithholdingTaxPaymentTest {
@@ -26,7 +22,7 @@ public class TypicalWithholdingTaxPaymentTest {
     @Before
     public void setUp() throws Exception {
 
-        withholdingTaxPayment = new TypicalWithholdingTaxPayment(new PaymentParameters());
+        withholdingTaxPayment = new DefaultTypicalWithholdingTaxPayment(new PaymentParameters());
 
         MockitoAnnotations.initMocks(this);
 

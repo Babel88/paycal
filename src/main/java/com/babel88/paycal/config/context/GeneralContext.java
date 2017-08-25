@@ -1,24 +1,20 @@
-package com.babel88.paycal.config;
+package com.babel88.paycal.config.context;
 
 import com.babel88.paycal.PaycalApp;
-import com.babel88.paycal.PaymentFactory;
 import com.babel88.paycal.api.ForeignPaymentDetails;
 import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.Logic;
 import com.babel88.paycal.api.PrepaymentDetails;
 import com.babel88.paycal.api.view.FeedBack;
-import com.babel88.paycal.api.view.PayCalView;
 import com.babel88.paycal.api.view.Tables;
-import com.babel88.paycal.logic.BusinessLogic;
+import com.babel88.paycal.controllers.support.undo.UndoRedoAspect;
 import com.babel88.paycal.util.aspects.LoggingAspect;
-import com.babel88.paycal.view.Display;
 import com.babel88.paycal.view.Invoice;
 import com.babel88.paycal.view.Notifications;
-import com.babel88.paycal.view.reporting.PaymentAdvice;
 import com.babel88.paycal.view.tables.TableMaker;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
 import java.util.Scanner;
@@ -26,26 +22,23 @@ import java.util.Scanner;
 /**
  * Created by edwin.njeru on 10/08/2017.
  */
-@EnableAspectJAutoProxy
+//@EnableAspectJAutoProxy
 @Configuration
 @Import({
-        ContextConfigModels.class,
-        ContextConfigLogic.class,
-        ContextConfigControllers.class,
-        ContextConfigUtils.class
+        Models.class,
+        Logic.class,
+        Controllers.class,
+        Utils.class,
+        ModelView.class
 })
-public class ContextConfigurations {
+@ComponentScan
+@Deprecated
+public class GeneralContext {
 
     @Bean
     public PaycalApp paycalApp(){
 
         return new PaycalApp();
-    }
-
-    @Bean
-    public PayCalView view(){
-
-        return new Display();
     }
 
     @Bean
@@ -56,11 +49,11 @@ public class ContextConfigurations {
 
 
 
-    @Bean
-    public Logic logic(){
-
-        return new BusinessLogic();
-    }
+//    @Bean
+//    public Logic logic(){
+//
+//        return new BusinessLogic();
+//    }
 
     @Bean
     public FeedBack feedBack(){
@@ -68,22 +61,22 @@ public class ContextConfigurations {
         return new Notifications();
     }
 
-    @Bean
-    public PaymentFactory factory(){
-
-        return new PaymentFactory();
-    }
-
-    @Bean
-    public PaymentAdvice paymentAdvice() {
-
-        return new PaymentAdvice();
-    }
+//    @Bean
+//    public PaymentFactory factory(){
+//
+//        return new PaymentFactory();
+//    }
 
     @Bean
     public LoggingAspect loggingAspect(){
 
         return new LoggingAspect();
+    }
+
+    @Bean
+    public UndoRedoAspect undoRedoAspect(){
+
+        return new UndoRedoAspect();
     }
 
     @Bean

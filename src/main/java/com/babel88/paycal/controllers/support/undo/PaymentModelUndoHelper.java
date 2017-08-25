@@ -44,9 +44,15 @@ public class PaymentModelUndoHelper {
     @Autowired
     private PaymentModelCareTaker paymentModelCareTaker;
 
+    private static PaymentModelUndoHelper instance = new PaymentModelUndoHelper();
+
     public PaymentModelUndoHelper() {
 
         log.debug("PaymentModelUndoHelper created");
+    }
+
+    public static PaymentModelUndoHelper getInstance() {
+        return instance;
     }
 
     public PaymentModel invoke(PaymentModel paymentModel) {

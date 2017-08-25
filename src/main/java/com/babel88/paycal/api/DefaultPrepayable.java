@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * Created by edwin.njeru on 10/07/2017.
  */
 @Deprecated
-public interface Prepayable {
+public interface DefaultPrepayable {
 
     /**
      * CheckedPrepayment module: calculatePrepayment

@@ -1,4 +1,4 @@
-package com.babel88.paycal.logic;
+package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.TelegraphicTransfers;
 import org.slf4j.Logger;
@@ -29,6 +29,8 @@ public class ForeignPayments implements TelegraphicTransfers {
 
     private BigDecimal reverseInvoice, withholdingVat,withHoldingTaxAmount;
 
+    private static TelegraphicTransfers instance = new ForeignPayments();
+
     public ForeignPayments() {
 
         log.debug("Instantiating the reverseInvoiceAmount with ZERO");
@@ -39,6 +41,10 @@ public class ForeignPayments implements TelegraphicTransfers {
 
         log.debug("Instantiating the withHoldingTaxAmount with ZERO");
         withHoldingTaxAmount = new BigDecimal(BigInteger.ZERO);
+    }
+
+    public static TelegraphicTransfers getInstance() {
+        return instance;
     }
 
     /**

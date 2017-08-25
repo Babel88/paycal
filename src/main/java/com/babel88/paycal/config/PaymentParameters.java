@@ -27,7 +27,10 @@ public class PaymentParameters {
     private final BigDecimal withholdingTaxRate;
     private final BigDecimal withholdingTaxContractor;
 
-    public PaymentParameters() {
+    //Code for singleTon pattern
+    private static PaymentParameters instance = new PaymentParameters();
+
+    PaymentParameters() {
 
         log = ThreadLocal.withInitial(() -> LoggerFactory.getLogger(this.getClass()));
         log.get().debug("\nCreating payment parameters object with : \n" +
@@ -49,6 +52,12 @@ public class PaymentParameters {
                         "Contractor withholding Tax Rate : {}.\n",
                 vatRate,withholdingVatRate,withholdingTaxRate,withholdingTaxContractor);
     }
+
+    public static PaymentParameters getInstance(){
+
+        return instance;
+    }
+
 
     @SuppressWarnings(value = "BigDecimal.divide() called without a rounding mode argument")
     private BigDecimal divPerCent(BigDecimal denominator){

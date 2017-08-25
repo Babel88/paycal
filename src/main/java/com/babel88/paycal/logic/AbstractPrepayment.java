@@ -1,7 +1,9 @@
 package com.babel88.paycal.logic;
 
 import com.babel88.paycal.api.PrepaymentDetails;
+import com.babel88.paycal.api.logic.Prepayable;
 import com.babel88.paycal.config.GeneralConfigurations;
+import com.babel88.paycal.config.factory.LogicFactory;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +26,7 @@ import static java.math.RoundingMode.HALF_EVEN;
  * Implementation of the AbstractPrepayment interface using jsr310
  */
 @Component
-public class AbstractPrepayment implements com.babel88.paycal.api.logic.Prepayable,Serializable {
+public class AbstractPrepayment implements Prepayable,Serializable {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -58,7 +60,11 @@ public class AbstractPrepayment implements com.babel88.paycal.api.logic.Prepayab
      */
     private BigDecimal prepaymentAmount;
 
-    public AbstractPrepayment(GeneralConfigurations generalConfigurations) {
+    private static Prepayable instance = new AbstractPrepayment();
+
+    private AbstractPrepayment() {
+
+        generalConfigurations = LogicFactory.getInstance().createGeneralConfigurations();
 
         log.debug("Creating prepayment with default configurations, from the general \n" +
                 "configurations object : {}.",generalConfigurations.toString());
@@ -66,6 +72,10 @@ public class AbstractPrepayment implements com.babel88.paycal.api.logic.Prepayab
         this.dateFormatStyle = generalConfigurations.getDateFormatStyle();
 
         locale = generalConfigurations.getLocale();
+    }
+
+    public static Prepayable getInstance() {
+        return instance;
     }
 
     /**

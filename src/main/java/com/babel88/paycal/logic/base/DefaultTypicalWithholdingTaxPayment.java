@@ -1,12 +1,13 @@
-package com.babel88.paycal.logic;
-
-import com.babel88.paycal.config.PaymentParameters;
+package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.WithholdingTaxPayments;
+import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.config.factory.LogicFactory;
 
 import java.math.BigDecimal;
 
-import static java.math.BigDecimal.*;
+import static java.math.BigDecimal.ONE;
+import static java.math.BigDecimal.ROUND_HALF_UP;
 import static java.math.RoundingMode.HALF_EVEN;
 
 /**
@@ -17,14 +18,20 @@ import static java.math.RoundingMode.HALF_EVEN;
  * <p>d) The payee needs to pay 6% withholding tax</p>
  * <p>e) The Invoice is not encumbered with duties or levies</p>
  */
-public class TypicalWithholdingTaxPayment implements WithholdingTaxPayments {
+public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPayments {
 
     private final PaymentParameters parameters;
 
 
-    public TypicalWithholdingTaxPayment(PaymentParameters parameters) {
+    private static WithholdingTaxPayments instance = new DefaultTypicalWithholdingTaxPayment();
 
-        this.parameters = parameters;
+    DefaultTypicalWithholdingTaxPayment() {
+
+        this.parameters = LogicFactory.getInstance().createPaymentParameters();
+    }
+
+    public static WithholdingTaxPayments getInstance() {
+        return instance;
     }
 
     /**

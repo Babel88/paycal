@@ -1,18 +1,20 @@
 package com.babel88.paycal.view;
 
 import com.babel88.paycal.api.ResultsViewer;
-import com.babel88.paycal.api.view.PayCalView;
+import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.models.PaymentModel;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicReference;
 
+@ComponentScan
 public class ResultsOutput implements Serializable, ResultsViewer {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -23,11 +25,13 @@ public class ResultsOutput implements Serializable, ResultsViewer {
     private final AtomicReference<BigDecimal> toPrepay;
     private final AtomicReference<BigDecimal> toPayee;
 
-    //TODO add view logic
-    @Autowired
-    private PayCalView view;
+    //TODO add paymentModelView logic
+    private PaymentModelViewInterface view;
 
-    public ResultsOutput(){
+    @Autowired
+    public ResultsOutput(PaymentModelViewInterface view){
+
+        this.view = view;
 
         log.debug("Creating empty outputFields...");
 
@@ -40,7 +44,7 @@ public class ResultsOutput implements Serializable, ResultsViewer {
     }
 
     /**
-     * This method renders a view for the payment object passed as parameter
+     * This method renders a paymentModelView for the payment object passed as parameter
      *
      * @param paymentModel object containing results of compuations
      */

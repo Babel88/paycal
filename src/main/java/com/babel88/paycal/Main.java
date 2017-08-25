@@ -1,20 +1,20 @@
 package com.babel88.paycal;
 
-import com.babel88.paycal.config.ContextConfigurations;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 public class Main {
 
 
     public static void main(String[] args) {
-
-        ApplicationContext context =
-                new AnnotationConfigApplicationContext(ContextConfigurations.class);
+//
+//        ApplicationContext context =
+//                new AnnotationConfigApplicationContext(GeneralContext.class);
 
         //TODO  context.registerShutdownHook();
 
-        PaycalApp app = context.getBean(PaycalApp.class);
+        //TODO create factory for general items
+        //TODO create factory for models
+        //TODO craate factory for modelviews
+
+        PaycalApp app = new PaycalApp();
 
         app.run();
 

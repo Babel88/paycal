@@ -4,6 +4,8 @@ import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.controllers.TypicalPaymentsControllers;
+import com.babel88.paycal.config.factory.ControllerFactory;
+import com.babel88.paycal.config.factory.UtilFactory;
 import com.babel88.paycal.controllers.support.PaymentModelTypicalControllerUpdate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.view.ResultsOutput;
@@ -24,18 +26,30 @@ public class TypicalPaymentsController implements TypicalPaymentsControllers {
     @Autowired
     public InvoiceDetails invoice;
 
-    @Autowired
     private ReportControllers reportsController;
 
-    @Autowired
-    public PaymentModelTypicalControllerUpdate paymentModelTypicalControllerUpdate;
+    private static TypicalPaymentsControllers instance = new TypicalPaymentsController();
+    //@Autowired
+    private PaymentModelTypicalControllerUpdate paymentModelTypicalControllerUpdate;
 
 
     private boolean doAgain;
 
-    public TypicalPaymentsController() {
+    private TypicalPaymentsController() {
+
+        log.debug("Fetching reports controller object from factory");
+
+        reportsController = ControllerFactory.getInstance().createReportController();
 
         log.debug("The typicalPaymentsController has been invoked");
+
+        log.debug("Creating payment model typical controller update object from factory");
+
+        paymentModelTypicalControllerUpdate = UtilFactory.getInstance().createPaymentModelTypicalControllerUpdate();
+    }
+
+    public static TypicalPaymentsControllers getInstance() {
+        return instance;
     }
 
     @Override
@@ -49,7 +63,7 @@ public class TypicalPaymentsController implements TypicalPaymentsControllers {
                             .invoke();
 
             resultsOutput = (ResultsOutput) viewResults.forPayment(paymentModel);
-            // Results submitted for view
+            // Results submitted for paymentModelView
 
             doAgain = invoice.doAgain();
         } while (doAgain);

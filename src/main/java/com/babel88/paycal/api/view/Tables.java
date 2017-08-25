@@ -1,6 +1,6 @@
 package com.babel88.paycal.api.view;
 
-import com.babel88.paycal.view.Display;
+import com.babel88.paycal.view.DisplayImpl;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -35,9 +35,9 @@ public interface Tables {
      * @return table string
      */
     @NotNull
-    default Tables createTable(String vatWithhold, String withHold, String prepayment, String expensed, String paid, Display display) {
+    default Tables createTable(String vatWithhold, String withHold, String prepayment, String expensed, String paid, DisplayImpl display) {
         // We are now going to create an object in table maker, which we'll user
-        // to view data on the console
+        // to paymentModelView data on the console
 
 
         addString(0,0,"");

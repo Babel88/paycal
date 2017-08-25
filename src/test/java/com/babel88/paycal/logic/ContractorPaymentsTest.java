@@ -1,7 +1,7 @@
 package com.babel88.paycal.logic;
 
 import com.babel88.paycal.api.logic.Contractors;
-import com.babel88.paycal.config.ContextConfigurations;
+import com.babel88.paycal.config.context.GeneralContext;
 import com.babel88.paycal.test.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@org.springframework.test.context.ContextConfiguration(classes = ContextConfigurations.class)
+@org.springframework.test.context.ContextConfiguration(classes = GeneralContext.class)
 public class ContractorPaymentsTest extends TestUtil<Contractors> {
 
     @Autowired

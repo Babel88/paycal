@@ -1,6 +1,7 @@
 package com.babel88.paycal.logic;
 
 import com.babel88.paycal.api.logic.TelegraphicTransfers;
+import com.babel88.paycal.logic.base.ForeignPayments;
 import org.junit.Before;
 import org.junit.Test;
 

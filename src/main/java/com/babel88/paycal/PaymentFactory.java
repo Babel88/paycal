@@ -2,12 +2,12 @@ package com.babel88.paycal;
 
 import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.Logic;
-import com.babel88.paycal.api.view.PayCalView;
+import com.babel88.paycal.api.view.PaymentModelViewInterface;
+import com.babel88.paycal.config.factory.LogicFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.math.BigDecimal;
 import java.util.Scanner;
 
 import static java.lang.System.out;
@@ -21,7 +21,7 @@ public class PaymentFactory {
     Logger log = LoggerFactory.getLogger(PaymentFactory.class);
 
     @Autowired
-    private PayCalView view;
+    private PaymentModelViewInterface view;
 
     @Autowired
     private InvoiceDetails invoice;
@@ -30,6 +30,9 @@ public class PaymentFactory {
     private Logic logic;
 
     public PaymentFactory() {
+
+        //TODO include in factory
+        logic = LogicFactory.getInstance().createMainLogicController();
 
     }
 
@@ -82,7 +85,7 @@ public class PaymentFactory {
                 out.println();
                 out.println("Partially non-taxable payment");
                 out.println("--------------------------------------------");
-                logic.vatGiven(invoice.invoiceAmount(), BigDecimal.valueOf(invoice.vatAmount()));
+                logic.vatGiven();
                 break;
             case g:
                 out.println();

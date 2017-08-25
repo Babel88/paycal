@@ -1,7 +1,8 @@
-package com.babel88.paycal.logic;
+package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.Contractors;
 import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.config.factory.LogicFactory;
 
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicReference;
@@ -17,12 +18,28 @@ public class ContractorPayments implements Contractors {
     private final AtomicReference<BigDecimal> withholdingTaxRate;
     private final AtomicReference<BigDecimal> withholdingVatRate;
 
-    public ContractorPayments(PaymentParameters parameters) {
+    private static Contractors instance = new ContractorPayments();
+
+//    public ContractorPayments(PaymentParameters parameters) {
+//
+//        vatRate = new AtomicReference<>(parameters.getVatRate());
+//        withholdingTaxRate = new AtomicReference<>(parameters.getWithholdingTaxContractor());
+//        withholdingVatRate = new AtomicReference<>(parameters.getWithholdingVatRate());
+//
+//    }
+
+    private ContractorPayments() {
+
+        PaymentParameters parameters = LogicFactory.getInstance().createPaymentParameters();
 
         vatRate = new AtomicReference<>(parameters.getVatRate());
         withholdingTaxRate = new AtomicReference<>(parameters.getWithholdingTaxContractor());
         withholdingVatRate = new AtomicReference<>(parameters.getWithholdingVatRate());
 
+    }
+
+    public static Contractors getInstance() {
+        return instance;
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.babel88.paycal.logic;
 
 import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.logic.base.TypicalPayment;
 import org.junit.Before;
 import org.junit.Test;
 
