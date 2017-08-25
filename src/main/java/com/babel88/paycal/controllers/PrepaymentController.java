@@ -2,10 +2,10 @@ package com.babel88.paycal.controllers;
 
 import com.babel88.paycal.api.logic.Prepayable;
 import com.babel88.paycal.api.view.FeedBack;
+import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
@@ -18,31 +18,25 @@ import static java.lang.System.out;
 @ComponentScan
 public class PrepaymentController implements com.babel88.paycal.api.controllers.PrepaymentController {
 
+    private static PrepaymentController instance = new PrepaymentController(BigDecimal.ZERO);
+    private final Logger log =
+            LoggerFactory.getLogger(this.getClass());
     /*
      * Internal flag for whether or not to run prepayment
      */
     private Boolean prepay;
-
     /*
      * prepayment amount to be return by controller
      */
     private BigDecimal prepaymentAmount;
-
     /*
      * expense amount amount to be injected into the controller
      */
     private BigDecimal expenseAmount;
-
     /*
      * Scanner object to get user input from console
      */
     private Scanner keyboard;
-
-    private final Logger log =
-            LoggerFactory.getLogger(this.getClass());
-
-    private static PrepaymentController instance = new PrepaymentController(BigDecimal.ZERO);
-
     /*
      * This object provides the implementation of the Prepayable interface
      * used here to get the amount to prepay
@@ -51,7 +45,6 @@ public class PrepaymentController implements com.babel88.paycal.api.controllers.
     /*
      * This object delivers the standard user prompt for the application
      */
-    @Autowired
     private FeedBack feedBack;
 
     public PrepaymentController(BigDecimal expenseAmount) {
@@ -59,6 +52,8 @@ public class PrepaymentController implements com.babel88.paycal.api.controllers.
         log.debug("Creating payment controller from factory");
 
         abstractPrepayment = LogicFactory.getInstance().createPrepayable();
+
+        feedBack = GeneralFactory.getInstance().createFeedback();
 
         this.expenseAmount = expenseAmount;
 

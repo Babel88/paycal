@@ -1,12 +1,11 @@
 package com.babel88.paycal.view;
 
-import com.babel88.paycal.PaycalApp;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.api.view.Tables;
+import com.babel88.paycal.config.factory.GeneralFactory;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 
 import java.math.BigDecimal;
@@ -28,15 +27,11 @@ import static java.lang.System.out;
 @ComponentScan
 public class DisplayImpl implements PaymentModelViewInterface {
 
-    private final Logger log = LoggerFactory.getLogger(DisplayImpl.class);
-
-    //@Autowired at setter
-    public Tables tableString;
-    //@Autowired at setter
-    private PaycalApp paycalApp;
-
-    private final AtomicReference<BigDecimal> total,vatWithheld,withholdingTax,toPrepay,toPayee;
     private static PaymentModelViewInterface instance = new DisplayImpl();
+    private final Logger log = LoggerFactory.getLogger(DisplayImpl.class);
+    //private final PaycalApp paycalApp;
+    private final Tables tableString;
+    private final AtomicReference<BigDecimal> total,vatWithheld,withholdingTax,toPrepay,toPayee;
 
     public DisplayImpl(){
 
@@ -46,6 +41,8 @@ public class DisplayImpl implements PaymentModelViewInterface {
         withholdingTax = new AtomicReference<BigDecimal>();
         toPrepay = new AtomicReference<BigDecimal>();
         toPayee = new AtomicReference<BigDecimal>();
+        tableString = GeneralFactory.getInstance().createTables();
+        //paycalApp = GeneralFactory.getInstance().createPaycalApp();
     }
 
     public static PaymentModelViewInterface getInstance() {
@@ -81,7 +78,8 @@ public class DisplayImpl implements PaymentModelViewInterface {
         // We are going to get the time when
         // the computation of the Invoice transactions
         // was instantiated
-        Date timePaid = paycalApp.getNow();
+        //Date timePaid = paycalApp.getNow();
+        Date timePaid = GeneralFactory.getInstance().createPaycalApp().getNow();
 
         out.println("Calculated at: "+timePaid);
 
@@ -147,18 +145,6 @@ public class DisplayImpl implements PaymentModelViewInterface {
 
 
         return BigDecimal.valueOf(Double.valueOf(dformat.format(number)));
-    }
-
-    @Autowired
-    public DisplayImpl setPaycalApp(PaycalApp paycalApp) {
-        this.paycalApp = paycalApp;
-        return this;
-    }
-
-    @Autowired
-    public DisplayImpl setTableString(Tables tableString) {
-        this.tableString = tableString;
-        return this;
     }
 }
 

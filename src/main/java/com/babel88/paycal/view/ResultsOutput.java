@@ -9,27 +9,23 @@ import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicReference;
 
-@ComponentScan
 public class ResultsOutput implements Serializable, ResultsViewer {
 
+    private static ResultsViewer instance =
+            new ResultsOutput(ModelViewFactory.getInstance().createPaymentModelView());
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-
     private final AtomicReference<BigDecimal> total;
     private final AtomicReference<BigDecimal> vatWithheld;
     private final AtomicReference<BigDecimal> withholdingTax;
     private final AtomicReference<BigDecimal> toPrepay;
     private final AtomicReference<BigDecimal> toPayee;
-
     //TODO add paymentModelView logic
     private PaymentModelViewInterface view;
-    private static ResultsViewer instance =
-            new ResultsOutput(ModelViewFactory.getInstance().createPaymentModelView());
 
     @Autowired
     public ResultsOutput(PaymentModelViewInterface view){
