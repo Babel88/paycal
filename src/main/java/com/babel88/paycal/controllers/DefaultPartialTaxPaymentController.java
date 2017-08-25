@@ -13,7 +13,6 @@ import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.view.ResultsOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 
@@ -21,7 +20,7 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
 
     private static PartialTaxPaymentController instance = new DefaultPartialTaxPaymentController();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    public ResultsViewer viewResults;
+    private ResultsViewer viewResults;
     private InvoiceDetails invoice;
     private PaymentParameters parameters;
     private PrepaymentController prepaymentController;
@@ -67,7 +66,7 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
                     partialTaxPaymentLogic.calculateWithholdingVat(vatAmount)
             );
 
-            paymentModel.setTotal(
+            paymentModel.setTotalExpense(
                     partialTaxPaymentLogic.calculateTotalExpense(invoiceAmount)
             );
 
@@ -76,7 +75,7 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
                             .calculateAmountPayableToVendor(paymentModel.getTotal(), paymentModel.getWithHoldingVat())
             );
 
-            paymentModel.setWithHoldingTax(
+            paymentModel.setWithholdingTax(
                     partialTaxPaymentLogic.calculateWithholdingTax()
             );
 

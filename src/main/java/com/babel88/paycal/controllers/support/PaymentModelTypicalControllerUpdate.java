@@ -24,20 +24,15 @@ import static java.math.BigDecimal.ZERO;
 @ComponentScan
 public class PaymentModelTypicalControllerUpdate {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-
-    private PrepaymentController prepaymentController;
-
-    private PaymentModel paymentModel;
-
-    private TypicalPayments typicalPayment;
-    
-    private PaymentModelUndoHelper undoHelper;
-
-    private BigDecimal invoiceAmount;
-    private BigDecimal total = BigDecimal.ZERO;
     private static PaymentModelTypicalControllerUpdate instance =
             new PaymentModelTypicalControllerUpdate();
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private PrepaymentController prepaymentController;
+    private PaymentModel paymentModel;
+    private TypicalPayments typicalPayment;
+    private PaymentModelUndoHelper undoHelper;
+    private BigDecimal invoiceAmount;
+    private BigDecimal total = BigDecimal.ZERO;
     @SuppressWarnings(value = "local Variable")
     private BigDecimal toPrepay = BigDecimal.ZERO;
 
@@ -125,7 +120,7 @@ public class PaymentModelTypicalControllerUpdate {
         // These variables have not been computed but we do need to have them ready
         // as Zero values in the displayResults method
 
-        paymentModel.setWithHoldingTax(ZERO);
+        paymentModel.setWithholdingTax(ZERO);
     }
 
     @UndoRedo
@@ -140,7 +135,7 @@ public class PaymentModelTypicalControllerUpdate {
         log.debug("Calculating total expense for : {}.", this.invoiceAmount);
         total = typicalPayment.calculateTotalExpense(invoiceAmount);
 
-        paymentModel.setTotal(total);
+        paymentModel.setTotalExpense(total);
     }
 
     @UndoRedo

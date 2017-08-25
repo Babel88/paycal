@@ -1,5 +1,6 @@
 package com.babel88.paycal.models;
 
+import com.babel88.paycal.api.DefaultPaymentModel;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import org.slf4j.Logger;
@@ -11,21 +12,16 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static java.math.BigDecimal.ZERO;
 
-public class PaymentModel implements Serializable{
+public class PaymentModel implements Serializable, DefaultPaymentModel {
 
+    private static PaymentModel instance = new PaymentModel();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-
     private final AtomicReference<BigDecimal> amountB4Vat;
-
     private final AtomicReference<BigDecimal> withHoldingVat;
-
     private final AtomicReference<BigDecimal> total;
-
     private final AtomicReference<BigDecimal> toPayee;
-
     private final AtomicReference<BigDecimal> withHoldingTax;
     private final AtomicReference<BigDecimal> toPrepay;
-    private static PaymentModel instance = new PaymentModel();
 
     public PaymentModel() {
 
@@ -60,6 +56,7 @@ public class PaymentModel implements Serializable{
         return withHoldingVat.get();
     }
 
+    @Override
     public PaymentModel setWithHoldingVat(BigDecimal withHoldingVat) {
 
         log.debug("Withholding vat set as : {}.",withHoldingVat);
@@ -71,7 +68,8 @@ public class PaymentModel implements Serializable{
         return total.get();
     }
 
-    public PaymentModel setTotal(BigDecimal total) {
+    @Override
+    public PaymentModel setTotalExpense(BigDecimal total) {
 
         log.debug("Total amount payable set as :"+total);
         this.total.set(total);
@@ -82,6 +80,7 @@ public class PaymentModel implements Serializable{
         return toPayee.get();
     }
 
+    @Override
     public PaymentModel setToPayee(BigDecimal toPayee) {
 
         log.debug("Amount payable to payee set as : "+toPayee);
@@ -93,19 +92,22 @@ public class PaymentModel implements Serializable{
         return withHoldingTax.get();
     }
 
-    public PaymentModel setWithHoldingTax(BigDecimal withHoldingTax) {
+    @Override
+    public PaymentModel setWithholdingTax(BigDecimal withHoldingTax) {
 
         log.debug("Withholding tax set as : ",withHoldingTax);
         this.withHoldingTax.set(withHoldingTax);
         return this;
     }
 
-    public void setToPrepay(BigDecimal toPrepay) {
-        this.toPrepay.set(toPrepay);
-    }
-
     public BigDecimal getToPrepay() {
         return toPrepay.get();
+    }
+
+    @Override
+    public PaymentModel setToPrepay(BigDecimal toPrepay) {
+        this.toPrepay.set(toPrepay);
+        return this;
     }
 
     public void init(){
@@ -113,8 +115,8 @@ public class PaymentModel implements Serializable{
         log.debug("Instantiating the PaymentModel local fields");
         this.setAmountB4Vat(ZERO);
         this.setToPayee(ZERO);
-        this.setTotal(ZERO);
-        this.setWithHoldingTax(ZERO);
+        this.setTotalExpense(ZERO);
+        this.setWithholdingTax(ZERO);
         this.setWithHoldingVat(ZERO);
     }
 
@@ -123,8 +125,8 @@ public class PaymentModel implements Serializable{
         log.debug("Resetting the PaymentModel object");
         this.setAmountB4Vat(ZERO);
         this.setToPayee(ZERO);
-        this.setTotal(ZERO);
-        this.setWithHoldingTax(ZERO);
+        this.setTotalExpense(ZERO);
+        this.setWithholdingTax(ZERO);
         this.setWithHoldingVat(ZERO);
     }
 
@@ -169,11 +171,11 @@ public class PaymentModel implements Serializable{
     public void getStateFromMemento(PaymentModelMemento memento) {
 
         this.setAmountB4Vat(memento.getAmountB4Vat());
-        this.setWithHoldingTax(memento.getWithHoldingTax());
+        this.setWithholdingTax(memento.getWithHoldingTax());
         this.setWithHoldingVat(memento.getWithHoldingVat());
         this.setToPayee(memento.getToPayee());
         this.setToPrepay(memento.getToPrepay());
-        this.setTotal(memento.getTotal());
+        this.setTotalExpense(memento.getTotal());
 
         log.debug("Payment model successfully restored to former state : {}.", this.toString());
     }
