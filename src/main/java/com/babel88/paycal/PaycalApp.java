@@ -1,6 +1,10 @@
 package com.babel88.paycal;
 
 import com.babel88.paycal.api.view.FeedBack;
+import com.babel88.paycal.config.factory.GeneralFactory;
+import com.babel88.paycal.config.factory.ModelViewFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Timestamp;
@@ -11,17 +15,26 @@ import java.util.Date;
  * Created by edwin.njeru on 10/08/2017.
  */
 public class PaycalApp {
+
+    private final Logger log = LoggerFactory.getLogger(PaycalApp.class);
     private final Date now;
 
-    @Autowired
     private FeedBack feedBack;
-
-    @Autowired
     private PaymentFactory factory;
+    private static PaycalApp instance = new PaycalApp();
 
 
     public PaycalApp(){
+
+        log.debug("Creating an instance of the paycalApp");
+
+        feedBack = GeneralFactory.getInstance().createFeedback();
+        factory = GeneralFactory.getInstance().createPaymentFactory();
         now = gettingTime();
+    }
+
+    public static PaycalApp getInstance() {
+        return instance;
     }
 
     public void run(){

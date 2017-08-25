@@ -6,18 +6,29 @@ package com.babel88.paycal.view.tables;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
 import com.babel88.paycal.api.view.Tables;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class TableMaker implements Tables {
 
+    private final Logger log = LoggerFactory.getLogger(TableMaker.class);
+
     Map<Index, String> _strings = new HashMap();
     Map<Integer, Integer> _columSizes = new HashMap();
     int _numRows = 0;
     int _numColumns = 0;
+    private static Tables instance = new TableMaker();
 
     public TableMaker() {
+
+        log.debug("Creating a new TableMaker object");
+    }
+
+    public static Tables getInstance() {
+        return instance;
     }
 
     @Override

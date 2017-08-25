@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan
+@Deprecated
 public class Models {
 
     @Bean(initMethod = "init",destroyMethod = "destroy")

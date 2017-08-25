@@ -25,6 +25,7 @@ public class PaymentModel implements Serializable{
 
     private final AtomicReference<BigDecimal> withHoldingTax;
     private final AtomicReference<BigDecimal> toPrepay;
+    private static PaymentModel instance = new PaymentModel();
 
     public PaymentModel() {
 
@@ -38,6 +39,10 @@ public class PaymentModel implements Serializable{
 
         log.debug("Payment model created : {}.",this.toString());
 
+    }
+
+    public static PaymentModel getInstance() {
+        return instance;
     }
 
     public BigDecimal getAmountB4Vat() {

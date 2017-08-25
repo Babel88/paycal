@@ -11,6 +11,11 @@ import org.springframework.stereotype.Component;
 //@Aspect
 @Component
 public class UndoRedoAspect {
+    private static UndoRedoAspect instance = new UndoRedoAspect();
+
+    public static UndoRedoAspect getInstance() {
+        return instance;
+    }
 //
 //    private final Logger log = LoggerFactory.getLogger(this.getClass());
 //

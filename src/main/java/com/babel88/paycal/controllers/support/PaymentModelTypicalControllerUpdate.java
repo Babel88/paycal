@@ -4,6 +4,7 @@ import com.babel88.paycal.api.logic.PrepaymentService;
 import com.babel88.paycal.api.logic.TypicalPayments;
 import com.babel88.paycal.config.factory.ControllerFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
+import com.babel88.paycal.config.factory.ModelFactory;
 import com.babel88.paycal.config.factory.UtilFactory;
 import com.babel88.paycal.controllers.PrepaymentController;
 import com.babel88.paycal.controllers.support.undo.PaymentModelUndoHelper;
@@ -50,7 +51,7 @@ public class PaymentModelTypicalControllerUpdate {
 
         prepaymentController = ControllerFactory.getInstance().createPrepaymentController();
 
-        //paymentModel = logicFactory.createPaymentModel();
+        paymentModel = ModelFactory.getInstance().createPaymentModel();
 
         undoHelper = UtilFactory.getInstance().createPaymentModelUndoHelper();
     }

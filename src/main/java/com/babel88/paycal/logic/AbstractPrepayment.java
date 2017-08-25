@@ -3,6 +3,7 @@ package com.babel88.paycal.logic;
 import com.babel88.paycal.api.PrepaymentDetails;
 import com.babel88.paycal.api.logic.Prepayable;
 import com.babel88.paycal.config.GeneralConfigurations;
+import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
@@ -64,7 +65,11 @@ public class AbstractPrepayment implements Prepayable,Serializable {
 
     private AbstractPrepayment() {
 
+        log.debug("Creating abstract prepayment using general configurations and prepayment details \n" +
+                "from Logic factory and General factory respectively");
         generalConfigurations = LogicFactory.getInstance().createGeneralConfigurations();
+
+        prepaymentDetails = GeneralFactory.getInstance().createPrepaymentDetails();
 
         log.debug("Creating prepayment with default configurations, from the general \n" +
                 "configurations object : {}.",generalConfigurations.toString());

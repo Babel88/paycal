@@ -40,11 +40,4 @@ public class UtilFactory {
 
         return PaymentModelUndoHelper.getInstance();
     }
-
-    public PaymentModelCareTaker createPaymentModelCareTaker(){
-
-        log.debug("Returning singleton instance of the Payment model caretake");
-
-        return PaymentModelCareTaker.getInstance();
-    }
 }

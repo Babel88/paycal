@@ -1,5 +1,7 @@
 package com.babel88.paycal;
 
+import com.babel88.paycal.config.factory.GeneralFactory;
+
 public class Main {
 
 
@@ -8,13 +10,10 @@ public class Main {
 //        ApplicationContext context =
 //                new AnnotationConfigApplicationContext(GeneralContext.class);
 
-        //TODO  context.registerShutdownHook();
-
-        //TODO create factory for general items
         //TODO create factory for models
         //TODO craate factory for modelviews
 
-        PaycalApp app = new PaycalApp();
+        PaycalApp app = GeneralFactory.getInstance().createPaycalApp();
 
         app.run();
 

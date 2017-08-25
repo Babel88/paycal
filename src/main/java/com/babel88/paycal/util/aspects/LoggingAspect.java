@@ -10,6 +10,11 @@ package com.babel88.paycal.util.aspects;
  */
 //@Aspect
 public class LoggingAspect {
+    private static LoggingAspect instance = new LoggingAspect();
+
+    public static LoggingAspect getInstance() {
+        return instance;
+    }
 //
 //    Logger log = LoggerFactory.getLogger("Log-Aspect");
 //

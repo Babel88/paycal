@@ -4,6 +4,8 @@ import com.babel88.paycal.api.ForeignPaymentDetails;
 import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.PrepaymentDetails;
 import com.babel88.paycal.api.view.FeedBack;
+import com.babel88.paycal.config.factory.GeneralFactory;
+import com.babel88.paycal.config.factory.ModelViewFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
@@ -24,27 +26,22 @@ import static java.lang.System.out;
  */
 public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentDetails {
 
-    //@Autowired at setter
-    private FeedBack notice;
+    private final FeedBack notice;
+    private final Scanner keyboard;
+    private static InvoiceDetails instance =
+            new Invoice(
+                    GeneralFactory.getInstance().createFeedback(),
+                    new Scanner(System.in)
+            );
 
-    //@Autowired at setter
-    private Scanner keyboard;
+    private Invoice(FeedBack notice,Scanner keyboard) {
 
-    public Invoice() {
-    }
-
-    @SuppressWarnings("unused")
-    @Autowired
-    public Invoice setNotice(FeedBack notice) {
         this.notice = notice;
-        return this;
+        this.keyboard = keyboard;
     }
 
-    @SuppressWarnings("unused")
-    @Autowired
-    public Invoice setKeyboard(Scanner keyboard) {
-        this.keyboard = keyboard;
-        return this;
+    public static InvoiceDetails getInstance() {
+        return instance;
     }
 
     /**

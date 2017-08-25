@@ -3,7 +3,9 @@ package com.babel88.paycal;
 import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.Logic;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
+import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
+import com.babel88.paycal.config.factory.ModelViewFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +21,22 @@ import static java.lang.System.out;
 public class PaymentFactory {
 
     Logger log = LoggerFactory.getLogger(PaymentFactory.class);
-
-    @Autowired
     private PaymentModelViewInterface view;
-
-    @Autowired
     private InvoiceDetails invoice;
-
-    @Autowired
     private Logic logic;
+    private static PaymentFactory instance = new PaymentFactory();
 
     public PaymentFactory() {
 
+        log.debug("Creating an instance of the PaymentFactory");
         //TODO include in factory
         logic = LogicFactory.getInstance().createMainLogicController();
+        view = ModelViewFactory.getInstance().createPaymentModelView();
+        invoice = GeneralFactory.getInstance().createInvoice();
+    }
 
+    public static PaymentFactory getInstance() {
+        return instance;
     }
 
     private String usrChoice(){

@@ -1,5 +1,6 @@
 package com.babel88.paycal.controllers.support.undo;
 
+import com.babel88.paycal.config.factory.ModelFactory;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.models.PaymentModelCareTaker;
 import org.slf4j.Logger;
@@ -41,7 +42,6 @@ public class PaymentModelUndoHelper {
     private int calculationSteps = 0;
     private boolean undo = false;
     private boolean redo = false;
-    @Autowired
     private PaymentModelCareTaker paymentModelCareTaker;
 
     private static PaymentModelUndoHelper instance = new PaymentModelUndoHelper();
@@ -49,6 +49,7 @@ public class PaymentModelUndoHelper {
     public PaymentModelUndoHelper() {
 
         log.debug("PaymentModelUndoHelper created");
+        paymentModelCareTaker = ModelFactory.getInstance().createPaymentModelCaretaker();
     }
 
     public static PaymentModelUndoHelper getInstance() {

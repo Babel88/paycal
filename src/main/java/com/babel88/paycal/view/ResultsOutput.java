@@ -2,6 +2,7 @@ package com.babel88.paycal.view;
 
 import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
+import com.babel88.paycal.config.factory.ModelViewFactory;
 import com.babel88.paycal.models.PaymentModel;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
@@ -27,6 +28,8 @@ public class ResultsOutput implements Serializable, ResultsViewer {
 
     //TODO add paymentModelView logic
     private PaymentModelViewInterface view;
+    private static ResultsViewer instance =
+            new ResultsOutput(ModelViewFactory.getInstance().createPaymentModelView());
 
     @Autowired
     public ResultsOutput(PaymentModelViewInterface view){
@@ -41,6 +44,10 @@ public class ResultsOutput implements Serializable, ResultsViewer {
         toPrepay = new AtomicReference<BigDecimal>();
         toPayee = new AtomicReference<BigDecimal>();
 
+    }
+
+    public static ResultsViewer getInstance() {
+        return instance;
     }
 
     /**

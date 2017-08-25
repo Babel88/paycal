@@ -12,11 +12,12 @@ import com.babel88.paycal.api.logic.TelegraphicTransfers;
 import com.babel88.paycal.api.logic.WithholdingTaxPayments;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.config.factory.ControllerFactory;
+import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
+import com.babel88.paycal.config.factory.ModelViewFactory;
 import com.babel88.paycal.controllers.PrepaymentController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
@@ -37,16 +38,12 @@ public class BusinessLogic implements Logic,Incarnatable {
 
     private Contractors contractor;
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     public DefaultPrepayable defaultPrepayment;
-
     private WithholdingTaxPayments withholdingTaxPayment;
-
     private PrepaymentController prepaymentController;
-    @Autowired
     private PaymentModelViewInterface paymentModelView;
-
     private TelegraphicTransfers foreignPayments;
-    @Autowired
     private ForeignPaymentDetails foreignPaymentDetails;
     private TypicalPaymentsControllers typicalPaymentsController;
     private PartialTaxPaymentController partialTaxPaymentController;
@@ -71,6 +68,13 @@ public class BusinessLogic implements Logic,Incarnatable {
 
         partialTaxPaymentController = ControllerFactory.getInstance().createPartialTaxPaymentController();
 
+        log.debug("Fetching instances from the payment model view Factory");
+
+        paymentModelView = ModelViewFactory.getInstance().createPaymentModelView();
+
+        log.debug("Fetching instance from the general factory");
+
+        foreignPaymentDetails = GeneralFactory.getInstance().createForeignPaymentDetails();
     }
 
     public static Logic getInstance(){

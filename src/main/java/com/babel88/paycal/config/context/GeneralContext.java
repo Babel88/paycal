@@ -35,17 +35,13 @@ import java.util.Scanner;
 @Deprecated
 public class GeneralContext {
 
-    @Bean
-    public PaycalApp paycalApp(){
 
-        return new PaycalApp();
-    }
 
-    @Bean
-    public InvoiceDetails invoice(){
-
-        return new Invoice();
-    }
+//    @Bean
+//    public InvoiceDetails invoice(){
+//
+//        return new Invoice();
+//    }
 
 
 
@@ -55,11 +51,11 @@ public class GeneralContext {
 //        return new BusinessLogic();
 //    }
 
-    @Bean
-    public FeedBack feedBack(){
-
-        return new Notifications();
-    }
+//    @Bean
+//    public FeedBack feedBack(){
+//
+//        return new Notifications();
+//    }
 
 //    @Bean
 //    public PaymentFactory factory(){
@@ -67,40 +63,40 @@ public class GeneralContext {
 //        return new PaymentFactory();
 //    }
 
-    @Bean
-    public LoggingAspect loggingAspect(){
+//    @Bean
+//    public LoggingAspect loggingAspect(){
+//
+//        return new LoggingAspect();
+//    }
 
-        return new LoggingAspect();
-    }
+//    @Bean
+//    public UndoRedoAspect undoRedoAspect(){
+//
+//        return new UndoRedoAspect();
+//    }
 
-    @Bean
-    public UndoRedoAspect undoRedoAspect(){
+//    @Bean
+//    public Tables tableString(){
+//
+//        return new TableMaker();
+//    }
 
-        return new UndoRedoAspect();
-    }
+//    @Bean
+//    public PrepaymentDetails prepaymentDetails(){
+//
+//        return (PrepaymentDetails) invoice();
+//    }
 
-    @Bean
-    public Tables tableString(){
+//    @Bean
+//    public Scanner keyboard(){
+//
+//        return new Scanner(System.in);
+//    }
 
-        return new TableMaker();
-    }
-
-    @Bean
-    public PrepaymentDetails prepaymentDetails(){
-
-        return (PrepaymentDetails) invoice();
-    }
-
-    @Bean
-    public Scanner keyboard(){
-
-        return new Scanner(System.in);
-    }
-
-    @Bean
-    public ForeignPaymentDetails foreignPaymentDetails(){
-
-        return (ForeignPaymentDetails)invoice();
-    }
+//    @Bean
+//    public ForeignPaymentDetails foreignPaymentDetails(){
+//
+//        return (ForeignPaymentDetails)invoice();
+//    }
 
 }

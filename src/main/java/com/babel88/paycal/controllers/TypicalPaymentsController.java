@@ -5,13 +5,14 @@ import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.controllers.TypicalPaymentsControllers;
 import com.babel88.paycal.config.factory.ControllerFactory;
+import com.babel88.paycal.config.factory.GeneralFactory;
+import com.babel88.paycal.config.factory.ModelViewFactory;
 import com.babel88.paycal.config.factory.UtilFactory;
 import com.babel88.paycal.controllers.support.PaymentModelTypicalControllerUpdate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.view.ResultsOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 
@@ -19,13 +20,8 @@ public class TypicalPaymentsController implements TypicalPaymentsControllers {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-
-    @Autowired
     private ResultsViewer viewResults;
-
-    @Autowired
     public InvoiceDetails invoice;
-
     private ReportControllers reportsController;
 
     private static TypicalPaymentsControllers instance = new TypicalPaymentsController();
@@ -37,14 +33,14 @@ public class TypicalPaymentsController implements TypicalPaymentsControllers {
 
     private TypicalPaymentsController() {
 
-        log.debug("Fetching reports controller object from factory");
-
-        reportsController = ControllerFactory.getInstance().createReportController();
-
         log.debug("The typicalPaymentsController has been invoked");
-
-        log.debug("Creating payment model typical controller update object from factory");
-
+        log.debug("Fetching invoice object from general factory");
+        invoice = GeneralFactory.getInstance().createInvoice();
+        log.debug("Fetching results viewer object from model view factory");
+        viewResults = ModelViewFactory.getInstance().createResultsViewer();
+        log.debug("Fetching reports controller object from factory");
+        reportsController = ControllerFactory.getInstance().createReportController();
+        log.debug("Fetching paymentModelTypicalControllerUpdate object from utility factory");
         paymentModelTypicalControllerUpdate = UtilFactory.getInstance().createPaymentModelTypicalControllerUpdate();
     }
 

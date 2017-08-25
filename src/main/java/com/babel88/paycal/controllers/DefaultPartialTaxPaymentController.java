@@ -8,8 +8,7 @@ import com.babel88.paycal.api.logic.PartialTaxPaymentLogic;
 import com.babel88.paycal.api.logic.PrepaymentService;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.config.PaymentParameters;
-import com.babel88.paycal.config.factory.ControllerFactory;
-import com.babel88.paycal.config.factory.LogicFactory;
+import com.babel88.paycal.config.factory.*;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.view.ResultsOutput;
 import org.slf4j.Logger;
@@ -22,21 +21,13 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
 
     private static PartialTaxPaymentController instance = new DefaultPartialTaxPaymentController();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    @Autowired
     public ResultsViewer viewResults;
-    @Autowired
     private InvoiceDetails invoice;
-    //@Autowired
     private PaymentParameters parameters;
-    //@Autowired
     private PrepaymentController prepaymentController;
-    @Autowired
     private PaymentModelViewInterface view;
-    @Autowired
     private PaymentModel paymentModel;
-    //@Autowired
     private ReportControllers reportsController;
-    //@Autowired
     private PartialTaxPaymentLogic partialTaxPaymentLogic;
     //used in computations
     private Boolean doAgain;
@@ -48,12 +39,13 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
         log.debug("Getting inner dependencies from factory...");
 
         parameters = LogicFactory.getInstance().createPaymentParameters();
-
         partialTaxPaymentLogic = LogicFactory.getInstance().createPartialTaxPaymentLogic();
-
         reportsController = ControllerFactory.getInstance().createReportController();
-
         prepaymentController = ControllerFactory.getInstance().createPrepaymentController();
+        viewResults = ModelViewFactory.getInstance().createResultsViewer();
+        invoice = GeneralFactory.getInstance().createInvoice();
+        view = ModelViewFactory.getInstance().createPaymentModelView();
+        paymentModel = ModelFactory.getInstance().createPaymentModel();
 
         doAgain = false;
     }

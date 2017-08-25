@@ -24,7 +24,6 @@ public class DefaultPartialTaxPaymentLogic implements PartialTaxPaymentLogic {
         log.debug("Calling the paymentParameter singleton from factory...");
 
         paymentParameters = LogicFactory.getInstance().createPaymentParameters();
-
     }
 
     public static PartialTaxPaymentLogic getInstance() {

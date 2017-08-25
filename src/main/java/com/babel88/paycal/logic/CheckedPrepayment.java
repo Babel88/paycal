@@ -2,6 +2,7 @@ package com.babel88.paycal.logic;
 
 import com.babel88.paycal.api.DefaultPrepayable;
 import com.babel88.paycal.api.InvoiceDetails;
+import com.babel88.paycal.config.factory.GeneralFactory;
 import com.google.common.base.Objects;
 
 import java.math.BigDecimal;
@@ -42,6 +43,8 @@ public class CheckedPrepayment implements DefaultPrepayable {
     }
 
     public CheckedPrepayment() {
+
+        invoice = GeneralFactory.getInstance().createInvoice();
     }
 
     private static LocalDate getStartDate() {

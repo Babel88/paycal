@@ -4,6 +4,8 @@ import com.babel88.paycal.PaycalApp;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.api.view.Tables;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -26,19 +28,28 @@ import static java.lang.System.out;
 @ComponentScan
 public class DisplayImpl implements PaymentModelViewInterface {
 
+    private final Logger log = LoggerFactory.getLogger(DisplayImpl.class);
+
     //@Autowired at setter
     public Tables tableString;
     //@Autowired at setter
     private PaycalApp paycalApp;
 
     private final AtomicReference<BigDecimal> total,vatWithheld,withholdingTax,toPrepay,toPayee;
+    private static PaymentModelViewInterface instance = new DisplayImpl();
 
     public DisplayImpl(){
+
+        log.debug("Creating empty value fields in the DisplayImpl");
         total = new AtomicReference<BigDecimal>();
         vatWithheld = new AtomicReference<BigDecimal>();
         withholdingTax = new AtomicReference<BigDecimal>();
         toPrepay = new AtomicReference<BigDecimal>();
         toPayee = new AtomicReference<BigDecimal>();
+    }
+
+    public static PaymentModelViewInterface getInstance() {
+        return instance;
     }
 
     @Override

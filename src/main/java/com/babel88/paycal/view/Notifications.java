@@ -9,7 +9,13 @@ import static java.lang.System.out;
 
 public class Notifications implements FeedBack {
 
+    private static FeedBack instance = new Notifications();
+
     public Notifications(){}
+
+    public static FeedBack getInstance() {
+        return instance;
+    }
 
     @Override
     public void printIntro(){
