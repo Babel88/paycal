@@ -13,15 +13,6 @@ repositories {
 
 dependencies {
 
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: '1.5.6.RELEASE'
-
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.6.RELEASE'
-
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '1.5.6.RELEASE'
-
     // https://mvnrepository.com/artifact/net.sourceforge.dynamicreports/dynamicreports-core
     compile group: 'net.sourceforge.dynamicreports', name: 'dynamicreports-core', version: '5.0.0'
 
@@ -34,14 +25,39 @@ dependencies {
     // https://mvnrepository.com/artifact/net.sourceforge.dynamicreports/dynamicreports-parent
     compile group: 'net.sourceforge.dynamicreports', name: 'dynamicreports-parent', version: '5.0.0', ext: 'pom'
 
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-ext
+    compile group: 'org.slf4j', name: 'slf4j-ext', version: '1.7.25'
+
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+    testCompile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
 
     // https://mvnrepository.com/artifact/org.meanbean/meanbean
     testCompile group: 'org.meanbean', name: 'meanbean', version: '2.0.3'
 
     // https://mvnrepository.com/artifact/nl.jqno.equalsverifier/equalsverifier
     testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '2.3.2'
+
+//    // https://mvnrepository.com/artifact/junit/junit
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
+//
+//    // https://mvnrepository.com/artifact/org.mockito/mockito-all
+//    testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
+//
+//    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+//    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.9.0'
+//
+//    // https://mvnrepository.com/artifact/org.powermock/powermock-mockito-release-full
+//    testCompile group: 'org.powermock', name: 'powermock-mockito-release-full', version: '1.6.4', ext: 'pom'
+
+    // https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine
+    compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.5.5'
+
 
     compile 'com.github.Babel88:faker:1.2.5'
 
@@ -58,10 +74,24 @@ dependencies {
 
     compile 'com.github.Babel88:jsr354-ri:1.1'
 
-    // aop libs
-    compile files("/home/eddard/Java_Libraries/aop/aspectj-1.8.10.jar")
-    compile files("/home/eddard/Java_Libraries/aop/aspectjrt-1.8.10.jar")
-    compile files("/home/eddard/Java_Libraries/aop/aspectjweaver-1.8.10.jar")
+    // https://mvnrepository.com/artifact/org.aspectj/aspectjrt
+    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.8.10'
+
+    // https://mvnrepository.com/artifact/org.aspectj/aspectjweaver
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.10'
+
+    // https://mvnrepository.com/artifact/org.aspectj/aspectjtools
+    compile group: 'org.aspectj', name: 'aspectjtools', version: '1.8.10'
+
+//    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-logging
+//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '1.5.6.RELEASE'
+//
+//    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
+//    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.6.RELEASE'
+//
+//    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
+//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '1.5.6.RELEASE'
+
 }
 
 jar{

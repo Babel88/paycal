@@ -31,7 +31,7 @@ public class PaymentModelMemento {
 
         this.amountB4Vat = new AtomicReference<>(model.getAmountB4Vat());
         this.withHoldingVat = new AtomicReference<>(model.getWithHoldingVat());
-        this.total = new AtomicReference<>(model.getTotal());
+        this.total = new AtomicReference<>(model.getTotalExpense());
         this.toPayee = new AtomicReference<>(model.getToPayee());
         this.withHoldingTax = new AtomicReference<>(model.getWithHoldingTax());
         this.toPrepay = new AtomicReference<>(model.getToPrepay());

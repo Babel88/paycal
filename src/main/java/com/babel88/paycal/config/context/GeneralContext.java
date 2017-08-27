@@ -12,26 +12,12 @@ import com.babel88.paycal.util.aspects.LoggingAspect;
 import com.babel88.paycal.view.Invoice;
 import com.babel88.paycal.view.Notifications;
 import com.babel88.paycal.view.tables.TableMaker;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 import java.util.Scanner;
 
 /**
  * Created by edwin.njeru on 10/08/2017.
  */
-//@EnableAspectJAutoProxy
-@Configuration
-@Import({
-        Models.class,
-        Logic.class,
-        Controllers.class,
-        Utils.class,
-        ModelView.class
-})
-@ComponentScan
 @Deprecated
 public class GeneralContext {
 

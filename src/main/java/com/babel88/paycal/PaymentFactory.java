@@ -8,7 +8,6 @@ import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.config.factory.ModelViewFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Scanner;
 

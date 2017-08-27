@@ -3,6 +3,7 @@ package com.babel88.paycal.logic;
 import com.babel88.paycal.api.DefaultPrepayable;
 import com.babel88.paycal.api.ForeignPaymentDetails;
 import com.babel88.paycal.api.Logic;
+import com.babel88.paycal.api.controllers.BaseController;
 import com.babel88.paycal.api.controllers.PartialTaxPaymentController;
 import com.babel88.paycal.api.controllers.TypicalPaymentsControllers;
 import com.babel88.paycal.api.factory.Incarnatable;
@@ -16,10 +17,9 @@ import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.config.factory.ModelViewFactory;
 import com.babel88.paycal.controllers.PrepaymentController;
+import net.sf.jasperreports.web.servlets.Controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
@@ -30,8 +30,6 @@ import java.math.BigDecimal;
  * Ideally this is the heart of the entre program
  * Ideally all of those methods are likely to crowd the class but will try to keep the methods to small sizes
  */
-@Component
-@ComponentScan
 public class BusinessLogic implements Logic,Incarnatable {
 
     private static Logic instance = new BusinessLogic();
@@ -47,6 +45,7 @@ public class BusinessLogic implements Logic,Incarnatable {
     private ForeignPaymentDetails foreignPaymentDetails;
     private TypicalPaymentsControllers typicalPaymentsController;
     private PartialTaxPaymentController partialTaxPaymentController;
+    private BaseController contractorPaymentController;
 
     private BusinessLogic() {
 
@@ -75,6 +74,9 @@ public class BusinessLogic implements Logic,Incarnatable {
         log.debug("Fetching instance from the general factory");
 
         foreignPaymentDetails = GeneralFactory.getInstance().createForeignPaymentDetails();
+
+        log.debug("Fetching contractor payments controller from ControllerFactory");
+        //contractorPaymentController = ControllerFactory.getInstance().createContractorPaymentController();
     }
 
     public static Logic getInstance(){

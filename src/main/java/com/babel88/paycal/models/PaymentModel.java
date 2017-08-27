@@ -64,7 +64,8 @@ public class PaymentModel implements Serializable, DefaultPaymentModel {
         return this;
     }
 
-    public BigDecimal getTotal() {
+    @Override
+    public BigDecimal getTotalExpense() {
         return total.get();
     }
 

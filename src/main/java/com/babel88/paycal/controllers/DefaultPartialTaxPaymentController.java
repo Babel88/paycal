@@ -8,7 +8,11 @@ import com.babel88.paycal.api.logic.PartialTaxPaymentLogic;
 import com.babel88.paycal.api.logic.PrepaymentService;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.config.PaymentParameters;
-import com.babel88.paycal.config.factory.*;
+import com.babel88.paycal.config.factory.ControllerFactory;
+import com.babel88.paycal.config.factory.GeneralFactory;
+import com.babel88.paycal.config.factory.LogicFactory;
+import com.babel88.paycal.config.factory.ModelFactory;
+import com.babel88.paycal.config.factory.ModelViewFactory;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.view.ResultsOutput;
 import org.slf4j.Logger;
@@ -72,16 +76,16 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
 
             paymentModel.setToPayee(
                     partialTaxPaymentLogic
-                            .calculateAmountPayableToVendor(paymentModel.getTotal(), paymentModel.getWithHoldingVat())
+                            .calculateAmountPayableToVendor(paymentModel.getTotalExpense(), paymentModel.getWithHoldingVat())
             );
 
             paymentModel.setWithholdingTax(
                     partialTaxPaymentLogic.calculateWithholdingTax()
             );
 
-            prepaymentController.setExpenseAmount(paymentModel.getTotal());
+            prepaymentController.setExpenseAmount(paymentModel.getTotalExpense());
             paymentModel.setToPrepay(
-                    ((PrepaymentService) prepaymentController::getPrepayment).prepay(paymentModel.getTotal())
+                    ((PrepaymentService) prepaymentController::getPrepayment).prepay(paymentModel.getTotalExpense())
             );
 
             resultsOutput = (ResultsOutput) viewResults.forPayment(paymentModel);

@@ -1,10 +1,5 @@
 package com.babel88.paycal.config.context;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-@ComponentScan
 @Deprecated
 class Utils {
 

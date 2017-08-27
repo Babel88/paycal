@@ -11,8 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -26,7 +24,6 @@ import static java.math.RoundingMode.HALF_EVEN;
 /**
  * Implementation of the AbstractPrepayment interface using jsr310
  */
-@Component
 public class AbstractPrepayment implements Prepayable,Serializable {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -225,7 +222,6 @@ public class AbstractPrepayment implements Prepayable,Serializable {
         log.debug("Prepayment dates set successfully without incidence");
     }
 
-    @Autowired
     public AbstractPrepayment setPrepaymentDetails(PrepaymentDetails prepaymentDetails) {
 
         this.prepaymentDetails = prepaymentDetails;
@@ -233,7 +229,6 @@ public class AbstractPrepayment implements Prepayable,Serializable {
         return this;
     }
 
-    @Autowired
     public AbstractPrepayment setGeneralConfigurations(GeneralConfigurations generalConfigurations) {
         this.generalConfigurations = generalConfigurations;
         return this;

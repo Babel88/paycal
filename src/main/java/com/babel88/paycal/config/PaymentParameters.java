@@ -3,7 +3,6 @@ package com.babel88.paycal.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
@@ -17,7 +16,6 @@ import static java.math.RoundingMode.UNNECESSARY;
  * c) Withholding vat rate
  * d) Methods to effect the change of the above
  */
-@Component
 public class PaymentParameters {
 
     private final ThreadLocal<Logger> log;
@@ -30,7 +28,7 @@ public class PaymentParameters {
     //Code for singleTon pattern
     private static PaymentParameters instance = new PaymentParameters();
 
-    PaymentParameters() {
+    private PaymentParameters() {
 
         log = ThreadLocal.withInitial(() -> LoggerFactory.getLogger(this.getClass()));
         log.get().debug("\nCreating payment parameters object with : \n" +

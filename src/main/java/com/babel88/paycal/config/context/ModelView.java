@@ -5,10 +5,7 @@ import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.view.DisplayImpl;
 import com.babel88.paycal.view.ResultsOutput;
 import com.babel88.paycal.view.reporting.PaymentAdvice;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
 @Deprecated
 public class ModelView {
 
@@ -24,9 +21,9 @@ public class ModelView {
 //        return new DisplayImpl();
 //    }
 
-    @Bean
-    public PaymentAdvice paymentAdvice() {
-
-        return new PaymentAdvice();
-    }
+//    @Bean
+//    public PaymentAdvice paymentAdvice() {
+//
+//        return new PaymentAdvice();
+//    }
 }

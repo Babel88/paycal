@@ -8,7 +8,6 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -27,7 +26,6 @@ public class ResultsOutput implements Serializable, ResultsViewer {
     //TODO add paymentModelView logic
     private PaymentModelViewInterface view;
 
-    @Autowired
     public ResultsOutput(PaymentModelViewInterface view){
 
         this.view = view;
@@ -63,7 +61,7 @@ public class ResultsOutput implements Serializable, ResultsViewer {
 
     private void createLocalPaymentFieldsFromModel(PaymentModel model){
 
-        this.setTotal(model.getTotal());
+        this.setTotal(model.getTotalExpense());
         this.setVatWithheld(model.getWithHoldingVat());
         this.setWithholdingTax(model.getWithHoldingTax());
         this.setToPrepay(model.getToPrepay());

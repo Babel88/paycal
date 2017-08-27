@@ -12,16 +12,12 @@ import com.babel88.paycal.controllers.support.undo.UndoRedo;
 import com.babel88.paycal.models.PaymentModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
+
 
 import java.math.BigDecimal;
 
 import static java.math.BigDecimal.ZERO;
 
-@Component
-@ComponentScan
 public class PaymentModelTypicalControllerUpdate {
 
     private static PaymentModelTypicalControllerUpdate instance =
@@ -174,25 +170,21 @@ public class PaymentModelTypicalControllerUpdate {
         }
     }*/
 
-    @Autowired
     public PaymentModelTypicalControllerUpdate setPrepaymentController(PrepaymentController prepaymentController) {
         this.prepaymentController = prepaymentController;
         return this;
     }
 
-    @Autowired
     public PaymentModelTypicalControllerUpdate setPaymentModel(PaymentModel paymentModel) {
         this.paymentModel = paymentModel;
         return this;
     }
 
-    @Autowired
     public PaymentModelTypicalControllerUpdate setTypicalPayment(TypicalPayments typicalPayment) {
         this.typicalPayment = typicalPayment;
         return this;
     }
 
-    @Autowired
     public PaymentModelTypicalControllerUpdate setUndoHelper(PaymentModelUndoHelper undoHelper) {
         this.undoHelper = undoHelper;
         return this;

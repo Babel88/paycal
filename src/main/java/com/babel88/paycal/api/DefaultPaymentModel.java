@@ -20,4 +20,10 @@ public interface DefaultPaymentModel<T> {
     T setToPrepay(BigDecimal toPrepay);
 
     T setToPayee(BigDecimal toPayee);
+
+    /**
+     *
+     * @return amount of total expense
+     */
+    BigDecimal getTotalExpense();
 }

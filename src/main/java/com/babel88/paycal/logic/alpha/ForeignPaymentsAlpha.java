@@ -3,8 +3,6 @@ package com.babel88.paycal.logic.alpha;
 import com.babel88.paycal.api.logic.WiredPayments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -21,8 +19,6 @@ import static java.math.RoundingMode.HALF_EVEN;
  * to submit VAT for self, we have to calculate the VAT, based on the Invoice
  * but in reverse</p>
  */
-@ComponentScan
-@Component
 public class ForeignPaymentsAlpha implements WiredPayments {
 
     private final Logger log = LoggerFactory.getLogger(ForeignPaymentsAlpha.class);

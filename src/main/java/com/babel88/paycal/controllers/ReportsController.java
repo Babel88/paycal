@@ -8,7 +8,6 @@ import com.babel88.paycal.view.ResultsOutput;
 import com.babel88.paycal.view.reporting.PaymentAdvice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class ReportsController implements ReportControllers {
 

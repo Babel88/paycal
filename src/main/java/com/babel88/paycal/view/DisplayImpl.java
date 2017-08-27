@@ -6,7 +6,6 @@ import com.babel88.paycal.config.factory.GeneralFactory;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -24,7 +23,6 @@ import static java.lang.System.out;
  * place. This is because the itax system will round up the tax
  * payable up by 1 if there is anything after the decimal place
  */
-@ComponentScan
 public class DisplayImpl implements PaymentModelViewInterface {
 
     private static PaymentModelViewInterface instance = new DisplayImpl();

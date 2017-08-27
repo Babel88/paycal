@@ -5,8 +5,6 @@ import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.LogicFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -23,8 +21,6 @@ import static java.lang.System.out;
  * <p>e) The Invoice is not encumbered with duties or levies</p>
  * <p>f) The Invoice contains a component that is to be prepaid</p>
  */
-@Component
-@ComponentScan
 public class DefaultPrepayment implements DefaultPrepayable {
 
     private static DefaultPrepayable instance = new DefaultPrepayment();

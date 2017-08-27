@@ -5,11 +5,9 @@ import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.LogicFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
-@Component
 public class DefaultPartialTaxPaymentLogic implements PartialTaxPaymentLogic {
 
     private static PartialTaxPaymentLogic instance = new DefaultPartialTaxPaymentLogic();

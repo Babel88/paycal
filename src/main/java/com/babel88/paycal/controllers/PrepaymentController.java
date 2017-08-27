@@ -6,16 +6,12 @@ import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 import static java.lang.System.out;
 
-@Component
-@ComponentScan
 public class PrepaymentController implements com.babel88.paycal.api.controllers.PrepaymentController {
 
     private static PrepaymentController instance = new PrepaymentController(BigDecimal.ZERO);
