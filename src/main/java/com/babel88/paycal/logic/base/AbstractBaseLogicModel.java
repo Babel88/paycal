@@ -1,11 +1,13 @@
 package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
+import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.logic.PrepaymentService;
 import com.babel88.paycal.api.logic.template.DefaultBaseLogicModel;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.ControllerFactory;
+import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.logic.NullPaymentModelPassedException;
 import org.jetbrains.annotations.Nullable;
@@ -15,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 
 import static java.math.BigDecimal.ONE;
-import static java.math.BigInteger.*;
+import static java.math.BigInteger.ZERO;
 import static java.math.RoundingMode.HALF_EVEN;
 
 /**
@@ -32,20 +34,22 @@ import static java.math.RoundingMode.HALF_EVEN;
  * deductions against total expense is also maintained incase in future there are items that
  * can be deducted from the total expense like the input VAT deduction
  *
- * TODO finish methods in this class and subclass with logic objects
+ * TODO make this class concrete
  * Created by edwin.njeru on 25/08/2017.
  */
-public abstract class AbstractBaseLogicModel implements DefaultBaseLogicModel {
+public class AbstractBaseLogicModel implements DefaultBaseLogicModel {
 
     @Nullable
     private final PaymentParameters paymentParameters;
-
     @Nullable
     private final PrepaymentController prepaymentController;
+    @Nullable
+    private final InvoiceDetails invoice;
     private final Logger log = LoggerFactory.getLogger(AbstractBaseLogicModel.class);
     private BigDecimal amountBeforeTax;
     private BigDecimal totalExpenses;
     private BigDecimal invoiceAmount;
+
 
     /*Keeps track of deductions from the invoice amount */
     private BigDecimal deductions;
@@ -68,6 +72,17 @@ public abstract class AbstractBaseLogicModel implements DefaultBaseLogicModel {
 
         log.debug("Initiating the lessFromTotalExpenses pointer to track total from expenses amount");
         lessFromTotalExpenses= new BigDecimal(ZERO);
+
+        invoice = GeneralFactory.getInstance().createInvoice();
+    }
+
+    protected DefaultBaseLogicModel initialization() {
+
+        BigDecimal invoiceAmount = invoice.invoiceAmount();
+        getAmountBeforeTax(invoiceAmount);
+        getTotalExpenses(invoiceAmount);
+
+        return this;
     }
 
     /**
@@ -75,11 +90,11 @@ public abstract class AbstractBaseLogicModel implements DefaultBaseLogicModel {
      * vat.
      * If null then the invoice amount provided at runtime is used
      *
-     * @param amountBeforeTax
-     * @return
+     * @param invoiceAmount
+     * @return withholding vat
      */
     @Override
-    public BigDecimal calculateWithholdingVat(BigDecimal amountBeforeTax) {
+    public BigDecimal calculateWithholdingVat(BigDecimal invoiceAmount) {
 
         log.debug(" calculateWithholdingVat( {}. ) has been called", amountBeforeTax);
 
@@ -99,6 +114,16 @@ public abstract class AbstractBaseLogicModel implements DefaultBaseLogicModel {
         } else {
 
             log.error("The amount before tax is null.");
+
+            BigDecimal b4Tax = typicalAmountBeforeTax(invoiceAmount);
+
+            wthVat = amountBeforeTax
+                    .multiply(paymentParameters.getWithholdingVatRate())
+                    .setScale(2, HALF_EVEN);
+            log.debug("Returning withholding vat amount of {}.", wthVat);
+
+            deductions.add(wthVat);
+            log.debug("Total deductions set as : {}.", deductions);
 
             return wthVat;
         }
@@ -377,12 +402,26 @@ public abstract class AbstractBaseLogicModel implements DefaultBaseLogicModel {
      *
      * @return amount before taxes
      */
-    public abstract BigDecimal getAmountBeforeTax(BigDecimal invoiceAmount);
+    public BigDecimal getAmountBeforeTax(BigDecimal invoiceAmount) {
+
+        //TODO Amount before tax
+        return invoiceAmount
+                .divide(
+                        ONE.add(paymentParameters.getVatRate())
+                ).setScale(2, HALF_EVEN);
+    }
 
     /**
      * This method returns the total expenses for the payment in question
      *
      * @return
      */
-    public abstract BigDecimal getTotalExpenses(BigDecimal invoiceAmount);
+    public BigDecimal getTotalExpenses(BigDecimal invoiceAmount) {
+
+        return invoiceAmount
+                .subtract(lessFromTotalExpenses)
+                .setScale(2, HALF_EVEN);
+    }
+
+    ;
 }

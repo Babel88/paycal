@@ -1,7 +1,6 @@
 package com.babel88.paycal.api.logic.template;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
-import com.babel88.paycal.logic.base.AbstractBaseLogicModel;
 import com.babel88.paycal.logic.NullPaymentModelPassedException;
 
 import java.math.BigDecimal;
@@ -25,5 +24,5 @@ public interface DefaultBaseLogicModel {
 
     BigDecimal calculateToPrepay(DefaultPaymentModel partiallyCreatedDefaultPaymentModel);
 
-    BigDecimal calculateToPayee(DefaultPaymentModel partiallyCreatedDefaultPaymentModel) throws AbstractBaseLogicModel.NullPaymentModelPassedException, NullPaymentModelPassedException;
+    BigDecimal calculateToPayee(DefaultPaymentModel partiallyCreatedDefaultPaymentModel) throws NullPaymentModelPassedException;
 }

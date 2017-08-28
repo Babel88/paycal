@@ -3,12 +3,14 @@ package com.babel88.paycal.config.factory;
 import com.babel88.paycal.api.DefaultPrepayable;
 import com.babel88.paycal.api.Logic;
 import com.babel88.paycal.api.logic.*;
+import com.babel88.paycal.api.logic.template.DefaultBaseLogicModel;
 import com.babel88.paycal.config.GeneralConfigurations;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.logic.AbstractPrepayment;
 import com.babel88.paycal.logic.BusinessLogic;
 import com.babel88.paycal.logic.DefaultPrepayment;
 import com.babel88.paycal.logic.base.*;
+import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,6 +104,13 @@ public class LogicFactory {
         log.debug("Returning a singleton instance of DefaultPrepayable object");
 
         return DefaultPrepayment.getInstance();
+    }
+
+    @Contract(pure = true)
+    public static DefaultBaseLogicModel createContractorLogicModel() {
+
+        log.debug("Returning a singleton instance of a DefaultBaseLogicModel object");
+        return ContractorLogicModel.getInstance();
     }
 
 }

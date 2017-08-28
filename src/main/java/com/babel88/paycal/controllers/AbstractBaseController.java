@@ -8,7 +8,7 @@ import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.template.DefaultBaseLogicModel;
 import com.babel88.paycal.config.factory.ControllerFactory;
 import com.babel88.paycal.config.factory.GeneralFactory;
-import com.babel88.paycal.config.factory.LogicFactory;
+import com.babel88.paycal.config.factory.ModelFactory;
 import com.babel88.paycal.config.factory.ModelViewFactory;
 import com.babel88.paycal.logic.NullPaymentModelPassedException;
 import com.babel88.paycal.models.PaymentModel;
@@ -34,8 +34,8 @@ public abstract class AbstractBaseController implements BaseController {
     private Boolean doAgain;
     private InvoiceDetails invoice;
     private ReportControllers reportsController;
-    private DefaultPaymentModel defaultPaymentModel;
-    private DefaultBaseLogicModel defaultBaseLogicModel;
+    private DefaultPaymentModel paymentModel;
+    private DefaultBaseLogicModel baseLogic;
 
     private BigDecimal invoiceAmount;
 
@@ -45,29 +45,32 @@ public abstract class AbstractBaseController implements BaseController {
 
         log.debug("Fetching the reports controller from the controller factory");
         reportsController = ControllerFactory.getInstance().createReportController();
+
         log.debug("Fetching the view results from the model view factory");
         viewResults = ModelViewFactory.getInstance().createResultsViewer();
+
         log.debug("Fetching the invoice object from the general factory");
         invoice = GeneralFactory.getInstance().createInvoice();
-        log.debug("Fetching the default payment model from the subclass");
-        defaultPaymentModel = getDefaultPaymentModelInstance();
+
+        log.debug("Fetching the default payment model from the model factory");
+        paymentModel = ModelFactory.getInstance().createPaymentModel();
+
+
+    }
+
+    public BaseController initialization() {
+
         log.debug("Fetching the default base logic model from the subclass");
-        defaultBaseLogicModel = getDefaultBaseLogicModelInstance();
+        baseLogic = getDefaultBaseLogicModelInstance();
 
-        log.debug("Checking if the defaultPaymentModel is null");
-        baseModelsNullCheck(defaultPaymentModel);
+        log.debug("Checking if the paymentModel is null");
+        baseModelsNullCheck(paymentModel);
 
-        log.debug("Checking if the defaultBaseLogicModel is null");
-        baseModelsNullCheck(defaultBaseLogicModel);
+        log.debug("Checking if the baseLogic is null");
+        baseModelsNullCheck(baseLogic);
+
+        return this;
     }
-
-    public BigDecimal getInvoiceAmount(){
-
-        invoiceAmount = invoice.invoiceAmount();
-
-        return invoiceAmount;
-    }
-
 
     /**
      * This is the main method of this class
@@ -78,7 +81,7 @@ public abstract class AbstractBaseController implements BaseController {
         log.debug("Invoke method called..., Fetching the invoice amount from user...");
 
 
-        BigDecimal amountBeforeTax = defaultBaseLogicModel.getAmountBeforeTax(invoiceAmount);
+        //invoiceAmount = invoice.invoiceAmount();
         //TODO update logic classes to accept amount before taxes
 
         ResultsOutput resultsOutput;
@@ -86,7 +89,7 @@ public abstract class AbstractBaseController implements BaseController {
         do {
             log.debug("Starting the controller loop...");
 
-            updateWithholdingVat(amountBeforeTax);
+            updateWithholdingVat(invoiceAmount);
 
             updateTotalExpense(invoiceAmount);
 
@@ -97,8 +100,8 @@ public abstract class AbstractBaseController implements BaseController {
             updatePayableToVendor();
 
             log.debug("Creating the results output from the view results object, and displaying the \n" +
-                    "data in a table string, using the defaultPaymentModel : {}.", defaultPaymentModel);
-            resultsOutput = (ResultsOutput) viewResults.forPayment((PaymentModel) defaultPaymentModel);
+                    "data in a table string, using the paymentModel : {}.", paymentModel);
+            resultsOutput = (ResultsOutput) viewResults.forPayment((PaymentModel) paymentModel);
 
             doAgain = invoice.doAgain();
 
@@ -113,14 +116,20 @@ public abstract class AbstractBaseController implements BaseController {
     /**
      * updates the withholding vat in the payment model
      *
-     * @param amountBeforeTax supplied at runtime
+     * @param invoiceAmount supplied at runtime
      */
     @Override
-    public void updateWithholdingVat(BigDecimal amountBeforeTax) {
+    public void updateWithholdingVat(BigDecimal invoiceAmount) {
 
-        log.debug("updateWithholdingVat( {}. ) method called...", amountBeforeTax);
-        defaultPaymentModel.setWithHoldingVat(
-                defaultBaseLogicModel.calculateWithholdingVat(amountBeforeTax)
+        log.debug("Checking if the paymentModel is null");
+        baseModelsNullCheck(paymentModel);
+
+        log.debug("Checking if the baseLogic is null");
+        baseModelsNullCheck(baseLogic);
+
+        log.debug("updateWithholdingVat({}) method called...", invoiceAmount);
+        paymentModel.setWithHoldingVat(
+                baseLogic.calculateWithholdingVat(invoiceAmount)
         );
     }
 
@@ -131,9 +140,9 @@ public abstract class AbstractBaseController implements BaseController {
      */
     @Override
     public void updateTotalExpense(BigDecimal invoiceAmount) {
-        log.debug("updateTotalExpense( {}. ) method called...", invoiceAmount);
-        defaultPaymentModel.setTotalExpense(
-                defaultBaseLogicModel.calculateTotalExpense(invoiceAmount)
+        log.debug("updateTotalExpense({}) method called...", invoiceAmount);
+        paymentModel.setTotalExpense(
+                baseLogic.calculateTotalExpense(invoiceAmount)
         );
     }
 
@@ -145,8 +154,8 @@ public abstract class AbstractBaseController implements BaseController {
     @Override
     public void updateWithholdingTax(BigDecimal invoiceAmount) {
         log.debug("updateWithholdingTax( {}. ) method called...", invoiceAmount);
-        defaultPaymentModel.setWithholdingTax(
-                defaultBaseLogicModel.calculateWithholdingTax(invoiceAmount)
+        paymentModel.setWithholdingTax(
+                baseLogic.calculateWithholdingTax(invoiceAmount)
         );
     }
 
@@ -157,8 +166,8 @@ public abstract class AbstractBaseController implements BaseController {
     public void updatePrepayableAmount() {
 
         log.debug("updatePrepayableAmount() method called...");
-        defaultPaymentModel.setToPrepay(
-                defaultBaseLogicModel.calculateToPrepay(defaultPaymentModel)
+        paymentModel.setToPrepay(
+                baseLogic.calculateToPrepay(paymentModel)
         );
     }
 
@@ -170,40 +179,40 @@ public abstract class AbstractBaseController implements BaseController {
 
         log.debug("updatePrepayableAmount() method called...");
         try {
-            defaultPaymentModel.setToPayee(
-                    defaultBaseLogicModel.calculateToPayee(defaultPaymentModel)
+            paymentModel.setToPayee(
+                    baseLogic.calculateToPayee(paymentModel)
             );
         } catch (NullPaymentModelPassedException e) {
-            log.debug("Whoa!! Did someone pass a null defaultPaymentModel object ? :");
+            log.debug("Whoa!! Did someone pass a null paymentModel object ? :");
             e.printStackTrace();
         }
     }
 
-    /**
-     * Gives the amount due for settlement as per invoice request
-     *
-     * @return
-     */
-    @Override
-    public BigDecimal getInvoiceAmount() {
+//    /**
+//     * Gives the amount due for settlement as per invoice request
+//     *
+//     * @return
+//     */
+//    @Override
+//    public BigDecimal getInvoiceAmount() {
+//
+//        log.debug("Running the getInvoiceAmount(0 method from the hopefully, \n" +
+//                "not null object,{}.", invoice.getClass());
+//        invoice = (invoice != null) ? invoice : GeneralFactory.getInstance().createInvoice();
+//
+//        return invoice.invoiceAmount();
+//    }
 
-        log.debug("Running the getInvoiceAmount(0 method from the hopefully, \n" +
-                "not null object,{}.", invoice.getClass());
-        invoice = (invoice != null) ? invoice : GeneralFactory.getInstance().createInvoice();
-
-        return invoice.invoiceAmount();
-    }
-
-    public abstract void setInvoiceAmount(BigDecimal invoiceAmount);
+//    public abstract void setInvoiceAmount(BigDecimal invoiceAmount);
 
     private void baseModelsNullCheck(DefaultPaymentModel defaultPaymentModel) {
 
-        log.debug("The baseModelsNullCheck( {}. ) has been called to check if any of the arguments \n" +
+        log.debug("The baseModelsNullCheck({}) has been called to check if any of the arguments \n" +
                         "is null. If so both methods are called from the factory to avoid null pointer exception \n" +
                         "with default behaviour. As a user you do not want this to happen at all",
                 defaultPaymentModel.getClass());
 
-        log.debug("Checking if the defaultPaymentModel is null");
+        log.debug("Checking if the paymentModel is null");
         if (defaultPaymentModel != null) {
 
             // Do nothing
@@ -211,20 +220,20 @@ public abstract class AbstractBaseController implements BaseController {
                     defaultPaymentModel.getClass());
         } else {
 
-            log.debug("The developer has failed us, by calling a null defaultPaymentModel, calling \n" +
+            log.debug("The developer has failed us, by calling a null paymentModel, calling \n" +
                     "the object from the factory");
-            //TODO defaultPaymentModel = ModelFactory.getInstance().createDefaultPaymentModel();
+            paymentModel = ModelFactory.getInstance().createPaymentModel();
         }
     }
 
     private void baseModelsNullCheck(DefaultBaseLogicModel defaultBaseLogicModel) {
 
-        log.debug("The baseModelsNullCheck( {}. ) has been called to check if any of the arguments \n" +
+        log.debug("The baseModelsNullCheck({}) has been called to check if any of the arguments \n" +
                         "is null. If so both methods are called from the factory to avoid null pointer exception \n" +
                         "with default behaviour. As a user you do not want this to happen at all",
                 defaultBaseLogicModel.getClass());
 
-        log.debug("Checking if the defaultPaymentModel is null");
+        log.debug("Checking if the paymentModel is null");
         if (defaultBaseLogicModel != null) {
 
             // Do nothing
@@ -232,9 +241,9 @@ public abstract class AbstractBaseController implements BaseController {
                     defaultBaseLogicModel.getClass());
         } else {
 
-            log.debug("The developer has failed us, by calling a null defaultPaymentModel, calling \n" +
+            log.debug("The developer has failed us, by calling a null paymentModel, calling \n" +
                     "the object from the factory");
-            //defaultBaseLogicModel = LogicFactory.getInstance().createBaseLogicModel();
+            //baseLogic = LogicFactory.getInstance().createBaseLogicModel();
         }
     }
 

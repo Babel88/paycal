@@ -1,23 +1,27 @@
 package com.babel88.paycal.logic.base;
 
+import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.logic.template.DefaultBaseLogicModel;
 import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
 import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import static java.math.BigDecimal.ONE;
 
 public class ContractorLogicModel extends AbstractBaseLogicModel {
 
     private final static Logger log = LoggerFactory.getLogger(ContractorLogicModel.class);
-
-    private static DefaultBaseLogicModel instance = new ContractorLogicModel();
-
+    private static DefaultBaseLogicModel instance = new ContractorLogicModel().initialization();
+    private final InvoiceDetails invoice;
     private final PaymentParameters paymentParameters;
 
-    public ContractorLogicModel(BigDecimal invoiceAmount) {
+    public ContractorLogicModel() {
         super();
 
         log.debug("Creating contractor logic model");
@@ -25,8 +29,7 @@ public class ContractorLogicModel extends AbstractBaseLogicModel {
         log.debug("Fetching payment parameters from factory");
         paymentParameters = LogicFactory.getInstance().createPaymentParameters();
 
-        getAmountBeforeTax(invoiceAmount);
-        getTotalExpenses(invoiceAmount);
+        invoice = GeneralFactory.getInstance().createInvoice();
     }
 
 
@@ -47,8 +50,10 @@ public class ContractorLogicModel extends AbstractBaseLogicModel {
         log.debug("Calculating the amount before taxes using : {}.",invoiceAmount);
         return invoiceAmount
                 .divide(
-                        BigDecimal.ONE.add(paymentParameters.getWithholdingVatRate())
-                );
+                        ONE.add(paymentParameters.getWithholdingVatRate()
+                        ), RoundingMode.HALF_EVEN
+                )
+                .setScale(2, RoundingMode.HALF_EVEN);
     }
 
     /**

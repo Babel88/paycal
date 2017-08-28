@@ -1,6 +1,5 @@
 package com.babel88.paycal.api.controllers;
 
-import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.api.logic.template.DefaultBaseLogicModel;
 
 import java.math.BigDecimal;
@@ -18,14 +17,7 @@ public interface BaseController {
 
     void updatePayableToVendor();
 
-    BigDecimal getInvoiceAmount();
-
-    /**
-     * This method return an instance of an Object implementing the DefaultPaymentModel interface
-     *
-     * @return DefaultPaymentModel object
-     */
-    DefaultPaymentModel getDefaultPaymentModelInstance();
+//    BigDecimal getInvoiceAmount();
 
     /**
      * This method returns an instance of an object that implements the DefaultBaseLogic interface
