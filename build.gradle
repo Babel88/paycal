@@ -43,21 +43,8 @@ dependencies {
     // https://mvnrepository.com/artifact/nl.jqno.equalsverifier/equalsverifier
     testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '2.3.2'
 
-//    // https://mvnrepository.com/artifact/junit/junit
-//    testCompile group: 'junit', name: 'junit', version: '4.12'
-//
-//    // https://mvnrepository.com/artifact/org.mockito/mockito-all
-//    testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
-//
-//    // https://mvnrepository.com/artifact/org.mockito/mockito-core
-//    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.9.0'
-//
-//    // https://mvnrepository.com/artifact/org.powermock/powermock-mockito-release-full
-//    testCompile group: 'org.powermock', name: 'powermock-mockito-release-full', version: '1.6.4', ext: 'pom'
-
     // https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine
     compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.5.5'
-
 
     compile 'com.github.Babel88:faker:1.2.5'
 
@@ -83,14 +70,16 @@ dependencies {
     // https://mvnrepository.com/artifact/org.aspectj/aspectjtools
     compile group: 'org.aspectj', name: 'aspectjtools', version: '1.8.10'
 
-//    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-logging
-//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: '1.5.6.RELEASE'
-//
-//    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
-//    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.6.RELEASE'
-//
-//    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
-//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '1.5.6.RELEASE'
+    // https://mvnrepository.com/artifact/javax.inject/javax.inject
+    compile group: 'javax.inject', name: 'javax.inject', version: '1'
+
+    compile 'org.springframework:spring-context:4.3.10.RELEASE'
+
+    // https://mvnrepository.com/artifact/junit/junit
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // https://mvnrepository.com/artifact/org.mockito/mockito-all
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
 
 }
 

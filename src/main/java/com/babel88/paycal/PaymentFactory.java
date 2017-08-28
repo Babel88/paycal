@@ -19,11 +19,11 @@ import static java.lang.System.out;
  */
 public class PaymentFactory {
 
+    private static PaymentFactory instance = new PaymentFactory();
     Logger log = LoggerFactory.getLogger(PaymentFactory.class);
     private PaymentModelViewInterface view;
     private InvoiceDetails invoice;
     private Logic logic;
-    private static PaymentFactory instance = new PaymentFactory();
 
     public PaymentFactory() {
 
@@ -93,7 +93,7 @@ public class PaymentFactory {
                 out.println();
                 out.println("Contractor payments");
                 out.println("--------------------------------------------");
-                logic.contractor(invoice.invoiceAmount());
+                logic.contractor();
                 break;
             default:
                 out.println();

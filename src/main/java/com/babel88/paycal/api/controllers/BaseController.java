@@ -4,6 +4,7 @@ import com.babel88.paycal.api.logic.template.DefaultBaseLogicModel;
 
 import java.math.BigDecimal;
 
+@Deprecated
 public interface BaseController {
     void invoke();
 

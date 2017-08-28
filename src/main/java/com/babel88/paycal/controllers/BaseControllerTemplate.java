@@ -6,10 +6,7 @@ import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.BaseController;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.template.DefaultBaseLogicModel;
-import com.babel88.paycal.config.factory.ControllerFactory;
-import com.babel88.paycal.config.factory.GeneralFactory;
-import com.babel88.paycal.config.factory.ModelFactory;
-import com.babel88.paycal.config.factory.ModelViewFactory;
+import com.babel88.paycal.config.factory.*;
 import com.babel88.paycal.logic.NullPaymentModelPassedException;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.view.ResultsOutput;
@@ -21,25 +18,20 @@ import java.math.BigDecimal;
 /**
  * Created by edwin.njeru on 25/08/2017.
  */
-public abstract class AbstractBaseController implements BaseController {
+@Deprecated
+public class BaseControllerTemplate implements BaseController {
 
-    //TODO register this in controller factory
-    //TODO create base controller for updating PaymentModel
-    //TODO >> Abstract methods to fetch custom data
-    //TODO base logic model implementation
-    //TODO review methods in this class and subclass with controllers
-
-    private final Logger log = LoggerFactory.getLogger(AbstractBaseController.class);
+    private static BaseController instance = new BaseControllerTemplate().initialization();
+    private final Logger log = LoggerFactory.getLogger(BaseControllerTemplate.class);
     public ResultsViewer viewResults;
     private Boolean doAgain;
     private InvoiceDetails invoice;
     private ReportControllers reportsController;
     private DefaultPaymentModel paymentModel;
     private DefaultBaseLogicModel baseLogic;
-
     private BigDecimal invoiceAmount;
 
-    protected AbstractBaseController() {
+    protected BaseControllerTemplate() {
 
         log.debug("Creating the abstractBaseController...");
 
@@ -58,13 +50,14 @@ public abstract class AbstractBaseController implements BaseController {
 
     }
 
+    public static BaseController getInstance() {
+        return instance;
+    }
+
     public BaseController initialization() {
 
         log.debug("Fetching the default base logic model from the subclass");
         baseLogic = getDefaultBaseLogicModelInstance();
-
-        log.debug("Checking if the paymentModel is null");
-        baseModelsNullCheck(paymentModel);
 
         log.debug("Checking if the baseLogic is null");
         baseModelsNullCheck(baseLogic);
@@ -79,10 +72,6 @@ public abstract class AbstractBaseController implements BaseController {
     public void invoke() {
 
         log.debug("Invoke method called..., Fetching the invoice amount from user...");
-
-
-        //invoiceAmount = invoice.invoiceAmount();
-        //TODO update logic classes to accept amount before taxes
 
         ResultsOutput resultsOutput;
 
@@ -188,23 +177,6 @@ public abstract class AbstractBaseController implements BaseController {
         }
     }
 
-//    /**
-//     * Gives the amount due for settlement as per invoice request
-//     *
-//     * @return
-//     */
-//    @Override
-//    public BigDecimal getInvoiceAmount() {
-//
-//        log.debug("Running the getInvoiceAmount(0 method from the hopefully, \n" +
-//                "not null object,{}.", invoice.getClass());
-//        invoice = (invoice != null) ? invoice : GeneralFactory.getInstance().createInvoice();
-//
-//        return invoice.invoiceAmount();
-//    }
-
-//    public abstract void setInvoiceAmount(BigDecimal invoiceAmount);
-
     private void baseModelsNullCheck(DefaultPaymentModel defaultPaymentModel) {
 
         log.debug("The baseModelsNullCheck({}) has been called to check if any of the arguments \n" +
@@ -247,5 +219,14 @@ public abstract class AbstractBaseController implements BaseController {
         }
     }
 
+    /**
+     * This method returns an instance of an object that implements the DefaultBaseLogic interface
+     *
+     * @return DefaultBaseLogicModel object
+     */
+    @Override
+    public DefaultBaseLogicModel getDefaultBaseLogicModelInstance() {
 
+        return LogicFactory.getInstance().createBaseLogicModelTemplate();
+    }
 }

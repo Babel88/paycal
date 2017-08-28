@@ -1,12 +1,8 @@
 package com.babel88.paycal.config.factory;
 
-import com.babel88.paycal.api.controllers.PartialTaxPaymentController;
-import com.babel88.paycal.api.controllers.ReportControllers;
-import com.babel88.paycal.api.controllers.TypicalPaymentsControllers;
-import com.babel88.paycal.controllers.DefaultPartialTaxPaymentController;
+import com.babel88.paycal.api.controllers.*;
+import com.babel88.paycal.controllers.*;
 import com.babel88.paycal.controllers.PrepaymentController;
-import com.babel88.paycal.controllers.ReportsController;
-import com.babel88.paycal.controllers.TypicalPaymentsController;
 
 /**
  * Created by edwin.njeru on 8/23/17.
@@ -43,4 +39,13 @@ public class ControllerFactory {
         return PrepaymentController.getInstance();
     }
 
+    public BaseController createBaseControllerTemplate() {
+
+        return BaseControllerTemplate.getInstance();
+    }
+
+    public DefaultControllers createContractorPaymentController() {
+
+        return ContractorPaymentsController.getInstance();
+    }
 }

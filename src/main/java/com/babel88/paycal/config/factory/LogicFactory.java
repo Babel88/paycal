@@ -10,7 +10,6 @@ import com.babel88.paycal.logic.AbstractPrepayment;
 import com.babel88.paycal.logic.BusinessLogic;
 import com.babel88.paycal.logic.DefaultPrepayment;
 import com.babel88.paycal.logic.base.*;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -106,12 +105,14 @@ public class LogicFactory {
         return DefaultPrepayment.getInstance();
     }
 
-    @Contract(pure = true)
-    public static DefaultBaseLogicModel createContractorLogicModel() {
+    public static DefaultBaseLogicModel createBaseLogicModelTemplate() {
 
-        log.debug("Returning a singleton instance of a DefaultBaseLogicModel object");
-        return ContractorLogicModel.getInstance();
+        return BaseLogicModelTemplate.getInstance();
     }
 
+    public ContractorLogic createContractorLogic() {
+
+        return ContractorLogic.getInstance();
+    }
 }
 

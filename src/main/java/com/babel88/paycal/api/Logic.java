@@ -12,7 +12,7 @@ public interface Logic {
 
     void vatGiven();
 
-    void contractor(BigDecimal invoiceAmount);
+    void contractor();
 
     void taxToWithhold(BigDecimal InvoiceAmount);
 

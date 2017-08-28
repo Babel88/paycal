@@ -1,6 +1,6 @@
 package com.babel88.utils.tables.samples;
 
-import com.babel88.paycal.api.controllers.BaseController;
+import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.controllers.ContractorPaymentsController;
 
 /**
@@ -8,20 +8,14 @@ import com.babel88.paycal.controllers.ContractorPaymentsController;
  */
 public class BaseControllerClient {
 
-    private BaseController controller;
+    private static DefaultControllers controller;
 
-    public BaseControllerClient() {
-
-        controller = new ContractorPaymentsController();
-    }
 
     public static void main(String[] args) {
 
-        new BaseControllerClient().RunClient();
+        controller = new ContractorPaymentsController();
+
+        controller.runCalculation();
     }
 
-    public void RunClient() {
-
-        controller.invoke();
-    }
 }

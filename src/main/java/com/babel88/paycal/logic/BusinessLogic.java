@@ -3,7 +3,7 @@ package com.babel88.paycal.logic;
 import com.babel88.paycal.api.DefaultPrepayable;
 import com.babel88.paycal.api.ForeignPaymentDetails;
 import com.babel88.paycal.api.Logic;
-import com.babel88.paycal.api.controllers.BaseController;
+import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.PartialTaxPaymentController;
 import com.babel88.paycal.api.controllers.TypicalPaymentsControllers;
 import com.babel88.paycal.api.factory.Incarnatable;
@@ -17,7 +17,6 @@ import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.config.factory.ModelViewFactory;
 import com.babel88.paycal.controllers.PrepaymentController;
-import net.sf.jasperreports.web.servlets.Controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,11 +32,9 @@ import java.math.BigDecimal;
 public class BusinessLogic implements Logic,Incarnatable {
 
     private static Logic instance = new BusinessLogic();
-
-    private Contractors contractor;
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-
     public DefaultPrepayable defaultPrepayment;
+    private Contractors contractor;
     private WithholdingTaxPayments withholdingTaxPayment;
     private PrepaymentController prepaymentController;
     private PaymentModelViewInterface paymentModelView;
@@ -45,7 +42,7 @@ public class BusinessLogic implements Logic,Incarnatable {
     private ForeignPaymentDetails foreignPaymentDetails;
     private TypicalPaymentsControllers typicalPaymentsController;
     private PartialTaxPaymentController partialTaxPaymentController;
-    private BaseController contractorPaymentController;
+    private DefaultControllers contractorPaymentController;
 
     private BusinessLogic() {
 
@@ -76,7 +73,7 @@ public class BusinessLogic implements Logic,Incarnatable {
         foreignPaymentDetails = GeneralFactory.getInstance().createForeignPaymentDetails();
 
         log.debug("Fetching contractor payments controller from ControllerFactory");
-        //contractorPaymentController = ControllerFactory.getInstance().createContractorPaymentController();
+        contractorPaymentController = ControllerFactory.getInstance().createContractorPaymentController();
     }
 
     public static Logic getInstance(){
@@ -102,23 +99,9 @@ public class BusinessLogic implements Logic,Incarnatable {
     }
 
     @Override
-    public void contractor(BigDecimal invoiceAmount) {
+    public void contractor() {
 
-        //TODO contractorPaymentController.runCalculation(invoiceAmount);
-
-        BigDecimal toPayee = contractor.calculatePayableToVendor(invoiceAmount);
-        BigDecimal withHoldingTax = contractor.calculateWithholdingTax(invoiceAmount);
-        BigDecimal withHoldingVat = contractor.calculateWithholdingVat(invoiceAmount);
-//        BigDecimal total = invoiceAmount;
-        BigDecimal total = contractor.calculateTotalExpense(invoiceAmount);
-
-        prepaymentController.setExpenseAmount(total);
-
-        BigDecimal toPrepay = ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
-
-        paymentModelView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
-        // Results submitted for paymentModelView
-
+        contractorPaymentController.runCalculation();
     }
 
     @Override

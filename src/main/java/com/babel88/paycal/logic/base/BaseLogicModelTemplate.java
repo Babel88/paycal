@@ -34,18 +34,18 @@ import static java.math.RoundingMode.HALF_EVEN;
  * deductions against total expense is also maintained incase in future there are items that
  * can be deducted from the total expense like the input VAT deduction
  *
- * TODO make this class concrete
  * Created by edwin.njeru on 25/08/2017.
  */
-public class AbstractBaseLogicModel implements DefaultBaseLogicModel {
+public class BaseLogicModelTemplate implements DefaultBaseLogicModel {
 
+    private static DefaultBaseLogicModel instance = new BaseLogicModelTemplate().initialization();
     @Nullable
     private final PaymentParameters paymentParameters;
     @Nullable
     private final PrepaymentController prepaymentController;
     @Nullable
     private final InvoiceDetails invoice;
-    private final Logger log = LoggerFactory.getLogger(AbstractBaseLogicModel.class);
+    private final Logger log = LoggerFactory.getLogger(BaseLogicModelTemplate.class);
     private BigDecimal amountBeforeTax;
     private BigDecimal totalExpenses;
     private BigDecimal invoiceAmount;
@@ -57,7 +57,7 @@ public class AbstractBaseLogicModel implements DefaultBaseLogicModel {
     /*Keeps track of deductions from the total expense */
     private BigDecimal lessFromTotalExpenses;
 
-    public AbstractBaseLogicModel() {
+    public BaseLogicModelTemplate() {
 
         log.debug("Creating the abstract base logic model");
 
@@ -74,6 +74,10 @@ public class AbstractBaseLogicModel implements DefaultBaseLogicModel {
         lessFromTotalExpenses= new BigDecimal(ZERO);
 
         invoice = GeneralFactory.getInstance().createInvoice();
+    }
+
+    public static DefaultBaseLogicModel getInstance() {
+        return instance;
     }
 
     protected DefaultBaseLogicModel initialization() {
@@ -403,11 +407,10 @@ public class AbstractBaseLogicModel implements DefaultBaseLogicModel {
      * @return amount before taxes
      */
     public BigDecimal getAmountBeforeTax(BigDecimal invoiceAmount) {
-
-        //TODO Amount before tax
         return invoiceAmount
                 .divide(
-                        ONE.add(paymentParameters.getVatRate())
+                        ONE.add(paymentParameters.getVatRate()),
+                        HALF_EVEN
                 ).setScale(2, HALF_EVEN);
     }
 
