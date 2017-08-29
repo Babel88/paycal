@@ -14,10 +14,9 @@ public interface Logic {
 
     void contractor();
 
-    void taxToWithhold(BigDecimal InvoiceAmount);
-
-    void withPrepayment(BigDecimal InvoiceAmount);
-
+    void taxToWithhold();
     @NotNull
     void telegraphicTransfer();
+
+    void rentalPayments();
 }

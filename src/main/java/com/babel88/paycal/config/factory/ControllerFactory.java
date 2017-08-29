@@ -48,4 +48,14 @@ public class ControllerFactory {
 
         return ContractorPaymentsController.getInstance();
     }
+
+    public DefaultControllers createWithholdingTaxPaymentController() {
+
+        return WithholdingTaxPaymentController.getInstance();
+    }
+
+    public DefaultControllers createRentalPaymentsController() {
+
+        return RentalPaymentsController.getInstance();
+    }
 }

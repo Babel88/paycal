@@ -1,5 +1,6 @@
 package com.babel88.paycal.logic.base;
 
+import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.LogicFactory;
 
@@ -8,9 +9,9 @@ import java.math.BigDecimal;
 import static java.math.BigDecimal.ONE;
 import static java.math.RoundingMode.HALF_EVEN;
 
-public class ContractorLogic {
+public class ContractorLogic implements com.babel88.paycal.api.logic.DefaultLogic {
 
-    private static final ContractorLogic instance = new ContractorLogic();
+    private static final DefaultLogic instance = new ContractorLogic();
 
     private final PaymentParameters paymentParameters;
 
@@ -18,16 +19,18 @@ public class ContractorLogic {
         paymentParameters = LogicFactory.getInstance().createPaymentParameters();
     }
 
-    public static ContractorLogic getInstance() {
+    public static DefaultLogic getInstance() {
         return instance;
     }
 
+    @Override
     public BigDecimal calculateTotalExpense(BigDecimal invoiceAmount) {
 
         return invoiceAmount;
     }
 
 
+    @Override
     public BigDecimal calculateToPayee(BigDecimal invoiceAmount) {
 
         return invoiceAmount
@@ -40,6 +43,7 @@ public class ContractorLogic {
                 .setScale(2, HALF_EVEN);
     }
 
+    @Override
     public BigDecimal calculateWithholdingTax(BigDecimal invoiceAmount) {
 
         return calculateAmountBeforeTax(invoiceAmount)
@@ -49,6 +53,7 @@ public class ContractorLogic {
                 .setScale(2, HALF_EVEN);
     }
 
+    @Override
     public BigDecimal calculateWithholdingVat(BigDecimal invoiceAmount) {
 
         return calculateAmountBeforeTax(invoiceAmount)

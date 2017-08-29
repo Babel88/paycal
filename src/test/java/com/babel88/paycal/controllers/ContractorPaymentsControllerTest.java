@@ -5,7 +5,7 @@ import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.ReportControllers;
-import com.babel88.paycal.logic.base.ContractorLogic;
+import com.babel88.paycal.api.logic.DefaultLogic;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class ContractorPaymentsControllerTest {
     private BigDecimal invoiceAmount;
 
     @Mock
-    private ContractorLogic contractorLogic;
+    private DefaultLogic defaultLogic;
 
     @Mock
     private PrepaymentController prepaymentController;

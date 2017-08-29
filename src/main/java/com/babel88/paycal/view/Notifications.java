@@ -87,7 +87,7 @@ public class Notifications implements FeedBack {
                 "a) Normal payment \n" +
                 "b) Normal payment with withholding taxes \n" +
                 "   on consultancy\n" +
-                "c) Payment with prepayments component \n" +
+                "c) Rental Payments \n" +
                 "d) Adjust main paramenters \n" +
                 "e) Foreign transactions(Telegraphic Transfers)\n" +
                 "f) Partially non taxable payment\n" +

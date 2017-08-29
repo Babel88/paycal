@@ -5,9 +5,9 @@ import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.ReportControllers;
+import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.api.logic.PrepaymentService;
 import com.babel88.paycal.config.factory.*;
-import com.babel88.paycal.logic.base.ContractorLogic;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.view.ResultsOutput;
 
@@ -19,7 +19,7 @@ public class ContractorPaymentsController implements DefaultControllers {
     private DefaultPaymentModel paymentModel;
     private InvoiceDetails invoice;
     private BigDecimal invoiceAmount;
-    private ContractorLogic contractorLogic;
+    private DefaultLogic contractorLogic;
     private PrepaymentController prepaymentController;
     private ResultsViewer viewResults;
     private ReportControllers reportsController;
@@ -125,8 +125,8 @@ public class ContractorPaymentsController implements DefaultControllers {
         return this;
     }
 
-    public DefaultControllers setContractorLogic(ContractorLogic contractorLogic) {
-        this.contractorLogic = contractorLogic;
+    public DefaultControllers setContractorLogic(DefaultLogic defaultLogic) {
+        this.contractorLogic = defaultLogic;
         return this;
     }
 

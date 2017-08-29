@@ -110,9 +110,14 @@ public class LogicFactory {
         return BaseLogicModelTemplate.getInstance();
     }
 
-    public ContractorLogic createContractorLogic() {
+    public DefaultLogic createContractorLogic() {
 
         return ContractorLogic.getInstance();
+    }
+
+    public DefaultLogic createRentalPaymentLogic() {
+
+        return RentalPaymentLogic.getInstance();
     }
 }
 

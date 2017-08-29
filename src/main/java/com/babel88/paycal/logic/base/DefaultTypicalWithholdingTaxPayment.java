@@ -1,5 +1,6 @@
 package com.babel88.paycal.logic.base;
 
+import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.api.logic.WithholdingTaxPayments;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.LogicFactory;
@@ -18,12 +19,10 @@ import static java.math.RoundingMode.HALF_EVEN;
  * <p>d) The payee needs to pay 6% withholding tax</p>
  * <p>e) The Invoice is not encumbered with duties or levies</p>
  */
-public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPayments {
-
-    private final PaymentParameters parameters;
-
+public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPayments, DefaultLogic {
 
     private static WithholdingTaxPayments instance = new DefaultTypicalWithholdingTaxPayment();
+    private final PaymentParameters parameters;
 
     DefaultTypicalWithholdingTaxPayment() {
 
@@ -53,7 +52,10 @@ public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPaymen
         BigDecimal amountBeforeVat =
                 amountBeforeTax(invoiceAmount);
 
-        return amountBeforeVat.multiply(parameters.getWithholdingVatRate());
+        return amountBeforeVat
+                .multiply(parameters.getWithholdingVatRate()
+                )
+                .setScale(2, HALF_EVEN);
     }
 
     @Override
@@ -62,7 +64,11 @@ public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPaymen
         BigDecimal amountBeforeVat =
                 amountBeforeTax(invoiceAmount);
 
-        return amountBeforeVat.multiply(parameters.getWithholdingTaxRate());
+        return amountBeforeVat
+                .multiply(
+                        parameters.getWithholdingTaxRate()
+                )
+                .setScale(2, HALF_EVEN);
     }
 
     private BigDecimal amountBeforeTax(BigDecimal invoiceAmount) {
@@ -89,5 +95,11 @@ public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPaymen
                 totalExpenseAmount.subtract(withholdingTax).subtract(withholdingVat);
 
         return amountPayableToPayee.setScale(2, ROUND_HALF_UP);
+    }
+
+    @Override
+    public BigDecimal calculateToPayee(BigDecimal invoiceAmount) {
+
+        return calculateAmountPayable(invoiceAmount);
     }
 }

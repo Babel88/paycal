@@ -63,13 +63,13 @@ public class PaymentFactory {
                 out.println();
                 out.println("Normal trnx with withholding taxes:");
                 out.println("----------------------------------");
-                logic.taxToWithhold(invoice.invoiceAmount());
+                logic.taxToWithhold();
                 break;
             case c:
                 out.println();
-                out.println("Payment with prepaid expenses:");
+                out.println("Rental Expenses Payment:");
                 out.println("-----------------------------");
-                logic.withPrepayment(invoice.invoiceAmount());
+                logic.rentalPayments();
                 break;
             case d:
                 out.println();

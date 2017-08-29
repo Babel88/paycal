@@ -43,6 +43,8 @@ public class BusinessLogic implements Logic,Incarnatable {
     private TypicalPaymentsControllers typicalPaymentsController;
     private PartialTaxPaymentController partialTaxPaymentController;
     private DefaultControllers contractorPaymentController;
+    private DefaultControllers withholdingTaxPaymentController;
+    private DefaultControllers rentalPaymentsController;
 
     private BusinessLogic() {
 
@@ -74,6 +76,12 @@ public class BusinessLogic implements Logic,Incarnatable {
 
         log.debug("Fetching contractor payments controller from ControllerFactory");
         contractorPaymentController = ControllerFactory.getInstance().createContractorPaymentController();
+
+        log.debug("Fetching withholdingTaxPaymentController from controller factory");
+        withholdingTaxPaymentController = ControllerFactory.getInstance().createWithholdingTaxPaymentController();
+
+        log.debug("Fetching rentalPaymentsController from Controller factory");
+        rentalPaymentsController = ControllerFactory.getInstance().createRentalPaymentsController();
     }
 
     public static Logic getInstance(){
@@ -81,9 +89,6 @@ public class BusinessLogic implements Logic,Incarnatable {
         return instance;
     }
 
-//    public BusinessLogic(PaymentParameters parameters){}
-
-    //TODO create controller for the main calculations
     @Override
     public void normal(BigDecimal invoiceAmount) {
 
@@ -105,71 +110,16 @@ public class BusinessLogic implements Logic,Incarnatable {
     }
 
     @Override
-    public void taxToWithhold(BigDecimal invoiceAmount) {
+    public void taxToWithhold() {
 
-
-        //TODO reduce calculation steps by using amount before Vat variable
-        // This is the Invoice amount exclusive of VAT
-        BigDecimal amountB4Vat = withholdingTaxPayment.calculateAmountBeforeTax(invoiceAmount);
-
-        // Amount to be withheld as VAT
-        BigDecimal withHoldingVat =
-                withholdingTaxPayment.calculateWithholdingVat(invoiceAmount);
-
-        // Amount of withholding tax on consultancy
-        BigDecimal withHoldingTax =
-                withholdingTaxPayment.calculateWithholdingTax(invoiceAmount);
-
-        // i.e. total to be expensed
-        BigDecimal total = withholdingTaxPayment.calculateTotalExpense(invoiceAmount);
-
-
-        BigDecimal toPayee = withholdingTaxPayment.calculateAmountPayable(invoiceAmount);
-
-        prepaymentController.setExpenseAmount(total);
-
-        // These variables have not been computed but we do need to have them ready
-        // as Zero values in the displayResults method
-        BigDecimal toPrepay = ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
-
-        // Results submitted for paymentModelView
-        paymentModelView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
-
+        withholdingTaxPaymentController.runCalculation();
 
     }
 
-    //TODO to replace depracated prepayment API with new API
     @Override
-    public void withPrepayment(BigDecimal invoiceAmount) {
+    public void rentalPayments() {
 
-
-
-        // This is the Invoice amount exclusive of VAT
-        //double amountB4Vat = invoiceAmount / (1 + vRate);
-        BigDecimal amountB4Vat = defaultPrepayment.calculateAmountBeforeTax(invoiceAmount);
-
-        // Amount to be withheld as VAT
-        //BigDecimal withHoldingVat = amountB4Vat * withholdVatRate;
-        BigDecimal withHoldingVat = defaultPrepayment.calculateWithholdingVat(amountB4Vat);
-
-        // Calculate prepayment
-        BigDecimal toPrepay = defaultPrepayment.calculatePrepayment(invoiceAmount);
-
-        // i.e. total to be expensed
-        //BigDecimal total = invoiceAmount.subtract(toPrepay);
-        BigDecimal total = defaultPrepayment.calculateTotalExpense(invoiceAmount,toPrepay);
-
-        // These variables have not been computed but we do need to have them ready
-        // as Zero values in the displayResults method
-        //BigDecimal toPayee = total.add(toPrepay).subtract(withHoldingVat);
-        BigDecimal toPayee = defaultPrepayment.calculateAmountPayable(toPrepay,withHoldingVat);
-
-
-        BigDecimal withHoldingTax = BigDecimal.ZERO;
-
-        paymentModelView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
-        // Results submitted for paymentModelView
-
+        rentalPaymentsController.runCalculation();
     }
 
     /**
