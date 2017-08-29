@@ -31,7 +31,7 @@ public class RentalPaymentsController extends PaymentsControllerRunner implement
     @Override
     public void updateTotalExpense() {
 
-        paymentModel.setTotalExpense(
+        super.paymentModel.setTotalExpense(
                 rentalPaymentLogic.calculateTotalExpense(invoiceAmount)
         );
     }
@@ -39,7 +39,7 @@ public class RentalPaymentsController extends PaymentsControllerRunner implement
     @Override
     public void updateToPayee() {
 
-        paymentModel.setToPayee(
+        super.paymentModel.setToPayee(
                 rentalPaymentLogic.calculateToPayee(invoiceAmount)
         );
 
@@ -48,7 +48,7 @@ public class RentalPaymentsController extends PaymentsControllerRunner implement
     @Override
     public void updateWithholdingTax() {
 
-        paymentModel.setToPayee(
+        super.paymentModel.setWithholdingTax(
                 rentalPaymentLogic.calculateWithholdingTax(invoiceAmount)
         );
     }
@@ -56,7 +56,7 @@ public class RentalPaymentsController extends PaymentsControllerRunner implement
     @Override
     public void updateWithholdingVat() {
 
-        paymentModel.setToPayee(
+        super.paymentModel.setWithHoldingVat(
                 rentalPaymentLogic.calculateWithholdingVat(invoiceAmount)
         );
 
@@ -65,6 +65,6 @@ public class RentalPaymentsController extends PaymentsControllerRunner implement
     @Override
     public DefaultPaymentModel getPaymentModel() {
 
-        return paymentModel;
+        return super.paymentModel;
     }
 }

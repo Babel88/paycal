@@ -11,20 +11,19 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.concurrent.atomic.AtomicReference;
+import java.math.BigInteger;
 
 public class ResultsOutput implements Serializable, ResultsViewer {
 
     private static ResultsViewer instance =
             new ResultsOutput(ModelViewFactory.getInstance().createPaymentModelView());
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final AtomicReference<BigDecimal> total;
-    private final AtomicReference<BigDecimal> vatWithheld;
-    private final AtomicReference<BigDecimal> withholdingTax;
-    private final AtomicReference<BigDecimal> toPrepay;
-    private final AtomicReference<BigDecimal> toPayee;
-    //TODO add paymentModelView logic
-    private PaymentModelViewInterface view;
+    private final PaymentModelViewInterface view;
+    private BigDecimal total;
+    private BigDecimal vatWithheld;
+    private BigDecimal withholdingTax;
+    private BigDecimal toPrepay;
+    private BigDecimal toPayee;
 
     public ResultsOutput(PaymentModelViewInterface view){
 
@@ -32,11 +31,11 @@ public class ResultsOutput implements Serializable, ResultsViewer {
 
         log.debug("Creating empty outputFields...");
 
-        total = new AtomicReference<BigDecimal>();
-        vatWithheld = new AtomicReference<BigDecimal>();
-        withholdingTax = new AtomicReference<BigDecimal>();
-        toPrepay = new AtomicReference<BigDecimal>();
-        toPayee = new AtomicReference<BigDecimal>();
+        total = new BigDecimal(BigInteger.ZERO);
+        vatWithheld = new BigDecimal(BigInteger.ZERO);
+        withholdingTax = new BigDecimal(BigInteger.ZERO);
+        toPrepay = new BigDecimal(BigInteger.ZERO);
+        toPayee = new BigDecimal(BigInteger.ZERO);
 
     }
 
@@ -54,7 +53,7 @@ public class ResultsOutput implements Serializable, ResultsViewer {
 
         createLocalPaymentFieldsFromModel(paymentModel);
 
-        view.displayResults(total.get(),vatWithheld.get(),withholdingTax.get(),toPrepay.get(),toPayee.get());
+        view.displayResults(total, vatWithheld, withholdingTax, toPrepay, toPayee);
 
         return this;
     }
@@ -69,58 +68,58 @@ public class ResultsOutput implements Serializable, ResultsViewer {
     }
 
     public ResultsViewer setTotal(BigDecimal total) {
-        this.total.set(total);
+        this.total = total;
 
-        log.debug("Total field set as : ",total);
+        log.debug("Total field set as {}.: ", total);
         return this;
     }
 
     public ResultsViewer setVatWithheld(BigDecimal vatWithheld) {
-        this.vatWithheld.set(vatWithheld);
+        this.vatWithheld = vatWithheld;
 
-        log.debug("vatWithheld field set as : ",vatWithheld);
+        log.debug("vatWithheld field set as {}.: ", vatWithheld);
         return this;
     }
 
     public ResultsViewer setWithholdingTax(BigDecimal withholdingTax) {
-        this.withholdingTax.set(withholdingTax);
+        this.withholdingTax = withholdingTax;
 
-        log.debug("withholdingTax field set as : ",withholdingTax);
+        log.debug("withholdingTax field set as {}.: ", withholdingTax);
         return this;
     }
 
     public ResultsViewer setToPrepay(BigDecimal toPrepay) {
-        this.toPrepay.set(toPrepay);
+        this.toPrepay = toPrepay;
 
-        log.debug("toPrepay field set as : ",toPrepay);
+        log.debug("toPrepay field set as : {}.", toPrepay);
         return this;
     }
 
     public ResultsViewer setToPayee(BigDecimal toPayee) {
-        this.toPayee.set(toPayee);
+        this.toPayee = toPayee;
 
-        log.debug("toPayee field set as : ",toPayee);
+        log.debug("toPayee field set as : {}.", toPayee);
         return this;
     }
 
     public BigDecimal getTotal() {
-        return total.get();
+        return total;
     }
 
     public BigDecimal getVatWithheld() {
-        return vatWithheld.get();
+        return vatWithheld;
     }
 
     public BigDecimal getWithholdingTax() {
-        return withholdingTax.get();
+        return withholdingTax;
     }
 
     public BigDecimal getToPrepay() {
-        return toPrepay.get();
+        return toPrepay;
     }
 
     public BigDecimal getToPayee() {
-        return toPayee.get();
+        return toPayee;
     }
 
     @Override
@@ -145,20 +144,20 @@ public class ResultsOutput implements Serializable, ResultsViewer {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("total", total.get())
-                .add("vatWithheld", vatWithheld.get())
-                .add("withholdingTax", withholdingTax.get())
-                .add("toPrepay", toPrepay.get())
-                .add("toPayee", toPayee.get())
+                .add("total", total)
+                .add("vatWithheld", vatWithheld)
+                .add("withholdingTax", withholdingTax)
+                .add("toPrepay", toPrepay)
+                .add("toPayee", toPayee)
                 .toString();
     }
 
     public void resetOutput(){
 
-        total.set(BigDecimal.ZERO);
-        vatWithheld.set(BigDecimal.ZERO);
-        withholdingTax.set(BigDecimal.ZERO);
-        toPrepay.set(BigDecimal.ZERO);
-        toPayee.set(BigDecimal.ZERO);
+        total = BigDecimal.ZERO;
+        vatWithheld = BigDecimal.ZERO;
+        withholdingTax = BigDecimal.ZERO;
+        toPrepay = BigDecimal.ZERO;
+        toPayee = BigDecimal.ZERO;
     }
 }

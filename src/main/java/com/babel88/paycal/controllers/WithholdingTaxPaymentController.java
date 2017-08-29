@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 /**
  * Created by edwin.njeru on 29/08/2017.
  */
-public class WithholdingTaxPaymentController implements DefaultControllers {
+public class WithholdingTaxPaymentController extends PaymentsControllerRunner implements DefaultControllers {
 
     private static DefaultControllers instance = new WithholdingTaxPaymentController();
     private final Logger log = LoggerFactory.getLogger(WithholdingTaxPaymentController.class);

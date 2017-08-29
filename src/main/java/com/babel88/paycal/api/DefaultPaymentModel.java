@@ -26,4 +26,6 @@ public interface DefaultPaymentModel<T> {
      * @return amount of total expense
      */
     BigDecimal getTotalExpense();
+
+    BigDecimal getToPrepay();
 }

@@ -4,7 +4,6 @@ import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.ReportControllers;
-import com.babel88.paycal.api.logic.PrepaymentService;
 import com.babel88.paycal.config.factory.ControllerFactory;
 import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.ModelFactory;
@@ -22,11 +21,12 @@ import java.math.BigDecimal;
 public abstract class PaymentsControllerRunner {
 
     private static final Logger log = LoggerFactory.getLogger(RentalPaymentsController.class);
+    protected final DefaultPaymentModel paymentModel;
     private final InvoiceDetails invoice;
     private final ResultsViewer resultsViewer;
-    private final DefaultPaymentModel paymentModel;
     private final ReportControllers reportController;
     private final com.babel88.paycal.api.controllers.PrepaymentController prepaymentController;
+    private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
     protected BigDecimal invoiceAmount;
     private Boolean doAgain;
 
@@ -56,7 +56,7 @@ public abstract class PaymentsControllerRunner {
 
             updateToPayee();
 
-            updateToPrepay();
+            prepaymentsDelegate.updateToPrepay();
 
             resultsOutput = (ResultsOutput) resultsViewer.forPayment((PaymentModel) paymentModel);
 
@@ -77,12 +77,14 @@ public abstract class PaymentsControllerRunner {
 
     public void updateToPrepay() {
 
-        BigDecimal totalExpense = paymentModel.getTotalExpense();
+        prepaymentsDelegate.updateToPrepay();
+    }
 
-        prepaymentController.setExpenseAmount(totalExpense);
+    public DefaultPaymentModel getPaymentModel() {
+        return paymentModel;
+    }
 
-        paymentModel.setToPrepay(
-                ((PrepaymentService) prepaymentController::getPrepayment).prepay(totalExpense)
-        );
+    public com.babel88.paycal.api.controllers.PrepaymentController getPrepaymentController() {
+        return prepaymentController;
     }
 }

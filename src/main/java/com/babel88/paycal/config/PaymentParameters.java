@@ -1,6 +1,7 @@
 package com.babel88.paycal.config;
 
 
+import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,15 +19,14 @@ import static java.math.RoundingMode.UNNECESSARY;
  */
 public class PaymentParameters {
 
+    //Code for singleTon pattern
+    private static PaymentParameters instance = new PaymentParameters();
     private final ThreadLocal<Logger> log;
-
     private final BigDecimal vatRate;
     private final BigDecimal withholdingVatRate;
     private final BigDecimal withholdingTaxRate;
     private final BigDecimal withholdingTaxContractor;
-
-    //Code for singleTon pattern
-    private static PaymentParameters instance = new PaymentParameters();
+    private final BigDecimal withholdingTaxOnRentalRate;
 
     private PaymentParameters() {
 
@@ -35,20 +35,25 @@ public class PaymentParameters {
                 "Vat Rate : {}. \n" +
                 "Withholding Vat Rate : {}. \n" +
                 "Withholding Tax Rate : {}. \n" +
-                "Contractor withholding Tax Rate : {}. \n",
-                "16%","6%","5%","3%");
+                        "Contractor withholding Tax Rate : {}. \n" +
+                        "Withholding tax on Rental payment",
+                "16%", "6%", "5%", "3%", "10%");
 
         vatRate = divPerCent(BigDecimal.valueOf(16));
         withholdingVatRate = divPerCent(BigDecimal.valueOf(6));
         withholdingTaxRate = divPerCent(BigDecimal.valueOf(5));
         withholdingTaxContractor = divPerCent(BigDecimal.valueOf(3));
+        withholdingTaxOnRentalRate = divPerCent(BigDecimal.valueOf(10));
+        ;
 
         log.get().debug("\nPayment parameters object created with : \n" +
                         "Vat Rate : {}. \n" +
                         "Withholding Vat Rate : {}. \n" +
                         "Withholding Tax Rate : {}. \n" +
-                        "Contractor withholding Tax Rate : {}.\n",
-                vatRate,withholdingVatRate,withholdingTaxRate,withholdingTaxContractor);
+                        "Contractor withholding Tax Rate : {}.\n" +
+                        "Withhoding tax on Rental Income : {}.",
+                vatRate, withholdingVatRate, withholdingTaxRate, withholdingTaxContractor, withholdingTaxOnRentalRate);
+
     }
 
     public static PaymentParameters getInstance(){
@@ -88,4 +93,28 @@ public class PaymentParameters {
         return withholdingTaxContractor;
     }
 
+    public BigDecimal getWithholdingTaxOnRentalRate() {
+        return withholdingTaxOnRentalRate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        log.get().debug("Calling the equals contract method to compare with : {}.", o);
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PaymentParameters that = (PaymentParameters) o;
+        return Objects.equal(vatRate, that.vatRate) &&
+                Objects.equal(withholdingVatRate, that.withholdingVatRate) &&
+                Objects.equal(withholdingTaxRate, that.withholdingTaxRate) &&
+                Objects.equal(withholdingTaxContractor, that.withholdingTaxContractor) &&
+                Objects.equal(withholdingTaxOnRentalRate, that.withholdingTaxOnRentalRate);
+    }
+
+    @Override
+    public int hashCode() {
+        log.get().debug("Calling the hashcode contract method");
+        return Objects.hashCode(vatRate, withholdingVatRate, withholdingTaxRate,
+                withholdingTaxContractor, withholdingTaxOnRentalRate);
+    }
 }
