@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class DefaultPartialTaxPaymentLogic implements PartialTaxPaymentLogic {
 
@@ -14,14 +15,14 @@ public class DefaultPartialTaxPaymentLogic implements PartialTaxPaymentLogic {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final PaymentParameters paymentParameters;
 
-    public DefaultPartialTaxPaymentLogic() {
+    private DefaultPartialTaxPaymentLogic() {
 
         log.debug("The default implementation pf the PartialTaxPaymentLogic interface \n" +
                 "has been invoked");
 
         log.debug("Calling the paymentParameter singleton from factory...");
 
-        paymentParameters = LogicFactory.getInstance().createPaymentParameters();
+        paymentParameters = LogicFactory.createPaymentParameters();
     }
 
     public static PartialTaxPaymentLogic getInstance() {
@@ -38,7 +39,7 @@ public class DefaultPartialTaxPaymentLogic implements PartialTaxPaymentLogic {
     public BigDecimal calculateWithholdingVat(BigDecimal vatAmount) {
 
         return vatAmount
-                .divide(paymentParameters.getVatRate())
+                .divide(paymentParameters.getVatRate(), RoundingMode.HALF_EVEN)
                 .multiply(paymentParameters.getWithholdingVatRate());
     }
 

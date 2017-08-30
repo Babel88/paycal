@@ -5,7 +5,6 @@ import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.PrepaymentDetails;
 import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.config.factory.GeneralFactory;
-import com.babel88.paycal.config.factory.ModelViewFactory;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
@@ -25,13 +24,13 @@ import static java.lang.System.out;
  */
 public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentDetails {
 
-    private final FeedBack notice;
-    private final Scanner keyboard;
     private static InvoiceDetails instance =
             new Invoice(
-                    GeneralFactory.getInstance().createFeedback(),
+                    GeneralFactory.createFeedback(),
                     new Scanner(System.in)
             );
+    private final FeedBack notice;
+    private final Scanner keyboard;
 
     private Invoice(FeedBack notice,Scanner keyboard) {
 

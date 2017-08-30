@@ -8,6 +8,7 @@ import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.controllers.base.ContractorPaymentsController;
 import com.babel88.paycal.controllers.prepayments.PrepaymentController;
+import com.babel88.paycal.models.PaymentModel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,10 +19,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 
-import static java.math.RoundingMode.HALF_EVEN;
 import static org.mockito.Mockito.when;
 
 /**
+ *
  * Created by edwin.njeru on 28/08/2017.
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -137,37 +138,7 @@ public class ContractorPaymentsControllerTest {
 
         DefaultPaymentModel results = controller.getPaymentModel();
 
-        DefaultPaymentModel paymentModel = new DefaultPaymentModel() {
-            @Override
-            public Object setWithHoldingVat(BigDecimal invoiceAmount) {
-                return null;
-            }
-
-            @Override
-            public Object setTotalExpense(BigDecimal totalExpense) {
-                return BigDecimal.valueOf(116000).setScale(2, HALF_EVEN);
-            }
-
-            @Override
-            public Object setWithholdingTax(BigDecimal withholdingTax) {
-                return BigDecimal.valueOf(3000).setScale(2, HALF_EVEN);
-            }
-
-            @Override
-            public Object setToPrepay(BigDecimal toPrepay) {
-                return BigDecimal.valueOf(0).setScale(2, HALF_EVEN);
-            }
-
-            @Override
-            public Object setToPayee(BigDecimal toPayee) {
-                return BigDecimal.valueOf(107000).setScale(2, HALF_EVEN);
-            }
-
-            @Override
-            public BigDecimal getTotalExpense() {
-                return BigDecimal.valueOf(116000).setScale(2, HALF_EVEN);
-            }
-        };
+        DefaultPaymentModel paymentModel = new PaymentModel();
 
         Assert.assertEquals(paymentModel, results);
 

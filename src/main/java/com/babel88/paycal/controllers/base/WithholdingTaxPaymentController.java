@@ -19,8 +19,11 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 
 /**
+ * Controller for payments with 5% withholding tax
+ *
  * Created by edwin.njeru on 29/08/2017.
  */
+@SuppressWarnings("ALL")
 public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImpl implements DefaultControllers, PaymentsControllerRunner {
 
     private static DefaultControllers instance = new WithholdingTaxPaymentController();
@@ -35,29 +38,29 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
     private boolean doAgain;
     private BigDecimal invoiceAmount;
 
-    public WithholdingTaxPaymentController() {
+    private WithholdingTaxPaymentController() {
 
         super();
 
         log.debug("Withholding tax payments controller created");
 
         log.debug("Fetching results viewer object from model view factory");
-        resultsViewer = ModelViewFactory.getInstance().createResultsViewer();
+        resultsViewer = ModelViewFactory.createResultsViewer();
 
         log.debug("Fetching the payment model object from Model factory");
         paymentModel = ModelFactory.getInstance().createPaymentModel();
 
         log.debug("Fetching the report controller object from controller factory");
-        reportController = ControllerFactory.getInstance().createReportController();
+        reportController = ControllerFactory.createReportController();
 
         log.debug("Fetching the invoice details object from model view factory");
-        invoice = GeneralFactory.getInstance().createInvoice();
+        invoice = GeneralFactory.createInvoice();
 
         log.debug("Fetching withholding tax payment logic from logic factory");
-        withholdingTaxLogic = (DefaultLogic) LogicFactory.getInstance().createWithholdingTaxPayments();
+        withholdingTaxLogic = (DefaultLogic) LogicFactory.createWithholdingTaxPayments();
 
         log.debug("Fetching prepayment controller from controller factory");
-        prepaymentController = ControllerFactory.getInstance().createPrepaymentController();
+        prepaymentController = ControllerFactory.createPrepaymentController();
     }
 
     @Contract(pure = true)

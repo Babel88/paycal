@@ -24,10 +24,10 @@ public class RentalPaymentLogic implements DefaultLogic, Serializable {
     private static DefaultLogic instance = new RentalPaymentLogic();
     private final PaymentParameters paymentParameters;
 
-    public RentalPaymentLogic() {
+    RentalPaymentLogic() {
 
         log.debug("Creating a rental payment logic object");
-        paymentParameters = LogicFactory.getInstance().createPaymentParameters();
+        paymentParameters = LogicFactory.createPaymentParameters();
     }
 
     @Contract(pure = true)

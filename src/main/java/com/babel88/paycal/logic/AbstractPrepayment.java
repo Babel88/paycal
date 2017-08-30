@@ -26,47 +26,38 @@ import static java.math.RoundingMode.HALF_EVEN;
  */
 public class AbstractPrepayment implements Prepayable,Serializable {
 
+    private static Prepayable instance = new AbstractPrepayment();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-
     private LocalDate invoiceStartDate,invoiceReferenceDate,invoiceEndDate;
-
     private Double prepaymentPeriod,invoicePeriod,coefficient;
-
     // Keeps track of current date format style
     private Enum<FormatStyle> dateFormatStyle;
-
     // Keeps track of locale settings
     private Locale locale;
-
     /* This object provides prepayment dates
      * Object has been Autowired through a setter
      */
     private PrepaymentDetails prepaymentDetails;
-
     /*This object provides general configurations for use with prepayment dates
      * The object has been Autowired through a setter
      */
     private GeneralConfigurations generalConfigurations;
-
     /**
      * The expense amount to be prepaid
      */
     private BigDecimal expenseAmount;
-
     /**
      * The prepayment amount
      */
     private BigDecimal prepaymentAmount;
 
-    private static Prepayable instance = new AbstractPrepayment();
-
     private AbstractPrepayment() {
 
         log.debug("Creating abstract prepayment using general configurations and prepayment details \n" +
                 "from Logic factory and General factory respectively");
-        generalConfigurations = LogicFactory.getInstance().createGeneralConfigurations();
+        generalConfigurations = LogicFactory.createGeneralConfigurations();
 
-        prepaymentDetails = GeneralFactory.getInstance().createPrepaymentDetails();
+        prepaymentDetails = GeneralFactory.createPrepaymentDetails();
 
         log.debug("Creating prepayment with default configurations, from the general \n" +
                 "configurations object : {}.",generalConfigurations.toString());
@@ -88,8 +79,9 @@ public class AbstractPrepayment implements Prepayable,Serializable {
      * @param expense amount
      * @return amount of prepayment
      */
+    @NotNull
     @Override
-    public BigDecimal calculatePrepayment(BigDecimal expense) {
+    public BigDecimal calculatePrepayment(@NotNull BigDecimal expense) {
 
         log.debug("Calculating prepayable amount for : {}.",expense);
         this.expenseAmount = expense;
@@ -222,18 +214,6 @@ public class AbstractPrepayment implements Prepayable,Serializable {
         log.debug("Prepayment dates set successfully without incidence");
     }
 
-    public AbstractPrepayment setPrepaymentDetails(PrepaymentDetails prepaymentDetails) {
-
-        this.prepaymentDetails = prepaymentDetails;
-
-        return this;
-    }
-
-    public AbstractPrepayment setGeneralConfigurations(GeneralConfigurations generalConfigurations) {
-        this.generalConfigurations = generalConfigurations;
-        return this;
-    }
-
     private double periodFrom(LocalDate refDate, LocalDate thisDate) {
 
         double period = 0;
@@ -257,16 +237,6 @@ public class AbstractPrepayment implements Prepayable,Serializable {
         return invoiceStartDate;
     }
 
-    @Nullable
-    public LocalDate getInvoiceReferenceDate() {
-        return invoiceReferenceDate;
-    }
-
-    @Nullable
-    public LocalDate getInvoiceEndDate() {
-        return invoiceEndDate;
-    }
-
     private void setInvoiceStartDate(String startDateString){
 
         log.debug("Setting start date as : {}.",startDateString);
@@ -282,6 +252,31 @@ public class AbstractPrepayment implements Prepayable,Serializable {
         invoiceStartDate = startDate;
 
         log.debug("Start date successfully set as : {}.",invoiceStartDate.toString());
+    }
+
+    public AbstractPrepayment setInvoiceStartDate(LocalDate invoiceStartDate) {
+        this.invoiceStartDate = invoiceStartDate;
+        return this;
+    }
+
+    @Nullable
+    public LocalDate getInvoiceReferenceDate() {
+        return invoiceReferenceDate;
+    }
+
+    public AbstractPrepayment setInvoiceReferenceDate(LocalDate invoiceReferenceDate) {
+        this.invoiceReferenceDate = invoiceReferenceDate;
+        return this;
+    }
+
+    @Nullable
+    public LocalDate getInvoiceEndDate() {
+        return invoiceEndDate;
+    }
+
+    public AbstractPrepayment setInvoiceEndDate(LocalDate invoiceEndDate) {
+        this.invoiceEndDate = invoiceEndDate;
+        return this;
     }
 
     private void setInvoiceReferenceDateDate(String refDateString){
@@ -324,7 +319,7 @@ public class AbstractPrepayment implements Prepayable,Serializable {
      * @param dateString date from prepayment details in string format
      * @return LocalDate
      */
-    public LocalDate createDateFromString(String dateString){
+    private LocalDate createDateFromString(String dateString) {
 
         log.debug("Parsing date from string {}.",dateString);
 
@@ -363,26 +358,21 @@ public class AbstractPrepayment implements Prepayable,Serializable {
         return this;
     }
 
-    public Double getCoefficient() {
+    private Double getCoefficient() {
         return coefficient;
     }
 
-    public BigDecimal getExpenseAmount() {
+    public AbstractPrepayment setCoefficient(Double coefficient) {
+        this.coefficient = coefficient;
+        return this;
+    }
+
+    private BigDecimal getExpenseAmount() {
         return expenseAmount;
     }
 
-    public AbstractPrepayment setInvoiceStartDate(LocalDate invoiceStartDate) {
-        this.invoiceStartDate = invoiceStartDate;
-        return this;
-    }
-
-    public AbstractPrepayment setInvoiceReferenceDate(LocalDate invoiceReferenceDate) {
-        this.invoiceReferenceDate = invoiceReferenceDate;
-        return this;
-    }
-
-    public AbstractPrepayment setInvoiceEndDate(LocalDate invoiceEndDate) {
-        this.invoiceEndDate = invoiceEndDate;
+    public AbstractPrepayment setExpenseAmount(BigDecimal expenseAmount) {
+        this.expenseAmount = expenseAmount;
         return this;
     }
 
@@ -404,11 +394,6 @@ public class AbstractPrepayment implements Prepayable,Serializable {
         return this;
     }
 
-    public AbstractPrepayment setCoefficient(Double coefficient) {
-        this.coefficient = coefficient;
-        return this;
-    }
-
     public Locale getLocale() {
         return locale;
     }
@@ -422,12 +407,19 @@ public class AbstractPrepayment implements Prepayable,Serializable {
         return prepaymentDetails;
     }
 
+    public AbstractPrepayment setPrepaymentDetails(PrepaymentDetails prepaymentDetails) {
+
+        this.prepaymentDetails = prepaymentDetails;
+
+        return this;
+    }
+
     public GeneralConfigurations getGeneralConfigurations() {
         return generalConfigurations;
     }
 
-    public AbstractPrepayment setExpenseAmount(BigDecimal expenseAmount) {
-        this.expenseAmount = expenseAmount;
+    public AbstractPrepayment setGeneralConfigurations(GeneralConfigurations generalConfigurations) {
+        this.generalConfigurations = generalConfigurations;
         return this;
     }
 
@@ -531,7 +523,7 @@ public class AbstractPrepayment implements Prepayable,Serializable {
             }
         }
         if (endDateIsNull() && refDateIsNull() && startDateIsNull()) {
-            return;
+            //return;
         }
 
     }
@@ -588,16 +580,16 @@ public class AbstractPrepayment implements Prepayable,Serializable {
 
     }
 
-    private class WrongDateException extends Exception {
-
-        public WrongDateException(String message) {
+    private static class WrongDateFormatException
+            extends Exception {
+        public WrongDateFormatException(String message) {
             super(message);
         }
     }
 
-    private static class WrongDateFormatException
-            extends Exception {
-        public WrongDateFormatException(String message) {
+    private class WrongDateException extends Exception {
+
+        private WrongDateException(String message) {
             super(message);
         }
     }

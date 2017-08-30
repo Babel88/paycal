@@ -13,9 +13,11 @@ import com.babel88.paycal.controllers.prepayments.PrepaymentController;
 import com.babel88.paycal.controllers.prepayments.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.view.ResultsOutput;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 
+@SuppressWarnings("ALL")
 public class ContractorPaymentsController implements DefaultControllers, PaymentsControllerRunner {
 
     private static DefaultControllers instance = new ContractorPaymentsController();
@@ -30,13 +32,13 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
     private Boolean doAgain;
 
     public ContractorPaymentsController() {
-        invoice = GeneralFactory.getInstance().createInvoice();
-        this.paymentModel = ModelFactory.getInstance().createPaymentModel();
+        invoice = GeneralFactory.createInvoice();
+        this.paymentModel = ModelFactory.createPaymentModel();
         contractorLogic = LogicFactory.getInstance().createContractorLogic();
-        prepaymentController = ControllerFactory.getInstance().createPrepaymentController();
-        viewResults = ModelViewFactory.getInstance().createResultsViewer();
+        prepaymentController = ControllerFactory.createPrepaymentController();
+        viewResults = ModelViewFactory.createResultsViewer();
 
-        reportsController = ControllerFactory.getInstance().createReportController();
+        reportsController = ControllerFactory.createReportController();
     }
 
     public static DefaultControllers getInstance() {
@@ -97,6 +99,7 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
         );
     }
 
+    @NotNull
     @Override
     public void updateToPrepay() {
 

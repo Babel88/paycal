@@ -21,11 +21,11 @@ public class DefaultTypicalPaymentsController extends PaymentsControllerRunnerIm
     private static DefaultControllers instance = new DefaultTypicalPaymentsController();
     private final DefaultLogic typicalPaymentsLogic;
 
-    public DefaultTypicalPaymentsController() {
+    private DefaultTypicalPaymentsController() {
         super();
         log.debug("Creating a rental payments controller using constructor in PaymentsControllerRunner");
 
-        typicalPaymentsLogic = LogicFactory.getInstance().createTypicalPayments();
+        typicalPaymentsLogic = LogicFactory.createTypicalPayments();
         log.debug("Fetching prepayment controller from controller factory");
     }
 

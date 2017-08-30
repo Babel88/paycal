@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        PaycalApp app = GeneralFactory.getInstance().createPaycalApp();
+        PaycalApp app = GeneralFactory.createPaycalApp();
 
         app.run();
 

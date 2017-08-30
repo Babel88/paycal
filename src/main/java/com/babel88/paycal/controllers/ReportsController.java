@@ -11,25 +11,21 @@ import org.slf4j.LoggerFactory;
 
 public class ReportsController implements ReportControllers {
 
+    private static ReportControllers instance = new ReportsController();
     private final Logger log= LoggerFactory.getLogger(ReportsController.class);
-
     private FeedBack feedBack;
-
     private PaymentAdvice paymentAdvice;
-
     private Boolean printReport;
 
-    private static ReportControllers instance = new ReportsController();
-
-    public ReportsController() {
+    private ReportsController() {
 
         log.debug("Creating a reports controller object");
 
         log.debug("Fetching dependants from factory");
 
-        feedBack = GeneralFactory.getInstance().createFeedback();
+        feedBack = GeneralFactory.createFeedback();
 
-        paymentAdvice = ModelViewFactory.getInstance().createPaymentAdvice();
+        paymentAdvice = ModelViewFactory.createPaymentAdvice();
     }
 
     public static ReportControllers getInstance() {

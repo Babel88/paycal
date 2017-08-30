@@ -26,7 +26,7 @@ public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPaymen
 
     DefaultTypicalWithholdingTaxPayment() {
 
-        this.parameters = LogicFactory.getInstance().createPaymentParameters();
+        this.parameters = LogicFactory.createPaymentParameters();
     }
 
     public static WithholdingTaxPayments getInstance() {

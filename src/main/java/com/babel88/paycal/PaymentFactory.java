@@ -20,18 +20,18 @@ import static java.lang.System.out;
 public class PaymentFactory {
 
     private static PaymentFactory instance = new PaymentFactory();
-    Logger log = LoggerFactory.getLogger(PaymentFactory.class);
+    private final Logger log = LoggerFactory.getLogger(PaymentFactory.class);
     private PaymentModelViewInterface view;
     private InvoiceDetails invoice;
     private Logic logic;
 
-    public PaymentFactory() {
+    private PaymentFactory() {
 
         log.debug("Creating an instance of the PaymentFactory");
         //TODO include in factory
-        logic = LogicFactory.getInstance().createMainLogicController();
-        view = ModelViewFactory.getInstance().createPaymentModelView();
-        invoice = GeneralFactory.getInstance().createInvoice();
+        logic = LogicFactory.createMainLogicController();
+        view = ModelViewFactory.createPaymentModelView();
+        invoice = GeneralFactory.createInvoice();
     }
 
     public static PaymentFactory getInstance() {
@@ -41,12 +41,12 @@ public class PaymentFactory {
     private String usrChoice(){
 
         Scanner keyboard = new Scanner(System.in);
-        String choice = new String(keyboard.next());
+        String choice = keyboard.next();
 
         return choice.toLowerCase();
     }
 
-    public void mainSwitch(){
+    void mainSwitch() {
 
         mainOptions options;
         // initiating the enum class

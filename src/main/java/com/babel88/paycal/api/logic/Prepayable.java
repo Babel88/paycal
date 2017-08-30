@@ -1,5 +1,7 @@
 package com.babel88.paycal.api.logic;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.annotation.Nonnull;
 import java.math.BigDecimal;
 
@@ -13,6 +15,7 @@ public interface Prepayable {
      * @param expense amount
      * @return amount of prepayment
      */
+    @NotNull
     @Nonnull
     BigDecimal calculatePrepayment(@Nonnull BigDecimal expense);
 }

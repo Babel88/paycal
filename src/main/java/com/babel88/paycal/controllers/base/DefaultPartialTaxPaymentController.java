@@ -41,14 +41,14 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
 
         log.debug("Getting inner dependencies from factory...");
 
-        parameters = LogicFactory.getInstance().createPaymentParameters();
-        partialTaxPaymentLogic = LogicFactory.getInstance().createPartialTaxPaymentLogic();
-        reportsController = ControllerFactory.getInstance().createReportController();
-        prepaymentController = ControllerFactory.getInstance().createPrepaymentController();
-        viewResults = ModelViewFactory.getInstance().createResultsViewer();
-        invoice = GeneralFactory.getInstance().createInvoice();
-        view = ModelViewFactory.getInstance().createPaymentModelView();
-        paymentModel = ModelFactory.getInstance().createPaymentModel();
+        parameters = LogicFactory.createPaymentParameters();
+        partialTaxPaymentLogic = LogicFactory.createPartialTaxPaymentLogic();
+        reportsController = ControllerFactory.createReportController();
+        prepaymentController = ControllerFactory.createPrepaymentController();
+        viewResults = ModelViewFactory.createResultsViewer();
+        invoice = GeneralFactory.createInvoice();
+        view = ModelViewFactory.createPaymentModelView();
+        paymentModel = ModelFactory.createPaymentModel();
 
         doAgain = false;
     }

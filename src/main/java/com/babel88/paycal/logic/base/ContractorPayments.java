@@ -10,15 +10,16 @@ import java.util.concurrent.atomic.AtomicReference;
 import static java.math.RoundingMode.HALF_EVEN;
 
 /**
+ * Logic class for contractor Payments
+ *
  * Created by edwin.njeru on 10/07/2017.
  */
 public class ContractorPayments implements Contractors {
 
+    private static Contractors instance = new ContractorPayments();
     private final AtomicReference<BigDecimal> vatRate;
     private final AtomicReference<BigDecimal> withholdingTaxRate;
     private final AtomicReference<BigDecimal> withholdingVatRate;
-
-    private static Contractors instance = new ContractorPayments();
 
 //    public ContractorPayments(PaymentParameters parameters) {
 //
@@ -30,7 +31,7 @@ public class ContractorPayments implements Contractors {
 
     private ContractorPayments() {
 
-        PaymentParameters parameters = LogicFactory.getInstance().createPaymentParameters();
+        PaymentParameters parameters = LogicFactory.createPaymentParameters();
 
         vatRate = new AtomicReference<>(parameters.getVatRate());
         withholdingTaxRate = new AtomicReference<>(parameters.getWithholdingTaxContractor());
@@ -52,15 +53,13 @@ public class ContractorPayments implements Contractors {
     public BigDecimal calculatePayableToVendor(BigDecimal total) {
 
 
-        BigDecimal invoiceTotal = total;
-
         BigDecimal b4Tax = total.divide(vatRate.get().add(BigDecimal.ONE), HALF_EVEN);
 
         BigDecimal withholdingTax = b4Tax.multiply(withholdingTaxRate.get());
 
         BigDecimal vatWithholding = b4Tax.multiply(withholdingVatRate.get());
 
-        return invoiceTotal.subtract(withholdingTax).subtract(vatWithholding).setScale(2, HALF_EVEN);
+        return total.subtract(withholdingTax).subtract(vatWithholding).setScale(2, HALF_EVEN);
     }
 
     /**
@@ -72,8 +71,6 @@ public class ContractorPayments implements Contractors {
     @Override
     public BigDecimal calculateWithholdingTax(BigDecimal total) {
 
-
-        BigDecimal invoiceTotal = total;
 
         BigDecimal b4Tax = total.divide(vatRate.get().add(BigDecimal.ONE),HALF_EVEN);
 
@@ -91,8 +88,6 @@ public class ContractorPayments implements Contractors {
     @Override
     public BigDecimal calculateWithholdingVat(BigDecimal total) {
 
-
-        BigDecimal invoiceTotal = total;
 
         BigDecimal amountBeforeTax = total.divide(vatRate.get().add(BigDecimal.ONE),HALF_EVEN);
 

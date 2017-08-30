@@ -4,6 +4,7 @@ import com.babel88.paycal.api.logic.Prepayable;
 import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,9 +48,9 @@ public class PrepaymentController implements com.babel88.paycal.api.controllers.
 
         log.debug("Creating payment controller from factory");
 
-        abstractPrepayment = LogicFactory.getInstance().createPrepayable();
+        abstractPrepayment = LogicFactory.createPrepayable();
 
-        feedBack = GeneralFactory.getInstance().createFeedback();
+        feedBack = GeneralFactory.createFeedback();
 
         this.expenseAmount = expenseAmount;
 
@@ -77,7 +78,7 @@ public class PrepaymentController implements com.babel88.paycal.api.controllers.
      *
      * @return this
      */
-    public PrepaymentController setPrepay() {
+    private PrepaymentController setPrepay() {
 
         log.debug("Setting whether or not we are to prepay the expense amount...");
 
@@ -96,7 +97,7 @@ public class PrepaymentController implements com.babel88.paycal.api.controllers.
      *
      * @return the value amount of prepayment in BigDecimal
      */
-    public BigDecimal runPrepay(BigDecimal expenseAmount) {
+    private BigDecimal runPrepay(BigDecimal expenseAmount) {
 
 
         this.prepaymentAmount =
@@ -115,8 +116,9 @@ public class PrepaymentController implements com.babel88.paycal.api.controllers.
      * @param totalExpense amount to be prepaid partially
      * @return prepayment amount in BigDecimal
      */
+    @NotNull
     @Override
-    public BigDecimal getPrepayment(BigDecimal totalExpense) {
+    public BigDecimal getPrepayment(@NotNull BigDecimal totalExpense) {
 
         userPrompt();
 
@@ -125,6 +127,7 @@ public class PrepaymentController implements com.babel88.paycal.api.controllers.
         return runPrepay(expenseAmount);
     }
 
+    @NotNull
     @Override
     public PrepaymentController setExpenseAmount(BigDecimal expenseAmount) {
         this.expenseAmount = expenseAmount;

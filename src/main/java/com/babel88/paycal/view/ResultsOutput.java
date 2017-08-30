@@ -16,7 +16,7 @@ import java.math.BigInteger;
 public class ResultsOutput implements Serializable, ResultsViewer {
 
     private static ResultsViewer instance =
-            new ResultsOutput(ModelViewFactory.getInstance().createPaymentModelView());
+            new ResultsOutput(ModelViewFactory.createPaymentModelView());
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final PaymentModelViewInterface view;
     private BigDecimal total;
@@ -67,35 +67,37 @@ public class ResultsOutput implements Serializable, ResultsViewer {
         this.setToPayee(model.getToPayee());
     }
 
-    public ResultsViewer setTotal(BigDecimal total) {
+    @SuppressWarnings(value = "never used")
+    private ResultsViewer setTotal(BigDecimal total) {
         this.total = total;
 
         log.debug("Total field set as {}.: ", total);
         return this;
     }
 
-    public ResultsViewer setVatWithheld(BigDecimal vatWithheld) {
+    @SuppressWarnings(value = "never used")
+    private ResultsViewer setVatWithheld(BigDecimal vatWithheld) {
         this.vatWithheld = vatWithheld;
 
         log.debug("vatWithheld field set as {}.: ", vatWithheld);
         return this;
     }
 
-    public ResultsViewer setWithholdingTax(BigDecimal withholdingTax) {
+    private ResultsViewer setWithholdingTax(BigDecimal withholdingTax) {
         this.withholdingTax = withholdingTax;
 
         log.debug("withholdingTax field set as {}.: ", withholdingTax);
         return this;
     }
 
-    public ResultsViewer setToPrepay(BigDecimal toPrepay) {
+    private ResultsViewer setToPrepay(BigDecimal toPrepay) {
         this.toPrepay = toPrepay;
 
         log.debug("toPrepay field set as : {}.", toPrepay);
         return this;
     }
 
-    public ResultsViewer setToPayee(BigDecimal toPayee) {
+    private ResultsViewer setToPayee(BigDecimal toPayee) {
         this.toPayee = toPayee;
 
         log.debug("toPayee field set as : {}.", toPayee);

@@ -1,5 +1,7 @@
 package com.babel88.paycal.api.controllers;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.annotation.Nonnull;
 import java.math.BigDecimal;
 
@@ -14,6 +16,7 @@ public interface PrepaymentController {
      * @param totalExpense amount to be prepaid partially
      * @return prepayment amount in BigDecimal
      */
+    @NotNull
     @Nonnull
     BigDecimal getPrepayment(@Nonnull BigDecimal totalExpense);
 
@@ -21,6 +24,7 @@ public interface PrepaymentController {
      *
      * @param expenseAmount to be prepaid
      */
+    @NotNull
     @Nonnull
     Object setExpenseAmount(BigDecimal expenseAmount);
 }

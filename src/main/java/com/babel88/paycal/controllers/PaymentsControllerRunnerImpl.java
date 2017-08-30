@@ -19,6 +19,8 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 
 /**
+ * Implementattion to run the runCalculation method and to call the prepayment delegate
+ *
  * Created by edwin.njeru on 29/08/2017.
  */
 public abstract class PaymentsControllerRunnerImpl implements PaymentsControllerRunner {
@@ -35,12 +37,12 @@ public abstract class PaymentsControllerRunnerImpl implements PaymentsController
 
     protected PaymentsControllerRunnerImpl() {
         log.debug("Creating a rental payments controller");
-        invoice = GeneralFactory.getInstance().createInvoice();
-        resultsViewer = ModelViewFactory.getInstance().createResultsViewer();
-        paymentModel = ModelFactory.getInstance().createPaymentModel();
-        reportController = ControllerFactory.getInstance().createReportController();
+        invoice = GeneralFactory.createInvoice();
+        resultsViewer = ModelViewFactory.createResultsViewer();
+        paymentModel = ModelFactory.createPaymentModel();
+        reportController = ControllerFactory.createReportController();
         log.debug("Fetching prepayment controller from controller factory");
-        prepaymentController = ControllerFactory.getInstance().createPrepaymentController();
+        prepaymentController = ControllerFactory.createPrepaymentController();
     }
 
 

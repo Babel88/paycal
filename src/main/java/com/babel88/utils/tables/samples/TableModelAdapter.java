@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
+ * SAMPLE APP
  * Created by edwin.njeru on 8/13/17.
  */
 public class TableModelAdapter {
@@ -61,7 +62,7 @@ public class TableModelAdapter {
         }
 
         public String getCellContent(int x, int y) {
-            return String.format("%02d:%02d", new Object[]{Integer.valueOf(x), Integer.valueOf(y)});
+            return String.format("%02d:%02d", Integer.valueOf(x), Integer.valueOf(y));
         }
 
         public String getColumnTitle(int x) {

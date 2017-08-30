@@ -31,15 +31,15 @@ public class DisplayImpl implements PaymentModelViewInterface {
     private final Tables tableString;
     private final AtomicReference<BigDecimal> total,vatWithheld,withholdingTax,toPrepay,toPayee;
 
-    public DisplayImpl(){
+    DisplayImpl() {
 
         log.debug("Creating empty value fields in the DisplayImpl");
-        total = new AtomicReference<BigDecimal>();
-        vatWithheld = new AtomicReference<BigDecimal>();
-        withholdingTax = new AtomicReference<BigDecimal>();
-        toPrepay = new AtomicReference<BigDecimal>();
-        toPayee = new AtomicReference<BigDecimal>();
-        tableString = GeneralFactory.getInstance().createTables();
+        total = new AtomicReference<>();
+        vatWithheld = new AtomicReference<>();
+        withholdingTax = new AtomicReference<>();
+        toPrepay = new AtomicReference<>();
+        toPayee = new AtomicReference<>();
+        tableString = GeneralFactory.createTables();
         //paycalApp = GeneralFactory.getInstance().createPaycalApp();
     }
 
@@ -77,7 +77,7 @@ public class DisplayImpl implements PaymentModelViewInterface {
         // the computation of the Invoice transactions
         // was instantiated
         //Date timePaid = paycalApp.getNow();
-        Date timePaid = GeneralFactory.getInstance().createPaycalApp().getNow();
+        Date timePaid = GeneralFactory.createPaycalApp().getNow();
 
         out.println("Calculated at: "+timePaid);
 

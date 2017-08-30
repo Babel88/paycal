@@ -3,9 +3,10 @@ package com.babel88.paycal.view.tables;
 /**
  * Created by edwin.njeru on 10/07/2017.
  */
+
+import com.babel88.paycal.api.view.Tables;
 import com.google.common.base.Objects;
 import com.google.common.base.Strings;
-import com.babel88.paycal.api.view.Tables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,13 +15,12 @@ import java.util.Map;
 
 public class TableMaker implements Tables {
 
+    private static Tables instance = new TableMaker();
     private final Logger log = LoggerFactory.getLogger(TableMaker.class);
-
     Map<Index, String> _strings = new HashMap();
-    Map<Integer, Integer> _columSizes = new HashMap();
     int _numRows = 0;
     int _numColumns = 0;
-    private static Tables instance = new TableMaker();
+    private Map<Integer, Integer> _columSizes = new HashMap<>();
 
     public TableMaker() {
 
@@ -42,7 +42,7 @@ public class TableMaker implements Tables {
 
     private void setMaxColumnSize(int colum, String content) {
         int size = content.length();
-        Integer currentSize = (Integer)this._columSizes.get(Integer.valueOf(colum));
+        Integer currentSize = this._columSizes.get(Integer.valueOf(colum));
         if(currentSize == null || currentSize != null && currentSize.intValue() < size) {
             this._columSizes.put(Integer.valueOf(colum), Integer.valueOf(size));
         }
@@ -50,13 +50,13 @@ public class TableMaker implements Tables {
     }
 
     public int getColumSize(int colum) {
-        Integer size = (Integer)this._columSizes.get(Integer.valueOf(colum));
+        Integer size = this._columSizes.get(Integer.valueOf(colum));
         return size == null?0:size.intValue();
     }
 
     public String getString(int row, int colum) {
         Index index = new Index(row, colum);
-        String string = (String)this._strings.get(index);
+        String string = this._strings.get(index);
         return string == null?"":string;
     }
 

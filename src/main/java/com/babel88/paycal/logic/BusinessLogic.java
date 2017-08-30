@@ -1,16 +1,11 @@
 package com.babel88.paycal.logic;
 
-import com.babel88.paycal.api.DefaultPrepayable;
 import com.babel88.paycal.api.ForeignPaymentDetails;
 import com.babel88.paycal.api.Logic;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.PartialTaxPaymentController;
-import com.babel88.paycal.api.controllers.TypicalPaymentsControllers;
-import com.babel88.paycal.api.factory.Incarnatable;
-import com.babel88.paycal.api.logic.Contractors;
 import com.babel88.paycal.api.logic.PrepaymentService;
 import com.babel88.paycal.api.logic.TelegraphicTransfers;
-import com.babel88.paycal.api.logic.WithholdingTaxPayments;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.config.factory.ControllerFactory;
 import com.babel88.paycal.config.factory.GeneralFactory;
@@ -30,18 +25,14 @@ import java.math.BigDecimal;
  * Ideally this is the heart of the entre program
  * Ideally all of those methods are likely to crowd the class but will try to keep the methods to small sizes
  */
-public class BusinessLogic implements Logic,Incarnatable {
+public class BusinessLogic implements Logic {
 
     private static Logic instance = new BusinessLogic();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    public DefaultPrepayable defaultPrepayment;
-    private Contractors contractor;
-    private WithholdingTaxPayments withholdingTaxPayment;
     private PrepaymentController prepaymentController;
     private PaymentModelViewInterface paymentModelView;
     private TelegraphicTransfers foreignPayments;
     private ForeignPaymentDetails foreignPaymentDetails;
-    private TypicalPaymentsControllers typicalPaymentsController;
     private PartialTaxPaymentController partialTaxPaymentController;
     private DefaultControllers contractorPaymentController;
     private DefaultControllers withholdingTaxPaymentController;
@@ -52,29 +43,21 @@ public class BusinessLogic implements Logic,Incarnatable {
 
         log.debug("Creating an instance of the main business logic controller");
 
-        withholdingTaxPayment = LogicFactory.getInstance().createWithholdingTaxPayments();
-
-        contractor = LogicFactory.getInstance().createContractors();
-
-        defaultPrepayment = LogicFactory.getInstance().createDefaultPrepayment();
-
-        foreignPayments = LogicFactory.getInstance().createTelegraphicTransfers();
+        foreignPayments = LogicFactory.createTelegraphicTransfers();
 
         log.debug("Fetching controller singleton from Controller Factory");
 
-        prepaymentController = ControllerFactory.getInstance().createPrepaymentController();
+        prepaymentController = ControllerFactory.createPrepaymentController();
 
-        typicalPaymentsController = ControllerFactory.getInstance().createTypicalPaymentsController();
-
-        partialTaxPaymentController = ControllerFactory.getInstance().createPartialTaxPaymentController();
+        partialTaxPaymentController = ControllerFactory.createPartialTaxPaymentController();
 
         log.debug("Fetching instances from the payment model view Factory");
 
-        paymentModelView = ModelViewFactory.getInstance().createPaymentModelView();
+        paymentModelView = ModelViewFactory.createPaymentModelView();
 
         log.debug("Fetching instance from the general factory");
 
-        foreignPaymentDetails = GeneralFactory.getInstance().createForeignPaymentDetails();
+        foreignPaymentDetails = GeneralFactory.createForeignPaymentDetails();
 
         log.debug("Fetching contractor payments controller from ControllerFactory");
         contractorPaymentController = ControllerFactory.getInstance().createContractorPaymentController();

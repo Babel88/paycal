@@ -1,9 +1,7 @@
 package com.babel88.paycal.api.logic;
 
-import com.babel88.paycal.api.PaycalProviders;
-
 @FunctionalInterface
-public interface PaymentTypeProviders extends PaycalProviders {
+public interface PaymentTypeProviders {
 
     /**
      * This method exposes an internal map of "live" objects for handling

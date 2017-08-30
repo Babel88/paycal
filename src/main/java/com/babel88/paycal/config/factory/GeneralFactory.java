@@ -7,13 +7,14 @@ import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.PrepaymentDetails;
 import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.api.view.Tables;
-import com.babel88.paycal.controllers.support.undo.UndoRedoAspect;
 import com.babel88.paycal.util.aspects.LoggingAspect;
 import com.babel88.paycal.view.Invoice;
 import com.babel88.paycal.view.Notifications;
 import com.babel88.paycal.view.tables.TableMaker;
 
 /**
+ * factory containing general purpose objects
+ *
  * Created by edwin.njeru on 8/23/17.
  */
 public class GeneralFactory {
@@ -42,11 +43,6 @@ public class GeneralFactory {
     public static LoggingAspect createLoggingAspect(){
 
         return LoggingAspect.getInstance();
-    }
-
-    public static UndoRedoAspect createUndoAspect(){
-
-        return UndoRedoAspect.getInstance();
     }
 
     public static Tables createTables(){

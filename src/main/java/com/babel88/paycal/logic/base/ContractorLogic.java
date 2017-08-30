@@ -15,8 +15,8 @@ public class ContractorLogic implements com.babel88.paycal.api.logic.DefaultLogi
 
     private final PaymentParameters paymentParameters;
 
-    public ContractorLogic() {
-        paymentParameters = LogicFactory.getInstance().createPaymentParameters();
+    private ContractorLogic() {
+        paymentParameters = LogicFactory.createPaymentParameters();
     }
 
     public static DefaultLogic getInstance() {

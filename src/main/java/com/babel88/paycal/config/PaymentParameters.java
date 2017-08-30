@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 
-import static java.math.RoundingMode.UNNECESSARY;
+import static java.math.RoundingMode.HALF_EVEN;
 
 /**
  * Created by edwin.njeru on 18/07/2016.
@@ -44,7 +44,6 @@ public class PaymentParameters {
         withholdingTaxRate = divPerCent(BigDecimal.valueOf(5));
         withholdingTaxContractor = divPerCent(BigDecimal.valueOf(3));
         withholdingTaxOnRentalRate = divPerCent(BigDecimal.valueOf(10));
-        ;
 
         log.get().debug("\nPayment parameters object created with : \n" +
                         "Vat Rate : {}. \n" +
@@ -66,7 +65,7 @@ public class PaymentParameters {
     private BigDecimal divPerCent(BigDecimal denominator){
 
         log.get().debug("Dividing denominator by 100, to create percentage value for : {}.",denominator);
-        return denominator.divide(BigDecimal.valueOf(100).setScale(2, UNNECESSARY));
+        return denominator.divide(BigDecimal.valueOf(100).setScale(2, HALF_EVEN), HALF_EVEN);
     }
 
     public BigDecimal getVatRate() {
