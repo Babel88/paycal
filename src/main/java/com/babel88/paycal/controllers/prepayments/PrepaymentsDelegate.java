@@ -1,5 +1,6 @@
-package com.babel88.paycal.controllers;
+package com.babel88.paycal.controllers.prepayments;
 
+import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
 import com.babel88.paycal.api.logic.PrepaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,7 @@ public class PrepaymentsDelegate {
         this.paymentsControllerRunner = paymentsControllerRunner;
     }
 
-    void updateToPrepay() {
+    public void updateToPrepay() {
 
         log.debug("updateToPrepay method has been called in the delegate");
         BigDecimal totalExpense = paymentsControllerRunner.getPaymentModel().getTotalExpense();

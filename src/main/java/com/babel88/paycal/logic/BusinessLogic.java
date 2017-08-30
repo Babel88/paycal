@@ -16,7 +16,8 @@ import com.babel88.paycal.config.factory.ControllerFactory;
 import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.config.factory.ModelViewFactory;
-import com.babel88.paycal.controllers.PrepaymentController;
+import com.babel88.paycal.controllers.prepayments.PrepaymentController;
+import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +46,7 @@ public class BusinessLogic implements Logic,Incarnatable {
     private DefaultControllers contractorPaymentController;
     private DefaultControllers withholdingTaxPaymentController;
     private DefaultControllers rentalPaymentsController;
+    private DefaultControllers defaultTypicalPaymentsController;
 
     private BusinessLogic() {
 
@@ -82,17 +84,23 @@ public class BusinessLogic implements Logic,Incarnatable {
 
         log.debug("Fetching rentalPaymentsController from Controller factory");
         rentalPaymentsController = ControllerFactory.getInstance().createRentalPaymentsController();
+
+        log.debug("Fetching the defaultTypicalPaymentsController from the controller ");
+        defaultTypicalPaymentsController = ControllerFactory.getInstance().getDefaultTypicalPaymentsController();
     }
 
+    @Contract(pure = true)
     public static Logic getInstance(){
 
         return instance;
     }
 
     @Override
-    public void normal(BigDecimal invoiceAmount) {
+    public void normal() {
 
-        typicalPaymentsController.runCalculation(invoiceAmount);
+        //typicalPaymentsController.runCalculation(invoiceAmount);
+
+        defaultTypicalPaymentsController.runCalculation();
 
     }
 

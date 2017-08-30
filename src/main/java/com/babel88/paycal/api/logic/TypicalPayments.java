@@ -40,7 +40,7 @@ public interface TypicalPayments extends GeneralPayments{
      *
      * @return amount payable to payee
      */
-    BigDecimal calculatePayableToVendor(BigDecimal invoiceAmount);
+    BigDecimal calculateToPayee(BigDecimal invoiceAmount);
 
     /**
      * Calculate the invoice amount before adding vat

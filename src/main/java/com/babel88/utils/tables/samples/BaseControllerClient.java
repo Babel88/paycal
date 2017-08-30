@@ -1,7 +1,7 @@
 package com.babel88.utils.tables.samples;
 
 import com.babel88.paycal.api.controllers.DefaultControllers;
-import com.babel88.paycal.controllers.ContractorPaymentsController;
+import com.babel88.paycal.controllers.base.ContractorPaymentsController;
 
 /**
  * Created by edwin.njeru on 28/08/2017.

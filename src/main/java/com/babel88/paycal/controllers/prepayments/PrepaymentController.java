@@ -1,4 +1,4 @@
-package com.babel88.paycal.controllers;
+package com.babel88.paycal.controllers.prepayments;
 
 import com.babel88.paycal.api.logic.Prepayable;
 import com.babel88.paycal.api.view.FeedBack;

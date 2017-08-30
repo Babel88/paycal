@@ -6,6 +6,8 @@ import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
+import com.babel88.paycal.controllers.base.ContractorPaymentsController;
+import com.babel88.paycal.controllers.prepayments.PrepaymentController;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

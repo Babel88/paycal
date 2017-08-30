@@ -57,7 +57,7 @@ public class PaymentFactory {
                 out.println();
                 out.println("Normal transaction:");
                 out.println("-------------------");
-                logic.normal(invoice.invoiceAmount());
+                logic.normal();
                 break;
             case b:
                 out.println();

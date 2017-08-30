@@ -187,6 +187,13 @@
       </item>
     </group>
   </component>
+  <component name="ProjectDictionaryState">
+    <dictionary name="edwin.njeru">
+      <words>
+        <w>delegator</w>
+      </words>
+    </dictionary>
+  </component>
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/paycal.iml" filepath="$PROJECT_DIR$/paycal.iml" />

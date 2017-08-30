@@ -42,7 +42,7 @@ public class LogicFactory {
 
     }
 
-    public static TypicalPayments createTypicalPayments(){
+    public static DefaultLogic createTypicalPayments() {
 
         log.debug("Returning a singleton instance of TypicalPayments object");
 

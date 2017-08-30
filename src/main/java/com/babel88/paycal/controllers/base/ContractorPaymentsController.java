@@ -1,21 +1,25 @@
-package com.babel88.paycal.controllers;
+package com.babel88.paycal.controllers.base;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.DefaultControllers;
+import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.api.logic.PrepaymentService;
 import com.babel88.paycal.config.factory.*;
+import com.babel88.paycal.controllers.prepayments.PrepaymentController;
+import com.babel88.paycal.controllers.prepayments.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.view.ResultsOutput;
 
 import java.math.BigDecimal;
 
-public class ContractorPaymentsController implements DefaultControllers {
+public class ContractorPaymentsController implements DefaultControllers, PaymentsControllerRunner {
 
     private static DefaultControllers instance = new ContractorPaymentsController();
+    private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
     private DefaultPaymentModel paymentModel;
     private InvoiceDetails invoice;
     private BigDecimal invoiceAmount;
@@ -51,7 +55,7 @@ public class ContractorPaymentsController implements DefaultControllers {
             updateToPayee();
             updateWithholdingTax();
             updateWithholdingVat();
-            updateToPrepay();
+            prepaymentsDelegate.updateToPrepay();
             resultsOutput = (ResultsOutput) viewResults.forPayment((PaymentModel) paymentModel);
             // Results submitted for paymentModelView
 
@@ -143,5 +147,11 @@ public class ContractorPaymentsController implements DefaultControllers {
     public DefaultControllers setReportsController(ReportControllers reportsController) {
         this.reportsController = reportsController;
         return this;
+    }
+
+    @Override
+    public com.babel88.paycal.api.controllers.PrepaymentController getPrepaymentController() {
+
+        return prepaymentController;
     }
 }

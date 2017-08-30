@@ -6,18 +6,18 @@ import com.babel88.paycal.config.factory.ControllerFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.config.factory.ModelFactory;
 import com.babel88.paycal.config.factory.UtilFactory;
-import com.babel88.paycal.controllers.PrepaymentController;
+import com.babel88.paycal.controllers.prepayments.PrepaymentController;
 import com.babel88.paycal.controllers.support.undo.PaymentModelUndoHelper;
 import com.babel88.paycal.controllers.support.undo.UndoRedo;
 import com.babel88.paycal.models.PaymentModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import java.math.BigDecimal;
 
 import static java.math.BigDecimal.ZERO;
 
+@Deprecated
 public class PaymentModelTypicalControllerUpdate {
 
     private static PaymentModelTypicalControllerUpdate instance =
@@ -38,7 +38,7 @@ public class PaymentModelTypicalControllerUpdate {
 
         log.debug("Creating typicalPayments object");
 
-        typicalPayment = LogicFactory.getInstance().createTypicalPayments();
+        typicalPayment = (TypicalPayments) LogicFactory.getInstance().createTypicalPayments();
 
         prepaymentController = ControllerFactory.getInstance().createPrepaymentController();
 
@@ -123,7 +123,7 @@ public class PaymentModelTypicalControllerUpdate {
     private void calculationStep4() {
         log.debug("Calculating amount payable to vendor for : {}.", this.invoiceAmount);
         paymentModel.setToPayee(
-                typicalPayment.calculatePayableToVendor(invoiceAmount));
+                typicalPayment.calculateToPayee(invoiceAmount));
     }
 
     @UndoRedo

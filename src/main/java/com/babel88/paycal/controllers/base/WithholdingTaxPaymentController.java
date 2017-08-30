@@ -1,13 +1,15 @@
-package com.babel88.paycal.controllers;
+package com.babel88.paycal.controllers.base;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.DefaultControllers;
+import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
-import com.babel88.paycal.api.logic.PrepaymentService;
 import com.babel88.paycal.config.factory.*;
+import com.babel88.paycal.controllers.PaymentsControllerRunnerImpl;
+import com.babel88.paycal.controllers.prepayments.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.view.ResultsOutput;
 import org.jetbrains.annotations.Contract;
@@ -19,9 +21,10 @@ import java.math.BigDecimal;
 /**
  * Created by edwin.njeru on 29/08/2017.
  */
-public class WithholdingTaxPaymentController extends PaymentsControllerRunner implements DefaultControllers {
+public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImpl implements DefaultControllers, PaymentsControllerRunner {
 
     private static DefaultControllers instance = new WithholdingTaxPaymentController();
+    private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
     private final Logger log = LoggerFactory.getLogger(WithholdingTaxPaymentController.class);
     private final ResultsViewer resultsViewer;
     private final DefaultPaymentModel paymentModel;
@@ -33,6 +36,8 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunner im
     private BigDecimal invoiceAmount;
 
     public WithholdingTaxPaymentController() {
+
+        super();
 
         log.debug("Withholding tax payments controller created");
 
@@ -76,7 +81,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunner im
 
             updateToPayee();
 
-            updateToPrepay();
+            prepaymentsDelegate.updateToPrepay();
 
             resultsOutput = (ResultsOutput) resultsViewer.forPayment((PaymentModel) paymentModel);
 
@@ -119,7 +124,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunner im
         );
     }
 
-    @Override
+    /*@Override
     public void updateToPrepay() {
 
         BigDecimal totalExpense = paymentModel.getTotalExpense();
@@ -129,7 +134,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunner im
         paymentModel.setToPrepay(
                 ((PrepaymentService) prepaymentController::getPrepayment).prepay(totalExpense)
         );
-    }
+    }*/
 
     @Override
     public DefaultPaymentModel getPaymentModel() {

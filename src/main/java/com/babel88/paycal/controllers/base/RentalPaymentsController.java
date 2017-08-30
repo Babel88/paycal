@@ -1,16 +1,17 @@
-package com.babel88.paycal.controllers;
+package com.babel88.paycal.controllers.base;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.config.factory.LogicFactory;
+import com.babel88.paycal.controllers.PaymentsControllerRunnerImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Created by edwin.njeru on 29/08/2017.
  */
-public class RentalPaymentsController extends PaymentsControllerRunner implements DefaultControllers {
+public class RentalPaymentsController extends PaymentsControllerRunnerImpl implements DefaultControllers {
 
     private static final Logger log = LoggerFactory.getLogger(RentalPaymentsController.class);
     private static DefaultControllers instance = new RentalPaymentsController();

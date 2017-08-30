@@ -16,15 +16,14 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 
+@Deprecated
 public class TypicalPaymentsController implements TypicalPaymentsControllers {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-
-    private ResultsViewer viewResults;
-    public InvoiceDetails invoice;
-    private ReportControllers reportsController;
-
     private static TypicalPaymentsControllers instance = new TypicalPaymentsController();
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    public InvoiceDetails invoice;
+    private ResultsViewer viewResults;
+    private ReportControllers reportsController;
     //@Autowired
     private PaymentModelTypicalControllerUpdate paymentModelTypicalControllerUpdate;
 
@@ -53,6 +52,7 @@ public class TypicalPaymentsController implements TypicalPaymentsControllers {
 
         ResultsOutput resultsOutput;
         do {
+            invoiceAmount = invoice.invoiceAmount();
             PaymentModel paymentModel =
                     paymentModelTypicalControllerUpdate
                             .setInvoiceAmount(invoiceAmount)

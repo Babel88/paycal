@@ -3,7 +3,7 @@ package com.babel88.paycal;
 import com.babel88.paycal.config.factory.GeneralFactory;
 
 /**
- * Main entry point for the paycal application
+ * Bootstrap for the paycal application
  */
 public class Main {
 

@@ -1,5 +1,6 @@
 package com.babel88.paycal.logic.base;
 
+import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.api.logic.TypicalPayments;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.LogicFactory;
@@ -8,11 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.math.BigDecimal.ROUND_HALF_UP;
 import static java.math.BigDecimal.valueOf;
+import static java.math.RoundingMode.HALF_EVEN;
 
 
 /**
@@ -23,9 +24,9 @@ import static java.math.BigDecimal.valueOf;
  * <p>d) The payee needs to pay 6% withholding tax</p>
  * <p>e) The Invoice amount is not inclusive of any duties</p>
  */
-public class TypicalPayment implements TypicalPayments {
+public class TypicalPayment implements TypicalPayments, DefaultLogic {
 
-    private static TypicalPayments instance = new TypicalPayment();
+    private static DefaultLogic instance = new TypicalPayment();
 
     /* withholding vat rate */
     private final AtomicReference<BigDecimal> withholdVatRate = new AtomicReference<>();
@@ -49,7 +50,7 @@ public class TypicalPayment implements TypicalPayments {
         withholdVatRate.set(parameters.getWithholdingVatRate());
     }
 
-    public static TypicalPayments getInstance() {
+    public static DefaultLogic getInstance() {
         return instance;
     }
 
@@ -70,6 +71,8 @@ public class TypicalPayment implements TypicalPayments {
      */
     @Override
     public GeneralPayments setInvoiceAmount(BigDecimal invoiceAmount) {
+
+        log.debug("Setting invoice amount as : {}.", invoiceAmount);
         this.invoiceAmount.set(invoiceAmount);
         return this;
     }
@@ -83,9 +86,14 @@ public class TypicalPayment implements TypicalPayments {
     @Override
     public BigDecimal calculateWithholdingVat(BigDecimal invoiceAmount){
 
-        return calculateAmountBeforeTax(invoiceAmount)
+        log.debug("Calculating withholding vat for : {}.", invoiceAmount);
+        BigDecimal vat = calculateAmountBeforeTax(invoiceAmount)
                 .multiply(withholdVatRate.get())
-                .setScale(2, RoundingMode.HALF_EVEN);
+                .setScale(2, HALF_EVEN);
+
+        log.debug("Returning value of withholding vat: {}.", vat);
+
+        return vat;
     }
 
     /**
@@ -97,6 +105,8 @@ public class TypicalPayment implements TypicalPayments {
     @Override
     public BigDecimal calculateTotalExpense(BigDecimal invoiceAmount){
 
+        log.debug("Total expense returned as : {}.", invoiceAmount);
+
         return invoiceAmount;
     }
 
@@ -106,13 +116,18 @@ public class TypicalPayment implements TypicalPayments {
      * @return amount payable to payee
      */
     @Override
-    public BigDecimal calculatePayableToVendor(BigDecimal invoiceAmount){
+    public BigDecimal calculateToPayee(BigDecimal invoiceAmount) {
+
+        log.debug("Calculating amount payable to vendor for invoice amount : {}", invoiceAmount);
 
         BigDecimal withholdVatAmount = calculateWithholdingVat(invoiceAmount);
 
         BigDecimal totalExpense = calculateTotalExpense(invoiceAmount);
 
-        return totalExpense.subtract(withholdVatAmount);
+        BigDecimal toPayee = totalExpense.subtract(withholdVatAmount).setScale(2, HALF_EVEN);
+
+        log.debug("Amount payable to payee calculated as : {}.", toPayee);
+        return toPayee;
     }
 
     /**
@@ -124,7 +139,10 @@ public class TypicalPayment implements TypicalPayments {
     @Override
     public BigDecimal calculateAmountBeforeTax(BigDecimal invoiceAmount){
 
-        return invoiceAmount.divide(vatRate.get().add(valueOf(1)),ROUND_HALF_UP);
+        BigDecimal amountB4Tax = invoiceAmount.divide(vatRate.get().add(valueOf(1)), ROUND_HALF_UP);
+
+        log.debug("Calculating amount before tax for {}. Amount calculated is : {}.", invoiceAmount, amountB4Tax);
+        return amountB4Tax;
     }
 
     /**
@@ -135,6 +153,7 @@ public class TypicalPayment implements TypicalPayments {
      */
     public BigDecimal calculateWithholdingTax(BigDecimal invoiceAmount){
 
+        log.debug("calculateWithholdingTax has been called...Returning ZERO");
         return BigDecimal.ZERO;
     }
 
