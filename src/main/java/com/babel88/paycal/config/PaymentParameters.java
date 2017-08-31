@@ -5,9 +5,11 @@ import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import static java.math.RoundingMode.HALF_EVEN;
+import static java.math.RoundingMode.UNNECESSARY;
 
 /**
  * Created by edwin.njeru on 18/07/2016.
@@ -17,11 +19,11 @@ import static java.math.RoundingMode.HALF_EVEN;
  * c) Withholding vat rate
  * d) Methods to effect the change of the above
  */
-public class PaymentParameters {
+public class PaymentParameters implements Serializable {
 
     //Code for singleTon pattern
     private static PaymentParameters instance = new PaymentParameters();
-    private final ThreadLocal<Logger> log;
+    private final Logger log;
     private final BigDecimal vatRate;
     private final BigDecimal withholdingVatRate;
     private final BigDecimal withholdingTaxRate;
@@ -30,8 +32,8 @@ public class PaymentParameters {
 
     private PaymentParameters() {
 
-        log = ThreadLocal.withInitial(() -> LoggerFactory.getLogger(this.getClass()));
-        log.get().debug("\nCreating payment parameters object with : \n" +
+        log = LoggerFactory.getLogger(this.getClass());
+        log.debug("\nCreating payment parameters object with : \n" +
                 "Vat Rate : {}. \n" +
                 "Withholding Vat Rate : {}. \n" +
                 "Withholding Tax Rate : {}. \n" +
@@ -45,7 +47,7 @@ public class PaymentParameters {
         withholdingTaxContractor = divPerCent(BigDecimal.valueOf(3));
         withholdingTaxOnRentalRate = divPerCent(BigDecimal.valueOf(10));
 
-        log.get().debug("\nPayment parameters object created with : \n" +
+        log.debug("\nPayment parameters object created with : \n" +
                         "Vat Rate : {}. \n" +
                         "Withholding Vat Rate : {}. \n" +
                         "Withholding Tax Rate : {}. \n" +
@@ -64,31 +66,31 @@ public class PaymentParameters {
     @SuppressWarnings(value = "BigDecimal.divide() called without a rounding mode argument")
     private BigDecimal divPerCent(BigDecimal denominator){
 
-        log.get().debug("Dividing denominator by 100, to create percentage value for : {}.",denominator);
-        return denominator.divide(BigDecimal.valueOf(100).setScale(2, HALF_EVEN), HALF_EVEN);
+        log.debug("Dividing denominator by 100, to create percentage value for : {}.",denominator);
+        return denominator.divide(BigDecimal.valueOf(100)).setScale(2);
     }
 
     public BigDecimal getVatRate() {
 
-        log.get().debug("Vat rate => Ret val : {}.",vatRate);
+        log.debug("Vat rate => Ret val : {}.",vatRate);
         return vatRate;
     }
 
     public BigDecimal getWithholdingVatRate() {
 
-        log.get().debug("Withholding Vat rate => Ret val : {}.",withholdingVatRate);
+        log.debug("Withholding Vat rate => Ret val : {}.",withholdingVatRate);
         return withholdingVatRate;
     }
 
     public BigDecimal getWithholdingTaxRate() {
 
-        log.get().debug("Withholding Tax rate => Ret val : {}.",withholdingTaxRate);
+        log.debug("Withholding Tax rate => Ret val : {}.",withholdingTaxRate);
         return withholdingTaxRate;
     }
 
     public BigDecimal getWithholdingTaxContractor() {
 
-        log.get().debug("Withholding Tax Contractor => Ret val : {}.",withholdingTaxContractor);
+        log.debug("Withholding Tax Contractor => Ret val : {}.",withholdingTaxContractor);
         return withholdingTaxContractor;
     }
 
@@ -98,7 +100,7 @@ public class PaymentParameters {
 
     @Override
     public boolean equals(Object o) {
-        log.get().debug("Calling the equals contract method to compare with : {}.", o);
+        log.debug("Calling the equals contract method to compare with : {}.", o);
 
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -112,7 +114,7 @@ public class PaymentParameters {
 
     @Override
     public int hashCode() {
-        log.get().debug("Calling the hashcode contract method");
+        log.debug("Calling the hashcode contract method");
         return Objects.hashCode(vatRate, withholdingVatRate, withholdingTaxRate,
                 withholdingTaxContractor, withholdingTaxOnRentalRate);
     }
