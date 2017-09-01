@@ -28,4 +28,8 @@ public interface DefaultPaymentModel<T> {
     BigDecimal getTotalExpense();
 
     BigDecimal getToPrepay();
+
+    BigDecimal getToPayee();
+
+    BigDecimal getWithholdingTax();
 }

@@ -11,7 +11,7 @@ import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.*;
 import com.babel88.paycal.controllers.prepayments.PrepaymentController;
-import com.babel88.paycal.controllers.prepayments.PrepaymentsDelegate;
+import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.view.ResultsOutput;
 import org.slf4j.Logger;

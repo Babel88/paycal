@@ -17,10 +17,6 @@ public class ToDoItems {
     .. WHICH CONTAINS the auto adjustments required to accommodate the prepayment amount
 
     The following controllers will be affected :
-    a) WithholdingTaxPaymentController (In progress)
-    b) TypicalPaymentsController
-    c) ContractorPaymentsController
-    d) DefaultPartialTaxPaymentController
-    e) RentalPaymentsController (Already done)
+    a) Controller for foreign transactions
      */
 }

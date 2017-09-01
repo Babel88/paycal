@@ -1,4 +1,4 @@
-package com.babel88.paycal.controllers.prepayments;
+package com.babel88.paycal.controllers.delegate;
 
 import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
 import com.babel88.paycal.api.logic.PrepaymentService;

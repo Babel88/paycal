@@ -2,6 +2,7 @@ package com.babel88.paycal.config.factory;
 
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.models.PaymentModelCareTaker;
+import com.babel88.paycal.models.TTArguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,5 +37,12 @@ public class ModelFactory {
                 "from the model factory");
 
         return PaymentModelCareTaker.getInstance();
+    }
+
+    public static TTArguments getTTArguments(){
+
+        log.debug("Returning singleton instance of the TTArguments");
+
+        return TTArguments.getInstance();
     }
 }

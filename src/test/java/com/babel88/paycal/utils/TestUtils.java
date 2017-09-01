@@ -20,6 +20,13 @@ public abstract class TestUtils<T extends Serializable> {
 
     private T myBean;
 
+    protected BigDecimal invoiceAmount = setAccuracy(116000.00);
+    protected BigDecimal amountBeforeTax = new BigDecimal(String.valueOf(BigDecimal.ZERO));
+    protected BigDecimal totalExpense = new BigDecimal(String.valueOf(BigDecimal.ZERO));
+    protected BigDecimal wthTax = new BigDecimal(String.valueOf(BigDecimal.ZERO));
+    protected BigDecimal wthVat = new BigDecimal(String.valueOf(BigDecimal.ZERO));
+    protected BigDecimal toPayee = new BigDecimal(String.valueOf(BigDecimal.ZERO));
+
     @Before
     public void setUp() throws Exception {
         this.myBean = getBeanInstance();

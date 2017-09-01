@@ -5,6 +5,7 @@ import com.babel88.paycal.api.logic.TypicalPayments;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.logic.GeneralPayments;
+import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +40,7 @@ public class TypicalPayment implements TypicalPayments, DefaultLogic {
             new AtomicReference<>();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private TypicalPayment() {
+    protected TypicalPayment() {
 
         log.debug("Creating an instance of the typicalPayment object logic");
 
@@ -157,6 +158,19 @@ public class TypicalPayment implements TypicalPayments, DefaultLogic {
         return BigDecimal.ZERO;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TypicalPayment that = (TypicalPayment) o;
+        return Objects.equal(withholdVatRate, that.withholdVatRate) &&
+                Objects.equal(vatRate, that.vatRate) &&
+                Objects.equal(invoiceAmount, that.invoiceAmount) &&
+                Objects.equal(log, that.log);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(withholdVatRate, vatRate, invoiceAmount, log);
+    }
 }

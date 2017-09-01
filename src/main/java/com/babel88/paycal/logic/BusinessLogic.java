@@ -38,6 +38,7 @@ public class BusinessLogic implements Logic {
     private DefaultControllers withholdingTaxPaymentController;
     private DefaultControllers rentalPaymentsController;
     private DefaultControllers defaultTypicalPaymentsController;
+    private DefaultControllers ttController;
 
     private BusinessLogic() {
 
@@ -70,6 +71,9 @@ public class BusinessLogic implements Logic {
 
         log.debug("Fetching the defaultTypicalPaymentsController from the controller ");
         defaultTypicalPaymentsController = ControllerFactory.getInstance().getDefaultTypicalPaymentsController();
+
+        log.debug("Fetching the ttController from {}",ControllerFactory.getInstance());
+        ttController = ControllerFactory.getInstance().getTTController();
     }
 
     @Contract(pure = true)
@@ -123,6 +127,10 @@ public class BusinessLogic implements Logic {
     @Override
     public void telegraphicTransfer() {
 
+        ttController.runCalculation();
+
+        /*
+
         boolean doAgain;
 
         do {
@@ -155,7 +163,7 @@ public class BusinessLogic implements Logic {
 
             doAgain = foreignPaymentDetails.doAgain();
         } while (doAgain);
-
+*/
     }
 
 }

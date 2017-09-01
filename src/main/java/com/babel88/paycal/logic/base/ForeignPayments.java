@@ -1,9 +1,11 @@
 package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.TelegraphicTransfers;
+import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -19,7 +21,8 @@ import static java.math.RoundingMode.HALF_EVEN;
  * to submit VAT for self, we have to calculate the VAT, based on the Invoice
  * but in reverse</p>
  */
-public class ForeignPayments implements TelegraphicTransfers {
+@Deprecated
+public class ForeignPayments implements TelegraphicTransfers, Serializable {
 
     private final Logger log = LoggerFactory.getLogger(ForeignPayments.class);
 
@@ -112,7 +115,7 @@ public class ForeignPayments implements TelegraphicTransfers {
 
         log.debug("Reverse vat calculated when reverseInvoiceAmount is : {}. \n" +
                 "and a vat rate of : {}.",reverseInvoiceAmount,vatRate);
-        return this.withholdingVat;
+        return this.withholdingVat.setScale(2,HALF_EVEN);
     }
 
     /**
@@ -207,4 +210,19 @@ public class ForeignPayments implements TelegraphicTransfers {
         return total.subtract(withTax).subtract(vatAmount).setScale(2,HALF_EVEN);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ForeignPayments that = (ForeignPayments) o;
+        return Objects.equal(log, that.log) &&
+                Objects.equal(reverseInvoice, that.reverseInvoice) &&
+                Objects.equal(withholdingVat, that.withholdingVat) &&
+                Objects.equal(withHoldingTaxAmount, that.withHoldingTaxAmount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(log, reverseInvoice, withholdingVat, withHoldingTaxAmount);
+    }
 }

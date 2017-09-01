@@ -7,6 +7,7 @@ import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.logic.AbstractPrepayment;
 import com.babel88.paycal.logic.BusinessLogic;
 import com.babel88.paycal.logic.base.*;
+import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -95,12 +96,18 @@ public class LogicFactory {
         return ContractorPayments.getInstance();
     }
 
-    public DefaultLogic createContractorLogic() {
+    @Contract(pure = true)
+    public static DefaultLogic createContractorLogic() {
+
+        log.debug("Returning a singleton instance of Contractor logic");
 
         return ContractorLogic.getInstance();
     }
 
-    public DefaultLogic createRentalPaymentLogic() {
+    @Contract(pure = true)
+    public static DefaultLogic createRentalPaymentLogic() {
+
+        log.debug("Returning a singleton instance of RentalPaymentLogic object");
 
         return RentalPaymentLogic.getInstance();
     }

@@ -5,10 +5,14 @@ import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.controllers.PaymentsControllerRunnerImpl;
+import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Controller for rental payments updates the payment model with assertions based on
+ * the rentalPaymentLogic and sends the results to views
+ *
  * Created by edwin.njeru on 29/08/2017.
  */
 public class RentalPaymentsController extends PaymentsControllerRunnerImpl implements DefaultControllers {
@@ -17,7 +21,7 @@ public class RentalPaymentsController extends PaymentsControllerRunnerImpl imple
     private static DefaultControllers instance = new RentalPaymentsController();
     private final DefaultLogic rentalPaymentLogic;
 
-    public RentalPaymentsController() {
+    private RentalPaymentsController() {
         super();
         log.debug("Creating a rental payments controller using constructor in PaymentsControllerRunner");
 
@@ -25,6 +29,7 @@ public class RentalPaymentsController extends PaymentsControllerRunnerImpl imple
         log.debug("Fetching prepayment controller from controller factory");
     }
 
+    @Contract(pure = true)
     public static DefaultControllers getInstance() {
         return instance;
     }

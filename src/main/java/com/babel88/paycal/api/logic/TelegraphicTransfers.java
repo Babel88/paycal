@@ -2,6 +2,7 @@ package com.babel88.paycal.api.logic;
 
 import java.math.BigDecimal;
 
+@Deprecated
 public interface TelegraphicTransfers {
     /**
      * Calculation of the Reverse Invoice Amount

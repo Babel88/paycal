@@ -33,7 +33,7 @@ public class PaymentModelMemento {
         this.withHoldingVat = new AtomicReference<>(model.getWithHoldingVat());
         this.total = new AtomicReference<>(model.getTotalExpense());
         this.toPayee = new AtomicReference<>(model.getToPayee());
-        this.withHoldingTax = new AtomicReference<>(model.getWithHoldingTax());
+        this.withHoldingTax = new AtomicReference<>(model.getWithholdingTax());
         this.toPrepay = new AtomicReference<>(model.getToPrepay());
 
         log.debug("Memento object created : {}.", this.toString());

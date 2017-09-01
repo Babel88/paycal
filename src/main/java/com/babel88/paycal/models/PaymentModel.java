@@ -89,7 +89,7 @@ public class PaymentModel implements Serializable, DefaultPaymentModel {
         return this;
     }
 
-    public BigDecimal getWithHoldingTax() {
+    public BigDecimal getWithholdingTax() {
         return withHoldingTax.get();
     }
 

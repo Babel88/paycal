@@ -8,10 +8,13 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import static org.junit.Assert.*;
+
 /**
  * Created by edwin.njeru on 29/08/2017.
  */
 public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
+
 
     private RentalPaymentLogic rentalPaymentLogic;
     private BigDecimal invoiceAmount = BigDecimal.valueOf(116000).setScale(2, RoundingMode.HALF_EVEN);
@@ -38,7 +41,7 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
 
         BigDecimal totalExpense = rentalPaymentLogic.calculateTotalExpense(invoiceAmount);
 
-        Assert.assertEquals(setAccuracy(116000.00), totalExpense);
+        assertEquals(setAccuracy(116000.00), totalExpense);
     }
 
     @Test
@@ -46,14 +49,14 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
 
         BigDecimal payee = rentalPaymentLogic.calculateToPayee(invoiceAmount);
 
-        Assert.assertEquals(setAccuracy(100000.00), payee);
+        assertEquals(setAccuracy(100000.00), payee);
     }
 
     @Test
     public void calculateWithholdingTax() throws Exception {
         BigDecimal wth = rentalPaymentLogic.calculateWithholdingTax(invoiceAmount);
 
-        Assert.assertEquals(setAccuracy(10000.00), wth);
+        assertEquals(setAccuracy(10000.00), wth);
     }
 
     @Test
@@ -61,7 +64,38 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
 
         BigDecimal wthVat = rentalPaymentLogic.calculateWithholdingVat(invoiceAmount);
 
-        Assert.assertEquals(setAccuracy(6000.00), wthVat);
+        assertEquals(setAccuracy(6000.00), wthVat);
+    }
+
+    @Test
+    public void calculateTotalExpense1() throws Exception {
+
+        super.totalExpense = rentalPaymentLogic.calculateTotalExpense(super.invoiceAmount);
+
+        assertEquals(setAccuracy(116000.00),totalExpense);
+    }
+
+    @Test
+    public void calculateToPayee1() throws Exception {
+        super.toPayee = rentalPaymentLogic.calculateToPayee(super.invoiceAmount);
+
+        assertEquals(setAccuracy(100000.00),toPayee);
+
+    }
+
+    @Test
+    public void calculateWithholdingTax1() throws Exception {
+        super.wthTax = rentalPaymentLogic.calculateWithholdingTax(super.invoiceAmount);
+
+        assertEquals(setAccuracy(10000.00),wthTax);
+    }
+
+    @Test
+    public void calculateWithholdingVat1() throws Exception {
+
+        super.wthVat = rentalPaymentLogic.calculateWithholdingVat(super.invoiceAmount);
+
+        assertEquals(setAccuracy(6000.00),wthVat);
     }
 
 

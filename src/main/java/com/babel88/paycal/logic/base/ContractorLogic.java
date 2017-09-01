@@ -3,6 +3,7 @@ package com.babel88.paycal.logic.base;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.LogicFactory;
+import com.google.common.base.Objects;
 
 import java.math.BigDecimal;
 

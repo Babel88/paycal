@@ -10,7 +10,7 @@ import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.ModelFactory;
 import com.babel88.paycal.config.factory.ModelViewFactory;
 import com.babel88.paycal.controllers.base.RentalPaymentsController;
-import com.babel88.paycal.controllers.prepayments.PrepaymentsDelegate;
+import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.view.ResultsOutput;
 import org.slf4j.Logger;

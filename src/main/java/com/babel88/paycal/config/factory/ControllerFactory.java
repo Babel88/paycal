@@ -57,4 +57,9 @@ public class ControllerFactory {
     public DefaultControllers getDefaultTypicalPaymentsController() {
         return DefaultTypicalPaymentsController.getInstance();
     }
+
+    public DefaultControllers getTTController(){
+
+        return TTController.getInstance();
+    }
 }
