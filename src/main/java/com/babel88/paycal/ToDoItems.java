@@ -18,5 +18,6 @@ public class ToDoItems {
 
     The following controllers will be affected :
     a) Controller for foreign transactions
+    b) Launch ExclusiveImportServiceImpl as singleton from factory as a fail-fast approach
      */
 }
