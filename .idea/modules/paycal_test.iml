@@ -79,6 +79,7 @@
     <orderEntry type="library" name="Gradle: org.meanbean:meanbean:2.0.3" level="project" />
     <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="module" module-name="paycal_main" scope="TEST" />
   </component>
   <component name="TestModuleProperties" production-module="paycal_main" />
 </module>
