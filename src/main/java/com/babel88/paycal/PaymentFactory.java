@@ -1,7 +1,7 @@
 package com.babel88.paycal;
 
 import com.babel88.paycal.api.InvoiceDetails;
-import com.babel88.paycal.api.Logic;
+import com.babel88.paycal.api.Router;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
@@ -23,13 +23,13 @@ public class PaymentFactory {
     private final Logger log = LoggerFactory.getLogger(PaymentFactory.class);
     private PaymentModelViewInterface view;
     private InvoiceDetails invoice;
-    private Logic logic;
+    private Router router;
 
     private PaymentFactory() {
 
         log.debug("Creating an instance of the PaymentFactory");
         //TODO include in factory
-        logic = LogicFactory.createMainLogicController();
+        router = LogicFactory.createMainLogicController();
         view = ModelViewFactory.createPaymentModelView();
         invoice = GeneralFactory.createInvoice();
     }
@@ -57,19 +57,19 @@ public class PaymentFactory {
                 out.println();
                 out.println("Normal transaction:");
                 out.println("-------------------");
-                logic.normal();
+                router.normal();
                 break;
             case b:
                 out.println();
                 out.println("Normal trnx with withholding taxes:");
                 out.println("----------------------------------");
-                logic.taxToWithhold();
+                router.taxToWithhold();
                 break;
             case c:
                 out.println();
                 out.println("Rental Expenses Payment:");
                 out.println("-----------------------------");
-                logic.rentalPayments();
+                router.rentalPayments();
                 break;
             case d:
                 out.println();
@@ -81,19 +81,19 @@ public class PaymentFactory {
                 out.println();
                 out.println("Foreign transactions (Telegraphic transfers)");
                 out.println("--------------------------------------------");
-                logic.telegraphicTransfer();
+                router.telegraphicTransfer();
                 break;
             case f:
                 out.println();
                 out.println("Partially non-taxable payment");
                 out.println("--------------------------------------------");
-                logic.vatGiven();
+                router.vatGiven();
                 break;
             case g:
                 out.println();
                 out.println("Contractor payments");
                 out.println("--------------------------------------------");
-                logic.contractor();
+                router.contractor();
                 break;
             default:
                 out.println();

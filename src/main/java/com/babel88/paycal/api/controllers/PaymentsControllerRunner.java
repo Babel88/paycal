@@ -1,6 +1,7 @@
 package com.babel88.paycal.api.controllers;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
+import com.babel88.paycal.models.TTArguments;
 
 /**
  * In the beginning the  controllers were hard to group into a common interface since the operations
@@ -58,4 +59,6 @@ public interface PaymentsControllerRunner {
      * @return Prepayment controller object
      */
     PrepaymentController getPrepaymentController();
+
+    TTArguments getTtArguments();
 }

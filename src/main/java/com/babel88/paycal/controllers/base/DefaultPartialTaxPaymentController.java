@@ -5,14 +5,16 @@ import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.PartialTaxPaymentController;
 import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
+import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.PartialTaxPaymentLogic;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.*;
-import com.babel88.paycal.controllers.prepayments.PrepaymentController;
+import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
+import com.babel88.paycal.models.TTArguments;
 import com.babel88.paycal.view.ResultsOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +45,8 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
 
         parameters = LogicFactory.createPaymentParameters();
         partialTaxPaymentLogic = LogicFactory.createPartialTaxPaymentLogic();
-        reportsController = ControllerFactory.createReportController();
-        prepaymentController = ControllerFactory.createPrepaymentController();
+        reportsController = ControllerFactory.getReportController();
+        prepaymentController = ControllerFactory.getPrepaymentController();
         viewResults = ModelViewFactory.createResultsViewer();
         invoice = GeneralFactory.createInvoice();
         view = ModelViewFactory.createPaymentModelView();
@@ -116,5 +118,10 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
     public com.babel88.paycal.api.controllers.PrepaymentController getPrepaymentController() {
 
         return prepaymentController;
+    }
+
+    @Override
+    public TTArguments getTtArguments() {
+        return null;
     }
 }

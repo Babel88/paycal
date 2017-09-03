@@ -5,6 +5,7 @@ import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.controllers.PaymentsControllerRunnerImpl;
+import com.babel88.paycal.models.TTArguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,5 +72,10 @@ public class DefaultTypicalPaymentsController extends PaymentsControllerRunnerIm
     public DefaultPaymentModel getPaymentModel() {
 
         return super.paymentModel;
+    }
+
+    @Override
+    public TTArguments getTtArguments() {
+        return null;
     }
 }

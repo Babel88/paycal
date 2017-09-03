@@ -1,12 +1,9 @@
-package com.babel88.paycal.controllers;
+package com.babel88.paycal.controllers.base;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.api.ForeignPaymentDetails;
-import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.ResultsViewer;
-import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
-import com.babel88.paycal.api.controllers.PrepaymentController;
-import com.babel88.paycal.api.controllers.ReportControllers;
+import com.babel88.paycal.api.controllers.*;
 import com.babel88.paycal.config.factory.ControllerFactory;
 import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.ModelFactory;
@@ -15,6 +12,7 @@ import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.models.TTArguments;
 import com.babel88.paycal.view.ResultsOutput;
+import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,19 +24,22 @@ import java.math.BigDecimal;
  *
  * Created by edwin.njeru on 01/09/2017.
  */
-public abstract class ForeignPaymentsControllerRunner implements PaymentsControllerRunner {
+@Deprecated
+public class ForeignPaymentsControllerImpl implements ForeignPaymentsController{
 
-    private static final Logger log = LoggerFactory.getLogger(ForeignPaymentsControllerRunner.class);
+    private static final Logger log = LoggerFactory.getLogger(ForeignPaymentsControllerImpl.class);
     protected final DefaultPaymentModel paymentModel;
     private final ForeignPaymentDetails invoice;
     private final ResultsViewer resultsViewer;
     private final ReportControllers reportController;
-    private final com.babel88.paycal.api.controllers.PrepaymentController prepaymentController;
+    private final PrepaymentController prepaymentController;
+    private final TTController ttController;
+    private static final DefaultControllers instance = new ForeignPaymentsControllerImpl();
     private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
     protected final TTArguments ttArguments;
     private Boolean doAgain;
 
-    protected ForeignPaymentsControllerRunner() {
+    protected ForeignPaymentsControllerImpl() {
 
         log.debug("ForeingPaymentsController runner created");
 
@@ -49,11 +50,13 @@ public abstract class ForeignPaymentsControllerRunner implements PaymentsControl
         log.debug("Fetching payment model from {}",ModelFactory.getInstance());
         paymentModel = ModelFactory.createPaymentModel();
         log.debug("Reports controller from {}",ControllerFactory.getInstance());
-        reportController = ControllerFactory.createReportController();
+        reportController = ControllerFactory.getReportController();
         log.debug("Fetching prepayment controller from {}",ControllerFactory.getInstance());
-        prepaymentController = ControllerFactory.createPrepaymentController();
+        prepaymentController = ControllerFactory.getPrepaymentController();
         log.debug("Fetching TT Arguments from {}",ModelFactory.getInstance());
         ttArguments = ModelFactory.getTTArguments();
+        log.debug("Fetching TTController from ControllerFactory : {}",ControllerFactory.getInstance());
+        ttController = ControllerFactory.getTTController();
     }
 
     /**
@@ -78,7 +81,7 @@ public abstract class ForeignPaymentsControllerRunner implements PaymentsControl
 
             updateToPayee();
 
-            prepaymentsDelegate.updateToPrepay();
+            updateToPrepay();
 
             resultsOutput = (ResultsOutput) resultsViewer.forPayment((PaymentModel) paymentModel);
 
@@ -94,31 +97,50 @@ public abstract class ForeignPaymentsControllerRunner implements PaymentsControl
         ttArguments.setWithholdingTaxRate(BigDecimal.valueOf(invoice.withHoldingTaxRate()));
         ttArguments.setInvoiceAmount(invoice.invoiceAmount());
         ttArguments.setTaxExclusionPolicy(invoice.exclusiveOfWithholdingTax());
+        ttController.setTtArguments(ttArguments);
     }
 
     /**
      * Updates the payment model with the amount payable to payee
      *
      */
-    protected abstract void updateToPayee();
+    public void updateToPayee(){
+
+        ttController.updateToPayee();
+    }
 
     /**
      * Updates the payment model with total expenses
      *
      */
-    protected abstract void updateTotalExpense();
+    public void updateTotalExpense(){
+
+        ttController.updateTotalExpense();
+    }
 
     /**
      * Updates the payment model with the withholding taxes
      *
      */
-    protected abstract void updateWithholdingTax();
+    public void updateWithholdingTax(){
+
+        ttController.updateWithholdingTax();
+    }
 
     /**
      * Updates the payment model with withholding vat
      *
      */
-    protected abstract void updateWithholdingVat();
+    public void updateWithholdingVat(){
+
+        ttController.updateWithholdingVat();
+    }
+
+    @Override
+    public void updateToPrepay() {
+
+        prepaymentsDelegate.updateToPrepay();
+    }
 
     /**
      * Retuns the DefaultPaymentModel currently in the delegator's class
@@ -126,10 +148,10 @@ public abstract class ForeignPaymentsControllerRunner implements PaymentsControl
      * @return payment model
      */
     @Override
-    public DefaultPaymentModel<Object> getPaymentModel(){
+    public DefaultPaymentModel getPaymentModel(){
 
         return paymentModel;
-    };
+    }
 
     /**
      * Returns the PrepaymentController object currently in the delegator's class
@@ -139,5 +161,15 @@ public abstract class ForeignPaymentsControllerRunner implements PaymentsControl
     @Override
     public PrepaymentController getPrepaymentController() {
         return prepaymentController;
+    }
+
+
+    public TTArguments getTtArguments() {
+        return ttArguments;
+    }
+
+    @Contract(pure = true)
+    public static DefaultControllers getInstance() {
+        return instance;
     }
 }

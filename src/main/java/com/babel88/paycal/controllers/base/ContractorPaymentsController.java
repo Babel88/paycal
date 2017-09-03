@@ -5,13 +5,15 @@ import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
+import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.api.logic.PrepaymentService;
 import com.babel88.paycal.config.factory.*;
-import com.babel88.paycal.controllers.prepayments.PrepaymentController;
+import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
+import com.babel88.paycal.models.TTArguments;
 import com.babel88.paycal.view.ResultsOutput;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,10 +37,10 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
         invoice = GeneralFactory.createInvoice();
         this.paymentModel = ModelFactory.createPaymentModel();
         contractorLogic = LogicFactory.getInstance().createContractorLogic();
-        prepaymentController = ControllerFactory.createPrepaymentController();
+        prepaymentController = ControllerFactory.getPrepaymentController();
         viewResults = ModelViewFactory.createResultsViewer();
 
-        reportsController = ControllerFactory.createReportController();
+        reportsController = ControllerFactory.getReportController();
     }
 
     public static DefaultControllers getInstance() {
@@ -137,7 +139,7 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
         return this;
     }
 
-    public DefaultControllers setPrepaymentController(PrepaymentController prepaymentController) {
+    public DefaultControllers setPrepaymentController(PrepaymentControllerImpl prepaymentController) {
         this.prepaymentController = prepaymentController;
         return this;
     }
@@ -156,5 +158,10 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
     public com.babel88.paycal.api.controllers.PrepaymentController getPrepaymentController() {
 
         return prepaymentController;
+    }
+
+    @Override
+    public TTArguments getTtArguments() {
+        return null;
     }
 }

@@ -11,6 +11,7 @@ import com.babel88.paycal.config.factory.*;
 import com.babel88.paycal.controllers.PaymentsControllerRunnerImpl;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
+import com.babel88.paycal.models.TTArguments;
 import com.babel88.paycal.view.ResultsOutput;
 import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
@@ -51,7 +52,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
         paymentModel = ModelFactory.getInstance().createPaymentModel();
 
         log.debug("Fetching the report controller object from controller factory");
-        reportController = ControllerFactory.createReportController();
+        reportController = ControllerFactory.getReportController();
 
         log.debug("Fetching the invoice details object from model view factory");
         invoice = GeneralFactory.createInvoice();
@@ -60,7 +61,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
         withholdingTaxLogic = (DefaultLogic) LogicFactory.createWithholdingTaxPayments();
 
         log.debug("Fetching prepayment controller from controller factory");
-        prepaymentController = ControllerFactory.createPrepaymentController();
+        prepaymentController = ControllerFactory.getPrepaymentController();
     }
 
     @Contract(pure = true)
@@ -142,5 +143,10 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
     @Override
     public DefaultPaymentModel getPaymentModel() {
         return paymentModel;
+    }
+
+    @Override
+    public TTArguments getTtArguments() {
+        return null;
     }
 }

@@ -1,5 +1,6 @@
 package com.babel88.paycal.controllers.prepayments;
 
+import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.logic.Prepayable;
 import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.config.factory.GeneralFactory;
@@ -13,9 +14,9 @@ import java.util.Scanner;
 
 import static java.lang.System.out;
 
-public class PrepaymentController implements com.babel88.paycal.api.controllers.PrepaymentController {
+public class PrepaymentControllerImpl implements PrepaymentController {
 
-    private static PrepaymentController instance = new PrepaymentController(BigDecimal.ZERO);
+    private static PrepaymentController instance = new PrepaymentControllerImpl(BigDecimal.ZERO);
     private final Logger log =
             LoggerFactory.getLogger(this.getClass());
     /*
@@ -44,7 +45,7 @@ public class PrepaymentController implements com.babel88.paycal.api.controllers.
      */
     private FeedBack feedBack;
 
-    public PrepaymentController(BigDecimal expenseAmount) {
+    public PrepaymentControllerImpl(BigDecimal expenseAmount) {
 
         log.debug("Creating payment controller from factory");
 
@@ -78,7 +79,7 @@ public class PrepaymentController implements com.babel88.paycal.api.controllers.
      *
      * @return this
      */
-    private PrepaymentController setPrepay() {
+    private PrepaymentControllerImpl setPrepay() {
 
         log.debug("Setting whether or not we are to prepay the expense amount...");
 
@@ -129,12 +130,12 @@ public class PrepaymentController implements com.babel88.paycal.api.controllers.
 
     @NotNull
     @Override
-    public PrepaymentController setExpenseAmount(BigDecimal expenseAmount) {
+    public PrepaymentControllerImpl setExpenseAmount(BigDecimal expenseAmount) {
         this.expenseAmount = expenseAmount;
         return this;
     }
 
-    public PrepaymentController setPrepay(Boolean prepay) {
+    public PrepaymentControllerImpl setPrepay(Boolean prepay) {
         this.prepay = prepay;
         return this;
     }

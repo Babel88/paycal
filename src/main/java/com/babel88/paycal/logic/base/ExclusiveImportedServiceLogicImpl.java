@@ -1,14 +1,15 @@
 package com.babel88.paycal.logic.base;
 
-import com.babel88.paycal.api.logic.ExclusiveImportedService;
-import com.babel88.paycal.controllers.base.TTController;
+import com.babel88.paycal.api.controllers.TTController;
+import com.babel88.paycal.api.logic.ExclusiveImportedServiceLogic;
+import com.babel88.paycal.config.factory.ControllerFactory;
+import com.babel88.paycal.controllers.base.TTControllerImpl;
 import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import static java.math.BigDecimal.*;
 import static java.math.RoundingMode.*;
@@ -21,9 +22,9 @@ import static java.math.RoundingMode.*;
  *
  * Created by edwin.njeru on 01/09/2017.
  */
-public class ExclusiveImportedServiceImpl implements ExclusiveImportedService,Serializable {
+public class ExclusiveImportedServiceLogicImpl implements ExclusiveImportedServiceLogic,Serializable {
 
-    private static final Logger log = LoggerFactory.getLogger(ExclusiveImportedServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(ExclusiveImportedServiceLogicImpl.class);
     private TTController ttController;
     private BigDecimal invoiceAmount;
     private BigDecimal amountBeforeTax;
@@ -34,23 +35,37 @@ public class ExclusiveImportedServiceImpl implements ExclusiveImportedService,Se
     private BigDecimal withholdingVatAmount;
     private BigDecimal withholdingVatRate;
     private BigDecimal toPayee;
+    private static ExclusiveImportedServiceLogic instance = new ExclusiveImportedServiceLogicImpl();
 
-    public ExclusiveImportedServiceImpl(TTController ttController) {
+    private ExclusiveImportedServiceLogicImpl() {
 
-        log.debug("Creating delegate for eclusive imported services, with \n" +
+        log.debug("Creating delegate for exclusive imported services, with \n" +
                 "ttController : {} as argument",ttController);
-        this.ttController = ttController;
-        init();
+        this.ttController = ControllerFactory.getTTController();
     }
 
-    private void init(){
+    public static ExclusiveImportedServiceLogic getInstance() {
+        return instance;
+    }
+
+    public void initialization(){
 
         log.debug("Composing internal variables for {}",this);
-        invoiceAmount = ttController.getTTArgument().getInvoiceAmount();
+        log.debug("Updating the invoice amount from the invoiceAmount...");
+        invoiceAmount = ttController.getTtArguments().getInvoiceAmount();
+        log.debug("Invoice amount updated to : {}",invoiceAmount);
+        log.debug("Updating the amountBeforeTax...");
         amountBeforeTax = calculateAmountBeforeTax();
-        reverseVatRate = ttController.getTTArgument().getReverseVatRate();
-        withholdingTaxRate = ttController.getTTArgument().getWithholdingTaxRate();
-        withholdingVatRate = ttController.getTTArgument().getReverseVatRate();
+        log.debug("Amount before tax updated to : {}",amountBeforeTax);
+        log.debug("Updating the reverseVatRate...");
+        reverseVatRate = ttController.getTtArguments().getReverseVatRate();
+        log.debug("ReverseVatRate updated to :{}",reverseVatRate);
+        log.debug("Updating the withholdingTaxRate...");
+        withholdingTaxRate = ttController.getTtArguments().getWithholdingTaxRate();
+        log.debug("withholdingTaxRate updated to : {}",withholdingTaxRate);
+        log.debug("Updating the withholdingVatRate...");
+        withholdingVatRate = ttController.getTtArguments().getReverseVatRate();
+        log.debug("withholdingVatRate updated to : {}",withholdingVatRate);
     }
 
     /**
@@ -69,7 +84,7 @@ public class ExclusiveImportedServiceImpl implements ExclusiveImportedService,Se
         } else {
             log.debug("Invoice amount is null attempting to use to redundant approach to get the \n" +
                     "invoice amount from ttController : {}",ttController);
-            invoiceAmount= ttController.getTTArgument().getInvoiceAmount();
+            invoiceAmount= ttController.getTtArguments().getInvoiceAmount();
             amountBeforeTax = invoiceAmount.multiply(preTaxCoefficient());
             log.debug("Returning amount before tax as : {}",amountBeforeTax);
         }
@@ -85,13 +100,13 @@ public class ExclusiveImportedServiceImpl implements ExclusiveImportedService,Se
     private BigDecimal preTaxCoefficient(){
 
         return ONE.divide(
-                ONE.subtract(ttController.getTTArgument().getWithholdingTaxRate()).setScale(10,HALF_EVEN),HALF_EVEN
+                ONE.subtract(ttController.getTtArguments().getWithholdingTaxRate()).setScale(10,HALF_EVEN),HALF_EVEN
         );
     }
 
 
     /**
-     * Method implements the ExclusiveImportedService contract by using ttController-derived
+     * Method implements the ExclusiveImportedServiceLogic contract by using ttController-derived
      * varibles to calculate total expenses
      * @return total expenses
      */
@@ -114,7 +129,7 @@ public class ExclusiveImportedServiceImpl implements ExclusiveImportedService,Se
             log.debug("Both the amount before tax and the reverseVatRate are null. Expensively \n" +
                     "fetching variables from the ttController");
             amountBeforeTax = calculateAmountBeforeTax();
-            reverseVatRate = ttController.getTTArgument().getReverseVatRate();
+            reverseVatRate = ttController.getTtArguments().getReverseVatRate();
             totalExpenses = amountBeforeTax.multiply(ONE.add(reverseVatRate));
             log.debug("Total expenses calculated : {}",totalExpenses);
         }
@@ -136,7 +151,7 @@ public class ExclusiveImportedServiceImpl implements ExclusiveImportedService,Se
 
             log.debug("The invoice amount variable is null and must be acquired expensively from \n" +
                     "the delegator {}",ttController);
-            invoiceAmount=ttController.getTTArgument().getInvoiceAmount();
+            invoiceAmount=ttController.getTtArguments().getInvoiceAmount();
             toPayee = invoiceAmount;
             log.debug("Returning amount payable to payee : {}",toPayee);
             return toPayee;
@@ -152,13 +167,13 @@ public class ExclusiveImportedServiceImpl implements ExclusiveImportedService,Se
         if(amountBeforeTax != null && withholdingTaxRate != null){
             withholdingTaxAmount = amountBeforeTax.multiply(withholdingTaxRate);
         } else if(amountBeforeTax != null){
-            withholdingTaxRate = ttController.getTTArgument().getWithholdingTaxRate();
+            withholdingTaxRate = ttController.getTtArguments().getWithholdingTaxRate();
             withholdingTaxAmount = amountBeforeTax.multiply(withholdingTaxRate);
         } else if(withholdingTaxRate != null){
             amountBeforeTax= calculateAmountBeforeTax();
             withholdingTaxAmount = amountBeforeTax.multiply(withholdingTaxRate);
         } else {
-            withholdingTaxRate = ttController.getTTArgument().getWithholdingTaxRate();
+            withholdingTaxRate = ttController.getTtArguments().getWithholdingTaxRate();
             amountBeforeTax= calculateAmountBeforeTax();
             withholdingTaxAmount = amountBeforeTax.multiply(withholdingTaxRate);
         }
@@ -175,24 +190,28 @@ public class ExclusiveImportedServiceImpl implements ExclusiveImportedService,Se
         if(amountBeforeTax != null && withholdingVatRate != null){
             withholdingVatAmount = amountBeforeTax.multiply(withholdingVatRate);
         } else if(amountBeforeTax != null){
-            withholdingVatRate=ttController.getTTArgument().getReverseVatRate();
+            withholdingVatRate=ttController.getTtArguments().getReverseVatRate();
             withholdingVatAmount = amountBeforeTax.multiply(withholdingVatRate);
         } else if(withholdingVatRate != null){
-            amountBeforeTax = ttController.getTTArgument().getAmountBeforeTax();
+            amountBeforeTax = ttController.getTtArguments().getAmountBeforeTax();
             withholdingVatAmount = amountBeforeTax.multiply(withholdingVatRate);
         } else{
-            withholdingVatRate=ttController.getTTArgument().getReverseVatRate();
-            amountBeforeTax = ttController.getTTArgument().getAmountBeforeTax();
+            withholdingVatRate=ttController.getTtArguments().getReverseVatRate();
+            amountBeforeTax = ttController.getTtArguments().getAmountBeforeTax();
             withholdingVatAmount = amountBeforeTax.multiply(withholdingVatRate);
         }
         return withholdingVatAmount;
+    }
+
+    public void setTtController(TTControllerImpl ttController) {
+        this.ttController = ttController;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ExclusiveImportedServiceImpl that = (ExclusiveImportedServiceImpl) o;
+        ExclusiveImportedServiceLogicImpl that = (ExclusiveImportedServiceLogicImpl) o;
         return Objects.equal(ttController, that.ttController) &&
                 Objects.equal(invoiceAmount, that.invoiceAmount) &&
                 Objects.equal(amountBeforeTax, that.amountBeforeTax) &&

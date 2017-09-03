@@ -1,7 +1,6 @@
 package com.babel88.paycal.logic.base;
 
-import com.babel88.paycal.api.logic.InclusiveImportedService;
-import com.babel88.paycal.controllers.base.TTController;
+import com.babel88.paycal.api.logic.InclusiveImportedServiceLogic;
 
 import java.math.BigDecimal;
 
@@ -9,11 +8,11 @@ import java.math.BigDecimal;
  * Logic for telegraphic transfers when the vendor is subject to withholding tax
  * Created by edwin.njeru on 01/09/2017.
  */
-public class InclusiveImportedServiceImpl implements InclusiveImportedService {
+public class InclusiveImportedServiceLogicImpl implements InclusiveImportedServiceLogic {
 
-    private TTController ttController;
+    private com.babel88.paycal.api.controllers.TTController ttController;
 
-    public InclusiveImportedServiceImpl(TTController ttController) {
+    public InclusiveImportedServiceLogicImpl(com.babel88.paycal.api.controllers.TTController ttController) {
 
         this.ttController = ttController;
     }

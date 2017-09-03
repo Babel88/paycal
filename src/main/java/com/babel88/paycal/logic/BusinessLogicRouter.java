@@ -1,22 +1,19 @@
 package com.babel88.paycal.logic;
 
 import com.babel88.paycal.api.ForeignPaymentDetails;
-import com.babel88.paycal.api.Logic;
+import com.babel88.paycal.api.Router;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.PartialTaxPaymentController;
-import com.babel88.paycal.api.logic.PrepaymentService;
+import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.logic.TelegraphicTransfers;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.config.factory.ControllerFactory;
 import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.config.factory.ModelViewFactory;
-import com.babel88.paycal.controllers.prepayments.PrepaymentController;
 import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.math.BigDecimal;
 
 /**
  * Created by edwin.njeru on 18/07/2016.
@@ -25,9 +22,9 @@ import java.math.BigDecimal;
  * Ideally this is the heart of the entre program
  * Ideally all of those methods are likely to crowd the class but will try to keep the methods to small sizes
  */
-public class BusinessLogic implements Logic {
+public class BusinessLogicRouter implements Router {
 
-    private static Logic instance = new BusinessLogic();
+    private static Router instance = new BusinessLogicRouter();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private PrepaymentController prepaymentController;
     private PaymentModelViewInterface paymentModelView;
@@ -38,9 +35,9 @@ public class BusinessLogic implements Logic {
     private DefaultControllers withholdingTaxPaymentController;
     private DefaultControllers rentalPaymentsController;
     private DefaultControllers defaultTypicalPaymentsController;
-    private DefaultControllers ttController;
+    private DefaultControllers foreignPaymentsController;
 
-    private BusinessLogic() {
+    private BusinessLogicRouter() {
 
         log.debug("Creating an instance of the main business logic controller");
 
@@ -48,9 +45,9 @@ public class BusinessLogic implements Logic {
 
         log.debug("Fetching controller singleton from Controller Factory");
 
-        prepaymentController = ControllerFactory.createPrepaymentController();
+        prepaymentController = ControllerFactory.getPrepaymentController();
 
-        partialTaxPaymentController = ControllerFactory.createPartialTaxPaymentController();
+        partialTaxPaymentController = ControllerFactory.getPartialTaxPaymentController();
 
         log.debug("Fetching instances from the payment model view Factory");
 
@@ -61,23 +58,23 @@ public class BusinessLogic implements Logic {
         foreignPaymentDetails = GeneralFactory.createForeignPaymentDetails();
 
         log.debug("Fetching contractor payments controller from ControllerFactory");
-        contractorPaymentController = ControllerFactory.getInstance().createContractorPaymentController();
+        contractorPaymentController = ControllerFactory.getInstance().getContractorPaymentController();
 
         log.debug("Fetching withholdingTaxPaymentController from controller factory");
-        withholdingTaxPaymentController = ControllerFactory.getInstance().createWithholdingTaxPaymentController();
+        withholdingTaxPaymentController = ControllerFactory.getInstance().getWithholdingTaxPaymentController();
 
         log.debug("Fetching rentalPaymentsController from Controller factory");
-        rentalPaymentsController = ControllerFactory.getInstance().createRentalPaymentsController();
+        rentalPaymentsController = ControllerFactory.getInstance().getRentalPaymentsController();
 
         log.debug("Fetching the defaultTypicalPaymentsController from the controller ");
         defaultTypicalPaymentsController = ControllerFactory.getInstance().getDefaultTypicalPaymentsController();
 
-        log.debug("Fetching the ttController from {}",ControllerFactory.getInstance());
-        ttController = ControllerFactory.getInstance().getTTController();
+        log.debug("Fetching the foreignPaymentsController from {}",ControllerFactory.getInstance());
+        foreignPaymentsController = ControllerFactory.getInstance().getForeignPaymentsController();
     }
 
     @Contract(pure = true)
-    public static Logic getInstance(){
+    public static Router getInstance(){
 
         return instance;
     }
@@ -127,7 +124,7 @@ public class BusinessLogic implements Logic {
     @Override
     public void telegraphicTransfer() {
 
-        ttController.runCalculation();
+        foreignPaymentsController.runCalculation();
 
         /*
 

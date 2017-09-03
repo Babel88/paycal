@@ -40,9 +40,9 @@ public abstract class PaymentsControllerRunnerImpl implements PaymentsController
         invoice = GeneralFactory.createInvoice();
         resultsViewer = ModelViewFactory.createResultsViewer();
         paymentModel = ModelFactory.createPaymentModel();
-        reportController = ControllerFactory.createReportController();
+        reportController = ControllerFactory.getReportController();
         log.debug("Fetching prepayment controller from controller factory");
-        prepaymentController = ControllerFactory.createPrepaymentController();
+        prepaymentController = ControllerFactory.getPrepaymentController();
     }
 
 

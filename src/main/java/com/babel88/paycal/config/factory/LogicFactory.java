@@ -1,11 +1,11 @@
 package com.babel88.paycal.config.factory;
 
-import com.babel88.paycal.api.Logic;
+import com.babel88.paycal.api.Router;
 import com.babel88.paycal.api.logic.*;
 import com.babel88.paycal.config.GeneralConfigurations;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.logic.AbstractPrepayment;
-import com.babel88.paycal.logic.BusinessLogic;
+import com.babel88.paycal.logic.BusinessLogicRouter;
 import com.babel88.paycal.logic.base.*;
 import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
@@ -54,11 +54,11 @@ public class LogicFactory {
         return DefaultTypicalWithholdingTaxPayment.getInstance();
     }
 
-    public static Logic createMainLogicController(){
+    public static Router createMainLogicController(){
 
         log.debug("Returning a singleton instance of Logic object");
 
-        return BusinessLogic.getInstance();
+        return BusinessLogicRouter.getInstance();
     }
 
     public static GeneralConfigurations createGeneralConfigurations(){
@@ -110,6 +110,11 @@ public class LogicFactory {
         log.debug("Returning a singleton instance of RentalPaymentLogic object");
 
         return RentalPaymentLogic.getInstance();
+    }
+
+    public ExclusiveImportedServiceLogic getExclusiveImportedServiceLogic() {
+
+        return ExclusiveImportedServiceLogicImpl.getInstance();
     }
 }
 
