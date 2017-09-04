@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: net.sourceforge.dynamicreports:dynamicreports-adhoc:5.0.0">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sourceforge.dynamicreports/dynamicreports-adhoc/5.0.0/a97e5d9dbaec1667b404d7eed8d9282b1a5d249e/dynamicreports-adhoc-5.0.0.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/caches/modules-2/files-2.1/net.sourceforge.dynamicreports/dynamicreports-adhoc/5.0.0/a97e5d9dbaec1667b404d7eed8d9282b1a5d249e/dynamicreports-adhoc-5.0.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sourceforge.dynamicreports/dynamicreports-adhoc/5.0.0/869ae99c32dabe90bdcdde3e97cdee9607472a74/dynamicreports-adhoc-5.0.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.m2/caches/modules-2/files-2.1/net.sourceforge.dynamicreports/dynamicreports-adhoc/5.0.0/869ae99c32dabe90bdcdde3e97cdee9607472a74/dynamicreports-adhoc-5.0.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
