@@ -13,18 +13,18 @@ import java.util.Locale;
  * the locale the date format style can be interacted with.
  * The date format styles must be compliant with the JSR 310
  */
-public class GeneralConfigurations {
+public class prepaymentConfigurations {
 
-    Logger log = LoggerFactory.getLogger(GeneralConfigurations.class);
+    Logger log = LoggerFactory.getLogger(prepaymentConfigurations.class);
 
     // Keeps track of current date format style
     private Enum<FormatStyle> dateFormatStyle;
 
     // Keeps track of locale settings
     private Locale locale;
-    private static GeneralConfigurations instance = new GeneralConfigurations();
+    private static prepaymentConfigurations instance = new prepaymentConfigurations();
 
-    public GeneralConfigurations() {
+    public prepaymentConfigurations() {
 
         log.debug("Creating a general configurations object, with default styles and locale");
 
@@ -33,12 +33,12 @@ public class GeneralConfigurations {
         this.locale = Locale.GERMAN;
     }
 
-    public static GeneralConfigurations getInstance() {
+    public static prepaymentConfigurations getInstance() {
         return instance;
     }
 
-    public static void setInstance(GeneralConfigurations instance) {
-        GeneralConfigurations.instance = instance;
+    public static void setInstance(prepaymentConfigurations instance) {
+        prepaymentConfigurations.instance = instance;
     }
 
     public Enum<FormatStyle> getDateFormatStyle() {
@@ -59,7 +59,7 @@ public class GeneralConfigurations {
      * @param dateFormatStyle
      * @return
      */
-    public GeneralConfigurations setDateFormatStyle(Enum<FormatStyle> dateFormatStyle) {
+    public prepaymentConfigurations setDateFormatStyle(Enum<FormatStyle> dateFormatStyle) {
         this.dateFormatStyle = dateFormatStyle;
         log.debug("Date format style set as : ",dateFormatStyle.toString());
         return this;
@@ -71,7 +71,7 @@ public class GeneralConfigurations {
      * @param locale
      * @return
      */
-    public GeneralConfigurations setLocale(Locale locale) {
+    public prepaymentConfigurations setLocale(Locale locale) {
         this.locale = locale;
         log.debug("Locale set as : ",locale.toString());
         return this;
@@ -81,7 +81,7 @@ public class GeneralConfigurations {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GeneralConfigurations that = (GeneralConfigurations) o;
+        prepaymentConfigurations that = (prepaymentConfigurations) o;
         return Objects.equal(log, that.log) &&
                 Objects.equal(dateFormatStyle, that.dateFormatStyle) &&
                 Objects.equal(locale, that.locale);

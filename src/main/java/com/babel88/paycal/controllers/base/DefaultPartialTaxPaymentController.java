@@ -10,7 +10,6 @@ import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.PartialTaxPaymentLogic;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.config.PaymentParameters;
-import com.babel88.paycal.config.factory.*;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.models.TTArguments;
@@ -18,6 +17,7 @@ import com.babel88.paycal.models.ResultsOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 
 public class DefaultPartialTaxPaymentController implements PartialTaxPaymentController, PaymentsControllerRunner {
@@ -25,31 +25,35 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
     private static PartialTaxPaymentController instance = new DefaultPartialTaxPaymentController();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
-    private ResultsViewer viewResults;
-    private InvoiceDetails invoice;
-    private PaymentParameters parameters;
+
+    @Inject
+    private ResultsViewer resultsViewer;
+
+    @Inject
+    private InvoiceDetails invoiceDetails;
+
+    @Inject
+    private PaymentParameters parametersParameters;
+
+    @Inject
     private PrepaymentController prepaymentController;
-    private PaymentModelViewInterface view;
+
+    @Inject
+    private PaymentModelViewInterface display;
+
+    @Inject
     private PaymentModel paymentModel;
-    private ReportControllers reportsController;
+
+    @Inject
+    private ReportControllers reportController;
+
+    @Inject
     private PartialTaxPaymentLogic partialTaxPaymentLogic;
     //used in computations
     private Boolean doAgain;
 
     private DefaultPartialTaxPaymentController() {
-        log.debug("The PartialTaxPaymentController implementation has been invoked \n" +
-                "instantiating internal variables");
-
-        log.debug("Getting inner dependencies from factory...");
-
-        parameters = LogicFactory.getPaymentParameters();
-        partialTaxPaymentLogic = LogicFactory.getPartialTaxPaymentLogic();
-        reportsController = ControllerFactory.getReportController();
-        prepaymentController = ControllerFactory.getPrepaymentController();
-        viewResults = ModelViewFactory.createResultsViewer();
-        invoice = GeneralFactory.createInvoice();
-        view = ModelViewFactory.createPaymentModelView();
-        paymentModel = ModelFactory.getPaymentModel();
+        log.debug("The PartialTaxPaymentController implementation has been invoked : {}",this);
 
         doAgain = false;
     }
@@ -64,8 +68,8 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
         ResultsOutput resultsOutput;
 
         do {
-            BigDecimal invoiceAmount = invoice.invoiceAmount();
-            BigDecimal vatAmount = BigDecimal.valueOf(invoice.vatAmount());
+            BigDecimal invoiceAmount = invoiceDetails.invoiceAmount();
+            BigDecimal vatAmount = BigDecimal.valueOf(invoiceDetails.vatAmount());
 
             paymentModel.setWithHoldingVat(
                     partialTaxPaymentLogic.calculateWithholdingVat(vatAmount)
@@ -86,14 +90,14 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
 
             prepaymentsDelegate.updateToPrepay();
 
-            resultsOutput = (ResultsOutput) viewResults.forPayment(paymentModel);
+            resultsOutput = (ResultsOutput) resultsViewer.forPayment(paymentModel);
             // Results submitted for paymentModelView
 
-            doAgain = invoice.doAgain();
+            doAgain = invoiceDetails.doAgain();
 
         }while(doAgain);
 
-        reportsController.printReport().forPayment(resultsOutput);
+        reportController.printReport().forPayment(resultsOutput);
 
     }
 

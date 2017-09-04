@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by edwin.njeru on 25/08/2017.
  */
+@Deprecated
 public class ModelFactory {
     private static final Logger log = LoggerFactory.getLogger(ModelFactory.class);
     private static ModelFactory instance = new ModelFactory();
@@ -24,24 +25,24 @@ public class ModelFactory {
         return instance;
     }
 
-    public static PaymentModel getPaymentModel(){
+//    public static PaymentModel getPaymentModel(){
+//
+//        log.debug("Returning a singleton instance of the {}",PaymentModel.getInstance());
+//
+//        return PaymentModel.getInstance();
+//    }
 
-        log.debug("Returning a singleton instance of the {}",PaymentModel.getInstance());
+//    public static PaymentModelCareTaker createPaymentModelCaretaker(){
+//
+//        log.debug("Returning a singleton instance of the {}",PaymentModelCareTaker.getInstance());
+//
+//        return PaymentModelCareTaker.getInstance();
+//    }
 
-        return PaymentModel.getInstance();
-    }
-
-    public static PaymentModelCareTaker createPaymentModelCaretaker(){
-
-        log.debug("Returning a singleton instance of the {}",PaymentModelCareTaker.getInstance());
-
-        return PaymentModelCareTaker.getInstance();
-    }
-
-    public static TTArguments getTTArguments(){
-
-        log.debug("Returning a singleton instance of the {}",TTArguments.getInstance());
-
-        return TTArguments.getInstance();
-    }
+//    public static TTArguments getTTArguments(){
+//
+//        log.debug("Returning a singleton instance of the {}",TTArguments.getInstance());
+//
+//        return TTArguments.getInstance();
+//    }
 }

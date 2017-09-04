@@ -75,6 +75,9 @@ dependencies {
 
     compile 'org.springframework:spring-context:4.3.10.RELEASE'
 
+    // https://mvnrepository.com/artifact/org.springframework/spring-test
+    testCompile group: 'org.springframework', name: 'spring-test', version: '4.3.10.RELEASE'
+
     // https://mvnrepository.com/artifact/junit/junit
     testCompile group: 'junit', name: 'junit', version: '4.12'
 

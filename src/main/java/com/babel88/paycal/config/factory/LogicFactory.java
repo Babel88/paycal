@@ -1,12 +1,21 @@
 package com.babel88.paycal.config.factory;
 
-import com.babel88.paycal.api.Router;
-import com.babel88.paycal.api.logic.*;
-import com.babel88.paycal.config.GeneralConfigurations;
-import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.api.logic.Contractors;
+import com.babel88.paycal.api.logic.DefaultLogic;
+import com.babel88.paycal.api.logic.ExclusiveImportedServiceLogic;
+import com.babel88.paycal.api.logic.InclusiveImportedServiceLogic;
+import com.babel88.paycal.api.logic.PartialTaxPaymentLogic;
+import com.babel88.paycal.api.logic.Prepayable;
+import com.babel88.paycal.api.logic.TelegraphicTransfers;
+import com.babel88.paycal.config.prepaymentConfigurations;
 import com.babel88.paycal.logic.AbstractPrepayment;
-import com.babel88.paycal.logic.BusinessLogicRouter;
-import com.babel88.paycal.logic.base.*;
+import com.babel88.paycal.logic.base.ContractorLogic;
+import com.babel88.paycal.logic.base.ContractorPayments;
+import com.babel88.paycal.logic.base.DefaultPartialTaxPaymentLogic;
+import com.babel88.paycal.logic.base.ExclusiveImportedServiceLogicImpl;
+import com.babel88.paycal.logic.base.ForeignPayments;
+import com.babel88.paycal.logic.base.InclusiveImportedServiceLogicImpl;
+import com.babel88.paycal.logic.base.RentalPaymentLogic;
 import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +26,7 @@ import org.slf4j.LoggerFactory;
  *
  * Created by edwin.njeru on 8/23/17.
  */
+@Deprecated
 public class LogicFactory {
 
     private static final Logger log = LoggerFactory.getLogger(LogicFactory.class);
@@ -33,94 +43,94 @@ public class LogicFactory {
         return instance;
     }
 
-    public static PaymentParameters getPaymentParameters(){
+//    public static PaymentParameters getPaymentParameters(){
+//
+//        log.debug("Returning a singleton instance of PaymentParameters object");
+//
+//        return PaymentParameters.getInstance();
+//
+//    }
 
-        log.debug("Returning a singleton instance of PaymentParameters object");
+//    public static DefaultLogic getTypicalPayments() {
+//
+//        log.debug("Returning a singleton instance of TypicalPayments object");
+//
+//        return TypicalPayment.getInstance();
+//    }
 
-        return PaymentParameters.getInstance();
+//    public static WithholdingTaxPayments getWithholdingTaxPayments(){
+//
+//        log.debug("Returning a singleton instance of WithholdingTaxPayments object");
+//
+//        return DefaultTypicalWithholdingTaxPayment.getInstance();
+//    }
 
-    }
+//    public static Router getMainLogicController(){
+//
+//        log.debug("Returning a singleton instance of Logic object");
+//
+//        return BusinessLogicRouter.getInstance();
+//    }
 
-    public static DefaultLogic getTypicalPayments() {
+//    public static prepaymentConfigurations getGeneralConfigurations(){
+//
+//        log.debug("Returning a singleton instance of prepaymentConfigurations object");
+//
+//        return prepaymentConfigurations.getInstance();
+//    }
 
-        log.debug("Returning a singleton instance of TypicalPayments object");
+//    public static Prepayable getPrepayable(){
+//
+//        log.debug("Returning a singleton instance of Prepayable object");
+//
+//        return AbstractPrepayment.getInstance();
+//    }
 
-        return TypicalPayment.getInstance();
-    }
+//    public static TelegraphicTransfers getTelegraphicTransfers(){
+//
+//        log.debug("Returning a singleton instance of TelegraphicTransfers object");
+//
+//        return ForeignPayments.getInstance();
+//    }
 
-    public static WithholdingTaxPayments getWithholdingTaxPayments(){
+//    public static PartialTaxPaymentLogic getPartialTaxPaymentLogic(){
+//
+//        log.debug("Returning a singleton instance of PartialTaxPayment object");
+//
+//        return DefaultPartialTaxPaymentLogic.getInstance();
+//    }
 
-        log.debug("Returning a singleton instance of WithholdingTaxPayments object");
+//    public static Contractors getContractors(){
+//
+//        log.debug("Returning a singleton instance of Contractors object");
+//
+//        return ContractorPayments.getInstance();
+//    }
 
-        return DefaultTypicalWithholdingTaxPayment.getInstance();
-    }
+//    @Contract(pure = true)
+//    public static DefaultLogic getContractorLogic() {
+//
+//        log.debug("Returning a singleton instance of Contractor logic");
+//
+//        return ContractorLogic.getInstance();
+//    }
 
-    public static Router getMainLogicController(){
+//    @Contract(pure = true)
+//    public static DefaultLogic getRentalPaymentLogic() {
+//
+//        log.debug("Returning a singleton instance of RentalPaymentLogic object");
+//
+//        return RentalPaymentLogic.getInstance();
+//    }
 
-        log.debug("Returning a singleton instance of Logic object");
-
-        return BusinessLogicRouter.getInstance();
-    }
-
-    public static GeneralConfigurations getGeneralConfigurations(){
-
-        log.debug("Returning a singleton instance of GeneralConfigurations object");
-
-        return GeneralConfigurations.getInstance();
-    }
-
-    public static Prepayable getPrepayable(){
-
-        log.debug("Returning a singleton instance of Prepayable object");
-
-        return AbstractPrepayment.getInstance();
-    }
-
-    public static TelegraphicTransfers getTelegraphicTransfers(){
-
-        log.debug("Returning a singleton instance of TelegraphicTransfers object");
-
-        return ForeignPayments.getInstance();
-    }
-
-    public static PartialTaxPaymentLogic getPartialTaxPaymentLogic(){
-
-        log.debug("Returning a singleton instance of PartialTaxPayment object");
-
-        return DefaultPartialTaxPaymentLogic.getInstance();
-    }
-
-    public static Contractors getContractors(){
-
-        log.debug("Returning a singleton instance of Contractors object");
-
-        return ContractorPayments.getInstance();
-    }
-
-    @Contract(pure = true)
-    public static DefaultLogic getContractorLogic() {
-
-        log.debug("Returning a singleton instance of Contractor logic");
-
-        return ContractorLogic.getInstance();
-    }
-
-    @Contract(pure = true)
-    public static DefaultLogic getRentalPaymentLogic() {
-
-        log.debug("Returning a singleton instance of RentalPaymentLogic object");
-
-        return RentalPaymentLogic.getInstance();
-    }
-
-    @Contract(pure = true)
-    public static ExclusiveImportedServiceLogic getExclusivImportedServiceLogic() {
-        return ExclusiveImportedServiceLogicImpl.getInstance();
-    }
-
-    @Contract(pure = true)
-    public static InclusiveImportedServiceLogic getInclusiveImportedServiceLogic() {
-        return InclusiveImportedServiceLogicImpl.getInstance();
-    }
+//    @Contract(pure = true)
+//    public static ExclusiveImportedServiceLogic getExclusivImportedServiceLogic() {
+//        return ExclusiveImportedServiceLogicImpl.getInstance();
+//    }
+//
+//    @Contract(pure = true)
+//    public static InclusiveImportedServiceLogic getInclusiveImportedServiceLogic() {
+//        return InclusiveImportedServiceLogicImpl.getInstance();
+//    }
 }
 

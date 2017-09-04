@@ -928,6 +928,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/4.3.10.RELEASE/235f4acafda7a7f9a08a9f49f667615641305a11/spring-expression-4.3.10.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Gradle: org.springframework:spring-test:4.3.10.RELEASE">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-test/4.3.10.RELEASE/e82664ba39497626cd29298cb16c161d901bfbee/spring-test-4.3.10.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-test/4.3.10.RELEASE/ecac20e95b228f1b9612aacee0787d436d118a59/spring-test-4.3.10.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Gradle: xml-apis:xml-apis-ext:1.3.04">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/xml-apis/xml-apis-ext/1.3.04/41a8b86b358e87f3f13cf46069721719105aff66/xml-apis-ext-1.3.04.jar!/" />

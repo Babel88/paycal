@@ -9,6 +9,8 @@ import com.babel88.paycal.models.TTArguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
+
 /**
  * Thi controller replaces the deprecated Typical payments controller, inorder to
  * provide adherence to DefaultControllers interface which is also compatible to
@@ -20,18 +22,13 @@ public class DefaultTypicalPaymentsController extends PaymentsControllerRunnerIm
 
     private static final Logger log = LoggerFactory.getLogger(RentalPaymentsController.class);
     private static DefaultControllers instance = new DefaultTypicalPaymentsController();
-    private final DefaultLogic typicalPaymentsLogic;
+
+    @Inject
+    private DefaultLogic typicalPaymentsLogic;
 
     private DefaultTypicalPaymentsController() {
         super();
-        log.debug("Creating a rental payments controller using constructor in PaymentsControllerRunner");
-
-        typicalPaymentsLogic = LogicFactory.getTypicalPayments();
-        log.debug("Fetching prepayment controller from controller factory");
-    }
-
-    public static DefaultControllers getInstance() {
-        return instance;
+        log.debug("Creating a rental payments controller using constructor in PaymentsControllerRunner : {}",this);
     }
 
     @Override

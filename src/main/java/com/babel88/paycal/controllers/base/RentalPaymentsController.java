@@ -10,6 +10,8 @@ import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
+
 /**
  * Controller for rental payments updates the payment model with assertions based on
  * the rentalPaymentLogic and sends the results to views
@@ -20,14 +22,13 @@ public class RentalPaymentsController extends PaymentsControllerRunnerImpl imple
 
     private static final Logger log = LoggerFactory.getLogger(RentalPaymentsController.class);
     private static DefaultControllers instance = new RentalPaymentsController();
-    private final DefaultLogic rentalPaymentLogic;
+
+    @Inject
+    private DefaultLogic rentalPaymentLogic;
 
     private RentalPaymentsController() {
         super();
-        log.debug("Creating a rental payments controller using constructor in PaymentsControllerRunner");
-
-        rentalPaymentLogic = LogicFactory.getInstance().getRentalPaymentLogic();
-        log.debug("Fetching prepayment controller from controller factory");
+        log.debug("Creating a rental payments controller using constructor in PaymentsControllerRunner : {}",this);
     }
 
     @Contract(pure = true)

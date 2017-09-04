@@ -8,6 +8,7 @@ import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -15,19 +16,18 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ResultsOutput implements Serializable, ResultsViewer {
 
-    private final static ResultsViewer instance =
-            new ResultsOutput(ModelViewFactory.createPaymentModelView());
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final PaymentModelViewInterface view;
+
+    @Inject
+    private PaymentModelViewInterface view;
+
     private final AtomicReference<BigDecimal> total = new AtomicReference<BigDecimal>();
     private final AtomicReference<BigDecimal> vatWithheld = new AtomicReference<BigDecimal>();
     private final AtomicReference<BigDecimal> withholdingTax = new AtomicReference<BigDecimal>();
     private final AtomicReference<BigDecimal> toPrepay = new AtomicReference<BigDecimal>();
     private final AtomicReference<BigDecimal> toPayee = new AtomicReference<BigDecimal>();
 
-    public ResultsOutput(PaymentModelViewInterface view) {
-
-        this.view = view;
+    public ResultsOutput() {
 
         log.debug("Creating empty outputFields...");
 
@@ -37,10 +37,6 @@ public class ResultsOutput implements Serializable, ResultsViewer {
         toPrepay.set(new BigDecimal(BigInteger.ZERO));
         toPayee.set(new BigDecimal(BigInteger.ZERO));
 
-    }
-
-    public static ResultsViewer getInstance() {
-        return instance;
     }
 
     /**
@@ -150,15 +146,17 @@ public class ResultsOutput implements Serializable, ResultsViewer {
         if (o == null || getClass() != o.getClass()) return false;
         ResultsOutput that = (ResultsOutput) o;
         return Objects.equal(log, that.log) &&
-                Objects.equal(total, that.total) &&
-                Objects.equal(vatWithheld, that.vatWithheld) &&
-                Objects.equal(withholdingTax, that.withholdingTax) &&
-                Objects.equal(toPrepay, that.toPrepay) &&
-                Objects.equal(toPayee, that.toPayee);
+                Objects.equal(view, that.view) &&
+                Objects.equal(getTotal(), that.getTotal()) &&
+                Objects.equal(getVatWithheld(), that.getVatWithheld()) &&
+                Objects.equal(getWithholdingTax(), that.getWithholdingTax()) &&
+                Objects.equal(getToPrepay(), that.getToPrepay()) &&
+                Objects.equal(getToPayee(), that.getToPayee());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(log, total, vatWithheld, withholdingTax, toPrepay, toPayee);
+        return Objects.hashCode(log, view, getTotal(), getVatWithheld(), getWithholdingTax(),
+                getToPrepay(), getToPayee());
     }
 }

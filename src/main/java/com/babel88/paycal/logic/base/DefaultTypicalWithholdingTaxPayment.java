@@ -3,8 +3,8 @@ package com.babel88.paycal.logic.base;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.api.logic.WithholdingTaxPayments;
 import com.babel88.paycal.config.PaymentParameters;
-import com.babel88.paycal.config.factory.LogicFactory;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 
 import static java.math.BigDecimal.ONE;
@@ -21,16 +21,10 @@ import static java.math.RoundingMode.HALF_EVEN;
  */
 public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPayments, DefaultLogic {
 
-    private static WithholdingTaxPayments instance = new DefaultTypicalWithholdingTaxPayment();
-    private final PaymentParameters parameters;
+    @Inject
+    private PaymentParameters paymentParameters;
 
     DefaultTypicalWithholdingTaxPayment() {
-
-        this.parameters = LogicFactory.getPaymentParameters();
-    }
-
-    public static WithholdingTaxPayments getInstance() {
-        return instance;
     }
 
     /**
@@ -53,7 +47,7 @@ public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPaymen
                 amountBeforeTax(invoiceAmount);
 
         return amountBeforeVat
-                .multiply(parameters.getWithholdingVatRate()
+                .multiply(paymentParameters.getWithholdingVatRate()
                 )
                 .setScale(2, HALF_EVEN);
     }
@@ -66,7 +60,7 @@ public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPaymen
 
         return amountBeforeVat
                 .multiply(
-                        parameters.getWithholdingTaxRate()
+                        paymentParameters.getWithholdingTaxRate()
                 )
                 .setScale(2, HALF_EVEN);
     }
@@ -74,7 +68,7 @@ public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPaymen
     private BigDecimal amountBeforeTax(BigDecimal invoiceAmount) {
         return invoiceAmount
                 .divide(
-                        parameters.getVatRate().add(ONE), HALF_EVEN
+                        paymentParameters.getVatRate().add(ONE), HALF_EVEN
                 ).setScale(2,HALF_EVEN);
     }
 

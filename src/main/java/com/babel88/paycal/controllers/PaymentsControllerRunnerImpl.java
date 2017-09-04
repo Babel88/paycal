@@ -4,6 +4,7 @@ import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
+import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.config.factory.ControllerFactory;
 import com.babel88.paycal.config.factory.GeneralFactory;
@@ -16,6 +17,7 @@ import com.babel88.paycal.models.ResultsOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 
 /**
@@ -26,23 +28,27 @@ import java.math.BigDecimal;
 public abstract class PaymentsControllerRunnerImpl implements PaymentsControllerRunner {
 
     private static final Logger log = LoggerFactory.getLogger(RentalPaymentsController.class);
-    protected final DefaultPaymentModel paymentModel;
-    private final InvoiceDetails invoice;
-    private final ResultsViewer resultsViewer;
-    private final ReportControllers reportController;
-    private final com.babel88.paycal.api.controllers.PrepaymentController prepaymentController;
+
+    @Inject
+    protected DefaultPaymentModel paymentModel;
+
+    @Inject
+    private InvoiceDetails invoice;
+
+    @Inject
+    private ResultsViewer resultsViewer;
+
+    @Inject
+    private ReportControllers reportController;
+
+    @Inject
+    private PrepaymentController prepaymentController;
     private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
     protected BigDecimal invoiceAmount;
     private Boolean doAgain;
 
     protected PaymentsControllerRunnerImpl() {
-        log.debug("Creating a rental payments controller");
-        invoice = GeneralFactory.createInvoice();
-        resultsViewer = ModelViewFactory.createResultsViewer();
-        paymentModel = ModelFactory.getPaymentModel();
-        reportController = ControllerFactory.getReportController();
-        log.debug("Fetching prepayment controller from controller factory");
-        prepaymentController = ControllerFactory.getPrepaymentController();
+        log.debug("Creating a rental payments controller",this);
     }
 
 

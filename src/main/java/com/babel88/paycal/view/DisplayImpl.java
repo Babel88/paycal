@@ -1,5 +1,6 @@
 package com.babel88.paycal.view;
 
+import com.babel88.paycal.PaycalApp;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.api.view.Tables;
 import com.babel88.paycal.config.factory.GeneralFactory;
@@ -7,7 +8,9 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -31,9 +34,11 @@ public class DisplayImpl implements PaymentModelViewInterface {
     private final Logger log = LoggerFactory.getLogger(DisplayImpl.class);
     //private final PaycalApp paycalApp;
     private final Tables tableString;
+    @Inject
+    private PaycalApp paycalApp;
     private final AtomicReference<BigDecimal> total,vatWithheld,withholdingTax,toPrepay,toPayee;
 
-    DisplayImpl() {
+    public DisplayImpl() {
 
         log.debug("Creating empty value fields in the DisplayImpl");
         total = new AtomicReference<>();
@@ -80,7 +85,7 @@ public class DisplayImpl implements PaymentModelViewInterface {
         // the computation of the Invoice transactions
         // was instantiated
         //Date timePaid = paycalApp.getNow();
-        Date timePaid = GeneralFactory.createPaycalApp().getNow();
+        Date timePaid = paycalApp.getNow();
 
         out.println("Calculated at: "+timePaid);
 

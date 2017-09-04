@@ -5,6 +5,7 @@ import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
+import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.config.factory.*;
@@ -17,6 +18,7 @@ import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 
 /**
@@ -27,15 +29,27 @@ import java.math.BigDecimal;
 @SuppressWarnings("ALL")
 public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImpl implements DefaultControllers, PaymentsControllerRunner {
 
-    private static DefaultControllers instance = new WithholdingTaxPaymentController();
     private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
     private final Logger log = LoggerFactory.getLogger(WithholdingTaxPaymentController.class);
-    private final ResultsViewer resultsViewer;
-    private final DefaultPaymentModel paymentModel;
-    private final ReportControllers reportController;
-    private final InvoiceDetails invoice;
-    private final DefaultLogic withholdingTaxLogic;
-    private final com.babel88.paycal.api.controllers.PrepaymentController prepaymentController;
+
+    @Inject
+    private ResultsViewer resultsViewer;
+
+    @Inject
+    private DefaultPaymentModel paymentModel;
+
+    @Inject
+    private ReportControllers reportController;
+
+    @Inject
+    private InvoiceDetails invoiceDetails;
+
+    @Inject
+    private DefaultLogic withholdingTaxLogic;
+
+    @Inject
+    private PrepaymentController prepaymentController;
+
     private boolean doAgain;
     private BigDecimal invoiceAmount;
 
@@ -43,30 +57,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
 
         super();
 
-        log.debug("Withholding tax payments controller created");
-
-        log.debug("Fetching results viewer object from model view factory");
-        resultsViewer = ModelViewFactory.createResultsViewer();
-
-        log.debug("Fetching the payment model object from Model factory");
-        paymentModel = ModelFactory.getInstance().getPaymentModel();
-
-        log.debug("Fetching the report controller object from controller factory");
-        reportController = ControllerFactory.getReportController();
-
-        log.debug("Fetching the invoice details object from model view factory");
-        invoice = GeneralFactory.createInvoice();
-
-        log.debug("Fetching withholding tax payment logic from logic factory");
-        withholdingTaxLogic = (DefaultLogic) LogicFactory.getWithholdingTaxPayments();
-
-        log.debug("Fetching prepayment controller from controller factory");
-        prepaymentController = ControllerFactory.getPrepaymentController();
-    }
-
-    @Contract(pure = true)
-    public static DefaultControllers getInstance() {
-        return instance;
+        log.debug("Withholding tax payments controller created : {}",this);
     }
 
     @Override
@@ -75,7 +66,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
 
         do {
 
-            invoiceAmount = invoice.invoiceAmount();
+            invoiceAmount = invoiceDetails.invoiceAmount();
 
             updateWithholdingVat();
 
@@ -89,7 +80,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
 
             resultsOutput = (ResultsOutput) resultsViewer.forPayment((PaymentModel) paymentModel);
 
-            doAgain = invoice.doAgain();
+            doAgain = invoiceDetails.doAgain();
 
         } while (doAgain);
 

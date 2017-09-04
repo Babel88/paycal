@@ -9,43 +9,48 @@ import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.api.logic.PrepaymentService;
-import com.babel88.paycal.config.factory.*;
 import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.models.TTArguments;
 import com.babel88.paycal.models.ResultsOutput;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 
 @SuppressWarnings("ALL")
 public class ContractorPaymentsController implements DefaultControllers, PaymentsControllerRunner {
 
-    private static DefaultControllers instance = new ContractorPaymentsController();
+    private final Logger log = LoggerFactory.getLogger(ContractorPaymentsController.class);
+
     private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
     private DefaultPaymentModel paymentModel;
-    private InvoiceDetails invoice;
+
+    @Inject
+    private InvoiceDetails invoiceDetails;
+
     private BigDecimal invoiceAmount;
+
+    @Inject
     private DefaultLogic contractorLogic;
+
+    @Inject
     private PrepaymentController prepaymentController;
-    private ResultsViewer viewResults;
-    private ReportControllers reportsController;
+
+    @Inject
+    private ResultsViewer resultsViewer;
+
+    @Inject
+    private ReportControllers reportController;
+
     private Boolean doAgain;
 
     public ContractorPaymentsController() {
-        invoice = GeneralFactory.createInvoice();
-        this.paymentModel = ModelFactory.getPaymentModel();
-        contractorLogic = LogicFactory.getInstance().getContractorLogic();
-        prepaymentController = ControllerFactory.getPrepaymentController();
-        viewResults = ModelViewFactory.createResultsViewer();
 
-        reportsController = ControllerFactory.getReportController();
-    }
-
-    public static DefaultControllers getInstance() {
-
-        return instance;
+        log.debug("ContractorPaymentsController created : {}",this);
     }
 
     @Override
@@ -54,19 +59,19 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
         ResultsOutput resultsOutput;
 
         do {
-            invoiceAmount = invoice.invoiceAmount();
+            invoiceAmount = invoiceDetails.invoiceAmount();
             updateTotalExpense();
             updateToPayee();
             updateWithholdingTax();
             updateWithholdingVat();
             prepaymentsDelegate.updateToPrepay();
-            resultsOutput = (ResultsOutput) viewResults.forPayment((PaymentModel) paymentModel);
+            resultsOutput = (ResultsOutput) resultsViewer.forPayment((PaymentModel) paymentModel);
             // Results submitted for paymentModelView
 
-            doAgain = invoice.doAgain();
+            doAgain = invoiceDetails.doAgain();
         } while (doAgain);
 
-        reportsController.printReport().forPayment(resultsOutput);
+        reportController.printReport().forPayment(resultsOutput);
     }
 
     @Override
@@ -125,7 +130,7 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
     }
 
     public DefaultControllers setInvoice(InvoiceDetails invoice) {
-        this.invoice = invoice;
+        this.invoiceDetails = invoice;
         return this;
     }
 
@@ -145,12 +150,12 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
     }
 
     public DefaultControllers setViewResults(ResultsViewer viewResults) {
-        this.viewResults = viewResults;
+        this.resultsViewer = viewResults;
         return this;
     }
 
     public DefaultControllers setReportsController(ReportControllers reportsController) {
-        this.reportsController = reportsController;
+        this.reportController = reportsController;
         return this;
     }
 

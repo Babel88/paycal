@@ -20,6 +20,7 @@ import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 
 /**
@@ -29,42 +30,35 @@ import java.math.BigDecimal;
  */
 public class TTControllerImpl implements TTController {
 
-    private final ExclusiveImportedServiceLogic exclusiveImportedServiceLogic;
-    private final InclusiveImportedServiceLogic inclusiveImportedServiceLogic;
+    @Inject
+    private ExclusiveImportedServiceLogic exclusiveImportedServiceLogic;
+
+    @Inject
+    private InclusiveImportedServiceLogic inclusiveImportedServiceLogic;
     private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
-    private final PrepaymentController prepaymentController;
+
+    @Inject
+    private PrepaymentController prepaymentController;
     private static final Logger log = LoggerFactory.getLogger(TTControllerImpl.class);
-    private static final TTController instance = new TTControllerImpl();
+
+    @Inject
     private TTArguments ttArguments;
+
+    @Inject
     private ResultsViewer resultsViewer;
+
+    @Inject
     private DefaultPaymentModel paymentModel;
+
+    @Inject
     private InvoiceDetails invoice;
+
+    @Inject
     private ReportControllers reportController;
 
     public TTControllerImpl() {
 
         log.debug("Initializing the TTController... : {}",this);
-
-        log.debug("Fetching prepayment controller from {}", ControllerFactory.getInstance());
-        prepaymentController = ControllerFactory.getPrepaymentController();
-
-//        log.debug("Fetching the exclusive imported service from logic factory");
-//        exclusiveImportedServiceLogic = LogicFactory.getInstance().getExclusiveImportedServiceLogic();
-//        log.debug("Initializing the delegates. Starting with {}",exclusiveImportedServiceLogic);
-//        exclusiveImportedServiceLogic.initialization();
-
-        ttArguments = ModelFactory.getTTArguments();
-
-        resultsViewer = ModelViewFactory.createResultsViewer();
-
-        paymentModel = ModelFactory.getPaymentModel();
-
-        invoice = GeneralFactory.createInvoice();
-
-        reportController = ControllerFactory.getReportController();
-
-        exclusiveImportedServiceLogic = LogicFactory.getExclusivImportedServiceLogic();
-        inclusiveImportedServiceLogic = LogicFactory.getInclusiveImportedServiceLogic();
     }
 
     /**
@@ -244,10 +238,6 @@ public class TTControllerImpl implements TTController {
         this.ttArguments = ttArguments;
     }
 
-    @Contract(pure = true)
-    public static TTController getInstance() {
-        return instance;
-    }
 
     public TTControllerImpl setPaymentModel(DefaultPaymentModel paymentModel) {
         this.paymentModel = paymentModel;

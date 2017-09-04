@@ -16,6 +16,8 @@ import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
+
 /**
  * Created by edwin.njeru on 18/07/2016.
  * Contains actual implementation of calculations based on info collected pertaining to
@@ -30,7 +32,10 @@ public class BusinessLogicRouter implements Router {
     private PrepaymentController prepaymentController;
     private PaymentModelViewInterface paymentModelView;
     private TelegraphicTransfers foreignPayments;
+
+    @Inject
     private ForeignPaymentDetails foreignPaymentDetails;
+
     private PartialTaxPaymentController partialTaxPaymentController;
     private DefaultControllers contractorPaymentController;
     private DefaultControllers withholdingTaxPaymentController;
@@ -53,13 +58,6 @@ public class BusinessLogicRouter implements Router {
         log.debug("Fetching instances from the payment model view Factory");
 
         paymentModelView = ModelViewFactory.createPaymentModelView();
-
-        log.debug("Fetching instance from the general factory");
-
-        foreignPaymentDetails = GeneralFactory.createForeignPaymentDetails();
-
-        log.debug("Fetching contractor payments controller from ControllerFactory");
-        contractorPaymentController = ControllerFactory.getInstance().getContractorPaymentController();
 
         log.debug("Fetching withholdingTaxPaymentController from controller factory");
         withholdingTaxPaymentController = ControllerFactory.getInstance().getWithholdingTaxPaymentController();
@@ -126,42 +124,6 @@ public class BusinessLogicRouter implements Router {
     public void telegraphicTransfer() {
 
         ttController.runCalculation();
-
-        /*
-
-        boolean doAgain;
-
-        do {
-            BigDecimal vatRate = BigDecimal.valueOf(foreignPaymentDetails.vatRate()/100);
-
-            BigDecimal withHoldingTax = BigDecimal.valueOf(foreignPaymentDetails.withHoldingTaxRate()/100);
-
-            BigDecimal invoiceAmount = foreignPaymentDetails.invoiceAmount();
-
-            Boolean exclusive = foreignPaymentDetails.exclusiveOfWithholdingTax();
-
-            BigDecimal reverseInvoice =
-                    foreignPayments.getReverseInvoice(invoiceAmount, withHoldingTax,exclusive);
-
-            BigDecimal withHoldingVat =
-                    foreignPayments.getReverseVat(reverseInvoice, vatRate);
-
-            BigDecimal total =
-                    foreignPayments.getTotalExpense(reverseInvoice,vatRate,exclusive,invoiceAmount,withHoldingVat);
-
-            BigDecimal toPayee =
-                    foreignPayments.getPaySupplier(total,withHoldingTax,withHoldingVat);
-
-
-            BigDecimal toPrepay =
-                    ((PrepaymentService) prepaymentController::getPrepayment).prepay(total);
-
-            paymentModelView.displayResults(total, withHoldingVat, withHoldingTax, toPrepay, toPayee);
-            // Results submitted for paymentModelView
-
-            doAgain = foreignPaymentDetails.doAgain();
-        } while (doAgain);
-*/
     }
 
 }

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
  *
  * Created by edwin.njeru on 8/23/17.
  */
+@Deprecated
 public class UtilFactory {
 
     private static final Logger log = LoggerFactory.getLogger(UtilFactory.class);

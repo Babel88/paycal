@@ -2,7 +2,11 @@ package com.babel88.paycal.config.factory;
 
 import com.babel88.paycal.api.controllers.*;
 import com.babel88.paycal.controllers.ReportsController;
-import com.babel88.paycal.controllers.base.*;
+import com.babel88.paycal.controllers.base.ContractorPaymentsController;
+import com.babel88.paycal.controllers.base.DefaultTypicalPaymentsController;
+import com.babel88.paycal.controllers.base.RentalPaymentsController;
+import com.babel88.paycal.controllers.base.TTControllerImpl;
+import com.babel88.paycal.controllers.base.WithholdingTaxPaymentController;
 import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +16,7 @@ import org.slf4j.LoggerFactory;
  *
  * Created by edwin.njeru on 8/23/17.
  */
+@Deprecated
 public class ControllerFactory {
 
     private static final ControllerFactory instance = new ControllerFactory();
@@ -27,51 +32,51 @@ public class ControllerFactory {
         return instance;
     }
 
-    public static PartialTaxPaymentController getPartialTaxPaymentController() {
+//    public static PartialTaxPaymentController getPartialTaxPaymentController() {
+//
+//        log.debug("Returning and instance of : {}", DefaultPartialTaxPaymentController.getInstance());
+//        return DefaultPartialTaxPaymentController.getInstance();
+//    }
 
-        log.debug("Returning and instance of : {}", DefaultPartialTaxPaymentController.getInstance());
-        return DefaultPartialTaxPaymentController.getInstance();
-    }
+//    public static ReportControllers getReportController() {
+//
+//        log.debug("Returning and instance of : {}", ReportsController.getInstance());
+//        return ReportsController.getInstance();
+//    }
 
-    public static ReportControllers getReportController() {
+//    public static PrepaymentController getPrepaymentController() {
+//
+//        log.debug("Returning and instance of : {}", PrepaymentControllerImpl.getInstance());
+//        return PrepaymentControllerImpl.getInstance();
+//    }
 
-        log.debug("Returning and instance of : {}", ReportsController.getInstance());
-        return ReportsController.getInstance();
-    }
+//    public static DefaultControllers getContractorPaymentController() {
+//
+//        log.debug("Returning and instance of : {}", ContractorPaymentsController.getInstance());
+//        return ContractorPaymentsController.getInstance();
+//    }
 
-    public static PrepaymentController getPrepaymentController() {
+//    public static DefaultControllers getWithholdingTaxPaymentController() {
+//
+//        log.debug("Returning and instance of : {}", WithholdingTaxPaymentController.getInstance());
+//        return WithholdingTaxPaymentController.getInstance();
+//    }
 
-        log.debug("Returning and instance of : {}", PrepaymentControllerImpl.getInstance());
-        return PrepaymentControllerImpl.getInstance();
-    }
+//    public static DefaultControllers getRentalPaymentsController() {
+//
+//        log.debug("Returning and instance of : {}", RentalPaymentsController.getInstance());
+//        return RentalPaymentsController.getInstance();
+//    }
 
-    public static DefaultControllers getContractorPaymentController() {
+//    public static DefaultControllers getDefaultTypicalPaymentsController() {
+//        log.debug("Returning and instance of : {}", DefaultTypicalPaymentsController.getInstance());
+//        return DefaultTypicalPaymentsController.getInstance();
+//    }
 
-        log.debug("Returning and instance of : {}", ContractorPaymentsController.getInstance());
-        return ContractorPaymentsController.getInstance();
-    }
-
-    public static DefaultControllers getWithholdingTaxPaymentController() {
-
-        log.debug("Returning and instance of : {}", WithholdingTaxPaymentController.getInstance());
-        return WithholdingTaxPaymentController.getInstance();
-    }
-
-    public static DefaultControllers getRentalPaymentsController() {
-
-        log.debug("Returning and instance of : {}", RentalPaymentsController.getInstance());
-        return RentalPaymentsController.getInstance();
-    }
-
-    public static DefaultControllers getDefaultTypicalPaymentsController() {
-        log.debug("Returning and instance of : {}", DefaultTypicalPaymentsController.getInstance());
-        return DefaultTypicalPaymentsController.getInstance();
-    }
-
-    public static TTController getTTController(){
-
-        log.debug("Returning an instance of : {} , from the {}",
-                TTControllerImpl.getInstance(),ControllerFactory.getInstance());
-        return (TTController) TTControllerImpl.getInstance();
-    }
+//    public static TTController getTTController(){
+//
+//        log.debug("Returning an instance of : {} , from the {}",
+//                TTControllerImpl.getInstance(),ControllerFactory.getInstance());
+//        return (TTController) TTControllerImpl.getInstance();
+//    }
 }

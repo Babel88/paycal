@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
@@ -39,19 +40,17 @@ public class PrepaymentControllerImpl implements PrepaymentController {
      * This object provides the implementation of the Prepayable interface
      * used here to get the amount to prepay
      */
-    private Prepayable abstractPrepayment;
+    @Inject
+    private Prepayable prepayable;
     /*
      * This object delivers the standard user prompt for the application
      */
+    @Inject
     private FeedBack feedBack;
 
     public PrepaymentControllerImpl(BigDecimal expenseAmount) {
 
-        log.debug("Creating payment controller from factory");
-
-        abstractPrepayment = LogicFactory.getPrepayable();
-
-        feedBack = GeneralFactory.createFeedback();
+        log.debug("Creating payment controller from factory : {}",this);
 
         this.expenseAmount = expenseAmount;
 
@@ -102,7 +101,7 @@ public class PrepaymentControllerImpl implements PrepaymentController {
 
 
         this.prepaymentAmount =
-                (prepay) ? abstractPrepayment.calculatePrepayment(expenseAmount) : BigDecimal.ZERO;
+                (prepay) ? prepayable.calculatePrepayment(expenseAmount) : BigDecimal.ZERO;
 
         return prepaymentAmount;
     }

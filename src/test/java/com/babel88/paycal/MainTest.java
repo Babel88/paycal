@@ -1,28 +1,41 @@
 package com.babel88.paycal;
 
-import com.babel88.paycal.config.factory.GeneralFactory;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.inject.Inject;
 
 import static org.junit.Assert.*;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 public class MainTest {
 
     ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+    private PaycalApp paycalApp1;
+
+    @Inject
     private PaycalApp paycalApp;
+
     @Before
     public void setUp() throws Exception {
 
-        paycalApp = (PaycalApp) context.getBean("paycalApp");
+        paycalApp1 = (PaycalApp) context.getBean("paycalApp");
     }
 
     @Test
     public void PaycalAppCreation() throws Exception {
 
-        PaycalApp paycalApp1 = GeneralFactory.createPaycalApp();
+        assertNotNull(paycalApp1);
+    }
 
-        assertEquals(paycalApp,paycalApp1);
+    @Test
+    public void dependencyInjectionIsWorking() throws Exception{
+
+        assertNotNull(paycalApp);
     }
 }

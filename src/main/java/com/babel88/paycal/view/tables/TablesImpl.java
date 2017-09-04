@@ -13,18 +13,18 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TableMaker implements Tables {
+public class TablesImpl implements Tables {
 
-    private static Tables instance = new TableMaker();
-    private final Logger log = LoggerFactory.getLogger(TableMaker.class);
+    private static Tables instance = new TablesImpl();
+    private final Logger log = LoggerFactory.getLogger(TablesImpl.class);
     Map<Index, String> _strings = new HashMap();
     int _numRows = 0;
     int _numColumns = 0;
     private Map<Integer, Integer> _columSizes = new HashMap<>();
 
-    public TableMaker() {
+    public TablesImpl() {
 
-        log.debug("Creating a new TableMaker object");
+        log.debug("Creating a new TablesImpl object");
     }
 
     public static Tables getInstance() {

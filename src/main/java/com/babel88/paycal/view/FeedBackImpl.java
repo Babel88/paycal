@@ -7,11 +7,11 @@ import java.util.Scanner;
 import static java.lang.System.getProperty;
 import static java.lang.System.out;
 
-public class Notifications implements FeedBack {
+public class FeedBackImpl implements FeedBack {
 
-    private static FeedBack instance = new Notifications();
+    private static FeedBack instance = new FeedBackImpl();
 
-    public Notifications(){}
+    public FeedBackImpl(){}
 
     public static FeedBack getInstance() {
         return instance;
@@ -95,7 +95,7 @@ public class Notifications implements FeedBack {
                 "");
     }
 
-    // Notifications for the Invoice class
+    // FeedBackImpl for the Invoice class
 
     @Override
     public void invoiceAmount(){

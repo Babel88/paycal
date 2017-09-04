@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by edwin.njeru on 25/08/2017.
  */
+@Deprecated
 public class ModelViewFactory {
     private static final Logger log = LoggerFactory.getLogger(ModelViewFactory.class);
 
@@ -25,18 +26,18 @@ public class ModelViewFactory {
         return instance;
     }
 
-    public static ResultsViewer createResultsViewer(){
-
-        return ResultsOutput.getInstance();
-    }
-
-    public static PaymentModelViewInterface createPaymentModelView(){
-
-        return DisplayImpl.getInstance();
-    }
-
-    public static PaymentAdvice createPaymentAdvice(){
-
-        return PaymentAdvice.getInstance();
-    }
+//    public static ResultsViewer createResultsViewer(){
+//
+//        return ResultsOutput.getInstance();
+//    }
+//
+//    public static PaymentModelViewInterface createPaymentModelView(){
+//
+//        return DisplayImpl.getInstance();
+//    }
+//
+//    public static PaymentAdvice createPaymentAdvice(){
+//
+//        return PaymentAdvice.getInstance();
+//    }
 }

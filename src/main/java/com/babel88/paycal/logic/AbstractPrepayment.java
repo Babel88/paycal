@@ -2,8 +2,7 @@ package com.babel88.paycal.logic;
 
 import com.babel88.paycal.api.PrepaymentDetails;
 import com.babel88.paycal.api.logic.Prepayable;
-import com.babel88.paycal.config.GeneralConfigurations;
-import com.babel88.paycal.config.factory.GeneralFactory;
+import com.babel88.paycal.config.prepaymentConfigurations;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
@@ -12,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -34,14 +34,17 @@ public class AbstractPrepayment implements Prepayable,Serializable {
     private Enum<FormatStyle> dateFormatStyle;
     // Keeps track of locale settings
     private Locale locale;
+
     /* This object provides prepayment dates
      * Object has been Autowired through a setter
      */
+    @Inject
     private PrepaymentDetails prepaymentDetails;
+
     /*This object provides general configurations for use with prepayment dates
      * The object has been Autowired through a setter
      */
-    private GeneralConfigurations generalConfigurations;
+    private prepaymentConfigurations generalConfigurations;
     /**
      * The expense amount to be prepaid
      */
@@ -56,8 +59,6 @@ public class AbstractPrepayment implements Prepayable,Serializable {
         log.debug("Creating abstract prepayment using general configurations and prepayment details \n" +
                 "from Logic factory and General factory respectively");
         generalConfigurations = LogicFactory.getGeneralConfigurations();
-
-        prepaymentDetails = GeneralFactory.createPrepaymentDetails();
 
         log.debug("Creating prepayment with default configurations, from the general \n" +
                 "configurations object : {}.",generalConfigurations.toString());
@@ -414,11 +415,11 @@ public class AbstractPrepayment implements Prepayable,Serializable {
         return this;
     }
 
-    public GeneralConfigurations getGeneralConfigurations() {
+    public prepaymentConfigurations getGeneralConfigurations() {
         return generalConfigurations;
     }
 
-    public AbstractPrepayment setGeneralConfigurations(GeneralConfigurations generalConfigurations) {
+    public AbstractPrepayment setGeneralConfigurations(prepaymentConfigurations generalConfigurations) {
         this.generalConfigurations = generalConfigurations;
         return this;
     }

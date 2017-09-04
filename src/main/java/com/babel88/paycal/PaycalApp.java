@@ -2,6 +2,7 @@ package com.babel88.paycal;
 
 import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.config.factory.GeneralFactory;
+import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,14 +17,13 @@ import java.util.Date;
  */
 public class PaycalApp {
 
-    private static PaycalApp instance = new PaycalApp();
     private final Logger log = LoggerFactory.getLogger(PaycalApp.class);
     private final Date now;
     private FeedBack feedBack;
     private PaymentFactory factory;
 
 
-    private PaycalApp() {
+    public PaycalApp() {
 
         log.debug("Creating an instance of the paycalApp");
 
@@ -31,11 +31,6 @@ public class PaycalApp {
         factory = GeneralFactory.createPaymentFactory();
         now = gettingTime();
     }
-
-    public static PaycalApp getInstance() {
-        return instance;
-    }
-
     /**To get the current date
      * This will be included in the introduction in order to identify
      * when a particular transaction was computed
@@ -71,5 +66,21 @@ public class PaycalApp {
     public Date getNow() {
 
         return now;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PaycalApp paycalApp = (PaycalApp) o;
+        return Objects.equal(log, paycalApp.log) &&
+                Objects.equal(getNow(), paycalApp.getNow()) &&
+                Objects.equal(feedBack, paycalApp.feedBack) &&
+                Objects.equal(factory, paycalApp.factory);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(log, getNow(), feedBack, factory);
     }
 }

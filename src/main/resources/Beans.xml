@@ -1,11 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:util="http://www.springframework.org/schema/util" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <bean id="paycalApp" class="com.babel88.paycal.PaycalApp">
-
+    <!--                         Application models                                  -->
+    <!--                         ===================                                 -->
+    <bean id="paymentModel" name="paymentModel" class="com.babel88.paycal.models.PaymentModel">
     </bean>
+
+    <bean id="paymentModelCareTaker" name="paymentModelCareTaker" class="com.babel88.paycal.models.PaymentModelCareTaker">
+    </bean>
+
+    <bean id="ttArguments" name="ttArguments" class="com.babel88.paycal.models.TTArguments">
+    </bean>
+
+
+    <!--                           MODEL VIEW ITEMS                                   -->
+    <!--                           ===================                                -->
+    <bean id="resultsViewer" name="resultsViewer" class="com.babel88.paycal.models.ResultsOutput">
+    </bean>
+
+    <bean id="tables" name="tables" class="com.babel88.paycal.view.tables.TablesImpl">
+    </bean>
+
+    <bean id="display" name="display" class="com.babel88.paycal.view.DisplayImpl">
+    </bean>
+
+    <bean id="feedBack" name="feedBack" class="com.babel88.paycal.view.FeedBackImpl">
+    </bean>
+
+    <bean id="paymentAdvice" name="paymentAdvice" class="com.babel88.paycal.view.reporting.PaymentAdvice">
+    </bean>
+
+    <!--                               CONTROLLERS                                          -->
+    <!--                               ============                                         -->
+    <bean id="partialTaxPaymentController" class="com.babel88.paycal.controllers.base.DefaultPartialTaxPaymentController"/>
+
+    <bean id="reportController" class="com.babel88.paycal.controllers.ReportsController"/>
+
+    <bean id="prepaymentController" class="com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl"/>
+
+    <bean id="contractorPaymentsController" class="com.babel88.paycal.controllers.base.ContractorPaymentsController"/>
+
+    <bean id="withholdingTaxPaymentController" class="com.babel88.paycal.controllers.base.WithholdingTaxPaymentController"/>
+
+    <bean id="rentalPaymentsController" class="com.babel88.paycal.controllers.base.RentalPaymentsController"/>
+
+    <bean id="typicalPaymentsController" class="com.babel88.paycal.controllers.base.DefaultTypicalPaymentsController"/>
+
+    <bean id="ttController" class="com.babel88.paycal.controllers.base.TTControllerImpl"/>
+
+
+    <!--                                  BUSINESS LOGIC ITEMS                                -->
+    <!--                                  ======================                              -->
+    <bean id="businessLogicRouter" name="businessLogicRouter" class="com.babel88.paycal.logic.BusinessLogicRouter">
+    </bean>
+
+    <bean id="paymentParameters" name="paymentParameters" class="com.babel88.paycal.config.PaymentParameters">
+    </bean>
+
+    <bean id="typicalPaymentsLogic" name="typicalPayments" class="com.babel88.paycal.logic.base.TypicalPayment">
+    </bean>
+
+    <bean id="withholdingTaxPayments" name="withholdingTaxPayments" class="com.babel88.paycal.logic.base.DefaultTypicalWithholdingTaxPayment">
+    </bean>
+
+    <bean id="prepaymentConfigurations" class="com.babel88.paycal.config.prepaymentConfigurations">
+    </bean>
+
+    <bean id="prepayable" class="com.babel88.paycal.logic.AbstractPrepayment"/>
+
+    <bean id="telegraphicTransfers" class="com.babel88.paycal.logic.base.ForeignPayments"/>
+
+    <bean id="partialTaxPaymentLogic" class="com.babel88.paycal.logic.base.DefaultPartialTaxPaymentLogic"/>
+
+    <bean id="contractors" class="com.babel88.paycal.logic.base.ContractorPayments"/>
+
+    <bean id="contractorLogic" class="com.babel88.paycal.logic.base.ContractorLogic"/>
+
+    <bean id="rentalPaymentLogic" class="com.babel88.paycal.logic.base.RentalPaymentLogic"/>
+
+    <bean id="exclusiveImportedServiceLogic" class="com.babel88.paycal.logic.base.ExclusiveImportedServiceLogicImpl"/>
+
+    <bean id="inclusiveImportedServiceLogic" class="com.babel88.paycal.logic.base.InclusiveImportedServiceLogicImpl"/>
+
+
+    <!--                                   GENERAL PURPOSE ITEMS                               -->
+    <!--                                   ======================                              -->
+    <bean id="paycalApp" class="com.babel88.paycal.PaycalApp">
+    </bean>
+
+    <bean id="invoiceDetails" name="invoiceDetails" class="com.babel88.paycal.view.Invoice">
+    </bean>
+
+    <bean id="foreignPaymentDetails" name="foreignPaymentDetails" depends-on="invoiceDetails">
+    </bean>
+
+    <bean id="prepaymentDetails" name="prepaymentDetails" depends-on="invoiceDetails">
+    </bean>
+
+    <bean id="loggingAspect" name="loggingAspect" class="com.babel88.paycal.util.aspects.LoggingAspect">
+    </bean>
+
+    <bean id="paymentFactory" name="paymentFactory" class="com.babel88.paycal.PaymentFactory">
+    </bean>
+
+
 
 </beans>

@@ -9,6 +9,7 @@ import com.babel88.paycal.config.factory.ModelViewFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.util.Scanner;
 
 import static java.lang.System.out;
@@ -22,7 +23,9 @@ public class PaymentFactory {
     private static PaymentFactory instance = new PaymentFactory();
     private final Logger log = LoggerFactory.getLogger(PaymentFactory.class);
     private PaymentModelViewInterface view;
-    private InvoiceDetails invoice;
+
+    @Inject
+    private InvoiceDetails invoiceDetails;
     private Router router;
 
     private PaymentFactory() {
@@ -31,7 +34,6 @@ public class PaymentFactory {
         //TODO include in factory
         router = LogicFactory.getMainLogicController();
         view = ModelViewFactory.createPaymentModelView();
-        invoice = GeneralFactory.createInvoice();
     }
 
     public static PaymentFactory getInstance() {

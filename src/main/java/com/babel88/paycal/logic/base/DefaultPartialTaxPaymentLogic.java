@@ -6,6 +6,7 @@ import com.babel88.paycal.config.factory.LogicFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -13,16 +14,14 @@ public class DefaultPartialTaxPaymentLogic implements PartialTaxPaymentLogic {
 
     private static PartialTaxPaymentLogic instance = new DefaultPartialTaxPaymentLogic();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final PaymentParameters paymentParameters;
+
+    @Inject
+    private PaymentParameters paymentParameters;
 
     private DefaultPartialTaxPaymentLogic() {
 
         log.debug("The default implementation pf the PartialTaxPaymentLogic interface \n" +
-                "has been invoked");
-
-        log.debug("Calling the paymentParameter singleton from factory...");
-
-        paymentParameters = LogicFactory.getPaymentParameters();
+                "has been invoked : {}",this);
     }
 
     public static PartialTaxPaymentLogic getInstance() {
