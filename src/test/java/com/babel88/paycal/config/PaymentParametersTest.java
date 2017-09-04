@@ -1,6 +1,5 @@
 package com.babel88.paycal.config;
 
-import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.utils.TestUtils;
 import org.junit.Before;
@@ -21,7 +20,7 @@ public class PaymentParametersTest extends TestUtils<PaymentParameters> {
     @Before
     public void setUp() throws Exception {
 
-        paymentParameters = LogicFactory.getInstance().createPaymentParameters();
+        paymentParameters = LogicFactory.getInstance().getPaymentParameters();
     }
 
     /**

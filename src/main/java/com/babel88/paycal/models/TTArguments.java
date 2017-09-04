@@ -1,9 +1,16 @@
 package com.babel88.paycal.models;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import static java.math.RoundingMode.*;
 
 /**
  * This class encapsulates the arguments applied in calculations for telegraphic
@@ -12,7 +19,7 @@ import java.math.BigDecimal;
  *
  * Created by edwin.njeru on 01/09/2017.
  */
-public class TTArguments {
+public class TTArguments implements Serializable {
 
     private static final Logger log = LoggerFactory.getLogger(TTArguments.class);
     private static final TTArguments instance = new TTArguments();
@@ -23,51 +30,33 @@ public class TTArguments {
     private BigDecimal amountBeforeTax;
     private Boolean taxExclusionPolicy;
 
-    private TTArguments(){
+    public TTArguments(){
 
-        log.debug("TTArguments object instance");
+        log.debug("TTArguments object instance created : {}",this);
     }
 
+    @Contract(pure = true)
     public static TTArguments getInstance() {
         return instance;
     }
 
-    public TTArguments(BigDecimal invoiceAmount) {
-        this.invoiceAmount = invoiceAmount;
-    }
-
-    public TTArguments(BigDecimal invoiceAmount, BigDecimal reverseVatRate) {
-        this(invoiceAmount);
-        this.reverseVatRate = reverseVatRate;
-    }
-
-    public TTArguments(BigDecimal invoiceAmount, BigDecimal reverseVatRate, BigDecimal withholdingTaxRate) {
-        this(invoiceAmount,reverseVatRate);
-        this.withholdingTaxRate = withholdingTaxRate;
-    }
-
-    public TTArguments(BigDecimal invoiceAmount, BigDecimal reverseVatRate, BigDecimal withholdingTaxRate, BigDecimal amountBeforeTax) {
-        this(invoiceAmount,reverseVatRate,withholdingTaxRate);
-        this.amountBeforeTax = amountBeforeTax;
-    }
-
-    public TTArguments(BigDecimal invoiceAmount, BigDecimal reverseVatRate, BigDecimal withholdingTaxRate, BigDecimal amountBeforeTax, Boolean taxExclusionPolicy) {
-        this(invoiceAmount,reverseVatRate,withholdingTaxRate,amountBeforeTax);
-        this.taxExclusionPolicy = taxExclusionPolicy;
-    }
-
     public TTArguments setInvoiceAmount(BigDecimal invoiceAmount) {
-        this.invoiceAmount = invoiceAmount;
+        this.invoiceAmount = invoiceAmount.setScale(2, HALF_EVEN);
         return this;
     }
 
     public TTArguments setReverseVatRate(BigDecimal reverseVatRate) {
-        this.reverseVatRate = reverseVatRate;
+        this.reverseVatRate = setAccuracy(reverseVatRate);
         return this;
     }
 
+    private BigDecimal setAccuracy(BigDecimal reverseVatRate){
+
+        return reverseVatRate.divide(BigDecimal.valueOf(100)).setScale(2,HALF_EVEN);
+    }
+
     public TTArguments setWithholdingTaxRate(BigDecimal withholdingTaxRate) {
-        this.withholdingTaxRate = withholdingTaxRate;
+        this.withholdingTaxRate = setAccuracy(withholdingTaxRate);
         return this;
     }
 
@@ -104,5 +93,34 @@ public class TTArguments {
     public Boolean getTaxExclusionPolicy() {
         log.debug("Withholding tax exclusive : {}",taxExclusionPolicy);
         return taxExclusionPolicy;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("invoiceAmount", invoiceAmount)
+                .add("reverseVatRate", reverseVatRate)
+                .add("withholdingTaxRate", withholdingTaxRate)
+                .add("amountBeforeTax", amountBeforeTax)
+                .add("taxExclusionPolicy", taxExclusionPolicy)
+                .toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TTArguments that = (TTArguments) o;
+        return Objects.equal(getInvoiceAmount(), that.getInvoiceAmount()) &&
+                Objects.equal(getReverseVatRate(), that.getReverseVatRate()) &&
+                Objects.equal(getWithholdingTaxRate(), that.getWithholdingTaxRate()) &&
+                Objects.equal(getAmountBeforeTax(), that.getAmountBeforeTax()) &&
+                Objects.equal(getTaxExclusionPolicy(), that.getTaxExclusionPolicy());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getInvoiceAmount(), getReverseVatRate(), getWithholdingTaxRate(),
+                getAmountBeforeTax(), getTaxExclusionPolicy());
     }
 }

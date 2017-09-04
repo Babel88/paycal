@@ -55,7 +55,7 @@ public class AbstractPrepayment implements Prepayable,Serializable {
 
         log.debug("Creating abstract prepayment using general configurations and prepayment details \n" +
                 "from Logic factory and General factory respectively");
-        generalConfigurations = LogicFactory.createGeneralConfigurations();
+        generalConfigurations = LogicFactory.getGeneralConfigurations();
 
         prepaymentDetails = GeneralFactory.createPrepaymentDetails();
 

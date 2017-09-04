@@ -25,7 +25,7 @@ public class TypicalPaymentTest extends TestUtils<DefaultLogic>{
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        typicalPayment = LogicFactory.createTypicalPayments();
+        typicalPayment = LogicFactory.getTypicalPayments();
         invoiceAmount = setAccuracy(116000.00);
     }
 

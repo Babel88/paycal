@@ -1,24 +1,25 @@
 package com.babel88.paycal.api.controllers;
 
+import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.models.TTArguments;
-import org.jetbrains.annotations.NotNull;
 
-@Deprecated
-public interface TTController extends PaymentsControllerRunner, DefaultControllers {
-    @Override
-    void updateTotalExpense();
+import java.io.Serializable;
 
-    @Override
-    void updateToPayee();
+public interface TTController extends PaymentsControllerRunner, Serializable {
 
-    @Override
-    void updateWithholdingTax();
+    DefaultPaymentModel updateTotalExpense(TTArguments ttArguments);
 
-    @Override
-    void updateWithholdingVat();
 
-    @Override
-    void updateToPrepay();
+    DefaultPaymentModel updateToPayee(TTArguments ttArguments);
+
+
+    DefaultPaymentModel updateWithholdingTax(TTArguments ttArguments);
+
+
+    DefaultPaymentModel updateWithholdingVat(TTArguments ttArguments);
+
+
+    void updateToPrepay(TTArguments ttArguments);
 
     @Override
     default void runCalculation(){};

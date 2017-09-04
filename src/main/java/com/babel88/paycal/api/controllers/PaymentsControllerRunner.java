@@ -51,7 +51,7 @@ public interface PaymentsControllerRunner {
      *
      * @return payment model
      */
-    DefaultPaymentModel<Object> getPaymentModel();
+    DefaultPaymentModel getPaymentModel();
 
     /**
      * Returns the PrepaymentController object currently in the delegator's class

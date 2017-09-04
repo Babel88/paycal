@@ -29,7 +29,7 @@ public class PaymentFactory {
 
         log.debug("Creating an instance of the PaymentFactory");
         //TODO include in factory
-        router = LogicFactory.createMainLogicController();
+        router = LogicFactory.getMainLogicController();
         view = ModelViewFactory.createPaymentModelView();
         invoice = GeneralFactory.createInvoice();
     }

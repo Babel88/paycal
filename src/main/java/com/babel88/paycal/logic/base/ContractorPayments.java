@@ -31,7 +31,7 @@ public class ContractorPayments implements Contractors {
 
     private ContractorPayments() {
 
-        PaymentParameters parameters = LogicFactory.createPaymentParameters();
+        PaymentParameters parameters = LogicFactory.getPaymentParameters();
 
         vatRate = new AtomicReference<>(parameters.getVatRate());
         withholdingTaxRate = new AtomicReference<>(parameters.getWithholdingTaxContractor());

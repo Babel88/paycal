@@ -22,7 +22,7 @@ public class ContractorLogicTest {
     @Before
     public void setUp() throws Exception {
 
-        defaultLogic = LogicFactory.getInstance().createContractorLogic();
+        defaultLogic = LogicFactory.getInstance().getContractorLogic();
         invoiceAmount = BigDecimal.valueOf(116000.00).setScale(2, HALF_EVEN);
     }
 
@@ -38,7 +38,7 @@ public class ContractorLogicTest {
     @Test
     public void getInstance() throws Exception {
 
-        DefaultLogic defaultLogic = LogicFactory.getInstance().createContractorLogic();
+        DefaultLogic defaultLogic = LogicFactory.getInstance().getContractorLogic();
 
         Assert.assertEquals(this.defaultLogic, defaultLogic);
     }

@@ -12,7 +12,7 @@ import com.babel88.paycal.config.factory.ModelViewFactory;
 import com.babel88.paycal.controllers.base.RentalPaymentsController;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
-import com.babel88.paycal.view.ResultsOutput;
+import com.babel88.paycal.models.ResultsOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +39,7 @@ public abstract class PaymentsControllerRunnerImpl implements PaymentsController
         log.debug("Creating a rental payments controller");
         invoice = GeneralFactory.createInvoice();
         resultsViewer = ModelViewFactory.createResultsViewer();
-        paymentModel = ModelFactory.createPaymentModel();
+        paymentModel = ModelFactory.getPaymentModel();
         reportController = ControllerFactory.getReportController();
         log.debug("Fetching prepayment controller from controller factory");
         prepaymentController = ControllerFactory.getPrepaymentController();

@@ -14,7 +14,7 @@ import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.models.TTArguments;
-import com.babel88.paycal.view.ResultsOutput;
+import com.babel88.paycal.models.ResultsOutput;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
@@ -35,8 +35,8 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
 
     public ContractorPaymentsController() {
         invoice = GeneralFactory.createInvoice();
-        this.paymentModel = ModelFactory.createPaymentModel();
-        contractorLogic = LogicFactory.getInstance().createContractorLogic();
+        this.paymentModel = ModelFactory.getPaymentModel();
+        contractorLogic = LogicFactory.getInstance().getContractorLogic();
         prepaymentController = ControllerFactory.getPrepaymentController();
         viewResults = ModelViewFactory.createResultsViewer();
 

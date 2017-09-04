@@ -1,6 +1,6 @@
 package com.babel88.paycal.api.controllers;
 
-import com.babel88.paycal.view.ResultsOutput;
+import com.babel88.paycal.models.ResultsOutput;
 
 public interface ReportControllers {
 

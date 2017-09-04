@@ -1,10 +1,8 @@
 package com.babel88.paycal.logic.base;
 
-import com.babel88.paycal.api.controllers.TTController;
 import com.babel88.paycal.api.logic.ExclusiveImportedServiceLogic;
-import com.babel88.paycal.config.factory.ControllerFactory;
-import com.babel88.paycal.controllers.base.TTControllerImpl;
-import com.google.common.base.Objects;
+import com.babel88.paycal.models.TTArguments;
+import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,209 +23,141 @@ import static java.math.RoundingMode.*;
 public class ExclusiveImportedServiceLogicImpl implements ExclusiveImportedServiceLogic,Serializable {
 
     private static final Logger log = LoggerFactory.getLogger(ExclusiveImportedServiceLogicImpl.class);
-    private TTController ttController;
-    private BigDecimal invoiceAmount;
-    private BigDecimal amountBeforeTax;
-    private BigDecimal reverseVatRate;
-    private BigDecimal withholdingTaxRate;
-    private BigDecimal totalExpenses;
-    private BigDecimal withholdingTaxAmount;
-    private BigDecimal withholdingVatAmount;
-    private BigDecimal withholdingVatRate;
-    private BigDecimal toPayee;
-    private static ExclusiveImportedServiceLogic instance = new ExclusiveImportedServiceLogicImpl();
+    private static final ExclusiveImportedServiceLogic instance = new ExclusiveImportedServiceLogicImpl();
 
-    private ExclusiveImportedServiceLogicImpl() {
+    public ExclusiveImportedServiceLogicImpl() {
 
-        log.debug("Creating delegate for exclusive imported services, with \n" +
-                "ttController : {} as argument",ttController);
-        this.ttController = ControllerFactory.getTTController();
-    }
-
-    public static ExclusiveImportedServiceLogic getInstance() {
-        return instance;
-    }
-
-    public void initialization(){
-
-        log.debug("Composing internal variables for {}",this);
-        log.debug("Updating the invoice amount from the invoiceAmount...");
-        invoiceAmount = ttController.getTtArguments().getInvoiceAmount();
-        log.debug("Invoice amount updated to : {}",invoiceAmount);
-        log.debug("Updating the amountBeforeTax...");
-        amountBeforeTax = calculateAmountBeforeTax();
-        log.debug("Amount before tax updated to : {}",amountBeforeTax);
-        log.debug("Updating the reverseVatRate...");
-        reverseVatRate = ttController.getTtArguments().getReverseVatRate();
-        log.debug("ReverseVatRate updated to :{}",reverseVatRate);
-        log.debug("Updating the withholdingTaxRate...");
-        withholdingTaxRate = ttController.getTtArguments().getWithholdingTaxRate();
-        log.debug("withholdingTaxRate updated to : {}",withholdingTaxRate);
-        log.debug("Updating the withholdingVatRate...");
-        withholdingVatRate = ttController.getTtArguments().getReverseVatRate();
-        log.debug("withholdingVatRate updated to : {}",withholdingVatRate);
+        log.debug("Creating the ExclusiveImportedServiceLogicImpl : {}",this);
     }
 
     /**
-     * This method's only role is to calculate amount before tax fetching the same from the
-     * delegator which is the ttController
+     * Total expenses when the vendor's settlement is immune to withholding tax
      *
-     * @return amount before tax
+     * @param ttArguments contains payment description
+     * @return total expenses
      */
-    private BigDecimal calculateAmountBeforeTax(){
+    @Override
+    public BigDecimal calculateTotalExpenses(TTArguments ttArguments) {
 
-        BigDecimal amountBeforeTax;
-        if(invoiceAmount != null){
-            log.debug("Using invoiceAmount : {}, to calculate amount before tax",invoiceAmount);
-            amountBeforeTax = invoiceAmount.multiply(preTaxCoefficient());
-            log.debug("Returning amount before tax as : {}",amountBeforeTax);
-        } else {
-            log.debug("Invoice amount is null attempting to use to redundant approach to get the \n" +
-                    "invoice amount from ttController : {}",ttController);
-            invoiceAmount= ttController.getTtArguments().getInvoiceAmount();
-            amountBeforeTax = invoiceAmount.multiply(preTaxCoefficient());
-            log.debug("Returning amount before tax as : {}",amountBeforeTax);
+        log.debug("CalculateTotalExpenses called with {} as argument",ttArguments);
+        BigDecimal totalExpenses;
+        BigDecimal amountBeforeTax = null;
+        
+        if(ttArguments != null) {
+            amountBeforeTax = helperCalculateAmountBeforeTax(ttArguments);
+
+            log.debug("Amount before tax calculated as : {}",amountBeforeTax);
         }
+        else {
+            log.debug("ttArguments object {} is null", ttArguments);
+        }
+        totalExpenses = helperCalculateTotalExpenses(ttArguments, amountBeforeTax);
+
+        log.debug("Total expenses calculated as : {}",totalExpenses);
+
+        return totalExpenses.setScale(2,HALF_EVEN);
+    }
+
+    @Override
+    public BigDecimal helperCalculateTotalExpenses(TTArguments ttArguments, BigDecimal amountBeforeTax) {
+
+        log.debug("helperCalculateTotalExpenses helper method called with {} and {} as arguments",
+                ttArguments, amountBeforeTax);
+        return amountBeforeTax.multiply(
+                (ONE.add(ttArguments.getReverseVatRate()))
+        );
+    }
+
+    @Override
+    public BigDecimal helperCalculateAmountBeforeTax(TTArguments ttArguments) {
+
+        log.debug("helperCalculateAmountBeforeTax called with {} as argument",ttArguments);
+        BigDecimal amountBeforeTax = null;
+
+        if(ttArguments != null) {
+            amountBeforeTax = ttArguments.getInvoiceAmount()
+                    .divide(
+                            (ONE.subtract(ttArguments.getWithholdingTaxRate())),
+                            ROUND_HALF_EVEN
+                    );
+        } else{
+
+            log.debug("ttArguments passed is null");
+        }
+
+        log.debug("Amount before tax calculated as {}",amountBeforeTax);
         return amountBeforeTax;
     }
 
     /**
-     * This methods only role is to return the coefficient which when multiplied with exclusive
-     * invoice amount yields amount before tax
+     * Payable to vendor when the vendor's settlement is immune to withholding tax
      *
-     * @return coeffiecient for amount before tax
-     */
-    private BigDecimal preTaxCoefficient(){
-
-        return ONE.divide(
-                ONE.subtract(ttController.getTtArguments().getWithholdingTaxRate()).setScale(10,HALF_EVEN),HALF_EVEN
-        );
-    }
-
-
-    /**
-     * Method implements the ExclusiveImportedServiceLogic contract by using ttController-derived
-     * varibles to calculate total expenses
-     * @return total expenses
-     */
-    @Override
-    public BigDecimal calculateTotalExpenses() {
-
-        if(amountBeforeTax != null && reverseVatRate != null){
-            log.debug("Total expenses calculated using amountBeforeTax : {}",amountBeforeTax);
-            totalExpenses = amountBeforeTax.multiply(ONE.add(reverseVatRate));
-            log.debug("Total expenses calculated : {}",totalExpenses);
-        } else if(reverseVatRate != null){
-
-            log.debug("The amount before tax is null, redundant approach to get the amount from\n" +
-                    "the ttController");
-            amountBeforeTax = calculateAmountBeforeTax();
-            totalExpenses = amountBeforeTax.multiply(ONE.add(reverseVatRate));
-            log.debug("Total expenses calculated : {}",totalExpenses);
-        } else{
-
-            log.debug("Both the amount before tax and the reverseVatRate are null. Expensively \n" +
-                    "fetching variables from the ttController");
-            amountBeforeTax = calculateAmountBeforeTax();
-            reverseVatRate = ttController.getTtArguments().getReverseVatRate();
-            totalExpenses = amountBeforeTax.multiply(ONE.add(reverseVatRate));
-            log.debug("Total expenses calculated : {}",totalExpenses);
-        }
-        return totalExpenses;
-    }
-
-    /**
+     * @param ttArguments contains payment description
      * @return amount payable to vendor
      */
     @Override
-    public BigDecimal calculateToPayee() {
+    public BigDecimal calculateToPayee(TTArguments ttArguments) {
 
-        if(invoiceAmount != null){
-            log.debug("Calculating amount payable to payee for : {}",invoiceAmount);
-            toPayee = invoiceAmount;
-            log.debug("Returning amount payable to payee : {}",toPayee);
-            return toPayee;
-        } else {
+        log.debug("calculateToPayee called with {} as argument",ttArguments);
+        BigDecimal toPayee = null;
+        if(ttArguments!=null){
 
-            log.debug("The invoice amount variable is null and must be acquired expensively from \n" +
-                    "the delegator {}",ttController);
-            invoiceAmount=ttController.getTtArguments().getInvoiceAmount();
-            toPayee = invoiceAmount;
-            log.debug("Returning amount payable to payee : {}",toPayee);
-            return toPayee;
+            toPayee = ttArguments.getInvoiceAmount();
         }
+
+        log.debug("Amount payable to vendor calculate as : {}",toPayee);
+        return toPayee.setScale(2,HALF_EVEN);
     }
 
     /**
+     * Withholding tax when the vendor's settlement is immune to withholding tax
+     *
+     * @param ttArguments contains payment description
      * @return withholding tax
      */
     @Override
-    public BigDecimal calculateWithholdingTax() {
+    public BigDecimal calculateWithholdingTax(TTArguments ttArguments) {
 
-        if(amountBeforeTax != null && withholdingTaxRate != null){
-            withholdingTaxAmount = amountBeforeTax.multiply(withholdingTaxRate);
-        } else if(amountBeforeTax != null){
-            withholdingTaxRate = ttController.getTtArguments().getWithholdingTaxRate();
-            withholdingTaxAmount = amountBeforeTax.multiply(withholdingTaxRate);
-        } else if(withholdingTaxRate != null){
-            amountBeforeTax= calculateAmountBeforeTax();
-            withholdingTaxAmount = amountBeforeTax.multiply(withholdingTaxRate);
+        log.debug("CalculateWithholdingTax called with {} as argument",ttArguments);
+        BigDecimal wth = null;
+
+        if(ttArguments!=null){
+            log.debug("Using helper method to get amount before tax...");
+            wth = helperCalculateAmountBeforeTax(ttArguments)
+                    .multiply(ttArguments.getWithholdingTaxRate());
         } else {
-            withholdingTaxRate = ttController.getTtArguments().getWithholdingTaxRate();
-            amountBeforeTax= calculateAmountBeforeTax();
-            withholdingTaxAmount = amountBeforeTax.multiply(withholdingTaxRate);
-        }
 
-        return withholdingTaxAmount;
+            log.debug("The ttArguments is null");
+        }
+        log.debug("WithholdingTax calculated as : {}",wth);
+        return wth.setScale(2,HALF_EVEN);
     }
 
     /**
+     * Withholding vat when the vendor's settlement is immune to withholding tax
+     *
+     * @param ttArguments contains payment description
      * @return withholding vat
      */
     @Override
-    public BigDecimal calculateWithholdingVat() {
+    public BigDecimal calculateWithholdingVat(TTArguments ttArguments) {
 
-        if(amountBeforeTax != null && withholdingVatRate != null){
-            withholdingVatAmount = amountBeforeTax.multiply(withholdingVatRate);
-        } else if(amountBeforeTax != null){
-            withholdingVatRate=ttController.getTtArguments().getReverseVatRate();
-            withholdingVatAmount = amountBeforeTax.multiply(withholdingVatRate);
-        } else if(withholdingVatRate != null){
-            amountBeforeTax = ttController.getTtArguments().getAmountBeforeTax();
-            withholdingVatAmount = amountBeforeTax.multiply(withholdingVatRate);
-        } else{
-            withholdingVatRate=ttController.getTtArguments().getReverseVatRate();
-            amountBeforeTax = ttController.getTtArguments().getAmountBeforeTax();
-            withholdingVatAmount = amountBeforeTax.multiply(withholdingVatRate);
+        BigDecimal wth = null;
+
+        if(ttArguments!=null){
+            log.debug("Using helper method to get amount before tax...");
+            wth = helperCalculateAmountBeforeTax(ttArguments)
+                    .multiply(ttArguments.getReverseVatRate());
+        } else {
+
+            log.debug("The ttArguments is null");
         }
-        return withholdingVatAmount;
+        log.debug("WithholdingTax calculated as : {}",wth);
+        return wth.setScale(2,HALF_EVEN);
     }
 
-    public void setTtController(TTControllerImpl ttController) {
-        this.ttController = ttController;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ExclusiveImportedServiceLogicImpl that = (ExclusiveImportedServiceLogicImpl) o;
-        return Objects.equal(ttController, that.ttController) &&
-                Objects.equal(invoiceAmount, that.invoiceAmount) &&
-                Objects.equal(amountBeforeTax, that.amountBeforeTax) &&
-                Objects.equal(reverseVatRate, that.reverseVatRate) &&
-                Objects.equal(withholdingTaxRate, that.withholdingTaxRate) &&
-                Objects.equal(totalExpenses, that.totalExpenses) &&
-                Objects.equal(withholdingTaxAmount, that.withholdingTaxAmount) &&
-                Objects.equal(withholdingVatAmount, that.withholdingVatAmount) &&
-                Objects.equal(withholdingVatRate, that.withholdingVatRate) &&
-                Objects.equal(toPayee, that.toPayee);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(ttController, invoiceAmount, amountBeforeTax, reverseVatRate,
-                withholdingTaxRate, totalExpenses, withholdingTaxAmount, withholdingVatAmount,
-                withholdingVatRate, toPayee);
+    @Contract(pure = true)
+    public static ExclusiveImportedServiceLogic getInstance() {
+        return instance;
     }
 }

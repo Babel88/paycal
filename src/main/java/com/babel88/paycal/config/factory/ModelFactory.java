@@ -24,24 +24,23 @@ public class ModelFactory {
         return instance;
     }
 
-    public static PaymentModel createPaymentModel(){
+    public static PaymentModel getPaymentModel(){
 
-        log.debug("Returning a singleton instance of the paymen model");
+        log.debug("Returning a singleton instance of the {}",PaymentModel.getInstance());
 
         return PaymentModel.getInstance();
     }
 
     public static PaymentModelCareTaker createPaymentModelCaretaker(){
 
-        log.debug("Returning a singleton of the Payment model caretaker from the model \n" +
-                "from the model factory");
+        log.debug("Returning a singleton instance of the {}",PaymentModelCareTaker.getInstance());
 
         return PaymentModelCareTaker.getInstance();
     }
 
     public static TTArguments getTTArguments(){
 
-        log.debug("Returning singleton instance of the TTArguments");
+        log.debug("Returning a singleton instance of the {}",TTArguments.getInstance());
 
         return TTArguments.getInstance();
     }

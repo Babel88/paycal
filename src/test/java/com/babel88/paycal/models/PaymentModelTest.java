@@ -2,7 +2,10 @@ package com.babel88.paycal.models;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.utils.TestUtils;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
@@ -16,6 +19,17 @@ public class PaymentModelTest extends TestUtils<PaymentModel> {
     public void setUp() throws Exception {
 
         paymentModel = new PaymentModel();
+    }
+
+    @Test
+    @Override
+    public void equalsAndHashcodeContract() throws Exception {
+
+        EqualsVerifier.forClass(getBeanInstance().getClass())
+                .usingGetClass()
+                //.withPrefabValues(PaymentModel.getInstance())
+                .suppress(Warning.STRICT_INHERITANCE, Warning.NONFINAL_FIELDS)
+                .verify();
     }
 
     /**

@@ -22,6 +22,7 @@ public class LogicFactory {
     private static final Logger log = LoggerFactory.getLogger(LogicFactory.class);
     private static LogicFactory instance = new LogicFactory();
 
+
     private LogicFactory() {
 
         log.debug("Creating Logic factory instance");
@@ -32,7 +33,7 @@ public class LogicFactory {
         return instance;
     }
 
-    public static PaymentParameters createPaymentParameters(){
+    public static PaymentParameters getPaymentParameters(){
 
         log.debug("Returning a singleton instance of PaymentParameters object");
 
@@ -40,56 +41,56 @@ public class LogicFactory {
 
     }
 
-    public static DefaultLogic createTypicalPayments() {
+    public static DefaultLogic getTypicalPayments() {
 
         log.debug("Returning a singleton instance of TypicalPayments object");
 
         return TypicalPayment.getInstance();
     }
 
-    public static WithholdingTaxPayments createWithholdingTaxPayments(){
+    public static WithholdingTaxPayments getWithholdingTaxPayments(){
 
         log.debug("Returning a singleton instance of WithholdingTaxPayments object");
 
         return DefaultTypicalWithholdingTaxPayment.getInstance();
     }
 
-    public static Router createMainLogicController(){
+    public static Router getMainLogicController(){
 
         log.debug("Returning a singleton instance of Logic object");
 
         return BusinessLogicRouter.getInstance();
     }
 
-    public static GeneralConfigurations createGeneralConfigurations(){
+    public static GeneralConfigurations getGeneralConfigurations(){
 
         log.debug("Returning a singleton instance of GeneralConfigurations object");
 
         return GeneralConfigurations.getInstance();
     }
 
-    public static Prepayable createPrepayable(){
+    public static Prepayable getPrepayable(){
 
         log.debug("Returning a singleton instance of Prepayable object");
 
         return AbstractPrepayment.getInstance();
     }
 
-    public static TelegraphicTransfers createTelegraphicTransfers(){
+    public static TelegraphicTransfers getTelegraphicTransfers(){
 
         log.debug("Returning a singleton instance of TelegraphicTransfers object");
 
         return ForeignPayments.getInstance();
     }
 
-    public static PartialTaxPaymentLogic createPartialTaxPaymentLogic(){
+    public static PartialTaxPaymentLogic getPartialTaxPaymentLogic(){
 
         log.debug("Returning a singleton instance of PartialTaxPayment object");
 
         return DefaultPartialTaxPaymentLogic.getInstance();
     }
 
-    public static Contractors createContractors(){
+    public static Contractors getContractors(){
 
         log.debug("Returning a singleton instance of Contractors object");
 
@@ -97,7 +98,7 @@ public class LogicFactory {
     }
 
     @Contract(pure = true)
-    public static DefaultLogic createContractorLogic() {
+    public static DefaultLogic getContractorLogic() {
 
         log.debug("Returning a singleton instance of Contractor logic");
 
@@ -105,16 +106,21 @@ public class LogicFactory {
     }
 
     @Contract(pure = true)
-    public static DefaultLogic createRentalPaymentLogic() {
+    public static DefaultLogic getRentalPaymentLogic() {
 
         log.debug("Returning a singleton instance of RentalPaymentLogic object");
 
         return RentalPaymentLogic.getInstance();
     }
 
-    public ExclusiveImportedServiceLogic getExclusiveImportedServiceLogic() {
-
+    @Contract(pure = true)
+    public static ExclusiveImportedServiceLogic getExclusivImportedServiceLogic() {
         return ExclusiveImportedServiceLogicImpl.getInstance();
+    }
+
+    @Contract(pure = true)
+    public static InclusiveImportedServiceLogic getInclusiveImportedServiceLogic() {
+        return InclusiveImportedServiceLogicImpl.getInstance();
     }
 }
 

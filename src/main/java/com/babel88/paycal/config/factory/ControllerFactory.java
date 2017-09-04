@@ -68,12 +68,6 @@ public class ControllerFactory {
         return DefaultTypicalPaymentsController.getInstance();
     }
 
-    public static ForeignPaymentsController getForeignPaymentsController() {
-
-        log.debug("Returning and instance of : {}", ForeignPaymentsControllerImpl.getInstance());
-        return (ForeignPaymentsController) ForeignPaymentsControllerImpl.getInstance();
-    }
-
     public static TTController getTTController(){
 
         log.debug("Returning an instance of : {} , from the {}",

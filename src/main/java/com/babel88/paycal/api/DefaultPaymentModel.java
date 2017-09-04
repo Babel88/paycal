@@ -32,4 +32,6 @@ public interface DefaultPaymentModel<T> {
     BigDecimal getToPayee();
 
     BigDecimal getWithholdingTax();
+
+    BigDecimal getWithholdingVat();
 }

@@ -3,6 +3,7 @@ package com.babel88.paycal.view;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.api.view.Tables;
 import com.babel88.paycal.config.factory.GeneralFactory;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ public class DisplayImpl implements PaymentModelViewInterface {
         //paycalApp = GeneralFactory.getInstance().createPaycalApp();
     }
 
+    @Contract(pure = true)
     public static PaymentModelViewInterface getInstance() {
         return instance;
     }
@@ -56,10 +58,10 @@ public class DisplayImpl implements PaymentModelViewInterface {
         // ... when withholding tax is not provided
 
         //Make some changes to the variables
-        String vatWithhold = makeStringUp(vatWithheld);
+        String vatWithhold = makeString(vatWithheld);
         // Converts vat withheld to vat to paymentModelView in String format
 
-        String withHold = makeStringUp(withholdingTax);
+        String withHold = makeString(withholdingTax);
         // Withholding tax on consultancy rounded and converted to String
 
         String prepayment = makeString(toPrepay);
@@ -68,8 +70,8 @@ public class DisplayImpl implements PaymentModelViewInterface {
 
         BigDecimal toPay = roundTwoDecimals(total)
                 .add(roundTwoDecimals(toPrepay))
-                .subtract(roundUp(vatWithheld))
-                .subtract(roundUp(withholdingTax));
+                .subtract(vatWithheld)
+                .subtract(withholdingTax);
 
         String paid = toPay.toString();
 

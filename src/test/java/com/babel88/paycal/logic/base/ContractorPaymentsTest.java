@@ -6,8 +6,6 @@ import com.babel88.paycal.utils.TestUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-
 import static org.junit.Assert.*;
 
 /**
@@ -22,7 +20,7 @@ public class ContractorPaymentsTest extends TestUtils<DefaultLogic> {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        contractorLogic = LogicFactory.createContractorLogic();
+        contractorLogic = LogicFactory.getContractorLogic();
     }
 
     @Test

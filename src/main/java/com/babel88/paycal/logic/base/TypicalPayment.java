@@ -44,7 +44,7 @@ public class TypicalPayment implements TypicalPayments, DefaultLogic {
 
         log.debug("Creating an instance of the typicalPayment object logic");
 
-        PaymentParameters parameters = LogicFactory.createPaymentParameters();
+        PaymentParameters parameters = LogicFactory.getPaymentParameters();
 
         vatRate.set(parameters.getVatRate());
 

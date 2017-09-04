@@ -1,9 +1,8 @@
-package com.babel88.paycal.view;
+package com.babel88.paycal.models;
 
 import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.config.factory.ModelViewFactory;
-import com.babel88.paycal.models.PaymentModel;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import org.slf4j.Logger;

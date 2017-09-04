@@ -124,7 +124,7 @@ public class Notifications implements FeedBack {
     public void dateInfo(String date) {
         out.println();
 
-        out.println("What is the invoice " + date + " ? Hint: dd/mm/yyyy");
+        out.println("What is the invoice " + date + " ? Hint: dd.mm.yyyy");
     }
 
     @Override

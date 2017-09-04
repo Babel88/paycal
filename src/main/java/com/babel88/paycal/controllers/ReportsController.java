@@ -4,7 +4,7 @@ import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.ModelViewFactory;
-import com.babel88.paycal.view.ResultsOutput;
+import com.babel88.paycal.models.ResultsOutput;
 import com.babel88.paycal.view.reporting.PaymentAdvice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

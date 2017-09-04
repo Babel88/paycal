@@ -49,7 +49,7 @@ public class PrepaymentControllerImpl implements PrepaymentController {
 
         log.debug("Creating payment controller from factory");
 
-        abstractPrepayment = LogicFactory.createPrepayable();
+        abstractPrepayment = LogicFactory.getPrepayable();
 
         feedBack = GeneralFactory.createFeedback();
 

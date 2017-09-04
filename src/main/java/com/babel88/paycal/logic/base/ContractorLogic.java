@@ -3,7 +3,6 @@ package com.babel88.paycal.logic.base;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.LogicFactory;
-import com.google.common.base.Objects;
 
 import java.math.BigDecimal;
 
@@ -17,7 +16,7 @@ public class ContractorLogic implements com.babel88.paycal.api.logic.DefaultLogi
     private final PaymentParameters paymentParameters;
 
     private ContractorLogic() {
-        paymentParameters = LogicFactory.createPaymentParameters();
+        paymentParameters = LogicFactory.getPaymentParameters();
     }
 
     public static DefaultLogic getInstance() {

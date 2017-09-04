@@ -5,6 +5,7 @@ import com.babel88.paycal.api.Router;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.PartialTaxPaymentController;
 import com.babel88.paycal.api.controllers.PrepaymentController;
+import com.babel88.paycal.api.controllers.TTController;
 import com.babel88.paycal.api.logic.TelegraphicTransfers;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.config.factory.ControllerFactory;
@@ -35,13 +36,13 @@ public class BusinessLogicRouter implements Router {
     private DefaultControllers withholdingTaxPaymentController;
     private DefaultControllers rentalPaymentsController;
     private DefaultControllers defaultTypicalPaymentsController;
-    private DefaultControllers foreignPaymentsController;
+    private TTController ttController;
 
     private BusinessLogicRouter() {
 
         log.debug("Creating an instance of the main business logic controller");
 
-        foreignPayments = LogicFactory.createTelegraphicTransfers();
+        foreignPayments = LogicFactory.getTelegraphicTransfers();
 
         log.debug("Fetching controller singleton from Controller Factory");
 
@@ -70,7 +71,7 @@ public class BusinessLogicRouter implements Router {
         defaultTypicalPaymentsController = ControllerFactory.getInstance().getDefaultTypicalPaymentsController();
 
         log.debug("Fetching the foreignPaymentsController from {}",ControllerFactory.getInstance());
-        foreignPaymentsController = ControllerFactory.getInstance().getForeignPaymentsController();
+        ttController = ControllerFactory.getInstance().getTTController();
     }
 
     @Contract(pure = true)
@@ -124,7 +125,7 @@ public class BusinessLogicRouter implements Router {
     @Override
     public void telegraphicTransfer() {
 
-        foreignPaymentsController.runCalculation();
+        ttController.runCalculation();
 
         /*
 

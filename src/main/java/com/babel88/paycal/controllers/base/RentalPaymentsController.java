@@ -26,7 +26,7 @@ public class RentalPaymentsController extends PaymentsControllerRunnerImpl imple
         super();
         log.debug("Creating a rental payments controller using constructor in PaymentsControllerRunner");
 
-        rentalPaymentLogic = LogicFactory.getInstance().createRentalPaymentLogic();
+        rentalPaymentLogic = LogicFactory.getInstance().getRentalPaymentLogic();
         log.debug("Fetching prepayment controller from controller factory");
     }
 

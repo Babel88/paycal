@@ -11,11 +11,10 @@ import com.babel88.paycal.api.logic.PartialTaxPaymentLogic;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.*;
-import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.models.TTArguments;
-import com.babel88.paycal.view.ResultsOutput;
+import com.babel88.paycal.models.ResultsOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,14 +42,14 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
 
         log.debug("Getting inner dependencies from factory...");
 
-        parameters = LogicFactory.createPaymentParameters();
-        partialTaxPaymentLogic = LogicFactory.createPartialTaxPaymentLogic();
+        parameters = LogicFactory.getPaymentParameters();
+        partialTaxPaymentLogic = LogicFactory.getPartialTaxPaymentLogic();
         reportsController = ControllerFactory.getReportController();
         prepaymentController = ControllerFactory.getPrepaymentController();
         viewResults = ModelViewFactory.createResultsViewer();
         invoice = GeneralFactory.createInvoice();
         view = ModelViewFactory.createPaymentModelView();
-        paymentModel = ModelFactory.createPaymentModel();
+        paymentModel = ModelFactory.getPaymentModel();
 
         doAgain = false;
     }
@@ -104,7 +103,7 @@ public class DefaultPartialTaxPaymentController implements PartialTaxPaymentCont
      * @return payment model
      */
     @Override
-    public DefaultPaymentModel<Object> getPaymentModel() {
+    public DefaultPaymentModel getPaymentModel() {
 
         return paymentModel;
     }

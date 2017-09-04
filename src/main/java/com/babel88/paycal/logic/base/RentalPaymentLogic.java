@@ -27,7 +27,7 @@ public class RentalPaymentLogic implements DefaultLogic, Serializable {
     RentalPaymentLogic() {
 
         log.debug("Creating a rental payment logic object");
-        paymentParameters = LogicFactory.createPaymentParameters();
+        paymentParameters = LogicFactory.getPaymentParameters();
     }
 
     @Contract(pure = true)
