@@ -1,6 +1,8 @@
 package com.babel88.paycal.view;
 
 import com.babel88.paycal.api.view.FeedBack;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
@@ -9,12 +11,11 @@ import static java.lang.System.out;
 
 public class FeedBackImpl implements FeedBack {
 
-    private static FeedBack instance = new FeedBackImpl();
+    private final Logger log = LoggerFactory.getLogger(FeedBackImpl.class);
 
-    public FeedBackImpl(){}
 
-    public static FeedBack getInstance() {
-        return instance;
+    public FeedBackImpl(){
+        log.debug("Creating an instance of FeedBackImpl : {}",this);
     }
 
     @Override

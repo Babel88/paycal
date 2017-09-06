@@ -23,7 +23,6 @@ import static java.math.RoundingMode.*;
 public class ExclusiveImportedServiceLogicImpl implements ExclusiveImportedServiceLogic,Serializable {
 
     private static final Logger log = LoggerFactory.getLogger(ExclusiveImportedServiceLogicImpl.class);
-    private static final ExclusiveImportedServiceLogic instance = new ExclusiveImportedServiceLogicImpl();
 
     public ExclusiveImportedServiceLogicImpl() {
 
@@ -154,10 +153,5 @@ public class ExclusiveImportedServiceLogicImpl implements ExclusiveImportedServi
         }
         log.debug("WithholdingTax calculated as : {}",wth);
         return wth.setScale(2,HALF_EVEN);
-    }
-
-    @Contract(pure = true)
-    public static ExclusiveImportedServiceLogic getInstance() {
-        return instance;
     }
 }

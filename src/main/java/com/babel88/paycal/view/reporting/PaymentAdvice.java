@@ -24,16 +24,11 @@ public class PaymentAdvice  {
     private Logger log = LoggerFactory.getLogger(PaymentAdvice.class);
 
     private Boolean printAdvice;
-    private static PaymentAdvice instance = new PaymentAdvice();
 
     public PaymentAdvice() {
 
-        log.debug("Creating payment advice object");
+        log.debug("Creating payment advice object : {}",this);
 
-    }
-
-    public static PaymentAdvice getInstance() {
-        return instance;
     }
 
     public PaymentAdvice setPrintAdvice(Boolean printAdvice) {

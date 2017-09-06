@@ -6,49 +6,48 @@ import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
 import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.controllers.ReportControllers;
-import com.babel88.paycal.config.factory.ControllerFactory;
-import com.babel88.paycal.config.factory.GeneralFactory;
-import com.babel88.paycal.config.factory.ModelFactory;
-import com.babel88.paycal.config.factory.ModelViewFactory;
 import com.babel88.paycal.controllers.base.RentalPaymentsController;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.models.ResultsOutput;
+import com.babel88.paycal.models.TTArguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 /**
  * Implementattion to run the runCalculation method and to call the prepayment delegate
  *
  * Created by edwin.njeru on 29/08/2017.
  */
-public abstract class PaymentsControllerRunnerImpl implements PaymentsControllerRunner {
+public class PaymentsControllerRunnerImpl implements PaymentsControllerRunner {
 
     private static final Logger log = LoggerFactory.getLogger(RentalPaymentsController.class);
 
-    @Inject
     protected DefaultPaymentModel paymentModel;
 
-    @Inject
-    private InvoiceDetails invoice;
+    private InvoiceDetails invoiceDetails;
 
-    @Inject
     private ResultsViewer resultsViewer;
 
-    @Inject
     private ReportControllers reportController;
 
-    @Inject
     private PrepaymentController prepaymentController;
+
     private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
+
     protected BigDecimal invoiceAmount;
     private Boolean doAgain;
 
-    protected PaymentsControllerRunnerImpl() {
-        log.debug("Creating a rental payments controller",this);
+    public PaymentsControllerRunnerImpl(InvoiceDetails invoiceDetails) {
+        log.debug("Creating an instance of the PaymentsControllerRunner superclass",this);
+        invoiceAmount = new BigDecimal(BigInteger.ZERO);
+        this.invoiceDetails = invoiceDetails;
+    }
+
+    public PaymentsControllerRunnerImpl() {
     }
 
 
@@ -56,36 +55,48 @@ public abstract class PaymentsControllerRunnerImpl implements PaymentsController
     public void runCalculation() {
         ResultsOutput resultsOutput;
 
-        do {
+        if(invoiceDetails != null) {
 
-            invoiceAmount = invoice.invoiceAmount();
+            do {
 
-            updateWithholdingVat();
+                invoiceAmount = invoiceDetails.invoiceAmount();
 
-            updateWithholdingTax();
+                updateWithholdingVat();
 
-            updateTotalExpense();
+                updateWithholdingTax();
 
-            updateToPayee();
+                updateTotalExpense();
 
-            prepaymentsDelegate.updateToPrepay();
+                updateToPayee();
 
-            resultsOutput = (ResultsOutput) resultsViewer.forPayment((PaymentModel) paymentModel);
+                updateToPrepay();
 
-            doAgain = invoice.doAgain();
+                resultsOutput = (ResultsOutput) resultsViewer.forPayment((PaymentModel) paymentModel);
 
-        } while (doAgain);
+                doAgain = invoiceDetails.doAgain();
 
-        reportController.printReport().forPayment(resultsOutput);
+            } while (doAgain);
+
+            reportController.printReport().forPayment(resultsOutput);
+        } else {
+
+            log.error("Invoice details object is null");
+        }
+
     }
 
-    protected abstract void updateTotalExpense();
+    protected void updateTotalExpense(){};
 
-    protected abstract void updateToPayee();
+    protected void updateToPayee(){};
 
-    protected abstract void updateWithholdingTax();
+    protected void updateWithholdingTax(){};
 
-    protected abstract void updateWithholdingVat();
+    protected void updateWithholdingVat(){};
+
+    @Override
+    public TTArguments getTtArguments() {
+        return null;
+    }
 
     public void updateToPrepay() {
 
@@ -98,5 +109,40 @@ public abstract class PaymentsControllerRunnerImpl implements PaymentsController
 
     public com.babel88.paycal.api.controllers.PrepaymentController getPrepaymentController() {
         return prepaymentController;
+    }
+
+    public PaymentsControllerRunnerImpl setPaymentModel(DefaultPaymentModel paymentModel) {
+        this.paymentModel = paymentModel;
+        return this;
+    }
+
+    public PaymentsControllerRunnerImpl setInvoiceDetails(InvoiceDetails invoiceDetails) {
+        this.invoiceDetails = invoiceDetails;
+        return this;
+    }
+
+    public PaymentsControllerRunnerImpl setResultsViewer(ResultsViewer resultsViewer) {
+        this.resultsViewer = resultsViewer;
+        return this;
+    }
+
+    public PaymentsControllerRunnerImpl setReportController(ReportControllers reportController) {
+        this.reportController = reportController;
+        return this;
+    }
+
+    public PaymentsControllerRunnerImpl setPrepaymentController(PrepaymentController prepaymentController) {
+        this.prepaymentController = prepaymentController;
+        return this;
+    }
+
+    public PaymentsControllerRunnerImpl setInvoiceAmount(BigDecimal invoiceAmount) {
+        this.invoiceAmount = invoiceAmount;
+        return this;
+    }
+
+    public PaymentsControllerRunnerImpl setDoAgain(Boolean doAgain) {
+        this.doAgain = doAgain;
+        return this;
     }
 }

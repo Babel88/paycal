@@ -6,26 +6,21 @@ import com.babel88.paycal.config.factory.LogicFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import static java.math.RoundingMode.*;
+
 public class DefaultPartialTaxPaymentLogic implements PartialTaxPaymentLogic {
 
-    private static PartialTaxPaymentLogic instance = new DefaultPartialTaxPaymentLogic();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Inject
     private PaymentParameters paymentParameters;
 
-    private DefaultPartialTaxPaymentLogic() {
+    public DefaultPartialTaxPaymentLogic() {
 
         log.debug("The default implementation pf the PartialTaxPaymentLogic interface \n" +
                 "has been invoked : {}",this);
-    }
-
-    public static PartialTaxPaymentLogic getInstance() {
-        return instance;
     }
 
     /**
@@ -37,9 +32,23 @@ public class DefaultPartialTaxPaymentLogic implements PartialTaxPaymentLogic {
     @Override
     public BigDecimal calculateWithholdingVat(BigDecimal vatAmount) {
 
-        return vatAmount
-                .divide(paymentParameters.getVatRate(), RoundingMode.HALF_EVEN)
-                .multiply(paymentParameters.getWithholdingVatRate());
+        BigDecimal wthVat = null;
+        if(paymentParameters != null && vatAmount != null ) {
+            wthVat  = vatAmount
+                .divide(paymentParameters.getVatRate(), HALF_EVEN)
+                    .multiply(paymentParameters.getWithholdingVatRate());
+        } else{
+
+            if(paymentParameters != null) {
+                log.debug("The vat amount provided is null");
+            } else if(vatAmount != null){
+                log.debug("The payment parameters object provided is null");
+            } else {
+                log.error("Both the vat amount and the payment parameters object are null");
+            }
+        }
+
+        return wthVat.setScale(2, HALF_EVEN);
     }
 
     /**
@@ -78,4 +87,11 @@ public class DefaultPartialTaxPaymentLogic implements PartialTaxPaymentLogic {
 
         return BigDecimal.ZERO;
     }
+
+    public DefaultPartialTaxPaymentLogic setPaymentParameters(PaymentParameters paymentParameters) {
+        this.paymentParameters = paymentParameters;
+        return this;
+    }
+
+
 }

@@ -8,22 +8,20 @@ import com.babel88.paycal.models.ResultsOutput;
 import com.babel88.paycal.view.reporting.PaymentAdvice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 
 public class ReportsController implements ReportControllers {
 
-    private static ReportControllers instance = new ReportsController();
     private final Logger log= LoggerFactory.getLogger(ReportsController.class);
 
-    @Inject
     private FeedBack feedBack;
 
-    @Inject
     private PaymentAdvice paymentAdvice;
+
     private Boolean printReport;
 
-    private ReportsController() {
+    public ReportsController() {
 
         log.debug("Creating a reports controller object : {}",this);
     }
@@ -43,6 +41,21 @@ public class ReportsController implements ReportControllers {
 
         paymentAdvice.setPrintAdvice(printReport).forPayment(resultsOutput);
 
+        return this;
+    }
+
+    public ReportsController setFeedBack(FeedBack feedBack) {
+        this.feedBack = feedBack;
+        return this;
+    }
+
+    public ReportsController setPaymentAdvice(PaymentAdvice paymentAdvice) {
+        this.paymentAdvice = paymentAdvice;
+        return this;
+    }
+
+    public ReportsController setPrintReport(Boolean printReport) {
+        this.printReport = printReport;
         return this;
     }
 }

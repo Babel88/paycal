@@ -3,6 +3,7 @@ package com.babel88.paycal;
 import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.config.factory.GeneralFactory;
 import com.google.common.base.Objects;
+import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,18 +19,21 @@ import java.util.Date;
 public class PaycalApp {
 
     private final Logger log = LoggerFactory.getLogger(PaycalApp.class);
-    private final Date now;
+
+    private static final Date now= gettingTime();
+
     private FeedBack feedBack;
-    private PaymentFactory factory;
+
+    private PaymentFactory paymentFactory;
 
 
-    public PaycalApp() {
+    public PaycalApp(FeedBack feedBack,PaymentFactory paymentFactory) {
 
-        log.debug("Creating an instance of the paycalApp");
+        this.feedBack = feedBack;
 
-        feedBack = GeneralFactory.createFeedback();
-        factory = GeneralFactory.createPaymentFactory();
-        now = gettingTime();
+        this.paymentFactory = paymentFactory;
+
+        log.debug("Creating an instance of the paycalApp : {}",this);
     }
     /**To get the current date
      * This will be included in the introduction in order to identify
@@ -59,11 +63,12 @@ public class PaycalApp {
         feedBack.mainPrompt();
         // user is prompted to type the reply
 
-        factory.mainSwitch();
+        paymentFactory.mainSwitch();
         // Here we run options based on user's choice
     }
 
-    public Date getNow() {
+    @Contract(pure = true)
+    public static Date getNow() {
 
         return now;
     }
@@ -76,11 +81,11 @@ public class PaycalApp {
         return Objects.equal(log, paycalApp.log) &&
                 Objects.equal(getNow(), paycalApp.getNow()) &&
                 Objects.equal(feedBack, paycalApp.feedBack) &&
-                Objects.equal(factory, paycalApp.factory);
+                Objects.equal(paymentFactory, paycalApp.paymentFactory);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(log, getNow(), feedBack, factory);
+        return Objects.hashCode(log, getNow(), feedBack, paymentFactory);
     }
 }

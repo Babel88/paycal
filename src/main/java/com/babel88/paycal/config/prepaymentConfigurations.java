@@ -22,7 +22,6 @@ public class prepaymentConfigurations {
 
     // Keeps track of locale settings
     private Locale locale;
-    private static prepaymentConfigurations instance = new prepaymentConfigurations();
 
     public prepaymentConfigurations() {
 
@@ -31,14 +30,6 @@ public class prepaymentConfigurations {
         this.dateFormatStyle = FormatStyle.MEDIUM;
 
         this.locale = Locale.GERMAN;
-    }
-
-    public static prepaymentConfigurations getInstance() {
-        return instance;
-    }
-
-    public static void setInstance(prepaymentConfigurations instance) {
-        prepaymentConfigurations.instance = instance;
     }
 
     public Enum<FormatStyle> getDateFormatStyle() {

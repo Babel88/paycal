@@ -21,18 +21,14 @@ import static java.math.RoundingMode.HALF_EVEN;
  */
 public class RentalPaymentLogic implements DefaultLogic, Serializable {
     private static final Logger log = LoggerFactory.getLogger(RentalPaymentLogic.class);
-    private static DefaultLogic instance = new RentalPaymentLogic();
-    private final PaymentParameters paymentParameters;
 
-    RentalPaymentLogic() {
+    private PaymentParameters paymentParameters;
 
-        log.debug("Creating a rental payment logic object");
-        paymentParameters = LogicFactory.getPaymentParameters();
-    }
+    RentalPaymentLogic(PaymentParameters paymentParameters) {
 
-    @Contract(pure = true)
-    public static DefaultLogic getInstance() {
-        return instance;
+        this.paymentParameters = paymentParameters;
+
+        log.debug("Creating a rental payment logic object : {}",this);
     }
 
     @Override

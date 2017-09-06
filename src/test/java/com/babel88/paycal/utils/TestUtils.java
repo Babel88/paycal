@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by edwin.njeru on 29/08/2017.
  */
-public abstract class TestUtils<T extends Serializable> {
+public abstract class TestUtils<T extends Serializable> extends TestUtilityFunctions {
 
     private T myBean;
 
@@ -66,12 +66,6 @@ public abstract class TestUtils<T extends Serializable> {
      * @return
      */
     public abstract T getBeanInstance();
-
-    protected BigDecimal setAccuracy(Double amount) {
-
-        return BigDecimal.valueOf(amount)
-                .setScale(2, RoundingMode.HALF_EVEN);
-    }
 
 
 }

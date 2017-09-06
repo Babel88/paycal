@@ -2,24 +2,37 @@ package com.babel88.paycal.controllers.base;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.api.controllers.TTController;
+import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.models.TTArguments;
 import com.babel88.paycal.utils.TestUtils;
+import com.babel88.paycal.view.FeedBackImpl;
+import com.babel88.paycal.view.Invoice;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import javax.management.Notification;
 
 import static org.junit.Assert.*;
 
 public class TTControllerImplTest extends TestUtils<TTController> {
 
     private TTController ttController;
+
     private TTArguments ttArguments;
+
     private DefaultPaymentModel paymentModel;
 
 
     @Before
     public void setUp() throws Exception {
 
-        ttController = new TTControllerImpl();
+        ApplicationContext context = new ClassPathXmlApplicationContext("Beans-test.xml");
+
+        ttController = (TTController) context.getBean("ttController");
 
         ttArguments = new TTArguments()
                 .setInvoiceAmount(setAccuracy(100000.00))
@@ -62,23 +75,23 @@ public class TTControllerImplTest extends TestUtils<TTController> {
     @Test
     public void updateWithholdingVat() throws Exception {
 
-        paymentModel = ttController.updateWithholdingVat(ttArguments);
+        ttController.updateWithholdingVat(ttArguments);
 
-        assertEquals(paymentModel.getWithholdingVat(),setAccuracy(20000.00));
+        assertEquals(ttController.getPaymentModel().getWithholdingVat(),setAccuracy(20000.00));
     }
 
     @Test
     public void updateToPrepay() throws Exception {
 
-//        paymentModel = ttController.updateToPrepay(ttArguments);
-//
-//        assertEquals(paymentModel.getToPrepay(),setAccuracy(0.00));
+        ttController.updateToPrepay(ttArguments);
+
+        assertEquals(ttController.getPaymentModel().getToPrepay(),setAccuracy(0.00));
     }
 
     @Test
     public void getPaymentModel() throws Exception {
 
-        TTControllerImpl testController = (TTControllerImpl) TTControllerImpl.getInstance();
+        TTControllerImpl testController = new TTControllerImpl(new Invoice(new FeedBackImpl()));
         testController.setPaymentModel(paymentModel);
 
         DefaultPaymentModel testModel = testController.getPaymentModel();
@@ -87,21 +100,9 @@ public class TTControllerImplTest extends TestUtils<TTController> {
     }
 
     @Test
-    public void getPrepaymentController() throws Exception {
-
-        assertNotNull(TTControllerImpl.getInstance().getPrepaymentController());
-    }
-
-    @Test
-    public void getTtArguments() throws Exception {
-
-        assertNotNull(TTControllerImpl.getInstance().getTtArguments());
-    }
-
-    @Test
     public void setTtArguments() throws Exception {
 
-        TTController testController = TTControllerImpl.getInstance();
+        TTController testController = new TTControllerImpl(new Invoice(new FeedBackImpl()));
         testController.setTtArguments(ttArguments);
 
         TTArguments testTTArgument = testController.getTtArguments();

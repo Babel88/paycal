@@ -8,17 +8,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.inject.Inject;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 public class MainTest {
 
-    ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+    ApplicationContext context = new ClassPathXmlApplicationContext("Beans-test.xml");
     private PaycalApp paycalApp1;
 
-    @Inject
+    @Autowired
     private PaycalApp paycalApp;
 
     @Before

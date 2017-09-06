@@ -9,8 +9,8 @@ import com.babel88.paycal.models.TTArguments;
 import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 
 /**
  * Controller for rental payments updates the payment model with assertions based on
@@ -21,19 +21,12 @@ import javax.inject.Inject;
 public class RentalPaymentsController extends PaymentsControllerRunnerImpl implements DefaultControllers {
 
     private static final Logger log = LoggerFactory.getLogger(RentalPaymentsController.class);
-    private static DefaultControllers instance = new RentalPaymentsController();
 
-    @Inject
     private DefaultLogic rentalPaymentLogic;
 
-    private RentalPaymentsController() {
+    public RentalPaymentsController() {
         super();
         log.debug("Creating a rental payments controller using constructor in PaymentsControllerRunner : {}",this);
-    }
-
-    @Contract(pure = true)
-    public static DefaultControllers getInstance() {
-        return instance;
     }
 
     @Override
@@ -79,5 +72,10 @@ public class RentalPaymentsController extends PaymentsControllerRunnerImpl imple
     @Override
     public TTArguments getTtArguments() {
         return null;
+    }
+
+    public RentalPaymentsController setRentalPaymentLogic(DefaultLogic rentalPaymentLogic) {
+        this.rentalPaymentLogic = rentalPaymentLogic;
+        return this;
     }
 }

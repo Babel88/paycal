@@ -16,6 +16,6 @@ public class ResultsOutputTest extends TestUtils<ResultsOutput> {
     @Override
     public ResultsOutput getBeanInstance() {
 
-        return new ResultsOutput();
+        return new ResultsOutput(new DisplayImpl());
     }
 }

@@ -12,7 +12,7 @@ public class ResultsOutputTest extends TestUtils<ResultsOutput> {
     @Before
     public void setUp() throws Exception {
 
-        resultsOutput = new ResultsOutput();
+        resultsOutput = new ResultsOutput(new DisplayImpl());
     }
 
     /**

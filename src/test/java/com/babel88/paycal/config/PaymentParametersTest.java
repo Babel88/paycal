@@ -20,7 +20,7 @@ public class PaymentParametersTest extends TestUtils<PaymentParameters> {
     @Before
     public void setUp() throws Exception {
 
-        paymentParameters = LogicFactory.getInstance().getPaymentParameters();
+        paymentParameters = new PaymentParameters();
     }
 
     /**

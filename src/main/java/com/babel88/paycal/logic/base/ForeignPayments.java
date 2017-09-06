@@ -28,8 +28,6 @@ public class ForeignPayments implements TelegraphicTransfers, Serializable {
 
     private BigDecimal reverseInvoice, withholdingVat,withHoldingTaxAmount;
 
-    private static TelegraphicTransfers instance = new ForeignPayments();
-
     public ForeignPayments() {
 
         log.debug("Instantiating the reverseInvoiceAmount with ZERO");
@@ -40,10 +38,6 @@ public class ForeignPayments implements TelegraphicTransfers, Serializable {
 
         log.debug("Instantiating the withHoldingTaxAmount with ZERO");
         withHoldingTaxAmount = new BigDecimal(BigInteger.ZERO);
-    }
-
-    public static TelegraphicTransfers getInstance() {
-        return instance;
     }
 
     /**

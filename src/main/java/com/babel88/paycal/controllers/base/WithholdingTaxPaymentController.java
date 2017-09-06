@@ -8,17 +8,14 @@ import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
 import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
-import com.babel88.paycal.config.factory.*;
 import com.babel88.paycal.controllers.PaymentsControllerRunnerImpl;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.models.TTArguments;
 import com.babel88.paycal.models.ResultsOutput;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
 
 /**
@@ -32,28 +29,22 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
     private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
     private final Logger log = LoggerFactory.getLogger(WithholdingTaxPaymentController.class);
 
-    @Inject
     private ResultsViewer resultsViewer;
 
-    @Inject
     private DefaultPaymentModel paymentModel;
 
-    @Inject
     private ReportControllers reportController;
 
-    @Inject
     private InvoiceDetails invoiceDetails;
 
-    @Inject
-    private DefaultLogic withholdingTaxLogic;
+    private DefaultLogic withholdingTaxPayments;
 
-    @Inject
     private PrepaymentController prepaymentController;
 
     private boolean doAgain;
     private BigDecimal invoiceAmount;
 
-    private WithholdingTaxPaymentController() {
+    public WithholdingTaxPaymentController() {
 
         super();
 
@@ -91,7 +82,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
     public void updateTotalExpense() {
 
         paymentModel.setTotalExpense(
-                withholdingTaxLogic.calculateTotalExpense(invoiceAmount)
+                withholdingTaxPayments.calculateTotalExpense(invoiceAmount)
         );
     }
 
@@ -99,7 +90,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
     public void updateToPayee() {
 
         paymentModel.setToPayee(
-                withholdingTaxLogic.calculateToPayee(invoiceAmount)
+                withholdingTaxPayments.calculateToPayee(invoiceAmount)
         );
     }
 
@@ -107,7 +98,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
     public void updateWithholdingTax() {
 
         paymentModel.setWithholdingTax(
-                withholdingTaxLogic.calculateWithholdingTax(invoiceAmount)
+                withholdingTaxPayments.calculateWithholdingTax(invoiceAmount)
         );
     }
 
@@ -115,7 +106,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
     public void updateWithholdingVat() {
 
         paymentModel.setWithHoldingVat(
-                withholdingTaxLogic.calculateWithholdingVat(invoiceAmount)
+                withholdingTaxPayments.calculateWithholdingVat(invoiceAmount)
         );
     }
 
@@ -127,7 +118,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
         prepaymentController.setExpenseAmount(totalExpense);
 
         paymentModel.setToPrepay(
-                ((PrepaymentService) prepaymentController::getPrepayment).prepay(totalExpense)
+                ((PrepaymentService) prepaymentController::getPrepaymentConfigurations).prepay(totalExpense)
         );
     }*/
 
@@ -139,5 +130,40 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
     @Override
     public TTArguments getTtArguments() {
         return null;
+    }
+
+    @Override
+    public WithholdingTaxPaymentController setResultsViewer(ResultsViewer resultsViewer) {
+        this.resultsViewer = resultsViewer;
+        return this;
+    }
+
+    @Override
+    public WithholdingTaxPaymentController setPaymentModel(DefaultPaymentModel paymentModel) {
+        this.paymentModel = paymentModel;
+        return this;
+    }
+
+    @Override
+    public WithholdingTaxPaymentController setReportController(ReportControllers reportController) {
+        this.reportController = reportController;
+        return this;
+    }
+
+    @Override
+    public WithholdingTaxPaymentController setInvoiceDetails(InvoiceDetails invoiceDetails) {
+        this.invoiceDetails = invoiceDetails;
+        return this;
+    }
+
+    public WithholdingTaxPaymentController setWithholdingTaxPayments(DefaultLogic withholdingTaxPayments) {
+        this.withholdingTaxPayments = withholdingTaxPayments;
+        return this;
+    }
+
+    @Override
+    public WithholdingTaxPaymentController setPrepaymentController(PrepaymentController prepaymentController) {
+        this.prepaymentController = prepaymentController;
+        return this;
     }
 }

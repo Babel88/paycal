@@ -16,7 +16,6 @@ import static java.math.BigDecimal.ZERO;
 
 public class PaymentModel implements Serializable, DefaultPaymentModel {
 
-    private static final PaymentModel instance = new PaymentModel();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final AtomicReference<BigDecimal> amountB4Vat;
     private final AtomicReference<BigDecimal> withHoldingVat;
@@ -27,7 +26,7 @@ public class PaymentModel implements Serializable, DefaultPaymentModel {
 
     public PaymentModel() {
 
-        log.debug("Creating empty fields");
+        log.debug("Creating payment model : {}",this);
         withHoldingVat = new AtomicReference<BigDecimal>();
         total = new AtomicReference<BigDecimal>();
         toPayee = new AtomicReference<BigDecimal>();
@@ -37,10 +36,6 @@ public class PaymentModel implements Serializable, DefaultPaymentModel {
 
         log.debug("Payment model created : {}.",this.toString());
 
-    }
-
-    public static PaymentModel getInstance() {
-        return instance;
     }
 
     public BigDecimal getAmountB4Vat() {
@@ -55,6 +50,8 @@ public class PaymentModel implements Serializable, DefaultPaymentModel {
     }
 
     public BigDecimal getWithHoldingVat() {
+
+        log.debug("Returning withholding vat KES {}",withHoldingVat.get());
         return withHoldingVat.get();
     }
 
@@ -68,6 +65,8 @@ public class PaymentModel implements Serializable, DefaultPaymentModel {
 
     @Override
     public BigDecimal getTotalExpense() {
+
+        log.debug("Returning a total expenses amount of KES {}",total.get());
         return total.get();
     }
 
@@ -80,6 +79,8 @@ public class PaymentModel implements Serializable, DefaultPaymentModel {
     }
 
     public BigDecimal getToPayee() {
+
+        log.debug("Returning amount payable to payee KES : {}",toPayee.get());
         return toPayee.get();
     }
 
@@ -92,10 +93,14 @@ public class PaymentModel implements Serializable, DefaultPaymentModel {
     }
 
     public BigDecimal getWithholdingTax() {
+
+        log.debug("Returning the withholding tax amount KES : {}",withHoldingTax.get());
         return withHoldingTax.get();
     }
 
     public BigDecimal getWithholdingVat() {
+
+        log.debug("Returning the withholding vat amount KES : {}",withHoldingVat.get());
         return withHoldingVat.get();
     }
 
@@ -108,11 +113,15 @@ public class PaymentModel implements Serializable, DefaultPaymentModel {
     }
 
     public BigDecimal getToPrepay() {
+
+        log.debug("Returning amount of {} as prepayment",toPrepay.get());
         return toPrepay.get();
     }
 
     @Override
     public PaymentModel setToPrepay(BigDecimal toPrepay) {
+
+        log.debug("Amount to prepay set as {}",toPrepay);
         this.toPrepay.set(toPrepay);
         return this;
     }

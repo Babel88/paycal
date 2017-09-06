@@ -19,13 +19,11 @@ import java.util.Arrays;
  */
 //@Aspect
 public class LoggingAspect {
-    private static LoggingAspect instance = new LoggingAspect();
-
-    public static LoggingAspect getInstance() {
-        return instance;
-    }
 
     Logger log = LoggerFactory.getLogger("Log-Aspect");
+
+    public LoggingAspect() {
+    }
 
     @Pointcut("execution(* com.babel88.paycal.*.*(..))")
     public void selectAll(){}

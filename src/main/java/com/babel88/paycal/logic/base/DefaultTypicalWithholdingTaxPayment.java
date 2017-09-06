@@ -3,8 +3,10 @@ package com.babel88.paycal.logic.base;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.api.logic.WithholdingTaxPayments;
 import com.babel88.paycal.config.PaymentParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
 
 import static java.math.BigDecimal.ONE;
@@ -21,10 +23,13 @@ import static java.math.RoundingMode.HALF_EVEN;
  */
 public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPayments, DefaultLogic {
 
-    @Inject
+    private final Logger log = LoggerFactory.getLogger(DefaultTypicalWithholdingTaxPayment.class);
+
     private PaymentParameters paymentParameters;
 
-    DefaultTypicalWithholdingTaxPayment() {
+    public DefaultTypicalWithholdingTaxPayment() {
+
+        log.debug("An instance of the DefaultTypicalWithholdingTaxPayment has been created : {}",this);
     }
 
     /**
@@ -95,5 +100,10 @@ public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPaymen
     public BigDecimal calculateToPayee(BigDecimal invoiceAmount) {
 
         return calculateAmountPayable(invoiceAmount);
+    }
+
+    public DefaultTypicalWithholdingTaxPayment setPaymentParameters(PaymentParameters paymentParameters) {
+        this.paymentParameters = paymentParameters;
+        return this;
     }
 }

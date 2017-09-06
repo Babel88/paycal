@@ -2,13 +2,12 @@ package com.babel88.paycal.models;
 
 import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
-import com.babel88.paycal.config.factory.ModelViewFactory;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -18,8 +17,7 @@ public class ResultsOutput implements Serializable, ResultsViewer {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Inject
-    private PaymentModelViewInterface view;
+    private PaymentModelViewInterface display;
 
     private final AtomicReference<BigDecimal> total = new AtomicReference<BigDecimal>();
     private final AtomicReference<BigDecimal> vatWithheld = new AtomicReference<BigDecimal>();
@@ -27,9 +25,11 @@ public class ResultsOutput implements Serializable, ResultsViewer {
     private final AtomicReference<BigDecimal> toPrepay = new AtomicReference<BigDecimal>();
     private final AtomicReference<BigDecimal> toPayee = new AtomicReference<BigDecimal>();
 
-    public ResultsOutput() {
+    public ResultsOutput(PaymentModelViewInterface display) {
 
-        log.debug("Creating empty outputFields...");
+        this.display = display;
+
+        log.debug("Creating empty outputFields for : {}",this);
 
         total.set(new BigDecimal(BigInteger.ZERO));
         vatWithheld.set(new BigDecimal(BigInteger.ZERO));
@@ -49,7 +49,7 @@ public class ResultsOutput implements Serializable, ResultsViewer {
 
         createLocalPaymentFieldsFromModel(paymentModel);
 
-        view.displayResults(total.get(), vatWithheld.get(), withholdingTax.get(), toPrepay.get(), toPayee.get());
+        display.displayResults(total.get(), vatWithheld.get(), withholdingTax.get(), toPrepay.get(), toPayee.get());
 
         return this;
     }
@@ -146,7 +146,7 @@ public class ResultsOutput implements Serializable, ResultsViewer {
         if (o == null || getClass() != o.getClass()) return false;
         ResultsOutput that = (ResultsOutput) o;
         return Objects.equal(log, that.log) &&
-                Objects.equal(view, that.view) &&
+                Objects.equal(display, that.display) &&
                 Objects.equal(getTotal(), that.getTotal()) &&
                 Objects.equal(getVatWithheld(), that.getVatWithheld()) &&
                 Objects.equal(getWithholdingTax(), that.getWithholdingTax()) &&
@@ -156,7 +156,7 @@ public class ResultsOutput implements Serializable, ResultsViewer {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(log, view, getTotal(), getVatWithheld(), getWithholdingTax(),
+        return Objects.hashCode(log, display, getTotal(), getVatWithheld(), getWithholdingTax(),
                 getToPrepay(), getToPayee());
     }
 }

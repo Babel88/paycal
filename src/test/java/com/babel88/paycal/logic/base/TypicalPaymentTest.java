@@ -1,10 +1,13 @@
 package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.DefaultLogic;
+import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.LogicFactory;
+import com.babel88.paycal.utils.TestUtilityFunctions;
 import com.babel88.paycal.utils.TestUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.meanbean.test.BeanTester;
 
 import java.math.BigDecimal;
 
@@ -21,12 +24,24 @@ public class TypicalPaymentTest extends TestUtils<DefaultLogic>{
 
     private BigDecimal invoiceAmount;
 
-    @Override
+    private PaymentParameters paymentParameters;
+
     @Before
     public void setUp() throws Exception {
-        super.setUp();
-        typicalPayment = LogicFactory.getTypicalPayments();
+        paymentParameters = new PaymentParameters();
+        typicalPayment = new TypicalPaymentsImpl(new PaymentParameters());
         invoiceAmount = setAccuracy(116000.00);
+    }
+
+    /**
+     * This method returns an instance of the bean being tested
+     *
+     * @return
+     */
+    @Override
+    public DefaultLogic getBeanInstance() {
+
+        return typicalPayment;
     }
 
     @Test
@@ -63,21 +78,24 @@ public class TypicalPaymentTest extends TestUtils<DefaultLogic>{
     @Test
     public void calculateAmountBeforeTax() throws Exception {
 
-        TypicalPayment typicalPayment = new TypicalPayment();
+        TypicalPaymentsImpl typicalPayment = new TypicalPaymentsImpl(paymentParameters);
 
         BigDecimal beforeTax = typicalPayment.calculateAmountBeforeTax(invoiceAmount);
 
         assertEquals(setAccuracy(100000.00),beforeTax);
     }
 
-    /**
-     * This method returns an instance of the bean being tested
-     *
-     * @return
-     */
-    @Override
-    public DefaultLogic getBeanInstance() {
+    public TypicalPaymentTest setTypicalPayment(DefaultLogic typicalPayment) {
+        this.typicalPayment = typicalPayment;
+        return this;
+    }
 
-        return typicalPayment;
+    @Test
+    @Override
+    public void getterAndSetterCorrectness() throws Exception {
+
+//        final BeanTester beanTester = new BeanTester();
+//        beanTester.testBean(getBeanInstance().getClass());
+        //Not needed
     }
 }

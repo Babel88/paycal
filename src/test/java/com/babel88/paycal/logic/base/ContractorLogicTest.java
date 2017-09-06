@@ -1,10 +1,12 @@
 package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.DefaultLogic;
-import com.babel88.paycal.config.factory.LogicFactory;
+import com.babel88.paycal.config.PaymentParameters;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
 
@@ -16,37 +18,31 @@ import static java.math.RoundingMode.HALF_EVEN;
 public class ContractorLogicTest {
 
 
-    private DefaultLogic defaultLogic;
+    private DefaultLogic contractorLogic;
+
     private BigDecimal invoiceAmount;
 
     @Before
     public void setUp() throws Exception {
 
-        defaultLogic = LogicFactory.getInstance().getContractorLogic();
+        contractorLogic = new ContractorLogic(new PaymentParameters());
+
         invoiceAmount = BigDecimal.valueOf(116000.00).setScale(2, HALF_EVEN);
     }
 
     @Test
     public void calculateTotalExpense() throws Exception {
 
-        BigDecimal totalExpense = defaultLogic.calculateTotalExpense(invoiceAmount);
+        BigDecimal totalExpense = contractorLogic.calculateTotalExpense(invoiceAmount);
 
         Assert.assertEquals(invoiceAmount, totalExpense);
 
     }
 
     @Test
-    public void getInstance() throws Exception {
-
-        DefaultLogic defaultLogic = LogicFactory.getInstance().getContractorLogic();
-
-        Assert.assertEquals(this.defaultLogic, defaultLogic);
-    }
-
-    @Test
     public void calculateToPayee() throws Exception {
 
-        BigDecimal toPayee = defaultLogic.calculateToPayee(invoiceAmount);
+        BigDecimal toPayee = contractorLogic.calculateToPayee(invoiceAmount);
 
         Assert.assertEquals(
                 BigDecimal.valueOf(107000.00).setScale(2, HALF_EVEN), toPayee
@@ -56,7 +52,7 @@ public class ContractorLogicTest {
     @Test
     public void calculateWithholdingTax() throws Exception {
 
-        BigDecimal wthTax = defaultLogic.calculateWithholdingTax(invoiceAmount);
+        BigDecimal wthTax = contractorLogic.calculateWithholdingTax(invoiceAmount);
 
         Assert.assertEquals(
                 BigDecimal.valueOf(3000.00).setScale(2, HALF_EVEN), wthTax
@@ -66,7 +62,7 @@ public class ContractorLogicTest {
     @Test
     public void calculateWithholdingVat() throws Exception {
 
-        BigDecimal wthVat = defaultLogic.calculateWithholdingVat(invoiceAmount);
+        BigDecimal wthVat = contractorLogic.calculateWithholdingVat(invoiceAmount);
 
         Assert.assertEquals(
                 BigDecimal.valueOf(6000.00).setScale(2, HALF_EVEN), wthVat

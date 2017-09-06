@@ -1,5 +1,6 @@
 package com.babel88.paycal.logic.base;
 
+import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,7 +23,7 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
     @Before
     public void setUp() throws Exception {
 
-        rentalPaymentLogic = new RentalPaymentLogic();
+        rentalPaymentLogic = new RentalPaymentLogic(new PaymentParameters());
     }
 
     /**

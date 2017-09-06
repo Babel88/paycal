@@ -10,14 +10,29 @@ public interface DefaultControllers {
 
     void runCalculation();
 
+    /**
+     * Updates the total expense figure in the payment model
+     */
     void updateTotalExpense();
 
+    /**
+     * Updates the amount payable to payee in the payment model
+     */
     void updateToPayee();
 
+    /**
+     * Updates the withholding tax in the payment model
+     */
     void updateWithholdingTax();
 
+    /**
+     * Updates the withholding vat in the payment model
+     */
     void updateWithholdingVat();
 
+    /**
+     * Updates the amount to prepay in the payment model
+     */
     @NotNull void updateToPrepay();
 
     DefaultPaymentModel getPaymentModel();

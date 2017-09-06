@@ -3,15 +3,14 @@ package com.babel88.paycal.logic;
 import com.babel88.paycal.api.PrepaymentDetails;
 import com.babel88.paycal.api.logic.Prepayable;
 import com.babel88.paycal.config.prepaymentConfigurations;
-import com.babel88.paycal.config.factory.LogicFactory;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -26,7 +25,6 @@ import static java.math.RoundingMode.HALF_EVEN;
  */
 public class AbstractPrepayment implements Prepayable,Serializable {
 
-    private static Prepayable instance = new AbstractPrepayment();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private LocalDate invoiceStartDate,invoiceReferenceDate,invoiceEndDate;
     private Double prepaymentPeriod,invoicePeriod,coefficient;
@@ -35,50 +33,45 @@ public class AbstractPrepayment implements Prepayable,Serializable {
     // Keeps track of locale settings
     private Locale locale;
 
-    /* This object provides prepayment dates
+    /* This object provides prepaymentConfigurations dates
      * Object has been Autowired through a setter
      */
-    @Inject
     private PrepaymentDetails prepaymentDetails;
 
-    /*This object provides general configurations for use with prepayment dates
+    /*This object provides general configurations for use with prepaymentConfigurations dates
      * The object has been Autowired through a setter
      */
-    private prepaymentConfigurations generalConfigurations;
+    private prepaymentConfigurations prepaymentConfigurations;
     /**
      * The expense amount to be prepaid
      */
     private BigDecimal expenseAmount;
     /**
-     * The prepayment amount
+     * The prepaymentConfigurations amount
      */
     private BigDecimal prepaymentAmount;
 
-    private AbstractPrepayment() {
+    public AbstractPrepayment(prepaymentConfigurations prepaymentConfigurations) {
 
-        log.debug("Creating abstract prepayment using general configurations and prepayment details \n" +
+        this.prepaymentConfigurations = prepaymentConfigurations;
+
+        log.debug("Creating abstract prepaymentConfigurations using general configurations and prepaymentConfigurations details \n" +
                 "from Logic factory and General factory respectively");
-        generalConfigurations = LogicFactory.getGeneralConfigurations();
 
-        log.debug("Creating prepayment with default configurations, from the general \n" +
-                "configurations object : {}.",generalConfigurations.toString());
+        log.debug("Creating prepaymentConfigurations with default configurations, from the general \n" +
+                "configurations object : {}.", prepaymentConfigurations.toString());
 
-        this.dateFormatStyle = generalConfigurations.getDateFormatStyle();
+        this.dateFormatStyle = prepaymentConfigurations.getDateFormatStyle();
 
-        locale = generalConfigurations.getLocale();
+        locale = prepaymentConfigurations.getLocale();
     }
-
-    public static Prepayable getInstance() {
-        return instance;
-    }
-
     /**
-     * This method takes any prepayment and calculates the amount of prepayment.
+     * This method takes any prepaymentConfigurations and calculates the amount of prepaymentConfigurations.
      * This updates use of depracated implementations in SimplePrepayments and Checked
      * prepayments to apply use of JSR 310
      *
      * @param expense amount
-     * @return amount of prepayment
+     * @return amount of prepaymentConfigurations
      */
     @NotNull
     @Override
@@ -97,7 +90,7 @@ public class AbstractPrepayment implements Prepayable,Serializable {
         // important part of this algorithm is setting of dates
         setPrepaymentDates();
 
-        log.debug("Calculating the invoice prepayment period between : {}. and {}.",
+        log.debug("Calculating the invoice prepaymentConfigurations period between : {}. and {}.",
                 invoiceReferenceDate,invoiceEndDate);
         calculatePrepaymentPeriod();
 
@@ -105,34 +98,34 @@ public class AbstractPrepayment implements Prepayable,Serializable {
                 invoiceStartDate,invoiceEndDate);
         calculateInvoicePeriod();
 
-        log.debug("Calculating the coefficient for prepayment amount");
+        log.debug("Calculating the coefficient for prepaymentConfigurations amount");
         calculatePrepaymentCoefficient();
 
-        log.debug("Finally : Calculating the prepayment amount");
+        log.debug("Finally : Calculating the prepaymentConfigurations amount");
         calculatePrepaymentAmount();
 
     }
 
     private BigDecimal calculatePrepaymentAmount(){
 
-        log.debug("Calculating the prepayment amount using expense amount of :{}." +
+        log.debug("Calculating the prepaymentConfigurations amount using expense amount of :{}." +
                 "and a coefficient of : {}.",getExpenseAmount(),getCoefficient());
         prepaymentAmount =
                 expenseAmount.multiply(BigDecimal.valueOf(coefficient))
                         .setScale(2, HALF_EVEN);
 
-        log.debug("Returning the prepayment amount as : "+ prepaymentAmount);
+        log.debug("Returning the prepaymentConfigurations amount as : "+ prepaymentAmount);
         return prepaymentAmount;
     }
 
     /**
      * Calculates the dates between invoice reference dates and invoice end date
      * This period is returned to the caller, but a side effect is that the same period is set
-     * in a local variable which is later called in calculations for prepayment amount. This
+     * in a local variable which is later called in calculations for prepaymentConfigurations amount. This
      * reduces the number of operations for required to calculate the former hence speeding
      * up the algorithm
      *
-     * @return prepayment amount
+     * @return prepaymentConfigurations amount
      */
     private Double calculatePrepaymentPeriod(){
 
@@ -154,11 +147,11 @@ public class AbstractPrepayment implements Prepayable,Serializable {
     /**
      * Calculates the dates between invoice start dates and invoice end date
      * This period is returned to the caller, but a side effect is that the same period is set
-     * in a local variable which is later called in calculations for prepayment amount. This
+     * in a local variable which is later called in calculations for prepaymentConfigurations amount. This
      * reduces the number of operations for required to calculate the former hence speeding
      * up the algorithm
      *
-     * @return prepayment amount
+     * @return prepaymentConfigurations amount
      */
     private Double calculateInvoicePeriod(){
 
@@ -178,19 +171,19 @@ public class AbstractPrepayment implements Prepayable,Serializable {
 
     /**
      * This method calculates the coefficient which if multiplied with the invoice expense
-     * amount, will result in prepayment amount
+     * amount, will result in prepaymentConfigurations amount
      *
-     * @return prepayment coefficient in BigDecimal
+     * @return prepaymentConfigurations coefficient in BigDecimal
      */
     private Double calculatePrepaymentCoefficient(){
 
-        log.debug("Calculating the prepayment coefficient using : \n" +
+        log.debug("Calculating the prepaymentConfigurations coefficient using : \n" +
                 "Prepayment period : {}. \n" +
                 "Invoice period : {}.",prepaymentPeriod,invoicePeriod);
 
         coefficient = prepaymentPeriod/invoicePeriod;
 
-        log.debug("Returning prepayment coefficient : {}.",coefficient);
+        log.debug("Returning prepaymentConfigurations coefficient : {}.",coefficient);
 
         return coefficient;
 
@@ -198,7 +191,7 @@ public class AbstractPrepayment implements Prepayable,Serializable {
 
     private void setPrepaymentDates(){
 
-        log.debug("Setting prepayment dates...");
+        log.debug("Setting prepaymentConfigurations dates...");
 
         try {
             setInvoiceStartDate(prepaymentDetails.getInvoiceStartDate());
@@ -317,7 +310,7 @@ public class AbstractPrepayment implements Prepayable,Serializable {
     /**
      * Create LocalDate object from the string in the default format "dd.mm.yyyy"
      *
-     * @param dateString date from prepayment details in string format
+     * @param dateString date from prepaymentConfigurations details in string format
      * @return LocalDate
      */
     private LocalDate createDateFromString(String dateString) {
@@ -415,12 +408,12 @@ public class AbstractPrepayment implements Prepayable,Serializable {
         return this;
     }
 
-    public prepaymentConfigurations getGeneralConfigurations() {
-        return generalConfigurations;
+    public prepaymentConfigurations getPrepaymentConfigurations() {
+        return prepaymentConfigurations;
     }
 
-    public AbstractPrepayment setGeneralConfigurations(prepaymentConfigurations generalConfigurations) {
-        this.generalConfigurations = generalConfigurations;
+    public AbstractPrepayment setPrepaymentConfigurations(prepaymentConfigurations prepaymentConfigurations) {
+        this.prepaymentConfigurations = prepaymentConfigurations;
         return this;
     }
 
@@ -448,7 +441,7 @@ public class AbstractPrepayment implements Prepayable,Serializable {
                 Objects.equal(dateFormatStyle, that.dateFormatStyle) &&
                 Objects.equal(locale, that.locale) &&
                 Objects.equal(prepaymentDetails, that.prepaymentDetails) &&
-                Objects.equal(generalConfigurations, that.generalConfigurations) &&
+                Objects.equal(prepaymentConfigurations, that.prepaymentConfigurations) &&
                 Objects.equal(expenseAmount, that.expenseAmount) &&
                 Objects.equal(prepaymentAmount, that.prepaymentAmount);
     }
@@ -457,7 +450,7 @@ public class AbstractPrepayment implements Prepayable,Serializable {
     public int hashCode() {
         return Objects.hashCode(log, invoiceStartDate, invoiceReferenceDate, invoiceEndDate,
                 prepaymentPeriod, invoicePeriod, coefficient, dateFormatStyle, locale,
-                prepaymentDetails, generalConfigurations, expenseAmount, prepaymentAmount);
+                prepaymentDetails, prepaymentConfigurations, expenseAmount, prepaymentAmount);
     }
 
     @Override
@@ -547,7 +540,7 @@ public class AbstractPrepayment implements Prepayable,Serializable {
         } else if (invoiceEndDate.isEqual(invoiceStartDate) || invoiceEndDate.isEqual(invoiceReferenceDate)
                 || invoiceReferenceDate.isEqual(invoiceStartDate)) {
 
-            throw new WrongDateException("This is a prepayment transaction. Right?");
+            throw new WrongDateException("This is a prepaymentConfigurations transaction. Right?");
 
         }
     }

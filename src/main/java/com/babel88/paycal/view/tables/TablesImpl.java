@@ -15,7 +15,6 @@ import java.util.Map;
 
 public class TablesImpl implements Tables {
 
-    private static Tables instance = new TablesImpl();
     private final Logger log = LoggerFactory.getLogger(TablesImpl.class);
     Map<Index, String> _strings = new HashMap();
     int _numRows = 0;
@@ -24,11 +23,7 @@ public class TablesImpl implements Tables {
 
     public TablesImpl() {
 
-        log.debug("Creating a new TablesImpl object");
-    }
-
-    public static Tables getInstance() {
-        return instance;
+        log.debug("Creating a new TablesImpl object",this);
     }
 
     @Override

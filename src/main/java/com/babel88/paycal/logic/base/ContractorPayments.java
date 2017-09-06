@@ -4,7 +4,6 @@ import com.babel88.paycal.api.logic.Contractors;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.LogicFactory;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -17,24 +16,19 @@ import static java.math.RoundingMode.HALF_EVEN;
  */
 public class ContractorPayments implements Contractors {
 
-    private static Contractors instance = new ContractorPayments();
     private final AtomicReference<BigDecimal> vatRate;
     private final AtomicReference<BigDecimal> withholdingTaxRate;
     private final AtomicReference<BigDecimal> withholdingVatRate;
 
-    @Inject
-    private PaymentParameters paymentParameters;
+//    @Inject
+//    private PaymentParameters paymentParameters;
 
-    private ContractorPayments() {
+    public ContractorPayments(PaymentParameters paymentParameters) {
 
         vatRate = new AtomicReference<>(paymentParameters.getVatRate());
         withholdingTaxRate = new AtomicReference<>(paymentParameters.getWithholdingTaxContractor());
         withholdingVatRate = new AtomicReference<>(paymentParameters.getWithholdingVatRate());
 
-    }
-
-    public static Contractors getInstance() {
-        return instance;
     }
 
     /**
@@ -101,4 +95,6 @@ public class ContractorPayments implements Contractors {
 
         return invoiceAmount;
     }
+
+
 }

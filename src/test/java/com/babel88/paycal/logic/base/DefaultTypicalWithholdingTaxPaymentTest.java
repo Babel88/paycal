@@ -1,5 +1,6 @@
 package com.babel88.paycal.logic.base;
 
+import com.babel88.paycal.config.PaymentParameters;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +20,7 @@ public class DefaultTypicalWithholdingTaxPaymentTest {
     public void setUp() throws Exception {
 
         withholdingTaxLogic = new DefaultTypicalWithholdingTaxPayment();
+        withholdingTaxLogic.setPaymentParameters(new PaymentParameters());
     }
 
     @Test

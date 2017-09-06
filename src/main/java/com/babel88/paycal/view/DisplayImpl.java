@@ -3,15 +3,12 @@ package com.babel88.paycal.view;
 import com.babel88.paycal.PaycalApp;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.api.view.Tables;
-import com.babel88.paycal.config.factory.GeneralFactory;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -30,12 +27,10 @@ import static java.lang.System.out;
  */
 public class DisplayImpl implements PaymentModelViewInterface {
 
-    private static PaymentModelViewInterface instance = new DisplayImpl();
     private final Logger log = LoggerFactory.getLogger(DisplayImpl.class);
-    //private final PaycalApp paycalApp;
-    private final Tables tableString;
-    @Inject
-    private PaycalApp paycalApp;
+
+    private Tables tables;
+
     private final AtomicReference<BigDecimal> total,vatWithheld,withholdingTax,toPrepay,toPayee;
 
     public DisplayImpl() {
@@ -46,13 +41,6 @@ public class DisplayImpl implements PaymentModelViewInterface {
         withholdingTax = new AtomicReference<>();
         toPrepay = new AtomicReference<>();
         toPayee = new AtomicReference<>();
-        tableString = GeneralFactory.createTables();
-        //paycalApp = GeneralFactory.getInstance().createPaycalApp();
-    }
-
-    @Contract(pure = true)
-    public static PaymentModelViewInterface getInstance() {
-        return instance;
     }
 
     @Override
@@ -85,13 +73,13 @@ public class DisplayImpl implements PaymentModelViewInterface {
         // the computation of the Invoice transactions
         // was instantiated
         //Date timePaid = paycalApp.getNow();
-        Date timePaid = paycalApp.getNow();
+        Date timePaid = PaycalApp.getNow();
 
         out.println("Calculated at: "+timePaid);
 
         out.println();
 
-        Tables table = tableString.createTable(vatWithhold, withHold, prepayment, expensed, paid, this);
+        Tables table = tables.createTable(vatWithhold, withHold, prepayment, expensed, paid, this);
 
 
         out.println(table.toString());
@@ -151,6 +139,11 @@ public class DisplayImpl implements PaymentModelViewInterface {
 
 
         return BigDecimal.valueOf(Double.valueOf(dformat.format(number)));
+    }
+
+    public DisplayImpl setTables(Tables tables) {
+        this.tables = tables;
+        return this;
     }
 }
 

@@ -22,7 +22,6 @@ import static java.math.RoundingMode.*;
 public class TTArguments implements Serializable {
 
     private static final Logger log = LoggerFactory.getLogger(TTArguments.class);
-    private static final TTArguments instance = new TTArguments();
 
     private BigDecimal invoiceAmount;
     private BigDecimal reverseVatRate;
@@ -33,11 +32,6 @@ public class TTArguments implements Serializable {
     public TTArguments(){
 
         log.debug("TTArguments object instance created : {}",this);
-    }
-
-    @Contract(pure = true)
-    public static TTArguments getInstance() {
-        return instance;
     }
 
     public TTArguments setInvoiceAmount(BigDecimal invoiceAmount) {

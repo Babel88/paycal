@@ -3,8 +3,10 @@ package com.babel88.paycal.logic.base;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.LogicFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
 
 import static java.math.BigDecimal.ONE;
@@ -12,10 +14,15 @@ import static java.math.RoundingMode.HALF_EVEN;
 
 public class ContractorLogic implements com.babel88.paycal.api.logic.DefaultLogic {
 
-    @Inject
+    private final Logger log = LoggerFactory.getLogger(ContractorLogic.class);
+
     private PaymentParameters paymentParameters;
 
-    private ContractorLogic() {
+    public ContractorLogic(PaymentParameters paymentParameters) {
+
+        this.paymentParameters = paymentParameters;
+
+        log.debug("An instance of ContractorLogic has been created : {}",this);
     }
 
     @Override

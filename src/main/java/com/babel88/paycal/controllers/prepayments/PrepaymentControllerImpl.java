@@ -8,8 +8,8 @@ import com.babel88.paycal.config.factory.LogicFactory;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
@@ -17,7 +17,6 @@ import static java.lang.System.out;
 
 public class PrepaymentControllerImpl implements PrepaymentController {
 
-    private static PrepaymentController instance = new PrepaymentControllerImpl(BigDecimal.ZERO);
     private final Logger log =
             LoggerFactory.getLogger(this.getClass());
     /*
@@ -40,27 +39,21 @@ public class PrepaymentControllerImpl implements PrepaymentController {
      * This object provides the implementation of the Prepayable interface
      * used here to get the amount to prepay
      */
-    @Inject
     private Prepayable prepayable;
     /*
      * This object delivers the standard user prompt for the application
      */
-    @Inject
     private FeedBack feedBack;
 
-    public PrepaymentControllerImpl(BigDecimal expenseAmount) {
+    public PrepaymentControllerImpl() {
 
         log.debug("Creating payment controller from factory : {}",this);
 
-        this.expenseAmount = expenseAmount;
+        this.expenseAmount = BigDecimal.ZERO;
 
         prepaymentAmount = BigDecimal.ZERO;
 
         keyboard = new Scanner(System.in);
-    }
-
-    public static PrepaymentController getInstance() {
-        return instance;
     }
 
     private void userPrompt(){
@@ -137,5 +130,40 @@ public class PrepaymentControllerImpl implements PrepaymentController {
     public PrepaymentControllerImpl setPrepay(Boolean prepay) {
         this.prepay = prepay;
         return this;
+    }
+
+    public PrepaymentControllerImpl setPrepaymentAmount(BigDecimal prepaymentAmount) {
+        this.prepaymentAmount = prepaymentAmount;
+        return this;
+    }
+
+    public PrepaymentControllerImpl setPrepayable(Prepayable prepayable) {
+        this.prepayable = prepayable;
+        return this;
+    }
+
+    public PrepaymentControllerImpl setFeedBack(FeedBack feedBack) {
+        this.feedBack = feedBack;
+        return this;
+    }
+
+    public Boolean getPrepay() {
+        return prepay;
+    }
+
+    public BigDecimal getPrepaymentAmount() {
+        return prepaymentAmount;
+    }
+
+    public BigDecimal getExpenseAmount() {
+        return expenseAmount;
+    }
+
+    public Prepayable getPrepayable() {
+        return prepayable;
+    }
+
+    public FeedBack getFeedBack() {
+        return feedBack;
     }
 }

@@ -12,11 +12,11 @@ public class PrepaymentsDelegate {
     private final Logger log = LoggerFactory.getLogger(PrepaymentsDelegate.class);
 
     /*This is the pointer to the controller model we are adjusting*/
-    private final PaymentsControllerRunner paymentsControllerRunner;
+    private PaymentsControllerRunner paymentsControllerRunner;
 
     public PrepaymentsDelegate(PaymentsControllerRunner paymentsControllerRunner) {
 
-        log.debug("PrepaymentsDelegate has been  called with argument... : {}", paymentsControllerRunner);
+        log.debug("PrepaymentsDelegate {} has been  called with argument... : {}",this, paymentsControllerRunner);
         this.paymentsControllerRunner = paymentsControllerRunner;
     }
 

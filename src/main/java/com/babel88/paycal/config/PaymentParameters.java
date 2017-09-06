@@ -21,8 +21,6 @@ import static java.math.RoundingMode.UNNECESSARY;
  */
 public class PaymentParameters implements Serializable {
 
-    //Code for singleTon pattern
-    private static PaymentParameters instance = new PaymentParameters();
     private final Logger log;
     private final BigDecimal vatRate;
     private final BigDecimal withholdingVatRate;
@@ -30,7 +28,7 @@ public class PaymentParameters implements Serializable {
     private final BigDecimal withholdingTaxContractor;
     private final BigDecimal withholdingTaxOnRentalRate;
 
-    private PaymentParameters() {
+    public PaymentParameters() {
 
         log = LoggerFactory.getLogger(this.getClass());
         log.debug("\nCreating payment parameters object with : \n" +
@@ -56,12 +54,6 @@ public class PaymentParameters implements Serializable {
                 vatRate, withholdingVatRate, withholdingTaxRate, withholdingTaxContractor, withholdingTaxOnRentalRate);
 
     }
-
-    public static PaymentParameters getInstance(){
-
-        return instance;
-    }
-
 
     @SuppressWarnings(value = "BigDecimal.divide() called without a rounding mode argument")
     private BigDecimal divPerCent(BigDecimal denominator){

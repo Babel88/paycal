@@ -18,7 +18,6 @@ import static java.math.RoundingMode.*;
 public class InclusiveImportedServiceLogicImpl implements InclusiveImportedServiceLogic {
 
     private final Logger log = LoggerFactory.getLogger(InclusiveImportedServiceLogicImpl.class);
-    private static final InclusiveImportedServiceLogic instance = new InclusiveImportedServiceLogicImpl();
 
     public InclusiveImportedServiceLogicImpl() {
         log.debug("InclusiveImportedServiceLogic object has been created : {}",this);
@@ -176,10 +175,5 @@ public class InclusiveImportedServiceLogicImpl implements InclusiveImportedServi
         }
 
         return totalExpenses.setScale(2, HALF_EVEN);
-    }
-
-    @Contract(pure = true)
-    public static InclusiveImportedServiceLogic getInstance() {
-        return instance;
     }
 }

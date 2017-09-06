@@ -37,7 +37,7 @@ public class ForeignPaymentsTest extends TestUtils<ForeignPayments> {
         BigDecimal reverse =
                 foreignPayments.getReverseInvoice(
                         setAccuracy(100000.00),
-                        BigDecimal.valueOf(20),
+                        BigDecimal.valueOf(0.20),
                         true);
 
         assertEquals(setAccuracy(125000.00),reverse);
@@ -49,7 +49,7 @@ public class ForeignPaymentsTest extends TestUtils<ForeignPayments> {
         BigDecimal reverse =
                 foreignPayments.getReverseInvoice(
                         setAccuracy(100000.00),
-                        BigDecimal.valueOf(20),
+                        BigDecimal.valueOf(0.20),
                         true);
 
         assertEquals(setAccuracy(100000.00),reverse);

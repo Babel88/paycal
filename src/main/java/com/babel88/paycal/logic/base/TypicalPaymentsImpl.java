@@ -3,7 +3,6 @@ package com.babel88.paycal.logic.base;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.api.logic.TypicalPayments;
 import com.babel88.paycal.config.PaymentParameters;
-import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.logic.GeneralPayments;
 import com.google.common.base.Objects;
 import org.slf4j.Logger;
@@ -25,9 +24,7 @@ import static java.math.RoundingMode.HALF_EVEN;
  * <p>d) The payee needs to pay 6% withholding tax</p>
  * <p>e) The Invoice amount is not inclusive of any duties</p>
  */
-public class TypicalPayment implements TypicalPayments, DefaultLogic {
-
-    private static DefaultLogic instance = new TypicalPayment();
+public class TypicalPaymentsImpl implements TypicalPayments, DefaultLogic {
 
     /* withholding vat rate */
     private final AtomicReference<BigDecimal> withholdVatRate = new AtomicReference<>();
@@ -40,19 +37,13 @@ public class TypicalPayment implements TypicalPayments, DefaultLogic {
             new AtomicReference<>();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    protected TypicalPayment() {
+    public TypicalPaymentsImpl(PaymentParameters paymentParameters) {
 
-        log.debug("Creating an instance of the typicalPayment object logic");
+        log.debug("Creating an instance of the typicalPayment object logic : {}",this);
 
-        PaymentParameters parameters = LogicFactory.getPaymentParameters();
+        vatRate.set(paymentParameters.getVatRate());
 
-        vatRate.set(parameters.getVatRate());
-
-        withholdVatRate.set(parameters.getWithholdingVatRate());
-    }
-
-    public static DefaultLogic getInstance() {
-        return instance;
+        withholdVatRate.set(paymentParameters.getWithholdingVatRate());
     }
 
     /**
@@ -162,7 +153,7 @@ public class TypicalPayment implements TypicalPayments, DefaultLogic {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TypicalPayment that = (TypicalPayment) o;
+        TypicalPaymentsImpl that = (TypicalPaymentsImpl) o;
         return Objects.equal(withholdVatRate, that.withholdVatRate) &&
                 Objects.equal(vatRate, that.vatRate) &&
                 Objects.equal(invoiceAmount, that.invoiceAmount) &&

@@ -6,21 +6,15 @@ import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.*;
 import com.babel88.paycal.api.logic.ExclusiveImportedServiceLogic;
 import com.babel88.paycal.api.logic.InclusiveImportedServiceLogic;
-import com.babel88.paycal.config.factory.ControllerFactory;
-import com.babel88.paycal.config.factory.GeneralFactory;
-import com.babel88.paycal.config.factory.LogicFactory;
-import com.babel88.paycal.config.factory.ModelFactory;
-import com.babel88.paycal.config.factory.ModelViewFactory;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.models.TTArguments;
 import com.babel88.paycal.models.ResultsOutput;
 import com.google.common.base.Objects;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
 
 /**
@@ -30,35 +24,26 @@ import java.math.BigDecimal;
  */
 public class TTControllerImpl implements TTController {
 
-    @Inject
     private ExclusiveImportedServiceLogic exclusiveImportedServiceLogic;
-
-    @Inject
     private InclusiveImportedServiceLogic inclusiveImportedServiceLogic;
-    private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
-
-    @Inject
     private PrepaymentController prepaymentController;
-    private static final Logger log = LoggerFactory.getLogger(TTControllerImpl.class);
-
-    @Inject
     private TTArguments ttArguments;
-
-    @Inject
     private ResultsViewer resultsViewer;
-
-    @Inject
     private DefaultPaymentModel paymentModel;
-
-    @Inject
-    private InvoiceDetails invoice;
-
-    @Inject
+    private InvoiceDetails invoiceDetails;
     private ReportControllers reportController;
 
-    public TTControllerImpl() {
+    private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
+
+
+    private static final Logger log = LoggerFactory.getLogger(TTControllerImpl.class);
+
+
+
+    public TTControllerImpl(InvoiceDetails invoiceDetails) {
 
         log.debug("Initializing the TTController... : {}",this);
+        this.invoiceDetails = invoiceDetails;
     }
 
     /**
@@ -72,34 +57,68 @@ public class TTControllerImpl implements TTController {
         ResultsOutput resultsOutput;
         Boolean doAgain;
 
-        do {
+        try {
 
-            fetchArguments();
+            do {
 
-            updateWithholdingVat(ttArguments);
+                fetchArguments();
 
-            updateWithholdingTax(ttArguments);
+                updateWithholdingVat(ttArguments);
 
-            updateTotalExpense(ttArguments);
+                updateWithholdingTax(ttArguments);
 
-            updateToPayee(ttArguments);
+                updateTotalExpense(ttArguments);
 
-            updateToPrepay(ttArguments);
+                updateToPayee(ttArguments);
 
-            resultsOutput = (ResultsOutput) resultsViewer.forPayment((PaymentModel) paymentModel);
+                updateToPrepay(ttArguments);
 
-            doAgain = invoice.doAgain();
+                resultsOutput = (ResultsOutput) resultsViewer.forPayment((PaymentModel) paymentModel);
 
-        } while (doAgain);
+                doAgain = invoiceDetails.doAgain();
 
-        reportController.printReport().forPayment(resultsOutput);
+            } while (doAgain);
+
+            reportController.printReport().forPayment(resultsOutput);
+        } catch (Exception e){
+
+            if(invoiceDetails == null) {
+                log.error("The invoice details object is null");
+                e.printStackTrace();
+            } else if(resultsViewer == null){
+                log.error("The invoice details object is null");
+                e.printStackTrace();
+            } else if(prepaymentsDelegate == null){
+
+                log.error("The prepaymentDelegate object is null");
+
+                e.printStackTrace();
+            }
+
+            e.printStackTrace();
+        }
     }
 
     private void fetchArguments() {
-        ttArguments.setReverseVatRate(BigDecimal.valueOf(invoice.vatRate()));
-        ttArguments.setWithholdingTaxRate(BigDecimal.valueOf(invoice.withHoldingTaxRate()));
-        ttArguments.setInvoiceAmount(invoice.invoiceAmount());
-        ttArguments.setTaxExclusionPolicy(invoice.exclusiveOfWithholdingTax());
+        try {
+            ttArguments.setReverseVatRate(BigDecimal.valueOf(invoiceDetails.vatRate()));
+            ttArguments.setWithholdingTaxRate(BigDecimal.valueOf(invoiceDetails.withHoldingTaxRate()));
+            ttArguments.setInvoiceAmount(invoiceDetails.invoiceAmount());
+            ttArguments.setTaxExclusionPolicy(invoiceDetails.exclusiveOfWithholdingTax());
+        } catch (Exception e) {
+
+            if(invoiceDetails == null){
+
+                log.error("The invoice details object is null");
+
+                e.printStackTrace();
+            } else if(ttArguments == null){
+
+                log.error("The TTArguments object is null");
+
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -256,12 +275,42 @@ public class TTControllerImpl implements TTController {
                 Objects.equal(getTtArguments(), that.getTtArguments()) &&
                 Objects.equal(resultsViewer, that.resultsViewer) &&
                 Objects.equal(getPaymentModel(), that.getPaymentModel()) &&
-                Objects.equal(invoice, that.invoice) &&
+                Objects.equal(invoiceDetails, that.invoiceDetails) &&
                 Objects.equal(reportController, that.reportController);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(exclusiveImportedServiceLogic, inclusiveImportedServiceLogic, prepaymentsDelegate, getPrepaymentController(), getTtArguments(), resultsViewer, getPaymentModel(), invoice, reportController);
+        return Objects.hashCode(exclusiveImportedServiceLogic, inclusiveImportedServiceLogic, prepaymentsDelegate, getPrepaymentController(), getTtArguments(), resultsViewer, getPaymentModel(), invoiceDetails, reportController);
+    }
+
+    public TTControllerImpl setExclusiveImportedServiceLogic(ExclusiveImportedServiceLogic exclusiveImportedServiceLogic) {
+        this.exclusiveImportedServiceLogic = exclusiveImportedServiceLogic;
+        return this;
+    }
+
+    public TTControllerImpl setInclusiveImportedServiceLogic(InclusiveImportedServiceLogic inclusiveImportedServiceLogic) {
+        this.inclusiveImportedServiceLogic = inclusiveImportedServiceLogic;
+        return this;
+    }
+
+    public TTControllerImpl setPrepaymentController(PrepaymentController prepaymentController) {
+        this.prepaymentController = prepaymentController;
+        return this;
+    }
+
+    public TTControllerImpl setResultsViewer(ResultsViewer resultsViewer) {
+        this.resultsViewer = resultsViewer;
+        return this;
+    }
+
+    public TTControllerImpl setInvoiceDetails(InvoiceDetails invoiceDetails) {
+        this.invoiceDetails = invoiceDetails;
+        return this;
+    }
+
+    public TTControllerImpl setReportController(ReportControllers reportController) {
+        this.reportController = reportController;
+        return this;
     }
 }

@@ -17,8 +17,8 @@ import com.babel88.paycal.models.ResultsOutput;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
 
 @SuppressWarnings("ALL")
@@ -26,24 +26,20 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
 
     private final Logger log = LoggerFactory.getLogger(ContractorPaymentsController.class);
 
-    private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
+    private PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
+
     private DefaultPaymentModel paymentModel;
 
-    @Inject
     private InvoiceDetails invoiceDetails;
 
     private BigDecimal invoiceAmount;
 
-    @Inject
     private DefaultLogic contractorLogic;
 
-    @Inject
     private PrepaymentController prepaymentController;
 
-    @Inject
     private ResultsViewer resultsViewer;
 
-    @Inject
     private ReportControllers reportController;
 
     private Boolean doAgain;
@@ -165,8 +161,37 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
         return prepaymentController;
     }
 
+    public ContractorPaymentsController setPrepaymentController(PrepaymentController prepaymentController) {
+        this.prepaymentController = prepaymentController;
+        return this;
+    }
+
+    public ContractorPaymentsController setResultsViewer(ResultsViewer resultsViewer) {
+        this.resultsViewer = resultsViewer;
+        return this;
+    }
+
+    public ContractorPaymentsController setReportController(ReportControllers reportController) {
+        this.reportController = reportController;
+        return this;
+    }
+
+    public ContractorPaymentsController setInvoiceDetails(InvoiceDetails invoiceDetails) {
+        this.invoiceDetails = invoiceDetails;
+        return this;
+    }
+
     @Override
     public TTArguments getTtArguments() {
         return null;
+    }
+
+    public InvoiceDetails getInvoiceDetails() {
+        return invoiceDetails;
+    }
+
+    public ContractorPaymentsController setPrepaymentsDelegate(PrepaymentsDelegate prepaymentsDelegate) {
+        this.prepaymentsDelegate = prepaymentsDelegate;
+        return this;
     }
 }

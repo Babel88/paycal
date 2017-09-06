@@ -3,13 +3,13 @@ package com.babel88.paycal;
 import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.Router;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
-import com.babel88.paycal.config.factory.GeneralFactory;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.config.factory.ModelViewFactory;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 import java.util.Scanner;
 
 import static java.lang.System.out;
@@ -19,27 +19,20 @@ import static java.lang.System.out;
  * Class contains relevant switch statements for various areas in the program
  */
 public class PaymentFactory {
-
-    private static PaymentFactory instance = new PaymentFactory();
     private final Logger log = LoggerFactory.getLogger(PaymentFactory.class);
-    private PaymentModelViewInterface view;
 
-    @Inject
+    private PaymentModelViewInterface display;
+
     private InvoiceDetails invoiceDetails;
-    private Router router;
 
-    private PaymentFactory() {
+    private Router businessLogicRouter;
 
-        log.debug("Creating an instance of the PaymentFactory");
-        //TODO include in factory
-        router = LogicFactory.getMainLogicController();
-        view = ModelViewFactory.createPaymentModelView();
+    public PaymentFactory() {
+
+        log.debug("Creating an instance of the PaymentFactory : {}",this);
     }
 
-    public static PaymentFactory getInstance() {
-        return instance;
-    }
-
+    @NotNull
     private String usrChoice(){
 
         Scanner keyboard = new Scanner(System.in);
@@ -59,19 +52,19 @@ public class PaymentFactory {
                 out.println();
                 out.println("Normal transaction:");
                 out.println("-------------------");
-                router.normal();
+                businessLogicRouter.normal();
                 break;
             case b:
                 out.println();
                 out.println("Normal trnx with withholding taxes:");
                 out.println("----------------------------------");
-                router.taxToWithhold();
+                businessLogicRouter.taxToWithhold();
                 break;
             case c:
                 out.println();
                 out.println("Rental Expenses Payment:");
                 out.println("-----------------------------");
-                router.rentalPayments();
+                businessLogicRouter.rentalPayments();
                 break;
             case d:
                 out.println();
@@ -83,19 +76,19 @@ public class PaymentFactory {
                 out.println();
                 out.println("Foreign transactions (Telegraphic transfers)");
                 out.println("--------------------------------------------");
-                router.telegraphicTransfer();
+                businessLogicRouter.telegraphicTransfer();
                 break;
             case f:
                 out.println();
                 out.println("Partially non-taxable payment");
                 out.println("--------------------------------------------");
-                router.vatGiven();
+                businessLogicRouter.vatGiven();
                 break;
             case g:
                 out.println();
                 out.println("Contractor payments");
                 out.println("--------------------------------------------");
-                router.contractor();
+                businessLogicRouter.contractor();
                 break;
             default:
                 out.println();
@@ -119,5 +112,20 @@ public class PaymentFactory {
         e,// Foreign transactions(Telegraphic Transfers)
         f,// Partially non taxable payment
         g // 3% withholding tax
+    }
+
+    public PaymentFactory setBusinessLogicRouter(Router businessLogicRouter) {
+        this.businessLogicRouter = businessLogicRouter;
+        return this;
+    }
+
+    public PaymentFactory setDisplay(PaymentModelViewInterface display) {
+        this.display = display;
+        return this;
+    }
+
+    public PaymentFactory setInvoiceDetails(InvoiceDetails invoiceDetails) {
+        this.invoiceDetails = invoiceDetails;
+        return this;
     }
 }

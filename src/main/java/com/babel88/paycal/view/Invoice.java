@@ -2,9 +2,11 @@ package com.babel88.paycal.view;
 
 import com.babel88.paycal.api.ForeignPaymentDetails;
 import com.babel88.paycal.api.InvoiceDetails;
+import com.babel88.paycal.api.PartialTaxDetails;
 import com.babel88.paycal.api.PrepaymentDetails;
 import com.babel88.paycal.api.view.FeedBack;
-import com.babel88.paycal.config.factory.GeneralFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
@@ -22,24 +24,20 @@ import static java.lang.System.out;
  * e) Withholding tax amount
  * f) Payee's name
  */
-public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentDetails {
+public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentDetails,PartialTaxDetails {
 
-    private static InvoiceDetails instance =
-            new Invoice(
-                    GeneralFactory.createFeedback(),
-                    new Scanner(System.in)
-            );
-    private final FeedBack notice;
+    private final Logger log = LoggerFactory.getLogger(Invoice.class);
+
+    private FeedBack feedBack;
+
     private final Scanner keyboard;
 
-    private Invoice(FeedBack notice,Scanner keyboard) {
+    public Invoice(FeedBack feedBack) {
+        this.feedBack = feedBack;
+        log.debug("Creating an instance of invoiceDetails : {}",this);
 
-        this.notice = notice;
-        this.keyboard = keyboard;
-    }
-
-    public static InvoiceDetails getInstance() {
-        return instance;
+        keyboard = new Scanner(System.in);
+        //keyboard = new BufferedInputStream(System.in);
     }
 
     /**
@@ -49,8 +47,8 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     @Override
     public BigDecimal invoiceAmount(){
 
-        notice.invoiceAmount();
-        notice.mainPrompt();
+        feedBack.invoiceAmount();
+        feedBack.mainPrompt();
 
         String str = keyboard.next();
 
@@ -62,8 +60,8 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     @Override
     public double vatAmount(){
 
-        notice.vatAmount();
-        notice.mainPrompt();
+        feedBack.vatAmount();
+        feedBack.mainPrompt();
 
         String str = keyboard.next();
 
@@ -75,8 +73,8 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     @Override
     public double withHoldingTaxAmount(){
 
-        notice.withHoldingTaxAmount();
-        notice.mainPrompt();
+        feedBack.withHoldingTaxAmount();
+        feedBack.mainPrompt();
 
         String str = keyboard.next();
 
@@ -88,8 +86,8 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     @Override
     public double vatRate(){
 
-        notice.vatRate();
-        notice.mainPrompt();
+        feedBack.vatRate();
+        feedBack.mainPrompt();
 
         String str = keyboard.next();
 
@@ -101,8 +99,8 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     @Override
     public double withHoldingTaxRate(){
 
-        notice.withHoldingTaxRate();
-        notice.mainPrompt();
+        feedBack.withHoldingTaxRate();
+        feedBack.mainPrompt();
 
         String str = keyboard.next();
 
@@ -114,8 +112,8 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     @Override
     public double withHoldingVatRate(){
 
-        notice.withHoldingVatRate();
-        notice.mainPrompt();
+        feedBack.withHoldingVatRate();
+        feedBack.mainPrompt();
 
         String str = keyboard.next();
 
@@ -128,8 +126,8 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     public String payeeName(){
 
 
-        notice.payeeName();
-        notice.mainPrompt();
+        feedBack.payeeName();
+        feedBack.mainPrompt();
 
         String str = keyboard.next();
 
@@ -139,8 +137,8 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     @Override
     public String getInvoiceStartDate() {
 
-        notice.dateInfo("start date");
-        notice.mainPrompt();
+        feedBack.dateInfo("start date");
+        feedBack.mainPrompt();
 
         String str = keyboard.next();
 
@@ -149,8 +147,8 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
 
     @Override
     public String getInvoiceRefDate() {
-        notice.dateInfo("reference date");
-        notice.mainPrompt();
+        feedBack.dateInfo("reference date");
+        feedBack.mainPrompt();
 
         String str = keyboard.next();
 
@@ -159,8 +157,8 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
 
     @Override
     public String getInvoiceEndDate() {
-        notice.dateInfo("end date");
-        notice.mainPrompt();
+        feedBack.dateInfo("end date");
+        feedBack.mainPrompt();
 
         String str = keyboard.next();
 
@@ -180,7 +178,7 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
         out.println("tax?");//Prompt
         out.println("Hint: Yes or no");//Prompt
 
-        notice.mainPrompt();
+        feedBack.mainPrompt();
 
         String str = keyboard.next();
 

@@ -55,7 +55,7 @@ public class LogicFactory {
 //
 //        log.debug("Returning a singleton instance of TypicalPayments object");
 //
-//        return TypicalPayment.getInstance();
+//        return TypicalPaymentsImpl.getInstance();
 //    }
 
 //    public static WithholdingTaxPayments getWithholdingTaxPayments(){
@@ -72,7 +72,7 @@ public class LogicFactory {
 //        return BusinessLogicRouter.getInstance();
 //    }
 
-//    public static prepaymentConfigurations getGeneralConfigurations(){
+//    public static prepaymentConfigurations getPrepaymentConfigurations(){
 //
 //        log.debug("Returning a singleton instance of prepaymentConfigurations object");
 //

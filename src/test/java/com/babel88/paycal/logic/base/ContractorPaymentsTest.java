@@ -1,6 +1,7 @@
 package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.DefaultLogic;
+import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.utils.TestUtils;
 import org.junit.Before;
@@ -20,7 +21,7 @@ public class ContractorPaymentsTest extends TestUtils<DefaultLogic> {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        contractorLogic = LogicFactory.getContractorLogic();
+        contractorLogic = new ContractorLogic(new PaymentParameters());
     }
 
     @Test

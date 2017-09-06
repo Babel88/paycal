@@ -78,11 +78,6 @@
     </bean>
 
     <bean id="typicalPaymentsController" class="com.babel88.paycal.controllers.base.DefaultTypicalPaymentsController">
-        <constructor-arg ref="invoiceDetails"/>
-        <property name="paymentModel" ref="paymentModel"/>
-        <property name="resultsViewer" ref="resultsViewer"/>
-        <property name="reportController" ref="reportController"/>
-        <property name="prepaymentController" ref="prepaymentController"/>
         <property name="typicalPaymentsLogic" ref="typicalPaymentsLogic"/>
     </bean>
 
@@ -180,10 +175,6 @@
     </bean>
 
     <bean id="prepaymentDetails" name="prepaymentDetails" class="com.babel88.paycal.view.Invoice">
-        <constructor-arg ref="feedBack"/>
-    </bean>
-
-    <bean id="partialTaxDetails" name="partialTaxDetails" class="com.babel88.paycal.view.Invoice">
         <constructor-arg ref="feedBack"/>
     </bean>
 
