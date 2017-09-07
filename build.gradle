@@ -43,23 +43,12 @@ dependencies {
     // https://mvnrepository.com/artifact/nl.jqno.equalsverifier/equalsverifier
     testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '2.3.2'
 
-    // https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine
-    compile group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.5.5'
-
-    compile 'com.github.Babel88:faker:1.2.5'
-
     // https://mvnrepository.com/artifact/com.google.guava/guava
     compile group: 'com.google.guava', name: 'guava', version: '23.0'
 
-    compile 'com.github.Babel88:java_ascii_art:-SNAPSHOT'
-
-    compile 'com.github.Babel88:WAGU-data-in-table-view:-SNAPSHOT'
-
     // https://mvnrepository.com/artifact/org.jetbrains/annotations
-    compile group: 'com.intellij', name: 'annotations',version: '12.0'
+    compile group: 'com.intellij', name: 'annotations', version: '12.0'
     compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
-
-    compile 'com.github.Babel88:jsr354-ri:1.1'
 
     // https://mvnrepository.com/artifact/org.aspectj/aspectjrt
     compile group: 'org.aspectj', name: 'aspectjrt', version: '1.8.10'
@@ -70,11 +59,6 @@ dependencies {
     // https://mvnrepository.com/artifact/org.aspectj/aspectjtools
     compile group: 'org.aspectj', name: 'aspectjtools', version: '1.8.10'
 
-    // https://mvnrepository.com/artifact/javax.inject/javax.inject
-    compile group: 'javax.inject', name: 'javax.inject', version: '1'
-
-    compile 'org.springframework:spring-context:4.3.10.RELEASE'
-
     // https://mvnrepository.com/artifact/junit/junit
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
@@ -83,8 +67,8 @@ dependencies {
 
 }
 
-jar{
-    manifest{
+jar {
+    manifest {
 
         attributes 'Main-class': 'com.babel88.paycal.Main'
     }
