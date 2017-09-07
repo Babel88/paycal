@@ -1,26 +1,24 @@
 package com.babel88.paycal.controllers.base;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
-import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.PartialTaxDetails;
-import com.babel88.paycal.api.ResultsViewer;
-import com.babel88.paycal.api.controllers.*;
+import com.babel88.paycal.api.controllers.DefaultControllers;
+import com.babel88.paycal.api.controllers.PartialTaxPaymentController;
+import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
+import com.babel88.paycal.api.controllers.PrepaymentController;
+import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.PartialTaxPaymentLogic;
-import com.babel88.paycal.api.view.PaymentModelViewInterface;
-import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
-import com.babel88.paycal.models.TTArguments;
 import com.babel88.paycal.models.ResultsOutput;
+import com.babel88.paycal.models.TTArguments;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
-import static java.math.RoundingMode.*;
+import static java.math.RoundingMode.HALF_EVEN;
 
 /**
  * Controller for payments whose invoice amount consists of invoice amount which is partially applied
@@ -34,23 +32,20 @@ public class DefaultPartialTaxPaymentController implements DefaultControllers,Pa
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
-
-    private ResultsViewer resultsViewer;
-
     private PartialTaxDetails partialTaxDetails;
 
     private PrepaymentController prepaymentController;
-
-    private PaymentModelViewInterface display;
 
     private PaymentModel paymentModel;
 
     private ReportControllers reportController;
 
     private PartialTaxPaymentLogic partialTaxPaymentLogic;
+
+    private ResultsOutput resultsOutput;
+
     //used in computations
     private Boolean doAgain;
-    private ResultsOutput resultsOutput;
     private BigDecimal invoiceAmount;
     private BigDecimal vatAmount;
 
@@ -63,28 +58,47 @@ public class DefaultPartialTaxPaymentController implements DefaultControllers,Pa
     @Override
     public void runCalculation(){
 
-        do {
-            invoiceAmount = setInvoiceAmountFromConsole();
-            vatAmount = setVatAmountFromConsole();
+        //TODO Abstract this logic away from this controller
+        ResultsOutput resultsOutput = new ResultsOutput();
 
-            updateWithholdingVat();
+        try {
+            do {
+                invoiceAmount = setInvoiceAmountFromConsole();
+                vatAmount = setVatAmountFromConsole();
 
-            updateTotalExpense();
+                updateWithholdingVat();
 
-            updateToPayee();
+                updateTotalExpense();
 
-            updateWithholdingTax();
+                updateToPayee();
 
-            updateToPrepay();
+                updateWithholdingTax();
 
-            resultsOutput = (ResultsOutput) resultsViewer.forPayment(paymentModel);
-            // Results submitted for paymentModelView
+                updateToPrepay();
 
-            doAgain = partialTaxDetails.doAgain();
+                //TODO Refactor into testable method(s) with interface
+                resultsOutput = (ResultsOutput) this.resultsOutput.forPayment((PaymentModel) paymentModel);
+                // Results submitted for paymentModelView
 
-        }while(doAgain);
+                doAgain = partialTaxDetails.doAgain();
 
-        reportController.printReport().forPayment(resultsOutput);
+            } while (doAgain);
+
+            reportController.printReport().forPayment(resultsOutput);
+        }catch (Exception e){
+
+            if(resultsOutput == null){
+
+                log.debug("The results output object is null");
+            } else if(resultsOutput == null){
+
+                log.debug("The resultsOutput object is null");
+            }else if(paymentModel == null){
+
+                log.debug("The payment model is null");
+            }
+            e.printStackTrace();
+        }
 
     }
 
@@ -215,11 +229,6 @@ public class DefaultPartialTaxPaymentController implements DefaultControllers,Pa
         return null;
     }
 
-    public DefaultPartialTaxPaymentController setResultsViewer(ResultsViewer resultsViewer) {
-        this.resultsViewer = resultsViewer;
-        return this;
-    }
-
     public DefaultPartialTaxPaymentController setPartialTaxDetails(PartialTaxDetails partialTaxDetails) {
         this.partialTaxDetails = partialTaxDetails;
         return this;
@@ -227,11 +236,6 @@ public class DefaultPartialTaxPaymentController implements DefaultControllers,Pa
 
     public DefaultPartialTaxPaymentController setPrepaymentController(PrepaymentController prepaymentController) {
         this.prepaymentController = prepaymentController;
-        return this;
-    }
-
-    public DefaultPartialTaxPaymentController setDisplay(PaymentModelViewInterface display) {
-        this.display = display;
         return this;
     }
 

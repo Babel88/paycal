@@ -6,7 +6,6 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -17,7 +16,7 @@ public class ResultsOutput implements Serializable, ResultsViewer {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private PaymentModelViewInterface display;
+    private PaymentModelViewInterface paymentModelViewer;
 
     private final AtomicReference<BigDecimal> total = new AtomicReference<BigDecimal>();
     private final AtomicReference<BigDecimal> vatWithheld = new AtomicReference<BigDecimal>();
@@ -25,11 +24,9 @@ public class ResultsOutput implements Serializable, ResultsViewer {
     private final AtomicReference<BigDecimal> toPrepay = new AtomicReference<BigDecimal>();
     private final AtomicReference<BigDecimal> toPayee = new AtomicReference<BigDecimal>();
 
-    public ResultsOutput(PaymentModelViewInterface display) {
+    public ResultsOutput() {
 
-        this.display = display;
-
-        log.debug("Creating empty outputFields for : {}",this);
+        log.debug("Creating empty outputFields for : {}, using paymentModelViewer object {} as argument",this, paymentModelViewer);
 
         total.set(new BigDecimal(BigInteger.ZERO));
         vatWithheld.set(new BigDecimal(BigInteger.ZERO));
@@ -47,10 +44,19 @@ public class ResultsOutput implements Serializable, ResultsViewer {
     @Override
     public ResultsOutput forPayment(PaymentModel paymentModel) {
 
-        createLocalPaymentFieldsFromModel(paymentModel);
+        if(paymentModel != null && paymentModelViewer != null) {
 
-        display.displayResults(total.get(), vatWithheld.get(), withholdingTax.get(), toPrepay.get(), toPayee.get());
+            createLocalPaymentFieldsFromModel(paymentModel);
 
+            paymentModelViewer.displayResults(total.get(), vatWithheld.get(), withholdingTax.get(), toPrepay.get(), toPayee.get());
+        } else if (paymentModel != null){
+
+            log.debug("The payment Model Viewer is null");
+        }
+        else if (paymentModelViewer != null) {
+
+            log.debug("The payment model is null");
+        }
         return this;
     }
 
@@ -100,6 +106,11 @@ public class ResultsOutput implements Serializable, ResultsViewer {
         return this;
     }
 
+    public ResultsOutput setPaymentModelViewer(PaymentModelViewInterface paymentModelViewer) {
+        this.paymentModelViewer = paymentModelViewer;
+        return this;
+    }
+
     public BigDecimal getTotal() {
         return total.get();
     }
@@ -146,7 +157,7 @@ public class ResultsOutput implements Serializable, ResultsViewer {
         if (o == null || getClass() != o.getClass()) return false;
         ResultsOutput that = (ResultsOutput) o;
         return Objects.equal(log, that.log) &&
-                Objects.equal(display, that.display) &&
+                Objects.equal(paymentModelViewer, that.paymentModelViewer) &&
                 Objects.equal(getTotal(), that.getTotal()) &&
                 Objects.equal(getVatWithheld(), that.getVatWithheld()) &&
                 Objects.equal(getWithholdingTax(), that.getWithholdingTax()) &&
@@ -156,7 +167,7 @@ public class ResultsOutput implements Serializable, ResultsViewer {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(log, display, getTotal(), getVatWithheld(), getWithholdingTax(),
+        return Objects.hashCode(log, paymentModelViewer, getTotal(), getVatWithheld(), getWithholdingTax(),
                 getToPrepay(), getToPayee());
     }
 }

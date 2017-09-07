@@ -9,15 +9,14 @@ import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.api.logic.PrepaymentService;
-import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
+import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
 import com.babel88.paycal.models.PaymentModel;
-import com.babel88.paycal.models.TTArguments;
 import com.babel88.paycal.models.ResultsOutput;
+import com.babel88.paycal.models.TTArguments;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 
@@ -38,7 +37,7 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
 
     private PrepaymentController prepaymentController;
 
-    private ResultsViewer resultsViewer;
+    private ResultsViewer resultsOutput;
 
     private ReportControllers reportController;
 
@@ -61,7 +60,7 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
             updateWithholdingTax();
             updateWithholdingVat();
             prepaymentsDelegate.updateToPrepay();
-            resultsOutput = (ResultsOutput) resultsViewer.forPayment((PaymentModel) paymentModel);
+            resultsOutput = (ResultsOutput) this.resultsOutput.forPayment((PaymentModel) paymentModel);
             // Results submitted for paymentModelView
 
             doAgain = invoiceDetails.doAgain();
@@ -146,7 +145,7 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
     }
 
     public DefaultControllers setViewResults(ResultsViewer viewResults) {
-        this.resultsViewer = viewResults;
+        this.resultsOutput = viewResults;
         return this;
     }
 
@@ -166,8 +165,8 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
         return this;
     }
 
-    public ContractorPaymentsController setResultsViewer(ResultsViewer resultsViewer) {
-        this.resultsViewer = resultsViewer;
+    public ContractorPaymentsController setResultsOutput(ResultsViewer resultsOutput) {
+        this.resultsOutput = resultsOutput;
         return this;
     }
 

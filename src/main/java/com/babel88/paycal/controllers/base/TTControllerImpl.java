@@ -3,17 +3,18 @@ package com.babel88.paycal.controllers.base;
 import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.ResultsViewer;
-import com.babel88.paycal.api.controllers.*;
+import com.babel88.paycal.api.controllers.PrepaymentController;
+import com.babel88.paycal.api.controllers.ReportControllers;
+import com.babel88.paycal.api.controllers.TTController;
 import com.babel88.paycal.api.logic.ExclusiveImportedServiceLogic;
 import com.babel88.paycal.api.logic.InclusiveImportedServiceLogic;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
-import com.babel88.paycal.models.TTArguments;
 import com.babel88.paycal.models.ResultsOutput;
+import com.babel88.paycal.models.TTArguments;
 import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 
@@ -28,7 +29,7 @@ public class TTControllerImpl implements TTController {
     private InclusiveImportedServiceLogic inclusiveImportedServiceLogic;
     private PrepaymentController prepaymentController;
     private TTArguments ttArguments;
-    private ResultsViewer resultsViewer;
+    private ResultsViewer resultsOutput;
     private DefaultPaymentModel paymentModel;
     private InvoiceDetails invoiceDetails;
     private ReportControllers reportController;
@@ -73,7 +74,7 @@ public class TTControllerImpl implements TTController {
 
                 updateToPrepay(ttArguments);
 
-                resultsOutput = (ResultsOutput) resultsViewer.forPayment((PaymentModel) paymentModel);
+                resultsOutput = (ResultsOutput) this.resultsOutput.forPayment((PaymentModel) paymentModel);
 
                 doAgain = invoiceDetails.doAgain();
 
@@ -85,7 +86,7 @@ public class TTControllerImpl implements TTController {
             if(invoiceDetails == null) {
                 log.error("The invoice details object is null");
                 e.printStackTrace();
-            } else if(resultsViewer == null){
+            } else if(this.resultsOutput == null){
                 log.error("The invoice details object is null");
                 e.printStackTrace();
             } else if(prepaymentsDelegate == null){
@@ -273,7 +274,7 @@ public class TTControllerImpl implements TTController {
                 Objects.equal(prepaymentsDelegate, that.prepaymentsDelegate) &&
                 Objects.equal(getPrepaymentController(), that.getPrepaymentController()) &&
                 Objects.equal(getTtArguments(), that.getTtArguments()) &&
-                Objects.equal(resultsViewer, that.resultsViewer) &&
+                Objects.equal(resultsOutput, that.resultsOutput) &&
                 Objects.equal(getPaymentModel(), that.getPaymentModel()) &&
                 Objects.equal(invoiceDetails, that.invoiceDetails) &&
                 Objects.equal(reportController, that.reportController);
@@ -281,7 +282,7 @@ public class TTControllerImpl implements TTController {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(exclusiveImportedServiceLogic, inclusiveImportedServiceLogic, prepaymentsDelegate, getPrepaymentController(), getTtArguments(), resultsViewer, getPaymentModel(), invoiceDetails, reportController);
+        return Objects.hashCode(exclusiveImportedServiceLogic, inclusiveImportedServiceLogic, prepaymentsDelegate, getPrepaymentController(), getTtArguments(), resultsOutput, getPaymentModel(), invoiceDetails, reportController);
     }
 
     public TTControllerImpl setExclusiveImportedServiceLogic(ExclusiveImportedServiceLogic exclusiveImportedServiceLogic) {
@@ -299,8 +300,8 @@ public class TTControllerImpl implements TTController {
         return this;
     }
 
-    public TTControllerImpl setResultsViewer(ResultsViewer resultsViewer) {
-        this.resultsViewer = resultsViewer;
+    public TTControllerImpl setResultsOutput(ResultsViewer resultsOutput) {
+        this.resultsOutput = resultsOutput;
         return this;
     }
 

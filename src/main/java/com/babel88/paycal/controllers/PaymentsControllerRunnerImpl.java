@@ -121,8 +121,8 @@ public class PaymentsControllerRunnerImpl implements PaymentsControllerRunner {
         return this;
     }
 
-    public PaymentsControllerRunnerImpl setResultsViewer(ResultsViewer resultsViewer) {
-        this.resultsViewer = resultsViewer;
+    public PaymentsControllerRunnerImpl setResultsOutput(ResultsViewer resultsOutput) {
+        this.resultsViewer = resultsOutput;
         return this;
     }
 

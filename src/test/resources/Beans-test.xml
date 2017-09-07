@@ -17,14 +17,14 @@
 
     <!--                           MODEL VIEW ITEMS                                   -->
     <!--                           ===================                                -->
-    <bean id="resultsViewer" name="resultsViewer" class="com.babel88.paycal.models.ResultsOutput">
-        <constructor-arg ref="display"/>
+    <bean id="resultsOutput" name="resultsOutput" class="com.babel88.paycal.models.ResultsOutput">
+        <constructor-arg ref="paymentModelViewer"/>
     </bean>
 
     <bean id="tables" name="tables" class="com.babel88.paycal.view.tables.TablesImpl">
     </bean>
 
-    <bean id="display" name="display" class="com.babel88.paycal.view.DisplayImpl">
+    <bean id="paymentModelViewer" name="paymentModelViewer" class="com.babel88.paycal.view.DisplayImpl">
         <property name="tables" ref="tables"/>
     </bean>
 
@@ -39,7 +39,7 @@
     <bean id="partialTaxPaymentController" class="com.babel88.paycal.controllers.base.DefaultPartialTaxPaymentController">
         <property name="invoiceDetails" ref="invoiceDetails"/>
         <property name="prepaymentController" ref="prepaymentController"/>
-        <property name="display" ref="display"/>
+        <property name="paymentModelViewer" ref="paymentModelViewer"/>
         <property name="paymentModel" ref="paymentModel"/>
         <property name="reportController" ref="reportController"/>
         <property name="partialTaxPaymentLogic" ref="partialTaxPaymentLogic"/>
@@ -60,12 +60,12 @@
         <property name="paymentModel" ref="paymentModel"/>
         <property name="contractorLogic" ref="contractorLogic"/>
         <property name="prepaymentController" ref="prepaymentController"/>
-        <property name="resultsViewer" ref="resultsViewer"/>
+        <property name="resultsOutput" ref="resultsOutput"/>
         <property name="reportController" ref="reportController"/>
     </bean>
 
     <bean id="withholdingTaxPaymentController" class="com.babel88.paycal.controllers.base.WithholdingTaxPaymentController">
-        <property name="resultsViewer" ref="resultsViewer"/>
+        <property name="resultsOutput" ref="resultsOutput"/>
         <property name="paymentModel" ref="paymentModel"/>
         <property name="reportController" ref="reportController"/>
         <property name="invoiceDetails" ref="invoiceDetails"/>
@@ -87,7 +87,7 @@
         <property name="inclusiveImportedServiceLogic" ref="inclusiveImportedServiceLogic"/>
         <property name="prepaymentController" ref="prepaymentController"/>
         <property name="ttArguments" ref="ttArguments"/>
-        <property name="resultsViewer" ref="resultsViewer"/>
+        <property name="resultsOutput" ref="resultsOutput"/>
         <property name="paymentModel" ref="paymentModel"/>
         <property name="reportController" ref="reportController"/>
     </bean>
@@ -95,7 +95,7 @@
     <bean id="paymentsControllerRunner" class="com.babel88.paycal.controllers.PaymentsControllerRunnerImpl">
         <property name="paymentModel" ref="paymentModel"/>
         <property name="invoiceDetails" ref="invoiceDetails" />
-        <property name="resultsViewer" ref="resultsViewer"/>
+        <property name="resultsOutput" ref="resultsOutput"/>
         <property name="reportController" ref="reportController"/>
         <property name="prepaymentController" ref="prepaymentController"/>
     </bean>
@@ -105,7 +105,7 @@
     <!--                                  ======================                              -->
     <bean id="businessLogicRouter" name="businessLogicRouter" class="com.babel88.paycal.logic.BusinessLogicRouter">
         <property name="prepaymentController" ref="prepaymentController"/>
-        <property name="display" ref="display"/>
+        <property name="paymentModelViewer" ref="paymentModelViewer"/>
         <property name="telegraphicTransfers" ref="telegraphicTransfers"/>
         <property name="foreignPaymentDetails" ref="foreignPaymentDetails"/>
         <property name="partialTaxPaymentController" ref="partialTaxPaymentController"/>
@@ -184,7 +184,7 @@
     <bean id="paymentFactory" name="paymentFactory" class="com.babel88.paycal.PaymentFactory">
         <property name="businessLogicRouter" ref="businessLogicRouter"/>
         <property name="invoiceDetails" ref="invoiceDetails"/>
-        <property name="display" ref="display"/>
+        <property name="paymentModelViewer" ref="paymentModelViewer"/>
     </bean>
 
 

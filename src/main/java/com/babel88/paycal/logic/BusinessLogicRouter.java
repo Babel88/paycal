@@ -1,20 +1,11 @@
 package com.babel88.paycal.logic;
 
-import com.babel88.paycal.api.ForeignPaymentDetails;
 import com.babel88.paycal.api.Router;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.PartialTaxPaymentController;
-import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.controllers.TTController;
-import com.babel88.paycal.api.logic.TelegraphicTransfers;
-import com.babel88.paycal.api.view.PaymentModelViewInterface;
-import com.babel88.paycal.config.factory.ControllerFactory;
-import com.babel88.paycal.config.factory.LogicFactory;
-import com.babel88.paycal.config.factory.ModelViewFactory;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 /**
@@ -27,14 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BusinessLogicRouter implements Router {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-
-    private PrepaymentController prepaymentController;
-
-    private PaymentModelViewInterface display;
-
-    private TelegraphicTransfers telegraphicTransfers;
-
-    private ForeignPaymentDetails foreignPaymentDetails;
 
     private PartialTaxPaymentController partialTaxPaymentController;
 
@@ -99,26 +82,6 @@ public class BusinessLogicRouter implements Router {
     public void telegraphicTransfer() {
 
         ttController.runCalculation();
-    }
-
-    public BusinessLogicRouter setPrepaymentController(PrepaymentController prepaymentController) {
-        this.prepaymentController = prepaymentController;
-        return this;
-    }
-
-    public BusinessLogicRouter setDisplay(PaymentModelViewInterface display) {
-        this.display = display;
-        return this;
-    }
-
-    public BusinessLogicRouter setTelegraphicTransfers(TelegraphicTransfers telegraphicTransfers) {
-        this.telegraphicTransfers = telegraphicTransfers;
-        return this;
-    }
-
-    public BusinessLogicRouter setForeignPaymentDetails(ForeignPaymentDetails foreignPaymentDetails) {
-        this.foreignPaymentDetails = foreignPaymentDetails;
-        return this;
     }
 
     public BusinessLogicRouter setPartialTaxPaymentController(PartialTaxPaymentController partialTaxPaymentController) {

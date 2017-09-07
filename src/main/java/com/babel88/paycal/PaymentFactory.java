@@ -1,14 +1,9 @@
 package com.babel88.paycal;
 
-import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.Router;
-import com.babel88.paycal.api.view.PaymentModelViewInterface;
-import com.babel88.paycal.config.factory.LogicFactory;
-import com.babel88.paycal.config.factory.ModelViewFactory;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Scanner;
 
@@ -20,10 +15,6 @@ import static java.lang.System.out;
  */
 public class PaymentFactory {
     private final Logger log = LoggerFactory.getLogger(PaymentFactory.class);
-
-    private PaymentModelViewInterface display;
-
-    private InvoiceDetails invoiceDetails;
 
     private Router businessLogicRouter;
 
@@ -116,16 +107,6 @@ public class PaymentFactory {
 
     public PaymentFactory setBusinessLogicRouter(Router businessLogicRouter) {
         this.businessLogicRouter = businessLogicRouter;
-        return this;
-    }
-
-    public PaymentFactory setDisplay(PaymentModelViewInterface display) {
-        this.display = display;
-        return this;
-    }
-
-    public PaymentFactory setInvoiceDetails(InvoiceDetails invoiceDetails) {
-        this.invoiceDetails = invoiceDetails;
         return this;
     }
 }

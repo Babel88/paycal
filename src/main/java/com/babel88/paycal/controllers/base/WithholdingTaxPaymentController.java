@@ -11,8 +11,8 @@ import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.controllers.PaymentsControllerRunnerImpl;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
-import com.babel88.paycal.models.TTArguments;
 import com.babel88.paycal.models.ResultsOutput;
+import com.babel88.paycal.models.TTArguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
     private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
     private final Logger log = LoggerFactory.getLogger(WithholdingTaxPaymentController.class);
 
-    private ResultsViewer resultsViewer;
+    private ResultsViewer resultsOutput;
 
     private DefaultPaymentModel paymentModel;
 
@@ -69,7 +69,7 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
 
             prepaymentsDelegate.updateToPrepay();
 
-            resultsOutput = (ResultsOutput) resultsViewer.forPayment((PaymentModel) paymentModel);
+            resultsOutput = (ResultsOutput) this.resultsOutput.forPayment((PaymentModel) paymentModel);
 
             doAgain = invoiceDetails.doAgain();
 
@@ -133,8 +133,8 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
     }
 
     @Override
-    public WithholdingTaxPaymentController setResultsViewer(ResultsViewer resultsViewer) {
-        this.resultsViewer = resultsViewer;
+    public WithholdingTaxPaymentController setResultsOutput(ResultsViewer resultsOutput) {
+        this.resultsOutput = resultsOutput;
         return this;
     }
 
