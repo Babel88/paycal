@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+<!--                         Application models                                  -->
+    <!--                         ===================                                 -->
+    <bean id="paymentModel" name="paymentModel" class="com.babel88.paycal.models.PaymentModel">
+    </bean>
+
+    <bean id="paymentModelCareTaker" name="paymentModelCareTaker" class="com.babel88.paycal.models.PaymentModelCareTaker">
+    </bean>
+
+    <bean id="ttArguments" name="ttArguments" class="com.babel88.paycal.models.TTArguments">
+    </bean>
+
+    <bean id="resultsOutput" name="resultsOutput" class="com.babel88.paycal.models.ResultsOutput">
+        <property name="paymentModelViewer" ref="paymentModelViewer"/>
+    </bean>
+
+    <!--                           MODEL VIEW ITEMS                                   -->
+    <!--                           ===================                                -->
+    <bean id="tables" name="tables" class="com.babel88.paycal.view.tables.TablesImpl">
+    </bean>
+
+    <bean id="paymentModelViewer" name="paymentModelViewer" class="com.babel88.paycal.view.DisplayImpl">
+        <property name="tables" ref="tables"/>
+    </bean>
+
+    <bean id="feedBack" name="feedBack" class="com.babel88.paycal.view.FeedBackImpl">
+    </bean>
+
+    <bean id="paymentAdvice" name="paymentAdvice" class="com.babel88.paycal.view.reporting.PaymentAdvice">
+    </bean>
+
+    <!--                               CONTROLLERS                                          -->
+    <!--                               ============                                         -->
+    <bean id="partialTaxPaymentController" class="com.babel88.paycal.controllers.base.DefaultPartialTaxPaymentController">
+        <property name="partialTaxDetails" ref="invoiceDetails"/>
+        <property name="prepaymentController" ref="prepaymentController"/>
+        <property name="paymentModel" ref="paymentModel"/>
+        <property name="reportController" ref="reportController"/>
+        <property name="partialTaxPaymentLogic" ref="partialTaxPaymentLogic"/>
+        <property name="resultsOutput" ref="resultsOutput"/>
+    </bean>
+
+    <bean id="reportController" class="com.babel88.paycal.controllers.ReportsController">
+        <property name="feedBack" ref="feedBack"/>
+        <property name="paymentAdvice" ref="paymentAdvice"/>
+    </bean>
+
+    <bean id="prepaymentController" class="com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl">
+        <property name="prepayable" ref="prepayable"/>
+        <property name="feedBack" ref="feedBack"/>
+    </bean>
+
+    <bean id="contractorPaymentsController" class="com.babel88.paycal.controllers.base.ContractorPaymentsController">
+        <property name="invoiceDetails" ref="invoiceDetails"/>
+        <property name="paymentModel" ref="paymentModel"/>
+        <property name="contractorLogic" ref="contractorLogic"/>
+        <property name="prepaymentController" ref="prepaymentController"/>
+        <property name="resultsOutput" ref="resultsOutput"/>
+        <property name="reportController" ref="reportController"/>
+    </bean>
+
+    <bean id="withholdingTaxPaymentController" class="com.babel88.paycal.controllers.base.WithholdingTaxPaymentController">
+        <property name="resultsOutput" ref="resultsOutput"/>
+        <property name="paymentModel" ref="paymentModel"/>
+        <property name="reportController" ref="reportController"/>
+        <property name="invoiceDetails" ref="invoiceDetails"/>
+        <property name="withholdingTaxPayments" ref="withholdingTaxPayments"/>
+        <property name="prepaymentController" ref="prepaymentController"/>
+    </bean>
+
+    <bean id="rentalPaymentsController" class="com.babel88.paycal.controllers.base.RentalPaymentsController">
+        <property name="rentalPaymentLogic" ref="rentalPaymentLogic"/>
+    </bean>
+
+    <bean id="typicalPaymentsController" class="com.babel88.paycal.controllers.base.DefaultTypicalPaymentsController">
+        <constructor-arg ref="invoiceDetails"/>
+        <property name="paymentModel" ref="paymentModel"/>
+        <property name="resultsOutput" ref="resultsOutput"/>
+        <property name="reportController" ref="reportController"/>
+        <property name="prepaymentController" ref="prepaymentController"/>
+        <property name="typicalPaymentsLogic" ref="typicalPaymentsLogic"/>
+    </bean>
+
+    <bean id="ttController" class="com.babel88.paycal.controllers.base.TTControllerImpl">
+        <constructor-arg ref="invoiceDetails"/>
+        <property name="exclusiveImportedServiceLogic" ref="exclusiveImportedServiceLogic"/>
+        <property name="inclusiveImportedServiceLogic" ref="inclusiveImportedServiceLogic"/>
+        <property name="prepaymentController" ref="prepaymentController"/>
+        <property name="ttArguments" ref="ttArguments"/>
+        <property name="resultsOutput" ref="resultsOutput"/>
+        <property name="paymentModel" ref="paymentModel"/>
+        <property name="reportController" ref="reportController"/>
+    </bean>
+
+    <bean id="paymentsControllerRunner" class="com.babel88.paycal.controllers.PaymentsControllerRunnerImpl">
+        <property name="paymentModel" ref="paymentModel"/>
+        <property name="invoiceDetails" ref="invoiceDetails" />
+        <property name="resultsOutput" ref="resultsOutput"/>
+        <property name="reportController" ref="reportController"/>
+        <property name="prepaymentController" ref="prepaymentController"/>
+    </bean>
+
+
+    <!--                                  BUSINESS LOGIC ITEMS                                -->
+    <!--                                  ======================                              -->
+    <bean id="businessLogicRouter" name="businessLogicRouter" class="com.babel88.paycal.logic.BusinessLogicRouter">
+        <property name="partialTaxPaymentController" ref="partialTaxPaymentController"/>
+        <property name="contractorPaymentsController" ref="contractorPaymentsController"/>
+        <property name="withholdingTaxPaymentController" ref="withholdingTaxPaymentController"/>
+        <property name="rentalPaymentsController" ref="rentalPaymentsController"/>
+        <property name="typicalPaymentsController" ref="typicalPaymentsController"/>
+        <property name="ttController" ref="ttController"/>
+
+    </bean>
+
+    <bean id="paymentParameters" name="paymentParameters" class="com.babel88.paycal.config.PaymentParameters">
+    </bean>
+
+    <bean id="typicalPaymentsLogic" name="typicalPaymentsLogic" class="com.babel88.paycal.logic.base.TypicalPaymentsImpl">
+        <constructor-arg ref="paymentParameters"/>
+    </bean>
+
+    <bean id="withholdingTaxPayments" name="withholdingTaxPayments" class="com.babel88.paycal.logic.base.DefaultTypicalWithholdingTaxPayment">
+        <property name="paymentParameters" ref="paymentParameters"/>
+    </bean>
+
+    <bean id="prepaymentConfigurations" class="com.babel88.paycal.config.prepaymentConfigurations">
+    </bean>
+
+    <bean id="prepayable" class="com.babel88.paycal.logic.AbstractPrepayment">
+        <property name="prepaymentDetails" ref="prepaymentDetails"/>
+        <constructor-arg ref="prepaymentConfigurations"/>
+    </bean>
+
+    <bean id="telegraphicTransfers" class="com.babel88.paycal.logic.base.ForeignPayments"/>
+
+    <bean id="partialTaxPaymentLogic" class="com.babel88.paycal.logic.base.DefaultPartialTaxPaymentLogic">
+        <property name="paymentParameters" ref="paymentParameters"/>
+    </bean>
+
+    <bean id="contractors" class="com.babel88.paycal.logic.base.ContractorPayments">
+        <constructor-arg ref="paymentParameters"/>
+    </bean>
+
+    <bean id="contractorLogic" class="com.babel88.paycal.logic.base.ContractorLogic">
+        <constructor-arg ref="paymentParameters"/>
+    </bean>
+
+    <bean id="rentalPaymentLogic" class="com.babel88.paycal.logic.base.RentalPaymentLogic">
+        <constructor-arg ref="paymentParameters"/>
+    </bean>
+
+    <bean id="exclusiveImportedServiceLogic" class="com.babel88.paycal.logic.base.ExclusiveImportedServiceLogicImpl"/>
+
+    <bean id="inclusiveImportedServiceLogic" class="com.babel88.paycal.logic.base.InclusiveImportedServiceLogicImpl"/>
+
+
+    <!--                                   GENERAL PURPOSE ITEMS                               -->
+    <!--                                   ======================                              -->
+    <bean id="paycalApp" class="com.babel88.paycal.PaycalApp">
+        <constructor-arg ref="feedBack"/>
+        <constructor-arg ref="paymentFactory"/>
+    </bean>
+
+    <bean id="invoiceDetails" name="invoiceDetails" class="com.babel88.paycal.view.Invoice">
+        <constructor-arg ref="feedBack"/>
+    </bean>
+
+    <bean id="foreignPaymentDetails" name="foreignPaymentDetails" class="com.babel88.paycal.view.Invoice">
+        <constructor-arg ref="feedBack"/>
+    </bean>
+
+    <bean id="prepaymentDetails" name="prepaymentDetails" class="com.babel88.paycal.view.Invoice">
+        <constructor-arg ref="feedBack"/>
+    </bean>
+
+    <bean id="partialTaxDetails" name="partialTaxDetails" class="com.babel88.paycal.view.Invoice">
+        <constructor-arg ref="feedBack"/>
+    </bean>
+
+    <bean id="loggingAspect" name="loggingAspect" class="com.babel88.paycal.util.aspects.LoggingAspect">
+    </bean>
+
+    <bean id="paymentFactory" name="paymentFactory" class="com.babel88.paycal.PaymentFactory">
+        <property name="businessLogicRouter" ref="businessLogicRouter"/>
+    </bean>
+
+
+
+</beans>
