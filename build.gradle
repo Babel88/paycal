@@ -81,6 +81,11 @@ dependencies {
     // Text ascii table implementation
     compile 'com.github.iNamik:java_text_tables:-SNAPSHOT'
 
+
+    // Itext lib requires explicit inclusion apparently
+    // https://mvnrepository.com/artifact/com.lowagie/itext
+    compile group: 'com.lowagie', name: 'itext', version: '2.1.7', ext: 'pom'
+
 }
 
 jar{

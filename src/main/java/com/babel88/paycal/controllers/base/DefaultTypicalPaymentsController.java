@@ -41,6 +41,7 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
     private DefaultLogic typicalPaymentsLogic;
     private Visitor modelViewerVisitor;
     private Visitor modelPrecisionVisitor;
+    private Visitor reportingVisitor;
 
     //DO NOT INJECT
     private ResultsOutput resultsOutput;
@@ -86,7 +87,8 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
 
             } while (doAgain);
 
-            //reportController.printReport().forPayment(resultsOutput);
+            paymentModel.accept(reportingVisitor);
+
         } else {
 
             log.error("Invoice details object is null");
@@ -215,6 +217,11 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
 
     public DefaultTypicalPaymentsController setModelPrecisionVisitor(Visitor modelPrecisionVisitor) {
         this.modelPrecisionVisitor = modelPrecisionVisitor;
+        return this;
+    }
+
+    public DefaultTypicalPaymentsController setReportingVisitor(Visitor reportingVisitor) {
+        this.reportingVisitor = reportingVisitor;
         return this;
     }
 

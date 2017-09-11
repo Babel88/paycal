@@ -11,10 +11,17 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.Color;
+import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.math.BigDecimal;
 
-import static net.sf.dynamicreports.report.builder.DynamicReports.*;
+import static net.sf.dynamicreports.report.builder.DynamicReports.cmp;
+import static net.sf.dynamicreports.report.builder.DynamicReports.col;
+import static net.sf.dynamicreports.report.builder.DynamicReports.report;
+import static net.sf.dynamicreports.report.builder.DynamicReports.sbt;
+import static net.sf.dynamicreports.report.builder.DynamicReports.stl;
+import static net.sf.dynamicreports.report.builder.DynamicReports.type;
 
 /**
  * Created by edwin.njeru on 8/10/17.
@@ -24,6 +31,9 @@ public class PaymentAdvice  {
     private Logger log = LoggerFactory.getLogger(PaymentAdvice.class);
 
     private Boolean printAdvice;
+
+    private final java.time.LocalDateTime reportTime = java.time.LocalDateTime.now();
+    private String password;
 
     public PaymentAdvice() {
 
@@ -117,53 +127,58 @@ public class PaymentAdvice  {
 
         try {
             log.debug("Creating report object from instance report() method...");
-            report()
-                    .setColumnStyle(columnStyle)
-                    .setSubtotalStyle(boldStyle)
-                    .highlightDetailEvenRows()
-                    .columns(// adding columns
-                            rowNumberColumn, payAmount, withholdingVat, withholdingTax,
-                            invoiceNumber, paymentInstrument, paymentInstrumentNumber
-                    )
-                    .groupBy(paymentInstrumentNumber)
-                    .subtotalsAtSummary(
-                            sbt.sum(payAmount), sbt.sum(withholdingVat), sbt.sum(withholdingTax)
-                    )
-                    .title(
-                            cmp.text("ABC BANK").setStyle(title1Style)
-                    )
-                    .title(
-                            cmp.text("Payment Advice").setStyle(subtitle1Style)
-                    )
-                    .title( // return address
-                            cmp.text("Return To: \n " +
-                                    "Finance Department \n" +
-                                    "ABC BANK \n" +
-                                    "East Wing, 4th Floor, ABC House \n" +
-                                    "Woodvale Grove, Westlands, \n" +
-                                    "P.O.BOX 46452 - 00100 \n" +
-                                    "Nairobi, Kenya \n" +
-                                    "\n" +
-                                    "finance@abcthebank.com \n"
-                            ).setStyle(addressStyle)
-                    )
-                    .pageFooter(
-                            cmp.text(
-                                    "\u00a9 finance department 2017"
-                            ).setStyle(footerStyle)
-                    )
-                    .summary(
-                            cmp.text("Thanks for your Services. This advice form is private and confidential. It is " +
-                                    "also covered by work product immunity" +
-                                    "If you have received it by mistake please mail it back to the return address" +
-                                    "and do not make a copy." +
-                                    "Please note the form is for informational purposes only and cannot be presented" +
-                                    "to a 3rd party as proof of settlement, neither does it bind the bank to any " +
-                                    "actual or implied liability"
-                            ).setStyle(disclaimerStyle)
-                    )
-                    .setDataSource(createDataSource(paid, vatWithheld, withheld))
-                    .show();
+            try {
+                report()
+                        .setColumnStyle(columnStyle)
+                        .setSubtotalStyle(boldStyle)
+                        .highlightDetailEvenRows()
+                        .columns(// adding columns
+                                rowNumberColumn, payAmount, withholdingVat, withholdingTax,
+                                invoiceNumber, paymentInstrument, paymentInstrumentNumber
+                        )
+                        .groupBy(paymentInstrumentNumber)
+                        .subtotalsAtSummary(
+                                sbt.sum(payAmount), sbt.sum(withholdingVat), sbt.sum(withholdingTax)
+                        )
+                        .title(
+                                cmp.text("ABC BANK").setStyle(title1Style)
+                        )
+                        .title(
+                                cmp.text("Payment Advice").setStyle(subtitle1Style)
+                        )
+                        .title( // return address
+                                cmp.text("Return To: \n " +
+                                        "Finance Department \n" +
+                                        "ABC BANK \n" +
+                                        "East Wing, 4th Floor, ABC House \n" +
+                                        "Woodvale Grove, Westlands, \n" +
+                                        "P.O.BOX 46452 - 00100 \n" +
+                                        "Nairobi, Kenya \n" +
+                                        "\n" +
+                                        "finance@abcthebank.com \n"
+                                ).setStyle(addressStyle)
+                        )
+                        .pageFooter(
+                                cmp.text(
+                                        "\u00a9 finance department 2017"
+                                ).setStyle(footerStyle)
+                        )
+                        .summary(
+                                cmp.text("Thanks for your Services. This advice form is private and confidential. It is " +
+                                        "also covered by work product immunity" +
+                                        "If you have received it by mistake please mail it back to the return address" +
+                                        "and do not make a copy." +
+                                        "Please note the form is for informational purposes only and cannot be presented" +
+                                        "to a 3rd party as proof of settlement, neither does it bind the bank to any " +
+                                        "actual or implied liability"
+                                ).setStyle(disclaimerStyle)
+                        )
+                        .setDataSource(createDataSource(paid, vatWithheld, withheld))
+                        .toPdf(new FileOutputStream(getReportName()))
+                        .show();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         } catch (DRException e) {
 
             log.error("A DRException was thrown in the build method of the payment advice :\n" +
@@ -228,11 +243,10 @@ public class PaymentAdvice  {
                 "amount paid : "+paid.toString()+"\n" +
                 "vat withheld : "+vatWithheld.toString()+"\n" +
                 "withholding tax : "+withheld.toString()+"\n");
-        dataSource.add(paid, vatWithheld, withheld, "bcd-8293", "BCHQ", "0904");
+        dataSource.add(paid, vatWithheld, withheld, " ", "BCHQ", "0904");
 
         log.debug("Data objects added to dynamic reports datasource object, now \n" +
                 "creating filler objects to space out the table with 12 lines");
-        //TODO :  MAKE BETTER SPACING FOR THE COLUMNS
         dataSource.add(bd(0), bd(0), bd(0), "", "", "");
         dataSource.add(bd(0), bd(0), bd(0), "", "", "");
         dataSource.add(bd(0), bd(0), bd(0), "", "", "");
@@ -257,5 +271,23 @@ public class PaymentAdvice  {
         return new BigDecimal(v);
     }
 
+    public String getReportName(){
 
+        log.debug("Creating report with creation time naming convention of the format 'ddMMyyyyHHmmssSS'");
+        java.time.format.DateTimeFormatter formatter=
+                java.time.format.DateTimeFormatter.ofPattern("ddMMyyyyHHmmssSS");
+
+        String reportName = formatter.format(reportTime);
+
+        log.debug("The generated report name is {} saved in the location {}",reportName,
+                "C:\\fin_reports\\");
+
+        return "C:\\fin_reports\\"+reportName+".pdf";
+    }
+
+    // work in progress
+    public PaymentAdvice setPassword(String password) {
+        this.password = password;
+        return this;
+    }
 }

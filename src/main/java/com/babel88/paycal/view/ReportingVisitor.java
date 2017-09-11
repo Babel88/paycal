@@ -3,13 +3,15 @@ package com.babel88.paycal.view;
 import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.api.view.Visitor;
 import com.babel88.paycal.models.PaymentModel;
+import com.babel88.paycal.view.reporting.PaymentAdvice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ReportingVisitor implements Visitor {
 
     private final Logger log = LoggerFactory.getLogger(ReportingVisitor.class);
-    private PaymentReportDelegate paymentReportDelegate = new PaymentReportDelegate(this);
+    private PaymentAdvice paymentAdvice;
+    private PaymentReportDelegate paymentReportDelegate = new PaymentReportDelegate(paymentAdvice,this);
     private DefaultPaymentModel paymentModel;
 
     public ReportingVisitor() {
@@ -22,6 +24,17 @@ public class ReportingVisitor implements Visitor {
 
         this.paymentModel = visitable;
 
+        log.debug("Visit method of the reportingVisitor has been invoked...");
+
         paymentReportDelegate.renderPaymentModelReport();
+    }
+
+    public ReportingVisitor setPaymentAdvice(PaymentAdvice paymentAdvice) {
+        this.paymentAdvice = paymentAdvice;
+        return this;
+    }
+
+    public DefaultPaymentModel getPaymentModel() {
+        return paymentModel;
     }
 }

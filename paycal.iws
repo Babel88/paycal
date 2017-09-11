@@ -2,53 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ffbe1db-8294-4064-ac01-5260c324cdb1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/Visitable.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/view/Visitor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ModelPrecisionVisitor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ModelViewerDelegate.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ModelViewerVisitor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/PaymentReportDelegate.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ReportingVisitor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/view/ModelPrecisionVisitorTest.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/utils/tables/samples/TableModelAdapter$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/utils/tables/samples/TableModelAdapter$CustomTableModelImpl.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/utils/tables/samples/TableModelAdapter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/utils/tables/samples/TableModelAdapter.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/PaymentFactory$1.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/PaymentFactory$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/PaymentFactory$mainOptions.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/PaymentFactory$mainOptions.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/PaymentFactory.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/PaymentFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/DefaultPaymentModel.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/DefaultPaymentModel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/controllers/PrepaymentController.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/controllers/PrepaymentController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/logic/Prepayable.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/logic/Prepayable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/view/Tables.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/view/Tables.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentController.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsController.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/TTControllerImpl.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/TTControllerImpl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/prepayments/PrepaymentControllerImpl.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/prepayments/PrepaymentControllerImpl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/AbstractPrepayment.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/AbstractPrepayment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/BusinessLogicRouter.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/BusinessLogicRouter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/models/PaymentModel.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/models/PaymentModel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/view/DisplayImpl.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/view/DisplayImpl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/view/reporting/PaymentAdvice.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/view/reporting/PaymentAdvice.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentControllerTest.class" afterPath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentControllerTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/controllers/delegate/PrepaymentsDelegateTest$1$1.class" afterPath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/controllers/delegate/PrepaymentsDelegateTest$1$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/models/ResultsOutputTest.class" afterPath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/models/ResultsOutputTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/view/ResultsOutputTest.class" afterPath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/view/ResultsOutputTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/resources/Beans.xml" afterPath="$PROJECT_DIR$/out/production/resources/Beans.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/paycal.iml" afterPath="$PROJECT_DIR$/paycal.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/paycal.ipr" afterPath="$PROJECT_DIR$/paycal.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/paycal.iws" afterPath="$PROJECT_DIR$/paycal.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/paycal_main.iml" afterPath="$PROJECT_DIR$/paycal_main.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/paycal_test.iml" afterPath="$PROJECT_DIR$/paycal_test.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/DefaultPaymentModel.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/DefaultPaymentModel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsController.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModel.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/PaymentReportDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/PaymentReportDelegate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ReportingVisitor.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ReportingVisitor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/reporting/PaymentAdvice.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/reporting/PaymentAdvice.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/Beans.xml" afterPath="$PROJECT_DIR$/src/main/resources/Beans.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentControllerTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentControllerTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/ResultsOutputTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/ResultsOutputTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/view/ResultsOutputTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/view/ResultsOutputTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -67,38 +41,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ReportingVisitor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ReportingVisitor.java">
+      <file leaf-file-name="PaymentAdvice.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/reporting/PaymentAdvice.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="11" column="79" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="79" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="168">
+              <caret line="283" column="23" lean-forward="false" selection-start-line="283" selection-start-column="23" selection-end-line="283" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PaymentReportDelegate.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/PaymentReportDelegate.java">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="63" lean-forward="false" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ModelViewerVisitor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ModelViewerVisitor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" column="34" lean-forward="false" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="212">
+              <caret line="86" column="77" lean-forward="false" selection-start-line="86" selection-start-column="77" selection-end-line="86" selection-end-column="77" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -309,8 +267,8 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4514815348859" />
-        <entry key="$PROJECT_DIR$/build.gradle" value="2771186262" />
+        <entry key="$PROJECT_DIR$" value="4514845783772" />
+        <entry key="$PROJECT_DIR$/build.gradle" value="1858840159" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -504,7 +462,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/Visitor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/view/PaymentViewerVisitor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/view/Visitor.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/ResultsOutputTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/view/ResultsOutputTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentControllerTest.java" />
@@ -513,12 +470,14 @@
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/Visitable.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/view/ModelPrecisionVisitorTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ModelPrecisionVisitor.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/Beans.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ModelViewerDelegate.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ModelViewerVisitor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/Beans.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ReportingVisitor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/PaymentReportDelegate.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/reporting/PaymentAdvice.java" />
       </list>
     </option>
   </component>
@@ -730,7 +689,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.DefaultTypicalPaymentsControllerTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="DefaultTypicalPaymentsControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -940,8 +899,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.DefaultTypicalPaymentsControllerTest" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.DefaultTypicalPaymentsControllerTest" />
         <item index="2" class="java.lang.String" itemvalue="JUnit.ModelPrecisionVisitorTest" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.ModelPrecisionVisitorTest.stateAfterPrecisionReview" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.ModelPrecisionVisitorTest.roundinAmountToVendor" />
@@ -949,7 +908,7 @@
     </recent_temporary>
   </component>
   <component name="SbtLocalSettings">
-    <option name="lastUpdateTimestamp" value="1505108294121" />
+    <option name="lastUpdateTimestamp" value="1505138708632" />
     <option name="externalProjectsViewState">
       <projects_view />
     </option>
@@ -972,7 +931,14 @@
       <option name="presentableId" value="Default" />
       <updated>1504862845684</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added paymentViewer, ModelPrecision and Reporting visitors, and fixed the broken typicalPaymentsController">
+      <created>1505132820836</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1505132820837</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1020,7 +986,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.5034415" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.49655852" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32786885" sideWeight="0.49655852" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1078,7 +1044,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Minor updates the factory driven paycal version 4.5.0-LTS" />
     <MESSAGE value="reconfigured the defaultPartialTaxPaymentController to work with DI'd stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="reconfigured the defaultPartialTaxPaymentController to work with DI'd stuff" />
+    <MESSAGE value="added paymentViewer, ModelPrecision and Reporting visitors, and fixed the broken typicalPaymentsController" />
+    <option name="LAST_COMMIT_MESSAGE" value="added paymentViewer, ModelPrecision and Reporting visitors, and fixed the broken typicalPaymentsController" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1087,19 +1054,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1003">
-          <caret line="59" column="73" lean-forward="false" selection-start-line="59" selection-start-column="73" selection-end-line="59" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_config.yml" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/ghacupha/paycal/MainTest.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ghacupha/paycal/PaycalApp.java" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/ghacupha/paycal/controllers/base/TTControllerImplTest.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ghacupha/paycal/config/factory/ControllerFactory.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ghacupha/paycal/controllers/base/DefaultPartialTaxPaymentController.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ghacupha/paycal/controllers/base/TTControllerImpl.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ghacupha/paycal/controllers/base/WithholdingTaxPaymentController.java" />
@@ -1212,27 +1166,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="60" column="60" lean-forward="false" selection-start-line="60" selection-start-column="60" selection-end-line="60" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/utils/tables/samples/TableModelAdapter.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/Visitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="21" lean-forward="false" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="81" column="58" lean-forward="false" selection-start-line="81" selection-start-column="58" selection-end-line="81" selection-end-column="58" />
           <folding />
         </state>
       </provider>
@@ -1274,7 +1212,7 @@
         <state relative-caret-position="1598">
           <caret line="118" column="0" lean-forward="true" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1287,26 +1225,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="338" column="36" lean-forward="true" selection-start-line="338" selection-start-column="36" selection-end-line="338" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/Visitable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="9" lean-forward="false" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Beans.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-543">
-          <caret line="39" column="121" lean-forward="false" selection-start-line="39" selection-start-column="121" selection-end-line="39" selection-end-column="121" />
           <folding />
         </state>
       </provider>
@@ -1319,20 +1241,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-812">
-          <caret line="46" column="20" lean-forward="false" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ModelPrecisionVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-142">
           <caret line="32" column="13" lean-forward="false" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1363,23 +1277,122 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ReportingVisitor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="11" column="79" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="79" />
+        <state relative-caret-position="276">
+          <caret line="356" column="47" lean-forward="false" selection-start-line="356" selection-start-column="47" selection-end-line="356" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="43" column="36" lean-forward="true" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Beans.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="47" column="49" lean-forward="false" selection-start-line="47" selection-start-column="49" selection-end-line="47" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/Invoice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="34" column="11" lean-forward="false" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4">
+          <caret line="40" column="23" lean-forward="true" selection-start-line="40" selection-start-column="23" selection-end-line="40" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/controllers/ReportControllers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/ReportsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="21" column="27" lean-forward="false" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Virtual_Machines/Java/Oracle/java1.8.0_144/src.zip!/java/time/LocalDateTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="178" column="33" lean-forward="false" selection-start-line="178" selection-start-column="33" selection-end-line="178" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/PaymentReportDelegate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="55" column="84" lean-forward="false" selection-start-line="55" selection-start-column="84" selection-end-line="55" selection-end-column="84" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/PaymentReportDelegate.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ReportingVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="63" lean-forward="false" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
+        <state relative-caret-position="304">
+          <caret line="36" column="50" lean-forward="false" selection-start-line="36" selection-start-column="50" selection-end-line="36" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1195#1196#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sourceforge.dynamicreports/dynamicreports-core/5.0.0/adf47267d57251725b27a6c4c77e812fb91cde69/dynamicreports-core-5.0.0-sources.jar!/net/sf/dynamicreports/jasper/builder/JasperReportBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="532" column="0" lean-forward="false" selection-start-line="532" selection-start-column="0" selection-end-line="532" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sourceforge.dynamicreports/dynamicreports-core/5.0.0/adf47267d57251725b27a6c4c77e812fb91cde69/dynamicreports-core-5.0.0-sources.jar!/net/sf/dynamicreports/jasper/transformation/ExporterTransform.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-98">
+          <caret line="132" column="0" lean-forward="false" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="86" column="77" lean-forward="false" selection-start-line="86" selection-start-column="77" selection-end-line="86" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/reporting/PaymentAdvice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="283" column="23" lean-forward="false" selection-start-line="283" selection-start-column="23" selection-end-line="283" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
