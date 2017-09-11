@@ -8,16 +8,13 @@ import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
 import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
-import com.babel88.paycal.config.factory.LogicFactory;
-import com.babel88.paycal.controllers.PaymentsControllerRunnerImpl;
+import com.babel88.paycal.api.view.Visitor;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
-import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.models.ResultsOutput;
 import com.babel88.paycal.models.TTArguments;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -42,6 +39,8 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
     private ReportControllers reportController;
     private PrepaymentController prepaymentController;
     private DefaultLogic typicalPaymentsLogic;
+    private Visitor modelViewerVisitor;
+    private Visitor modelPrecisionVisitor;
 
     //DO NOT INJECT
     private ResultsOutput resultsOutput;
@@ -79,13 +78,15 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
 
                 updateToPrepay();
 
-                resultsOutput = (ResultsOutput) resultsViewer.forPayment((PaymentModel) paymentModel);
+                paymentModel.accept(modelPrecisionVisitor);
+
+                paymentModel.accept(modelViewerVisitor);
 
                 doAgain = invoiceDetails.doAgain();
 
             } while (doAgain);
 
-            reportController.printReport().forPayment(resultsOutput);
+            //reportController.printReport().forPayment(resultsOutput);
         } else {
 
             log.error("Invoice details object is null");
@@ -205,6 +206,16 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
 
     public ReportControllers getReportController() {
         return reportController;
+    }
+
+    public DefaultTypicalPaymentsController setModelViewerVisitor(Visitor modelViewerVisitor) {
+        this.modelViewerVisitor = modelViewerVisitor;
+        return this;
+    }
+
+    public DefaultTypicalPaymentsController setModelPrecisionVisitor(Visitor modelPrecisionVisitor) {
+        this.modelPrecisionVisitor = modelPrecisionVisitor;
+        return this;
     }
 
     @Override

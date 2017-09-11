@@ -1,6 +1,7 @@
 package com.babel88.paycal.models;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
+import com.babel88.paycal.api.view.Visitor;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import org.slf4j.Logger;
@@ -36,6 +37,20 @@ public class PaymentModel implements Serializable, DefaultPaymentModel {
 
         log.debug("Payment model created : {}.",this.toString());
 
+    }
+
+    public PaymentModel(PaymentModel copy){
+
+        log.debug("Creating payment model : {} using the copy constructor with {} \n" +
+                "as argument",this,copy);
+        withHoldingVat = new AtomicReference<BigDecimal>(copy.getWithholdingVat());
+        total = new AtomicReference<BigDecimal>(copy.getTotalExpense());
+        toPayee = new AtomicReference<BigDecimal>(copy.getToPayee());
+        withHoldingTax = new AtomicReference<BigDecimal>(copy.getWithholdingTax());
+        amountB4Vat = new AtomicReference<BigDecimal>(copy.getAmountB4Vat());
+        toPrepay = new AtomicReference<BigDecimal>(copy.getToPrepay());
+
+        log.debug("Payment model created : {}.",this.toString());
     }
 
     public BigDecimal getAmountB4Vat() {
@@ -315,4 +330,40 @@ public class PaymentModel implements Serializable, DefaultPaymentModel {
 
         log.debug("Payment model successfully restored to former state : {}.", this.toString());
     }
+
+    /**
+     * Accepts visiting actors to implement additional funcitons
+     *
+     * @param visitor object to implement additional functions
+     */
+    public void accept(Visitor visitor){
+
+        visitor.visit(this);
+    }
+
+    /**
+     * This method reviews the debits and credits to make sure that the balances are always
+     * correct and balanced. Imbalances are adjusted against the total expenses
+     * .
+     * @param reviewed model against which the current model is compared
+     */
+    @Override
+    public DefaultPaymentModel reviewLedgerBalances(DefaultPaymentModel reviewed) {
+
+        if(this.toPayee.get().compareTo(reviewed.getToPayee()) == 0){
+            // do nothing
+        }else if(this.toPayee.get().compareTo(reviewed.getToPayee()) == 1) {
+            this.total.get().subtract(this.toPayee.get().subtract(reviewed.getToPayee()));
+        } else if(this.toPayee.get().compareTo(reviewed.getToPayee()) == -1) {
+            this.total.get().add(reviewed.getToPayee().subtract(this.toPayee.get()));
+        }
+
+
+        /*this.total.get().add(this.toPayee.get().subtract(reviewed.getToPayee()));
+        this.total.get().add(this.withHoldingTax.get().subtract(reviewed.getWithholdingTax()));
+        this.total.get().add(this.withHoldingVat.get().subtract(reviewed.getWithholdingVat()));*/
+        return reviewed;
+    }
+
+
 }

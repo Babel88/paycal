@@ -34,6 +34,11 @@
     <bean id="paymentAdvice" name="paymentAdvice" class="com.babel88.paycal.view.reporting.PaymentAdvice">
     </bean>
 
+    <bean id="modelViewerVisitor" name="modelViewerVisitor" class="com.babel88.paycal.view.ModelViewerVisitor">
+    </bean>
+
+    <bean id="modelPrecisionVisitor" name="modelPrecisionVisitor" class="com.babel88.paycal.view.ModelPrecisionVisitor"/>
+
     <!--                               CONTROLLERS                                          -->
     <!--                               ============                                         -->
     <bean id="partialTaxPaymentController" class="com.babel88.paycal.controllers.base.DefaultPartialTaxPaymentController">
@@ -80,6 +85,8 @@
     <bean id="typicalPaymentsController" class="com.babel88.paycal.controllers.base.DefaultTypicalPaymentsController">
         <constructor-arg ref="invoiceDetails"/>
         <property name="paymentModel" ref="paymentModel"/>
+        <property name="modelViewerVisitor" ref="modelViewerVisitor"/>
+        <property name="modelPrecisionVisitor" ref="modelPrecisionVisitor"/>
         <property name="resultsOutput" ref="resultsOutput"/>
         <property name="reportController" ref="reportController"/>
         <property name="prepaymentController" ref="prepaymentController"/>

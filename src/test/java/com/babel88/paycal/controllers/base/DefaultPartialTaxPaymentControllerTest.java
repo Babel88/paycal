@@ -1,6 +1,5 @@
 package com.babel88.paycal.controllers.base;
 
-import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.PartialTaxDetails;
 import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.logic.PartialTaxPaymentLogic;
@@ -9,15 +8,15 @@ import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
 import com.babel88.paycal.logic.base.DefaultPartialTaxPaymentLogic;
 import com.babel88.paycal.models.PaymentModel;
-import com.babel88.paycal.models.ResultsOutput;
-import com.babel88.paycal.view.DisplayImpl;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static java.math.RoundingMode.*;
-import static org.junit.Assert.*;
+import static java.math.RoundingMode.HALF_EVEN;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class DefaultPartialTaxPaymentControllerTest {
 
@@ -129,8 +128,7 @@ public class DefaultPartialTaxPaymentControllerTest {
         partialTaxPaymentController.setPartialTaxDetails(partialTaxDetails)
         .setPaymentModel(paymentModel)
         .setPartialTaxPaymentLogic(partialTaxPaymentLogic)
-        .setPrepaymentController(prepaymentController)
-        .setResultsViewer(new ResultsOutput(new DisplayImpl()));
+        .setPrepaymentController(prepaymentController);
     }
 
     @Test

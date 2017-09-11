@@ -78,6 +78,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.mockito/mockito-all
     testCompile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
 
+    // Text ascii table implementation
+    compile 'com.github.iNamik:java_text_tables:-SNAPSHOT'
+
 }
 
 jar{
