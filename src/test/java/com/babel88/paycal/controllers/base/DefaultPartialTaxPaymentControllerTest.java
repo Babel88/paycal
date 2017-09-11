@@ -219,19 +219,6 @@ public class DefaultPartialTaxPaymentControllerTest {
     }
 
     @Test
-    public void updateToPayee() throws Exception {
-
-        partialTaxPaymentController
-                .setInvoiceAmount(BigDecimal.valueOf(116000))
-                .setVatAmount(BigDecimal.valueOf(16000))
-                .updateTotalExpense();
-
-        assertEquals(BigDecimal.valueOf(110000).setScale(2,HALF_EVEN),
-                partialTaxPaymentController.getPaymentModel().getToPayee()
-        );
-    }
-
-    @Test
     public void updateWithholdingTax() throws Exception {
         DefaultPartialTaxPaymentLogic logic=
                 (DefaultPartialTaxPaymentLogic) partialTaxPaymentController

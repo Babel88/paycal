@@ -1,9 +1,6 @@
 package com.babel88.paycal.controllers.base;
 
 import com.babel88.paycal.api.controllers.DefaultControllers;
-import com.babel88.paycal.api.logic.DefaultLogic;
-import com.babel88.paycal.api.logic.InclusiveImportedServiceLogic;
-import com.babel88.paycal.api.logic.TypicalPayments;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.logic.base.TypicalPaymentsImpl;
 import com.babel88.paycal.models.PaymentModel;
@@ -15,10 +12,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
-import static java.math.RoundingMode.*;
-import static org.junit.Assert.*;
+import static java.math.RoundingMode.HALF_EVEN;
+import static org.junit.Assert.assertNotNull;
 
 public class DefaultTypicalPaymentsControllerTest {
 
@@ -43,28 +39,6 @@ public class DefaultTypicalPaymentsControllerTest {
     public void controllerIsAccessibleFromContainer() throws Exception {
 
         assertNotNull((DefaultControllers)context.getBean("typicalPaymentsController"));
-    }
-
-    @Test
-    public void updateTotalExpense() throws Exception {
-
-        typicalPaymentsController.updateTotalExpense();
-
-        assertEquals(
-                BigDecimal.valueOf(116000).setScale(2,HALF_EVEN),
-                typicalPaymentsController.getPaymentModel().getTotalExpense()
-                );
-    }
-
-    @Test
-    public void updateToPayee() throws Exception {
-
-        typicalPaymentsController.updateTotalExpense();
-
-        assertEquals(
-                BigDecimal.valueOf(116000).setScale(2,HALF_EVEN),
-                typicalPaymentsController.getPaymentModel().getTotalExpense()
-        );
     }
 
     @Test
