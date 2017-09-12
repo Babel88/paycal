@@ -1,6 +1,7 @@
 package com.babel88.paycal.api.controllers;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
+import com.babel88.paycal.models.NullTTArguments;
 import com.babel88.paycal.models.TTArguments;
 
 /**
@@ -60,5 +61,8 @@ public interface PaymentsControllerRunner {
      */
     PrepaymentController getPrepaymentController();
 
-    TTArguments getTtArguments();
+    default TTArguments getTtArguments(){
+
+        return new NullTTArguments();
+    }
 }

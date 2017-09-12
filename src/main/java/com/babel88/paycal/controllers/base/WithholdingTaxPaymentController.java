@@ -2,20 +2,17 @@ package com.babel88.paycal.controllers.base;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.api.InvoiceDetails;
-import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
 import com.babel88.paycal.api.controllers.PrepaymentController;
-import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
-import com.babel88.paycal.controllers.PaymentsControllerRunnerImpl;
+import com.babel88.paycal.api.view.Visitor;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
-import com.babel88.paycal.models.PaymentModel;
-import com.babel88.paycal.models.ResultsOutput;
-import com.babel88.paycal.models.TTArguments;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -24,36 +21,31 @@ import java.math.BigDecimal;
  * Created by edwin.njeru on 29/08/2017.
  */
 @SuppressWarnings("ALL")
-public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImpl implements DefaultControllers, PaymentsControllerRunner {
+public class WithholdingTaxPaymentController implements DefaultControllers, PaymentsControllerRunner, Serializable {
 
-    private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
     private final Logger log = LoggerFactory.getLogger(WithholdingTaxPaymentController.class);
 
-    private ResultsViewer resultsOutput;
+    // new PrepaymentsDelegate(this); inject in IOC
+    private PrepaymentsDelegate prepaymentsDelegate;
 
     private DefaultPaymentModel paymentModel;
-
-    private ReportControllers reportController;
-
     private InvoiceDetails invoiceDetails;
-
     private DefaultLogic withholdingTaxPayments;
-
     private PrepaymentController prepaymentController;
+    private Visitor modelViewerVisitor;
+    private Visitor modelPrecisionVisitor;
+    private Visitor reportingVisitor;
 
     private boolean doAgain;
     private BigDecimal invoiceAmount;
 
     public WithholdingTaxPaymentController() {
 
-        super();
-
         log.debug("Withholding tax payments controller created : {}",this);
     }
 
     @Override
     public void runCalculation() {
-        ResultsOutput resultsOutput;
 
         do {
 
@@ -67,15 +59,16 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
 
             updateToPayee();
 
-            prepaymentsDelegate.updateToPrepay();
+            updateToPrepay();
 
-            resultsOutput = (ResultsOutput) this.resultsOutput.forPayment((PaymentModel) paymentModel);
+            paymentModel.accept(modelPrecisionVisitor);
+
+            paymentModel.accept(modelViewerVisitor);
 
             doAgain = invoiceDetails.doAgain();
-
         } while (doAgain);
 
-        reportController.printReport().forPayment(resultsOutput);
+        paymentModel.accept(reportingVisitor);
     }
 
     @Override
@@ -110,47 +103,26 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
         );
     }
 
-    /*@Override
+    /**
+     * Updates the amount to prepay in the payment model
+     */
+    @Override
+    @NotNull
     public void updateToPrepay() {
 
-        BigDecimal totalExpense = paymentModel.getTotalExpense();
-
-        prepaymentController.setExpenseAmount(totalExpense);
-
-        paymentModel.setToPrepay(
-                ((PrepaymentService) prepaymentController::getPrepaymentConfigurations).prepay(totalExpense)
-        );
-    }*/
+        prepaymentsDelegate.updateToPrepay();
+    }
 
     @Override
     public DefaultPaymentModel getPaymentModel() {
         return paymentModel;
     }
 
-    @Override
-    public TTArguments getTtArguments() {
-        return null;
-    }
-
-    @Override
-    public WithholdingTaxPaymentController setResultsOutput(ResultsViewer resultsOutput) {
-        this.resultsOutput = resultsOutput;
-        return this;
-    }
-
-    @Override
     public WithholdingTaxPaymentController setPaymentModel(DefaultPaymentModel paymentModel) {
         this.paymentModel = paymentModel;
         return this;
     }
 
-    @Override
-    public WithholdingTaxPaymentController setReportController(ReportControllers reportController) {
-        this.reportController = reportController;
-        return this;
-    }
-
-    @Override
     public WithholdingTaxPaymentController setInvoiceDetails(InvoiceDetails invoiceDetails) {
         this.invoiceDetails = invoiceDetails;
         return this;
@@ -161,9 +133,75 @@ public class WithholdingTaxPaymentController extends PaymentsControllerRunnerImp
         return this;
     }
 
-    @Override
     public WithholdingTaxPaymentController setPrepaymentController(PrepaymentController prepaymentController) {
         this.prepaymentController = prepaymentController;
+        return this;
+    }
+
+    public PrepaymentsDelegate getPrepaymentsDelegate() {
+        return prepaymentsDelegate;
+    }
+
+    public WithholdingTaxPaymentController setPrepaymentsDelegate(PrepaymentsDelegate prepaymentsDelegate) {
+        this.prepaymentsDelegate = prepaymentsDelegate;
+        return this;
+    }
+
+    public InvoiceDetails getInvoiceDetails() {
+        return invoiceDetails;
+    }
+
+    public DefaultLogic getWithholdingTaxPayments() {
+        return withholdingTaxPayments;
+    }
+
+    @Override
+    public PrepaymentController getPrepaymentController() {
+        return prepaymentController;
+    }
+
+    public Visitor getModelViewerVisitor() {
+        return modelViewerVisitor;
+    }
+
+    public WithholdingTaxPaymentController setModelViewerVisitor(Visitor modelViewerVisitor) {
+        this.modelViewerVisitor = modelViewerVisitor;
+        return this;
+    }
+
+    public Visitor getModelPrecisionVisitor() {
+        return modelPrecisionVisitor;
+    }
+
+    public WithholdingTaxPaymentController setModelPrecisionVisitor(Visitor modelPrecisionVisitor) {
+        this.modelPrecisionVisitor = modelPrecisionVisitor;
+        return this;
+    }
+
+    public Visitor getReportingVisitor() {
+        return reportingVisitor;
+    }
+
+    public WithholdingTaxPaymentController setReportingVisitor(Visitor reportingVisitor) {
+        this.reportingVisitor = reportingVisitor;
+        return this;
+    }
+
+    public boolean isDoAgain() {
+        return doAgain;
+    }
+
+    public WithholdingTaxPaymentController setDoAgain(boolean doAgain) {
+        this.doAgain = doAgain;
+        return this;
+    }
+
+    public BigDecimal getInvoiceAmount() {
+        return invoiceAmount;
+    }
+
+    public WithholdingTaxPaymentController setInvoiceAmount(BigDecimal invoiceAmount) {
+        this.invoiceAmount = invoiceAmount;
         return this;
     }
 }

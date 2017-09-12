@@ -2,12 +2,9 @@ package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.config.PaymentParameters;
-import com.babel88.paycal.config.factory.LogicFactory;
-import com.babel88.paycal.utils.TestUtilityFunctions;
 import com.babel88.paycal.utils.TestUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.meanbean.test.BeanTester;
 
 import java.math.BigDecimal;
 
@@ -30,7 +27,7 @@ public class TypicalPaymentTest extends TestUtils<DefaultLogic>{
     public void setUp() throws Exception {
         paymentParameters = new PaymentParameters();
         typicalPayment = new TypicalPaymentsImpl(new PaymentParameters());
-        invoiceAmount = setAccuracy(116000.00);
+        invoiceAmount = bd(116000.00);
     }
 
     /**
@@ -49,7 +46,7 @@ public class TypicalPaymentTest extends TestUtils<DefaultLogic>{
 
         BigDecimal wth = typicalPayment.calculateWithholdingVat(invoiceAmount);
 
-        assertEquals(setAccuracy(6000.00), wth);
+        assertEquals(bd(6000.00), wth);
     }
 
     @Test
@@ -63,7 +60,7 @@ public class TypicalPaymentTest extends TestUtils<DefaultLogic>{
 
         BigDecimal totalExpense = typicalPayment.calculateTotalExpense(invoiceAmount);
 
-        assertEquals(setAccuracy(116000.00),totalExpense);
+        assertEquals(bd(116000.00),totalExpense);
 
     }
 
@@ -72,7 +69,7 @@ public class TypicalPaymentTest extends TestUtils<DefaultLogic>{
 
         BigDecimal toPayee = typicalPayment.calculateToPayee(invoiceAmount);
 
-        assertEquals(setAccuracy(110000.00),toPayee);
+        assertEquals(bd(110000.00),toPayee);
     }
 
     @Test
@@ -82,7 +79,7 @@ public class TypicalPaymentTest extends TestUtils<DefaultLogic>{
 
         BigDecimal beforeTax = typicalPayment.calculateAmountBeforeTax(invoiceAmount);
 
-        assertEquals(setAccuracy(100000.00),beforeTax);
+        assertEquals(bd(100000.00),beforeTax);
     }
 
     public TypicalPaymentTest setTypicalPayment(DefaultLogic typicalPayment) {

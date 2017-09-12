@@ -1,5 +1,6 @@
 package com.babel88.paycal.view;
 
+import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.view.reporting.PaymentAdvice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,33 +21,35 @@ public class PaymentReportDelegate {
     /* pointer to the delegator*/
     private ReportingVisitor delegator;
 
+    // To inject this
     private PaymentAdvice paymentAdvice;
+    private FeedBack feedBack;
 
-    public PaymentReportDelegate(PaymentAdvice paymentAdvice,ReportingVisitor reportingVisitor) {
+    private boolean printReport;
+
+    public PaymentReportDelegate(ReportingVisitor reportingVisitor) {
 
         log.debug("Creating a paymentReportDelegate : {}",this);
 
         this.delegator = reportingVisitor;
-        this.paymentAdvice = paymentAdvice;
     }
 
     public void renderPaymentModelReport() {
 
         if(paymentAdvice != null) {
-            log.debug("Rendering the payment model report");
+            log.debug("Rendering the payment model report using payment advice object" +
+                    " : {} injected by the DI container",paymentAdvice);
         } else {
-
             log.warn("The payment advice object is null, newing it from the delegate");
-
             paymentAdvice = new PaymentAdvice();
-
-            log.warn("A 'newed' up paymentAdice object has been created proceeding to set" +
-                    "printing parameters and other paraphenalia");
-
+            log.warn("A 'newed' up paymentAdice object {} has been created proceeding to set" +
+                    "printing parameters and other paraphenalia",paymentAdvice);
         }
 
+        printReport = feedBack.printReport();
+
         paymentAdvice
-                .setPrintAdvice(new FeedBackImpl().printReport())
+                .setPrintAdvice(printReport)
                 .forPayment(
                         delegator.getPaymentModel().getToPayee().toString(),
                         delegator.getPaymentModel().getWithholdingVat().toString(),
@@ -54,5 +57,41 @@ public class PaymentReportDelegate {
                 );
         System.out.println("A pdf report has been printed to the following path : "+
                 paymentAdvice.getReportName());
+    }
+
+    public ReportingVisitor getDelegator() {
+        return delegator;
+    }
+
+    public PaymentReportDelegate setDelegator(ReportingVisitor delegator) {
+        this.delegator = delegator;
+        return this;
+    }
+
+    public PaymentAdvice getPaymentAdvice() {
+        return paymentAdvice;
+    }
+
+    public PaymentReportDelegate setPaymentAdvice(PaymentAdvice paymentAdvice) {
+        this.paymentAdvice = paymentAdvice;
+        return this;
+    }
+
+    public boolean isPrintReport() {
+        return printReport;
+    }
+
+    public PaymentReportDelegate setPrintReport(boolean printReport) {
+        this.printReport = printReport;
+        return this;
+    }
+
+    public FeedBack getFeedBack() {
+        return feedBack;
+    }
+
+    public PaymentReportDelegate setFeedBack(FeedBack feedBack) {
+        this.feedBack = feedBack;
+        return this;
     }
 }

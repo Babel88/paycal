@@ -9,6 +9,7 @@ import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.api.logic.PrepaymentService;
+import com.babel88.paycal.api.view.Visitor;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
 import com.babel88.paycal.models.PaymentModel;
@@ -20,28 +21,27 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 
+/**
+ * This controller represents payments to contractors
+ *
+ */
 @SuppressWarnings("ALL")
 public class ContractorPaymentsController implements DefaultControllers, PaymentsControllerRunner {
 
     private final Logger log = LoggerFactory.getLogger(ContractorPaymentsController.class);
 
-    private PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
-
+    // new PrepaymentsDelegate(this); injected from container
+    private PrepaymentsDelegate prepaymentsDelegate;
     private DefaultPaymentModel paymentModel;
-
     private InvoiceDetails invoiceDetails;
-
-    private BigDecimal invoiceAmount;
-
     private DefaultLogic contractorLogic;
-
     private PrepaymentController prepaymentController;
-
-    private ResultsViewer resultsOutput;
-
-    private ReportControllers reportController;
+    private Visitor modelViewerVisitor;
+    private Visitor modelPrecisionVisitor;
+    private Visitor reportingVisitor;
 
     private Boolean doAgain;
+    private BigDecimal invoiceAmount;
 
     public ContractorPaymentsController() {
 
@@ -51,8 +51,6 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
     @Override
     public void runCalculation() {
 
-        ResultsOutput resultsOutput;
-
         do {
             invoiceAmount = invoiceDetails.invoiceAmount();
             updateTotalExpense();
@@ -60,13 +58,13 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
             updateWithholdingTax();
             updateWithholdingVat();
             prepaymentsDelegate.updateToPrepay();
-            resultsOutput = (ResultsOutput) this.resultsOutput.forPayment((PaymentModel) paymentModel);
-            // Results submitted for paymentModelView
+            paymentModel.accept(modelPrecisionVisitor);
+            paymentModel.accept(modelViewerVisitor);
 
             doAgain = invoiceDetails.doAgain();
         } while (doAgain);
 
-        reportController.printReport().forPayment(resultsOutput);
+        paymentModel.accept(reportingVisitor);
     }
 
     @Override
@@ -144,16 +142,6 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
         return this;
     }
 
-    public DefaultControllers setViewResults(ResultsViewer viewResults) {
-        this.resultsOutput = viewResults;
-        return this;
-    }
-
-    public DefaultControllers setReportsController(ReportControllers reportsController) {
-        this.reportController = reportsController;
-        return this;
-    }
-
     @Override
     public com.babel88.paycal.api.controllers.PrepaymentController getPrepaymentController() {
 
@@ -165,19 +153,57 @@ public class ContractorPaymentsController implements DefaultControllers, Payment
         return this;
     }
 
-    public ContractorPaymentsController setResultsOutput(ResultsViewer resultsOutput) {
-        this.resultsOutput = resultsOutput;
-        return this;
-    }
-
-    public ContractorPaymentsController setReportController(ReportControllers reportController) {
-        this.reportController = reportController;
-        return this;
-    }
-
     public ContractorPaymentsController setInvoiceDetails(InvoiceDetails invoiceDetails) {
         this.invoiceDetails = invoiceDetails;
         return this;
+    }
+
+    public PrepaymentsDelegate getPrepaymentsDelegate() {
+        return prepaymentsDelegate;
+    }
+
+    public DefaultLogic getContractorLogic() {
+        return contractorLogic;
+    }
+
+    public Visitor getModelViewerVisitor() {
+        return modelViewerVisitor;
+    }
+
+    public ContractorPaymentsController setModelViewerVisitor(Visitor modelViewerVisitor) {
+        this.modelViewerVisitor = modelViewerVisitor;
+        return this;
+    }
+
+    public Visitor getModelPrecisionVisitor() {
+        return modelPrecisionVisitor;
+    }
+
+    public ContractorPaymentsController setModelPrecisionVisitor(Visitor modelPrecisionVisitor) {
+        this.modelPrecisionVisitor = modelPrecisionVisitor;
+        return this;
+    }
+
+    public Visitor getReportingVisitor() {
+        return reportingVisitor;
+    }
+
+    public ContractorPaymentsController setReportingVisitor(Visitor reportingVisitor) {
+        this.reportingVisitor = reportingVisitor;
+        return this;
+    }
+
+    public Boolean getDoAgain() {
+        return doAgain;
+    }
+
+    public ContractorPaymentsController setDoAgain(Boolean doAgain) {
+        this.doAgain = doAgain;
+        return this;
+    }
+
+    public BigDecimal getInvoiceAmount() {
+        return invoiceAmount;
     }
 
     @Override

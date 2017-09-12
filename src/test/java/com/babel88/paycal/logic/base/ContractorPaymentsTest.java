@@ -46,14 +46,14 @@ public class ContractorPaymentsTest extends TestUtils<DefaultLogic> {
 
         toPayee = contractorLogic.calculateToPayee(invoiceAmount);
 
-        assertEquals(setAccuracy(107000.00),toPayee);
+        assertEquals(bd(107000.00),toPayee);
     }
 
     @Test
     public void calculateWithholdingTax() throws Exception {
         wthTax = contractorLogic.calculateWithholdingTax(invoiceAmount);
 
-        assertEquals(setAccuracy(3000.00),wthTax);
+        assertEquals(bd(3000.00),wthTax);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class ContractorPaymentsTest extends TestUtils<DefaultLogic> {
 
         wthVat = contractorLogic.calculateWithholdingVat(invoiceAmount);
 
-        assertEquals(setAccuracy(6000.00),wthVat);
+        assertEquals(bd(6000.00),wthVat);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class ContractorPaymentsTest extends TestUtils<DefaultLogic> {
 
         totalExpense = contractorLogic.calculateTotalExpense(invoiceAmount);
 
-        assertEquals(setAccuracy(116000.00),totalExpense);
+        assertEquals(bd(116000.00),totalExpense);
     }
 
     @Override

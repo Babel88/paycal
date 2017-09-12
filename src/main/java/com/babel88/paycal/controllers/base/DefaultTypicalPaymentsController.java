@@ -30,7 +30,8 @@ import java.math.BigInteger;
 public class DefaultTypicalPaymentsController implements DefaultControllers,PaymentsControllerRunner {
 
     private static final Logger log = LoggerFactory.getLogger(RentalPaymentsController.class);
-    private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
+    // new PrepaymentsDelegate(this); injected in IOC container
+    private PrepaymentsDelegate prepaymentsDelegate;
 
     // Injected from IOC container
     private DefaultPaymentModel paymentModel;
@@ -244,5 +245,22 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
 
     public Boolean getDoAgain() {
         return doAgain;
+    }
+
+    public DefaultTypicalPaymentsController setPrepaymentsDelegate(PrepaymentsDelegate prepaymentsDelegate) {
+        this.prepaymentsDelegate = prepaymentsDelegate;
+        return this;
+    }
+
+    public Visitor getModelViewerVisitor() {
+        return modelViewerVisitor;
+    }
+
+    public Visitor getModelPrecisionVisitor() {
+        return modelPrecisionVisitor;
+    }
+
+    public Visitor getReportingVisitor() {
+        return reportingVisitor;
     }
 }

@@ -2,10 +2,12 @@
   <library name="Gradle: com.github.ben-manes.caffeine:caffeine:2.5.5">
     <CLASSES>
       <root url="jar://$USER_HOME$/.m2/caches/modules-2/files-2.1/com.github.ben-manes.caffeine/caffeine/2.5.5/3b7a61b4dd2a3b4e0aa5b500aaefaa5cd4beb76f/caffeine-2.5.5.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ben-manes.caffeine/caffeine/2.5.5/3b7a61b4dd2a3b4e0aa5b500aaefaa5cd4beb76f/caffeine-2.5.5.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.m2/caches/modules-2/files-2.1/com.github.ben-manes.caffeine/caffeine/2.5.5/20a43e057ee0de930f18cbd98250c680c132f8c4/caffeine-2.5.5-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ben-manes.caffeine/caffeine/2.5.5/20a43e057ee0de930f18cbd98250c680c132f8c4/caffeine-2.5.5-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

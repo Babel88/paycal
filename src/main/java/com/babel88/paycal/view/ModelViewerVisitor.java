@@ -9,7 +9,9 @@ import org.slf4j.LoggerFactory;
 public class ModelViewerVisitor implements Visitor {
 
     private final Logger log = LoggerFactory.getLogger(ModelViewerVisitor.class);
-    private ModelViewerDelegate modelViwerDelegate = new ModelViewerDelegate(this);
+
+    // new ModelViewerDelegate(this); injected from container
+    private ModelViewerDelegate modelViewerDelegate;
     private PaymentModel paymentModel;
 
     public ModelViewerVisitor() {
@@ -23,9 +25,9 @@ public class ModelViewerVisitor implements Visitor {
         this.paymentModel = paymentModel;
 
         log.debug("Visiting the paymentModel : {}, and rendering with the modelViewerDelegate {}",
-                paymentModel,modelViwerDelegate);
+                paymentModel, modelViewerDelegate);
 
-        String tableString = modelViwerDelegate.renderPaymentModel();
+        String tableString = modelViewerDelegate.renderPaymentModel();
 
         log.debug("Printing rendered table...");
 
@@ -36,5 +38,19 @@ public class ModelViewerVisitor implements Visitor {
 
         log.debug("Returning payment model : {} to the modelViewerDelegate",paymentModel);
         return paymentModel;
+    }
+
+    public ModelViewerDelegate getModelViewerDelegate() {
+        return modelViewerDelegate;
+    }
+
+    public ModelViewerVisitor setModelViewerDelegate(ModelViewerDelegate modelViewerDelegate) {
+        this.modelViewerDelegate = modelViewerDelegate;
+        return this;
+    }
+
+    public ModelViewerVisitor setPaymentModel(PaymentModel paymentModel) {
+        this.paymentModel = paymentModel;
+        return this;
     }
 }

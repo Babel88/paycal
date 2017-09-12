@@ -24,7 +24,7 @@ public class RentalPaymentLogic implements DefaultLogic, Serializable {
 
     private PaymentParameters paymentParameters;
 
-    RentalPaymentLogic(PaymentParameters paymentParameters) {
+    public RentalPaymentLogic(PaymentParameters paymentParameters) {
 
         this.paymentParameters = paymentParameters;
 

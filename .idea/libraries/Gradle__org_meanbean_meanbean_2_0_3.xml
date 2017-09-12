@@ -2,10 +2,12 @@
   <library name="Gradle: org.meanbean:meanbean:2.0.3">
     <CLASSES>
       <root url="jar://$USER_HOME$/.m2/caches/modules-2/files-2.1/org.meanbean/meanbean/2.0.3/f7b9e703151af1a0de8cc50f7e824e58ed4c1dfd/meanbean-2.0.3.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.meanbean/meanbean/2.0.3/f7b9e703151af1a0de8cc50f7e824e58ed4c1dfd/meanbean-2.0.3.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.m2/caches/modules-2/files-2.1/org.meanbean/meanbean/2.0.3/bc00a04c9bc26ee9d5789a182c6201a4c6d40f77/meanbean-2.0.3-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.meanbean/meanbean/2.0.3/bc00a04c9bc26ee9d5789a182c6201a4c6d40f77/meanbean-2.0.3-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

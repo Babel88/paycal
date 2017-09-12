@@ -17,7 +17,7 @@ public abstract class TestUtils<T extends Serializable> extends TestUtilityFunct
 
     private T myBean;
 
-    protected BigDecimal invoiceAmount = setAccuracy(116000.00);
+    protected BigDecimal invoiceAmount = bd(116000.00);
     protected BigDecimal amountBeforeTax = new BigDecimal(String.valueOf(BigDecimal.ZERO));
     protected BigDecimal totalExpense = new BigDecimal(String.valueOf(BigDecimal.ZERO));
     protected BigDecimal wthTax = new BigDecimal(String.valueOf(BigDecimal.ZERO));

@@ -41,7 +41,7 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
 
         BigDecimal totalExpense = rentalPaymentLogic.calculateTotalExpense(invoiceAmount);
 
-        assertEquals(setAccuracy(116000.00), totalExpense);
+        assertEquals(bd(116000.00), totalExpense);
     }
 
     @Test
@@ -49,14 +49,14 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
 
         BigDecimal payee = rentalPaymentLogic.calculateToPayee(invoiceAmount);
 
-        assertEquals(setAccuracy(100000.00), payee);
+        assertEquals(bd(100000.00), payee);
     }
 
     @Test
     public void calculateWithholdingTax() throws Exception {
         BigDecimal wth = rentalPaymentLogic.calculateWithholdingTax(invoiceAmount);
 
-        assertEquals(setAccuracy(10000.00), wth);
+        assertEquals(bd(10000.00), wth);
     }
 
     @Test
@@ -64,7 +64,7 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
 
         BigDecimal wthVat = rentalPaymentLogic.calculateWithholdingVat(invoiceAmount);
 
-        assertEquals(setAccuracy(6000.00), wthVat);
+        assertEquals(bd(6000.00), wthVat);
     }
 
     @Test
@@ -72,14 +72,14 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
 
         super.totalExpense = rentalPaymentLogic.calculateTotalExpense(super.invoiceAmount);
 
-        assertEquals(setAccuracy(116000.00),totalExpense);
+        assertEquals(bd(116000.00),totalExpense);
     }
 
     @Test
     public void calculateToPayee1() throws Exception {
         super.toPayee = rentalPaymentLogic.calculateToPayee(super.invoiceAmount);
 
-        assertEquals(setAccuracy(100000.00),toPayee);
+        assertEquals(bd(100000.00),toPayee);
 
     }
 
@@ -87,7 +87,7 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
     public void calculateWithholdingTax1() throws Exception {
         super.wthTax = rentalPaymentLogic.calculateWithholdingTax(super.invoiceAmount);
 
-        assertEquals(setAccuracy(10000.00),wthTax);
+        assertEquals(bd(10000.00),wthTax);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
 
         super.wthVat = rentalPaymentLogic.calculateWithholdingVat(super.invoiceAmount);
 
-        assertEquals(setAccuracy(6000.00),wthVat);
+        assertEquals(bd(6000.00),wthVat);
     }
 
     @Override

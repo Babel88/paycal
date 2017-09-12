@@ -1,6 +1,5 @@
 package com.babel88.paycal.config;
 
-import com.babel88.paycal.config.factory.LogicFactory;
 import com.babel88.paycal.utils.TestUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +45,7 @@ public class PaymentParametersTest extends TestUtils<PaymentParameters> {
 
         BigDecimal vatRate = paymentParameters.getVatRate();
 
-        assertEquals(setAccuracy(0.16),vatRate);
+        assertEquals(bd(0.16),vatRate);
     }
 
     @Test
@@ -54,7 +53,7 @@ public class PaymentParametersTest extends TestUtils<PaymentParameters> {
 
         BigDecimal vatRate = paymentParameters.getWithholdingVatRate();
 
-        assertEquals(setAccuracy(0.06),vatRate);
+        assertEquals(bd(0.06),vatRate);
     }
 
     @Test
@@ -62,7 +61,7 @@ public class PaymentParametersTest extends TestUtils<PaymentParameters> {
 
         BigDecimal rate = paymentParameters.getWithholdingTaxRate();
 
-        assertEquals(setAccuracy(0.05),rate);
+        assertEquals(bd(0.05),rate);
     }
 
     @Test
@@ -70,7 +69,7 @@ public class PaymentParametersTest extends TestUtils<PaymentParameters> {
 
         BigDecimal rate = paymentParameters.getWithholdingTaxContractor();
 
-        assertEquals(setAccuracy(0.03),rate);
+        assertEquals(bd(0.03),rate);
     }
 
     @Test
@@ -78,7 +77,7 @@ public class PaymentParametersTest extends TestUtils<PaymentParameters> {
 
         BigDecimal rate = paymentParameters.getWithholdingTaxOnRentalRate();
 
-        assertEquals(setAccuracy(0.10),rate);
+        assertEquals(bd(0.10),rate);
     }
 
 }

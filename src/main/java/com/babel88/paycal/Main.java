@@ -15,8 +15,6 @@ public class Main {
         ApplicationContext context =
                 new ClassPathXmlApplicationContext("Beans.xml");
 
-        //PaycalApp paycalApp = GeneralFactory.createPaycalApp();
-
         PaycalApp paycalApp = (PaycalApp) context.getBean("paycalApp");
 
         paycalApp.run();

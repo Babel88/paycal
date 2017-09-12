@@ -46,4 +46,13 @@ public class PrepaymentsDelegate {
         );
         log.debug("The auto-adjustment algorithm has been ran successfully");
     }
+
+    public PaymentsControllerRunner getPaymentsControllerRunner() {
+        return paymentsControllerRunner;
+    }
+
+    public PrepaymentsDelegate setPaymentsControllerRunner(PaymentsControllerRunner paymentsControllerRunner) {
+        this.paymentsControllerRunner = paymentsControllerRunner;
+        return this;
+    }
 }

@@ -5,7 +5,6 @@ import com.babel88.paycal.api.logic.WithholdingTaxPayments;
 import com.babel88.paycal.config.PaymentParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 

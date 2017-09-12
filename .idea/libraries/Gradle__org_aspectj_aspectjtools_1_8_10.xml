@@ -2,10 +2,12 @@
   <library name="Gradle: org.aspectj:aspectjtools:1.8.10">
     <CLASSES>
       <root url="jar://$USER_HOME$/.m2/caches/modules-2/files-2.1/org.aspectj/aspectjtools/1.8.10/5c5957ee4615bde33b54ce965f5b85b8827b97d5/aspectjtools-1.8.10.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjtools/1.8.10/5c5957ee4615bde33b54ce965f5b85b8827b97d5/aspectjtools-1.8.10.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.m2/caches/modules-2/files-2.1/org.aspectj/aspectjtools/1.8.10/b2903566c45dbdb8c7fc2566539b25a5e75147b9/aspectjtools-1.8.10-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjtools/1.8.10/b2903566c45dbdb8c7fc2566539b25a5e75147b9/aspectjtools-1.8.10-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

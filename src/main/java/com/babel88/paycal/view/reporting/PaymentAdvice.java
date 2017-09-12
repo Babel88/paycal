@@ -29,9 +29,7 @@ import static net.sf.dynamicreports.report.builder.DynamicReports.type;
 public class PaymentAdvice  {
 
     private Logger log = LoggerFactory.getLogger(PaymentAdvice.class);
-
     private Boolean printAdvice;
-
     private final java.time.LocalDateTime reportTime = java.time.LocalDateTime.now();
     private String password;
 
@@ -279,7 +277,7 @@ public class PaymentAdvice  {
 
         String reportName = formatter.format(reportTime);
 
-        log.debug("The generated report name is {} saved in the location {}",reportName,
+        log.debug("The generated report name is {} to be saved in the location {}",reportName,
                 "C:\\fin_reports\\");
 
         return "C:\\fin_reports\\"+reportName+".pdf";

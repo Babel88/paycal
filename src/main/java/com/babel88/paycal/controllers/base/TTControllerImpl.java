@@ -2,15 +2,12 @@ package com.babel88.paycal.controllers.base;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.api.InvoiceDetails;
-import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.PrepaymentController;
-import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.controllers.TTController;
 import com.babel88.paycal.api.logic.ExclusiveImportedServiceLogic;
 import com.babel88.paycal.api.logic.InclusiveImportedServiceLogic;
+import com.babel88.paycal.api.view.Visitor;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
-import com.babel88.paycal.models.PaymentModel;
-import com.babel88.paycal.models.ResultsOutput;
 import com.babel88.paycal.models.TTArguments;
 import com.google.common.base.Objects;
 import org.slf4j.Logger;
@@ -23,19 +20,19 @@ import java.math.BigDecimal;
  *
  * Created by edwin.njeru on 01/09/2017.
  */
-//TODO redesign this test
 public class TTControllerImpl implements TTController {
 
     private ExclusiveImportedServiceLogic exclusiveImportedServiceLogic;
     private InclusiveImportedServiceLogic inclusiveImportedServiceLogic;
     private PrepaymentController prepaymentController;
     private TTArguments ttArguments;
-    private ResultsViewer resultsOutput;
     private DefaultPaymentModel paymentModel;
     private InvoiceDetails invoiceDetails;
-    private ReportControllers reportController;
+    private Visitor modelViewerVisitor;
+    private Visitor reportingVisitor;
 
-    private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
+    // new PrepaymentsDelegate(this); injected via IOC
+    private PrepaymentsDelegate prepaymentsDelegate;
 
 
     private static final Logger log = LoggerFactory.getLogger(TTControllerImpl.class);
@@ -56,7 +53,6 @@ public class TTControllerImpl implements TTController {
     @Override
     public void runCalculation() {
 
-        ResultsOutput resultsOutput;
         Boolean doAgain;
 
         try {
@@ -75,19 +71,16 @@ public class TTControllerImpl implements TTController {
 
                 updateToPrepay(ttArguments);
 
-                resultsOutput = (ResultsOutput) this.resultsOutput.forPayment((PaymentModel) paymentModel);
+                paymentModel.accept(modelViewerVisitor);
 
                 doAgain = invoiceDetails.doAgain();
-
             } while (doAgain);
 
-            reportController.printReport().forPayment(resultsOutput);
+            paymentModel.accept(reportingVisitor);
+
         } catch (Exception e){
 
             if(invoiceDetails == null) {
-                log.error("The invoice details object is null");
-                e.printStackTrace();
-            } else if(this.resultsOutput == null){
                 log.error("The invoice details object is null");
                 e.printStackTrace();
             } else if(prepaymentsDelegate == null){
@@ -255,42 +248,23 @@ public class TTControllerImpl implements TTController {
         return ttArguments;
     }
 
-    public void setTtArguments(TTArguments ttArguments) {
-        this.ttArguments = ttArguments;
+    @SuppressWarnings("all")
+    public ExclusiveImportedServiceLogic getExclusiveImportedServiceLogic() {
+        return exclusiveImportedServiceLogic;
     }
 
-
-    public TTControllerImpl setPaymentModel(DefaultPaymentModel paymentModel) {
-        this.paymentModel = paymentModel;
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TTControllerImpl that = (TTControllerImpl) o;
-        return Objects.equal(exclusiveImportedServiceLogic, that.exclusiveImportedServiceLogic) &&
-                Objects.equal(inclusiveImportedServiceLogic, that.inclusiveImportedServiceLogic) &&
-                Objects.equal(prepaymentsDelegate, that.prepaymentsDelegate) &&
-                Objects.equal(getPrepaymentController(), that.getPrepaymentController()) &&
-                Objects.equal(getTtArguments(), that.getTtArguments()) &&
-                Objects.equal(resultsOutput, that.resultsOutput) &&
-                Objects.equal(getPaymentModel(), that.getPaymentModel()) &&
-                Objects.equal(invoiceDetails, that.invoiceDetails) &&
-                Objects.equal(reportController, that.reportController);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(exclusiveImportedServiceLogic, inclusiveImportedServiceLogic, prepaymentsDelegate, getPrepaymentController(), getTtArguments(), resultsOutput, getPaymentModel(), invoiceDetails, reportController);
-    }
-
+    @SuppressWarnings("all")
     public TTControllerImpl setExclusiveImportedServiceLogic(ExclusiveImportedServiceLogic exclusiveImportedServiceLogic) {
         this.exclusiveImportedServiceLogic = exclusiveImportedServiceLogic;
         return this;
     }
 
+    @SuppressWarnings("all")
+    public InclusiveImportedServiceLogic getInclusiveImportedServiceLogic() {
+        return inclusiveImportedServiceLogic;
+    }
+
+    @SuppressWarnings("all")
     public TTControllerImpl setInclusiveImportedServiceLogic(InclusiveImportedServiceLogic inclusiveImportedServiceLogic) {
         this.inclusiveImportedServiceLogic = inclusiveImportedServiceLogic;
         return this;
@@ -301,18 +275,53 @@ public class TTControllerImpl implements TTController {
         return this;
     }
 
-    public TTControllerImpl setResultsOutput(ResultsViewer resultsOutput) {
-        this.resultsOutput = resultsOutput;
+    public TTControllerImpl setPaymentModel(DefaultPaymentModel paymentModel) {
+        this.paymentModel = paymentModel;
         return this;
     }
 
+    @SuppressWarnings("all")
+    public InvoiceDetails getInvoiceDetails() {
+        return invoiceDetails;
+    }
+
+    @SuppressWarnings("all")
     public TTControllerImpl setInvoiceDetails(InvoiceDetails invoiceDetails) {
         this.invoiceDetails = invoiceDetails;
         return this;
     }
 
-    public TTControllerImpl setReportController(ReportControllers reportController) {
-        this.reportController = reportController;
+    @SuppressWarnings("all")
+    public PrepaymentsDelegate getPrepaymentsDelegate() {
+        return prepaymentsDelegate;
+    }
+
+    @SuppressWarnings("all")
+    public TTControllerImpl setPrepaymentsDelegate(PrepaymentsDelegate prepaymentsDelegate) {
+        this.prepaymentsDelegate = prepaymentsDelegate;
+        return this;
+    }
+
+    @Override
+    public void setTtArguments(TTArguments ttArguments) {
+        this.ttArguments = ttArguments;
+    }
+
+    public Visitor getModelViewerVisitor() {
+        return modelViewerVisitor;
+    }
+
+    public TTControllerImpl setModelViewerVisitor(Visitor modelViewerVisitor) {
+        this.modelViewerVisitor = modelViewerVisitor;
+        return this;
+    }
+
+    public Visitor getReportingVisitor() {
+        return reportingVisitor;
+    }
+
+    public TTControllerImpl setReportingVisitor(Visitor reportingVisitor) {
+        this.reportingVisitor = reportingVisitor;
         return this;
     }
 }

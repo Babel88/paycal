@@ -35,18 +35,26 @@
     </bean>
 
     <bean id="modelViewerVisitor" name="modelViewerVisitor" class="com.babel88.paycal.view.ModelViewerVisitor">
+        <property name="modelViewerDelegate">
+            <bean name="modelViewerDelegate" class="com.babel88.paycal.view.ModelViewerDelegate">
+                <constructor-arg ref="modelViewerVisitor"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="modelPrecisionVisitor" name="modelPrecisionVisitor" class="com.babel88.paycal.view.ModelPrecisionVisitor"/>
 
     <bean id="reportingVisitor" name="reportingVisitor" class="com.babel88.paycal.view.ReportingVisitor">
         <property name="paymentAdvice" ref="paymentAdvice"/>
+        <property name="paymentReportDelegate">
+            <bean name="paymentReportDelegate" class="com.babel88.paycal.view.PaymentReportDelegate">
+                <constructor-arg ref="reportingVisitor"/>
+                <property name="paymentAdvice" ref="paymentAdvice"/>
+                <property name="feedBack" ref="feedBack"/>
+            </bean>
+        </property>
     </bean>
 
-    <bean id="paymentReportDelegate" name="paymentReportDelegate" class="com.babel88.paycal.view.PaymentReportDelegate">
-        <constructor-arg ref="paymentAdvice"/>
-        <constructor-arg ref="reportingVisitor"/>
-    </bean>
 
     <!--                               CONTROLLERS                                          -->
     <!--                               ============                                         -->
@@ -54,9 +62,15 @@
         <property name="partialTaxDetails" ref="invoiceDetails"/>
         <property name="prepaymentController" ref="prepaymentController"/>
         <property name="paymentModel" ref="paymentModel"/>
-        <property name="reportController" ref="reportController"/>
         <property name="partialTaxPaymentLogic" ref="partialTaxPaymentLogic"/>
-        <property name="resultsOutput" ref="resultsOutput"/>
+        <property name="modelViewerVisitor" ref="modelViewerVisitor"/>
+        <property name="modelPrecisionVisitor" ref="modelPrecisionVisitor"/>
+        <property name="reportingVisitor" ref="reportingVisitor"/>
+        <property name="prepaymentsDelegate">
+            <bean name="prepaymentsDelegate" class="com.babel88.paycal.controllers.delegate.PrepaymentsDelegate">
+                <constructor-arg ref="partialTaxPaymentController"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="reportController" class="com.babel88.paycal.controllers.ReportsController">
@@ -74,33 +88,60 @@
         <property name="paymentModel" ref="paymentModel"/>
         <property name="contractorLogic" ref="contractorLogic"/>
         <property name="prepaymentController" ref="prepaymentController"/>
-        <property name="resultsOutput" ref="resultsOutput"/>
-        <property name="reportController" ref="reportController"/>
+        <property name="modelViewerVisitor" ref="modelViewerVisitor"/>
+        <property name="modelPrecisionVisitor" ref="modelPrecisionVisitor"/>
+        <property name="reportingVisitor" ref="reportingVisitor"/>
+        <property name="prepaymentsDelegate">
+            <bean name="prepaymentsDelegate" class="com.babel88.paycal.controllers.delegate.PrepaymentsDelegate">
+                <constructor-arg ref="contractorPaymentsController"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="withholdingTaxPaymentController" class="com.babel88.paycal.controllers.base.WithholdingTaxPaymentController">
-        <property name="resultsOutput" ref="resultsOutput"/>
         <property name="paymentModel" ref="paymentModel"/>
-        <property name="reportController" ref="reportController"/>
         <property name="invoiceDetails" ref="invoiceDetails"/>
         <property name="withholdingTaxPayments" ref="withholdingTaxPayments"/>
         <property name="prepaymentController" ref="prepaymentController"/>
+        <property name="modelViewerVisitor" ref="modelViewerVisitor"/>
+        <property name="modelPrecisionVisitor" ref="modelPrecisionVisitor"/>
+        <property name="reportingVisitor" ref="reportingVisitor"/>
+        <property name="prepaymentsDelegate">
+            <bean name="prepaymentsDelegate" class="com.babel88.paycal.controllers.delegate.PrepaymentsDelegate">
+                <constructor-arg ref="withholdingTaxPaymentController"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="rentalPaymentsController" class="com.babel88.paycal.controllers.base.RentalPaymentsController">
         <property name="rentalPaymentLogic" ref="rentalPaymentLogic"/>
+        <property name="paymentModel" ref="paymentModel"/>
+        <property name="invoiceDetails" ref="invoiceDetails"/>
+        <property name="prepaymentController" ref="prepaymentController"/>
+        <property name="modelViewerVisitor" ref="modelViewerVisitor"/>
+        <property name="modelPrecisionVisitor" ref="modelPrecisionVisitor"/>
+        <property name="reportingVisitor" ref="reportingVisitor"/>
+        <property name="prepaymentsDelegate">
+            <bean name="prepaymentsDelegate" class="com.babel88.paycal.controllers.delegate.PrepaymentsDelegate">
+                <constructor-arg ref="rentalPaymentsController"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="typicalPaymentsController" class="com.babel88.paycal.controllers.base.DefaultTypicalPaymentsController">
         <constructor-arg ref="invoiceDetails"/>
         <property name="paymentModel" ref="paymentModel"/>
-        <property name="modelViewerVisitor" ref="modelViewerVisitor"/>
-        <property name="modelPrecisionVisitor" ref="modelPrecisionVisitor"/>
-        <property name="resultsOutput" ref="resultsOutput"/>
-        <property name="reportingVisitor" ref="reportingVisitor"/>
-        <property name="reportController" ref="reportController"/>
         <property name="prepaymentController" ref="prepaymentController"/>
         <property name="typicalPaymentsLogic" ref="typicalPaymentsLogic"/>
+        <property name="modelViewerVisitor" ref="modelViewerVisitor"/>
+        <property name="modelPrecisionVisitor" ref="modelPrecisionVisitor"/>
+        <property name="reportingVisitor" ref="reportingVisitor"/>
+        <property name="prepaymentsDelegate">
+            <bean name="prepaymentsDelegate" class="com.babel88.paycal.controllers.delegate.PrepaymentsDelegate">
+                <constructor-arg ref="typicalPaymentsController"/>
+            </bean>
+        </property>
+
     </bean>
 
     <bean id="ttController" class="com.babel88.paycal.controllers.base.TTControllerImpl">
@@ -109,9 +150,14 @@
         <property name="inclusiveImportedServiceLogic" ref="inclusiveImportedServiceLogic"/>
         <property name="prepaymentController" ref="prepaymentController"/>
         <property name="ttArguments" ref="ttArguments"/>
-        <property name="resultsOutput" ref="resultsOutput"/>
         <property name="paymentModel" ref="paymentModel"/>
-        <property name="reportController" ref="reportController"/>
+        <property name="modelViewerVisitor" ref="modelViewerVisitor"/>
+        <property name="reportingVisitor" ref="reportingVisitor"/>
+        <property name="prepaymentsDelegate">
+            <bean name="prepaymentsDelegate" class="com.babel88.paycal.controllers.delegate.PrepaymentsDelegate">
+                <constructor-arg ref="ttController"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="paymentsControllerRunner" class="com.babel88.paycal.controllers.PaymentsControllerRunnerImpl">

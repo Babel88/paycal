@@ -6,11 +6,10 @@ import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.PartialTaxPaymentController;
 import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
 import com.babel88.paycal.api.controllers.PrepaymentController;
-import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.PartialTaxPaymentLogic;
+import com.babel88.paycal.api.view.Visitor;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.PaymentModel;
-import com.babel88.paycal.models.ResultsOutput;
 import com.babel88.paycal.models.TTArguments;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -26,29 +25,29 @@ import static java.math.RoundingMode.HALF_EVEN;
  * Testing this class shows that all things are ok, but this is only if you comment out the modules
  * whose implementation involves input output like the prepayment delegate the resultsOutput model, and
  * implement the partialTaxDetails interface in the test
+ *
+ * Update:
+ * The above said modules have been replaced by visitor patterns for views and precision
  */
 public class DefaultPartialTaxPaymentController implements DefaultControllers,PartialTaxPaymentController, PaymentsControllerRunner {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-
-    private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
+    // new PrepaymentsDelegate(this); injected in container
+    private PrepaymentsDelegate prepaymentsDelegate;
     private PartialTaxDetails partialTaxDetails;
-
     private PrepaymentController prepaymentController;
-
-    private PaymentModel paymentModel;
-
-    private ReportControllers reportController;
-
     private PartialTaxPaymentLogic partialTaxPaymentLogic;
-
-    private ResultsOutput resultsOutput;
+    private Visitor modelViewerVisitor;
+    private Visitor modelPrecisionVisitor;
+    private Visitor reportingVisitor;
 
     //used in computations
+    private PaymentModel paymentModel;
     private Boolean doAgain;
     private BigDecimal invoiceAmount;
     private BigDecimal vatAmount;
 
+    @SuppressWarnings("all")
     public DefaultPartialTaxPaymentController() {
         log.debug("The PartialTaxPaymentController implementation has been invoked : {}",this);
 
@@ -57,9 +56,6 @@ public class DefaultPartialTaxPaymentController implements DefaultControllers,Pa
 
     @Override
     public void runCalculation(){
-
-        //TODO Abstract this logic away from this controller
-        ResultsOutput resultsOutput = new ResultsOutput();
 
         try {
             do {
@@ -76,24 +72,18 @@ public class DefaultPartialTaxPaymentController implements DefaultControllers,Pa
 
                 updateToPrepay();
 
-                //TODO Refactor into testable method(s) with interface
-                resultsOutput = (ResultsOutput) this.resultsOutput.forPayment((PaymentModel) paymentModel);
-                // Results submitted for paymentModelView
+                paymentModel.accept(modelPrecisionVisitor);
+
+                paymentModel.accept(modelViewerVisitor);
 
                 doAgain = partialTaxDetails.doAgain();
-
             } while (doAgain);
 
-            reportController.printReport().forPayment(resultsOutput);
+            paymentModel.accept(reportingVisitor);
+
         }catch (Exception e){
 
-            if(resultsOutput == null){
-
-                log.debug("The results output object is null");
-            } else if(resultsOutput == null){
-
-                log.debug("The resultsOutput object is null");
-            }else if(paymentModel == null){
+            if(paymentModel == null){
 
                 log.debug("The payment model is null");
             }
@@ -175,14 +165,14 @@ public class DefaultPartialTaxPaymentController implements DefaultControllers,Pa
      * Updates the amount to prepay in the payment model
      */
     @Override
-    public @NotNull void updateToPrepay() {
+    public void updateToPrepay() {
 
         prepaymentsDelegate.updateToPrepay();
     }
 
     /**
      * Fetches the invoice amount from the InvoiceDetails object
-     * @return
+     * @return vat amount
      */
     @NotNull
     private BigDecimal setVatAmountFromConsole() {
@@ -191,7 +181,7 @@ public class DefaultPartialTaxPaymentController implements DefaultControllers,Pa
 
     /**
      * Fetches the vat amount from the InvoiceDetails object
-     * @return
+     * @return invoiceAmount
      */
     @NotNull
     private BigDecimal setInvoiceAmountFromConsole() {
@@ -220,6 +210,7 @@ public class DefaultPartialTaxPaymentController implements DefaultControllers,Pa
         return prepaymentController;
     }
 
+    @SuppressWarnings("all")
     public PartialTaxPaymentLogic getPartialTaxPaymentLogic() {
         return partialTaxPaymentLogic;
     }
@@ -229,11 +220,13 @@ public class DefaultPartialTaxPaymentController implements DefaultControllers,Pa
         return null;
     }
 
+    @SuppressWarnings("all")
     public DefaultPartialTaxPaymentController setPartialTaxDetails(PartialTaxDetails partialTaxDetails) {
         this.partialTaxDetails = partialTaxDetails;
         return this;
     }
 
+    @SuppressWarnings("all")
     public DefaultPartialTaxPaymentController setPrepaymentController(PrepaymentController prepaymentController) {
         this.prepaymentController = prepaymentController;
         return this;
@@ -244,11 +237,7 @@ public class DefaultPartialTaxPaymentController implements DefaultControllers,Pa
         return this;
     }
 
-    public DefaultPartialTaxPaymentController setReportController(ReportControllers reportController) {
-        this.reportController = reportController;
-        return this;
-    }
-
+    @SuppressWarnings("all")
     public DefaultPartialTaxPaymentController setPartialTaxPaymentLogic(PartialTaxPaymentLogic partialTaxPaymentLogic) {
         this.partialTaxPaymentLogic = partialTaxPaymentLogic;
         return this;
@@ -259,11 +248,6 @@ public class DefaultPartialTaxPaymentController implements DefaultControllers,Pa
         return this;
     }
 
-    public DefaultPartialTaxPaymentController setResultsOutput(ResultsOutput resultsOutput) {
-        this.resultsOutput = resultsOutput;
-        return this;
-    }
-
     public DefaultPartialTaxPaymentController setInvoiceAmount(BigDecimal invoiceAmount) {
         this.invoiceAmount = invoiceAmount;
         return this;
@@ -271,6 +255,68 @@ public class DefaultPartialTaxPaymentController implements DefaultControllers,Pa
 
     public DefaultPartialTaxPaymentController setVatAmount(BigDecimal vatAmount) {
         this.vatAmount = vatAmount;
+        return this;
+    }
+
+    @SuppressWarnings("all")
+    public PrepaymentsDelegate getPrepaymentsDelegate() {
+        return prepaymentsDelegate;
+    }
+
+    @SuppressWarnings("all")
+    public PartialTaxDetails getPartialTaxDetails() {
+        return partialTaxDetails;
+    }
+
+    @SuppressWarnings("all")
+    public Visitor getModelViewerVisitor() {
+        return modelViewerVisitor;
+    }
+
+    @SuppressWarnings("all")
+    public DefaultPartialTaxPaymentController setModelViewerVisitor(Visitor modelViewerVisitor) {
+        this.modelViewerVisitor = modelViewerVisitor;
+        return this;
+    }
+
+    @SuppressWarnings("all")
+    public Visitor getModelPrecisionVisitor() {
+        return modelPrecisionVisitor;
+    }
+
+    @SuppressWarnings("all")
+    public DefaultPartialTaxPaymentController setModelPrecisionVisitor(Visitor modelPrecisionVisitor) {
+        this.modelPrecisionVisitor = modelPrecisionVisitor;
+        return this;
+    }
+
+    @SuppressWarnings("all")
+    public Visitor getReportingVisitor() {
+        return reportingVisitor;
+    }
+
+    @SuppressWarnings("all")
+    public DefaultPartialTaxPaymentController setReportingVisitor(Visitor reportingVisitor) {
+        this.reportingVisitor = reportingVisitor;
+        return this;
+    }
+
+    @SuppressWarnings("all")
+    public Boolean getDoAgain() {
+        return doAgain;
+    }
+
+    public BigDecimal getInvoiceAmount() {
+        return invoiceAmount;
+    }
+
+    @SuppressWarnings("all")
+    public BigDecimal getVatAmount() {
+        return vatAmount;
+    }
+
+    public DefaultPartialTaxPaymentController setPrepaymentsDelegate(PrepaymentsDelegate prepaymentsDelegate) {
+        this.prepaymentsDelegate = prepaymentsDelegate;
         return this;
     }
 }
