@@ -20,6 +20,7 @@ public class PrepaymentsDelegate {
         this.paymentsControllerRunner = paymentsControllerRunner;
     }
 
+    @SuppressWarnings("all")
     public void updateToPrepay() {
 
         log.debug("updateToPrepay method has been called in the delegate");
@@ -31,6 +32,7 @@ public class PrepaymentsDelegate {
         paymentsControllerRunner.getPrepaymentController().setExpenseAmount(totalExpense);
 
         log.debug("We are now implementing the prepayment service using the prepayment controller");
+
         paymentsControllerRunner.getPaymentModel().setToPrepay(
                 ((PrepaymentService) paymentsControllerRunner.getPrepaymentController()::getPrepayment).prepay(totalExpense)
         );
@@ -47,10 +49,12 @@ public class PrepaymentsDelegate {
         log.debug("The auto-adjustment algorithm has been ran successfully");
     }
 
+    @SuppressWarnings("unused")
     public PaymentsControllerRunner getPaymentsControllerRunner() {
         return paymentsControllerRunner;
     }
 
+    @SuppressWarnings("unused")
     public PrepaymentsDelegate setPaymentsControllerRunner(PaymentsControllerRunner paymentsControllerRunner) {
         this.paymentsControllerRunner = paymentsControllerRunner;
         return this;

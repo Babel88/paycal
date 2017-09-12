@@ -35,18 +35,6 @@ public class TTArgumentsTest extends TestUtils<TTArguments> {
     }
 
     @Test
-    public void getInstance() throws Exception {
-
-        //TTArguments ttArguments1 = TTArguments.getInstance();
-
-        TTArguments ttArguments2 = new TTArguments();
-
-//        assertNotNull(ttArguments1);
-//
-//        assertEquals(ttArguments1,ttArguments2);
-    }
-
-    @Test
     public void setInvoiceAmount() throws Exception {
 
         ttArguments.setInvoiceAmount(BigDecimal.valueOf(100000));

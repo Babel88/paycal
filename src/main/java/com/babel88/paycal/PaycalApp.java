@@ -18,8 +18,6 @@ import java.util.Date;
  */
 public class PaycalApp {
 
-    private final Logger log = LoggerFactory.getLogger(PaycalApp.class);
-
     private static final Date now= gettingTime();
 
     private FeedBack feedBack;
@@ -32,8 +30,6 @@ public class PaycalApp {
         this.feedBack = feedBack;
 
         this.paymentFactory = paymentFactory;
-
-        log.debug("Creating an instance of the paycalApp : {}",this);
     }
     /**To get the current date
      * This will be included in the introduction in order to identify
@@ -78,14 +74,12 @@ public class PaycalApp {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PaycalApp paycalApp = (PaycalApp) o;
-        return Objects.equal(log, paycalApp.log) &&
-                Objects.equal(getNow(), paycalApp.getNow()) &&
-                Objects.equal(feedBack, paycalApp.feedBack) &&
+        return Objects.equal(feedBack, paycalApp.feedBack) &&
                 Objects.equal(paymentFactory, paycalApp.paymentFactory);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(log, getNow(), feedBack, paymentFactory);
+        return Objects.hashCode(feedBack, paymentFactory);
     }
 }

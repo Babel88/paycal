@@ -72,7 +72,7 @@ public class InclusiveImportedServiceLogicImpl implements InclusiveImportedServi
             log.error("The ttArguments is null");
         }
 
-        return toPayee;
+        return toPayee.setScale(2,HALF_EVEN);
     }
 
     /**

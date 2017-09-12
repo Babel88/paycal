@@ -42,4 +42,8 @@ public class PaymentModelTest extends TestUtils<PaymentModel> {
         return paymentModel;
     }
 
+    @Override
+    public void getterAndSetterCorrectness() throws Exception {
+        super.getterAndSetterCorrectness();
+    }
 }

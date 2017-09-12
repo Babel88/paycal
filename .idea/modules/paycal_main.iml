@@ -24,6 +24,7 @@
     <orderEntry type="library" name="Gradle: org.aspectj:aspectjtools:1.8.10" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-context:4.3.10.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: com.github.iNamik:java_text_tables:-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Gradle: com.jcabi:jcabi-aspects:0.22.6" level="project" />
     <orderEntry type="library" name="Gradle: com.lowagie:itext:pom:2.1.7" level="project" />
     <orderEntry type="library" name="Gradle: net.sf.jasperreports:jasperreports:6.4.0" level="project" />
     <orderEntry type="library" name="Gradle: commons-lang:commons-lang:2.6" level="project" />
@@ -44,6 +45,8 @@
     <orderEntry type="library" name="Gradle: org.springframework:spring-beans:4.3.10.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-core:4.3.10.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-expression:4.3.10.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: com.jcabi:jcabi-log:0.17" level="project" />
+    <orderEntry type="library" name="Gradle: javax.validation:validation-api:1.1.0.Final" level="project" />
     <orderEntry type="library" name="Gradle: commons-beanutils:commons-beanutils:1.9.0" level="project" />
     <orderEntry type="library" name="Gradle: commons-collections:commons-collections:3.2.2" level="project" />
     <orderEntry type="library" name="Gradle: commons-digester:commons-digester:2.1" level="project" />

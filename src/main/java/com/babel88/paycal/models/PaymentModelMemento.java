@@ -5,23 +5,19 @@ import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.math.BigDecimal.ZERO;
 
-public class PaymentModelMemento {
+public class PaymentModelMemento implements Serializable {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-
     private final AtomicReference<BigDecimal> amountB4Vat;
-
     private final AtomicReference<BigDecimal> withHoldingVat;
-
     private final AtomicReference<BigDecimal> total;
-
     private final AtomicReference<BigDecimal> toPayee;
-
     private final AtomicReference<BigDecimal> withHoldingTax;
     private final AtomicReference<BigDecimal> toPrepay;
 

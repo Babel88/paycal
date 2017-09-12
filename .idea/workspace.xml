@@ -2,146 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ace5915a-547e-46f8-b89e-ee57ef6c1566" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__bouncycastle_bcprov_jdk14_138.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_iNamik_java_text_tables__SNAPSHOT.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_lowagie_itext_2_1_7.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_lowagie_itext_pom_2_1_7.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_jcl_over_slf4j_1_7_25.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_jul_to_slf4j_1_7_25.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_log4j_over_slf4j_1_7_25.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_boot_spring_boot_starter_logging_1_5_6_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_test_4_3_10_RELEASE.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/NullTTArguments.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/RentalPaymentsControllerTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/TTControllerImplTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/WithholdingTaxPaymentControllerTest.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_Babel88_WAGU_data_in_table_view__SNAPSHOT.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_Babel88_faker_1_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_Babel88_java_ascii_art__SNAPSHOT.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_Babel88_jsr354_ri_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bmoliveira_snake_yaml_v1_18_android.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_lowagie_itext_2_1_7_js5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_annotation_javax_annotation_api_1_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_money_money_api_1_0_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__joda_time_joda_time_2_9_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_slf4j_ext_1_7_25.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/resources/Beans-test.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/Main.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/PaymentFactory.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/PaymentFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/controllers/PaymentsControllerRunner.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/controllers/PaymentsControllerRunner.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/controllers/PrepaymentController.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/controllers/PrepaymentController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/logic/Prepayable.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/logic/Prepayable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/view/Tables.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/api/view/Tables.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/ContractorPaymentsController.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/ContractorPaymentsController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentController.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsController.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/RentalPaymentsController.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/RentalPaymentsController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/TTControllerImpl.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/TTControllerImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/WithholdingTaxPaymentController.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/base/WithholdingTaxPaymentController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jcabi_jcabi_aspects_0_22_6.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jcabi_jcabi_log_0_17.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_validation_validation_api_1_1_0_Final.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/ExclusiveTTControllerImplTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/InclusiveTTControllerImplTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/logic/AbstractPrepaymentTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/logic/BusinessLogicRouterTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/NullTTArgumentsTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/PaymentModelCareTakerTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/PaymentModelMementoTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/ResultsOutputTest.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/TTControllerImplTest.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/PaycalApp.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/PaycalApp.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/delegate/PrepaymentsDelegate.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/delegate/PrepaymentsDelegate.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/prepayments/PrepaymentControllerImpl.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/controllers/prepayments/PrepaymentControllerImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/AbstractPrepayment.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/AbstractPrepayment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/base/DefaultTypicalWithholdingTaxPayment.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/base/DefaultTypicalWithholdingTaxPayment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/base/RentalPaymentLogic.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/base/RentalPaymentLogic.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/view/DisplayImpl.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/view/DisplayImpl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/view/reporting/PaymentAdvice.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/view/reporting/PaymentAdvice.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/config/PaymentParametersTest.class" afterPath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/config/PaymentParametersTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsControllerTest.class" afterPath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsControllerTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/logic/base/ContractorPaymentsTest.class" afterPath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/logic/base/ContractorPaymentsTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/logic/base/RentalPaymentLogicTest.class" afterPath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/logic/base/RentalPaymentLogicTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/logic/base/TypicalPaymentTest.class" afterPath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/logic/base/TypicalPaymentTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/utils/TestUtilityFunctions.class" afterPath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/utils/TestUtilityFunctions.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/utils/TestUtils.class" afterPath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/utils/TestUtils.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__avalon_framework_avalon_framework_impl_4_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__avalon_framework_avalon_framework_impl_4_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_qos_logback_logback_classic_1_2_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_qos_logback_logback_classic_1_2_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_qos_logback_logback_core_1_2_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ch_qos_logback_logback_core_1_2_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_annotations_2_1_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_annotations_2_1_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_core_2_1_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_core_2_1_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_databind_2_1_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_databind_2_1_4.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_ben_manes_caffeine_caffeine_2_5_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_ben_manes_caffeine_caffeine_2_5_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_1_3_9.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_1_3_9.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_errorprone_error_prone_annotations_2_0_18.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_errorprone_error_prone_annotations_2_0_18.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_guava_23_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_guava_23_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_j2objc_j2objc_annotations_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_j2objc_j2objc_annotations_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_zxing_core_3_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_zxing_core_3_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_intellij_annotations_12_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_intellij_annotations_12_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_beanutils_commons_beanutils_1_9_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_beanutils_commons_beanutils_1_9_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_collections_commons_collections_3_2_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_collections_commons_collections_3_2_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_digester_commons_digester_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_digester_commons_digester_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_lang_commons_lang_2_6.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_lang_commons_lang_2_6.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_logging_commons_logging_1_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_logging_commons_logging_1_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_barcode4j_barcode4j_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_barcode4j_barcode4j_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_jasperreports_jasperreports_6_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_jasperreports_jasperreports_6_4_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sourceforge_dynamicreports_dynamicreports_adhoc_5_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sourceforge_dynamicreports_dynamicreports_adhoc_5_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sourceforge_dynamicreports_dynamicreports_core_5_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sourceforge_dynamicreports_dynamicreports_core_5_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sourceforge_dynamicreports_dynamicreports_googlecharts_5_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sourceforge_dynamicreports_dynamicreports_googlecharts_5_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sourceforge_dynamicreports_dynamicreports_parent_pom_5_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sourceforge_dynamicreports_dynamicreports_parent_pom_5_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__nl_jqno_equalsverifier_equalsverifier_2_3_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__nl_jqno_equalsverifier_equalsverifier_2_3_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_commons_commons_lang3_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_commons_commons_lang3_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_commons_commons_lang3_3_6.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_commons_commons_lang3_3_6.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_velocity_velocity_1_7.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_velocity_velocity_1_7.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_anim_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_anim_1_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_awt_util_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_awt_util_1_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_bridge_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_bridge_1_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_css_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_css_1_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_dom_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_dom_1_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_ext_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_ext_1_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_gvt_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_gvt_1_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_parser_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_parser_1_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_script_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_script_1_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_svg_dom_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_svg_dom_1_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_util_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_util_1_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_xml_1_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_xmlgraphics_batik_xml_1_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_aspectj_aspectjrt_1_8_10.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_aspectj_aspectjrt_1_8_10.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_aspectj_aspectjtools_1_8_10.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_aspectj_aspectjtools_1_8_10.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_aspectj_aspectjweaver_1_8_10.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_aspectj_aspectjweaver_1_8_10.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_codehaus_mojo_animal_sniffer_annotations_1_14.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_codehaus_mojo_animal_sniffer_annotations_1_14.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jdt_core_compiler_ecj_4_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_jdt_core_compiler_ecj_4_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_15_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_15_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jfree_jcommon_1_0_23.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jfree_jcommon_1_0_23.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jfree_jfreechart_1_0_19.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jfree_jfreechart_1_0_19.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_meanbean_meanbean_2_0_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_meanbean_meanbean_2_0_3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mockito_mockito_all_2_0_2_beta.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mockito_mockito_all_2_0_2_beta.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_slf4j_api_1_7_25.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_slf4j_api_1_7_25.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_aop_4_3_10_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_aop_4_3_10_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_beans_4_3_10_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_beans_4_3_10_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_context_4_3_10_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_context_4_3_10_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_core_4_3_10_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_core_4_3_10_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_expression_4_3_10_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_springframework_spring_expression_4_3_10_RELEASE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__xml_apis_xml_apis_1_3_04.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__xml_apis_xml_apis_1_3_04.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__xml_apis_xml_apis_ext_1_3_04.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__xml_apis_xml_apis_ext_1_3_04.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/BusinessLogicRouter.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/BusinessLogicRouter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/base/InclusiveImportedServiceLogicImpl.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/logic/base/InclusiveImportedServiceLogicImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/models/PaymentModelCareTaker.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/models/PaymentModelCareTaker.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/models/PaymentModelMemento.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/models/PaymentModelMemento.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/util/aspects/LoggingAspect.class" afterPath="$PROJECT_DIR$/out/production/classes/com/babel88/paycal/util/aspects/LoggingAspect.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/models/PaymentModelTest.class" afterPath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/models/PaymentModelTest.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/models/TTArgumentsTest.class" afterPath="$PROJECT_DIR$/out/test/classes/com/babel88/paycal/models/TTArgumentsTest.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/paycal_main.iml" afterPath="$PROJECT_DIR$/.idea/modules/paycal_main.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/paycal_test.iml" afterPath="$PROJECT_DIR$/.idea/modules/paycal_test.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/resources/Beans.xml" afterPath="$PROJECT_DIR$/out/production/resources/Beans.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/paycal.ipr" afterPath="$PROJECT_DIR$/paycal.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/paycal.iws" afterPath="$PROJECT_DIR$/paycal.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/Main.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/controllers/PaymentsControllerRunner.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/controllers/PaymentsControllerRunner.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/ContractorPaymentsController.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/ContractorPaymentsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentController.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsController.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/RentalPaymentsController.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/RentalPaymentsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/TTControllerImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/TTControllerImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/WithholdingTaxPaymentController.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/WithholdingTaxPaymentController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/PaycalApp.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/PaycalApp.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/delegate/PrepaymentsDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/delegate/PrepaymentsDelegate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/DefaultTypicalWithholdingTaxPayment.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/DefaultTypicalWithholdingTaxPayment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/RentalPaymentLogic.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/RentalPaymentLogic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ModelViewerVisitor.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ModelViewerVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/PaymentReportDelegate.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/PaymentReportDelegate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ReportingVisitor.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/ReportingVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/reporting/PaymentAdvice.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/reporting/PaymentAdvice.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/BusinessLogicRouter.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/BusinessLogicRouter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/InclusiveImportedServiceLogicImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/InclusiveImportedServiceLogicImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModelCareTaker.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModelCareTaker.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModelMemento.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModelMemento.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/util/aspects/LoggingAspect.java" afterPath="$PROJECT_DIR$/src/main/java/com/babel88/paycal/util/aspects/LoggingAspect.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/Beans.xml" afterPath="$PROJECT_DIR$/src/main/resources/Beans.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/config/PaymentParametersTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/config/PaymentParametersTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/logic/base/ContractorPaymentsTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/logic/base/ContractorPaymentsTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/logic/base/RentalPaymentLogicTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/logic/base/RentalPaymentLogicTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/logic/base/TypicalPaymentTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/logic/base/TypicalPaymentTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/utils/TestUtilityFunctions.java" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/utils/TestUtilityFunctions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/utils/TestUtils.java" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/utils/TestUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/PaymentModelTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/PaymentModelTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/TTArgumentsTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/TTArgumentsTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -157,9 +53,13 @@
     <SUITE FILE_PATH="coverage/paycal$ForeignPaymentsControllerTestClient.coverage" NAME="ForeignPaymentsControllerTestClient Coverage Results" MODIFIED="1504460912641" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.babel88.utils.tables.samples.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/paycal$Main.coverage" NAME="Main Coverage Results" MODIFIED="1504463605829" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/paycal$Main.coverage" NAME="Main Coverage Results" MODIFIED="1505231629459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.babel88.paycal.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/paycal$All_in_paycal_test.coverage" NAME="All in paycal_test Coverage Results" MODIFIED="1505231151476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="1" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -178,30 +78,18 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
+            <state relative-caret-position="119">
               <caret line="15" column="14" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TTControllerImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/TTControllerImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="22" column="29" lean-forward="false" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TTControllerImplTest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/TTControllerImplTest.java">
+      <file leaf-file-name="Beans.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/Beans.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="45" column="5" lean-forward="false" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+            <state relative-caret-position="68">
+              <caret line="10" column="37" lean-forward="false" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -404,8 +292,8 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4514847232516" />
-        <entry key="$PROJECT_DIR$/build.gradle" value="1778322965" />
+        <entry key="$PROJECT_DIR$" value="4514937816267" />
+        <entry key="$PROJECT_DIR$/build.gradle" value="2306872359" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -578,23 +466,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/undo/PaymentModelUndoHelper.java" />
-        <option value="$USER_HOME$/.m2/caches/modules-2/files-2.1/org.aspectj/aspectjlib/1.6.2/cca3d5188a22dc582e45b69759f67ff42e6f8e87/aspectjlib-1.6.2.jar!/org/aspectj/lib/pointcuts/Pointcuts.class" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/util/aspects/LoggingAspect.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/undo/UndoRedoAspect.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/PaymentParameters.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/context/Utils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/context/ModelView.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/context/Models.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/context/Logic.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/context/GeneralContext.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/context/Controllers.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/StaticLoggerBinder.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/DefaultPaymentModel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/NullPaymentModelPassedException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/AbstractBaseLogicModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/BusinessLogic.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/ControllerPaymentsController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/ContractorPaymentsController.java" />
@@ -607,7 +478,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/ForeignPaymentsControllerRunner.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/ForeignPaymentsControllerImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/prepayments/PrepaymentControllerImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/BusinessLogicRouter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/logic/ExclusiveImportedServiceLogic.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/InitializableLogic.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/PaymentsControllerRunnerImpl.java" />
@@ -625,16 +495,34 @@
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/TTControllerImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/ForeignPaymentsControllerImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/controllers/ForeignPaymentsController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/Beans.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/Main.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/MainTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/delegate/PrepaymentsDelegate.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/TTControllerImplTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/ExclusiveTTControllerImplTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/InclusiveTTControllerImplTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/InclusiveImportedServiceLogicImpl.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/NullTTArgumentsTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModelCareTaker.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModelMemento.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/PaymentModelCareTakerTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/ResultsOutputTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/TTArgumentsTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/util/aspects/LoggingAspect.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/logic/AbstractPrepaymentTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/PaycalApp.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/BusinessLogicRouter.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/logic/BusinessLogicRouterTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/PaymentModelTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/PaymentModelMementoTest.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/Beans.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="231" />
-    <option name="y" value="43" />
+    <option name="x" value="217" />
+    <option name="y" value="42" />
     <option name="width" value="1104" />
     <option name="height" value="658" />
   </component>
@@ -705,21 +593,7 @@
               <item name="paycal" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="babel88" type="462c0819:PsiDirectoryNode" />
-              <item name="paycal" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="paycal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="paycal" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="babel88" type="462c0819:PsiDirectoryNode" />
-              <item name="paycal" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="paycal" type="b2602c69:ProjectViewProjectNode" />
@@ -741,29 +615,6 @@
               <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="paycal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="paycal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="paycal" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="paycal" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="paycal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="paycal" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="paycal" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="paycal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -772,7 +623,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.Jenkins" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -781,6 +632,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.babel88.paycal.logic" />
+      <recent name="com.babel88.paycal.models" />
       <recent name="com.babel88.paycal.controllers.base" />
       <recent name="com.babel88.paycal" />
     </key>
@@ -813,24 +666,50 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.Main">
-    <configuration name="ForeignPaymentsControllerTestClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="All in paycal_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="paycal_test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration name="BusinessLogicRouterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.babel88.utils.tables.samples.*" />
+          <option name="PATTERN" value="com.babel88.paycal.logic.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="com.babel88.utils.tables.samples.ForeignPaymentsControllerTestClient" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <module name="paycal_test" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="PACKAGE_NAME" value="com.babel88.paycal.logic" />
+      <option name="MAIN_CLASS_NAME" value="com.babel88.paycal.logic.BusinessLogicRouterTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="paycal_main" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
       <envs />
+      <patterns />
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
@@ -851,18 +730,18 @@
       <module name="paycal_main" />
       <envs />
     </configuration>
-    <configuration name="MainTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PaymentModelMementoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.babel88.paycal.*" />
+          <option name="PATTERN" value="com.babel88.paycal.models.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="paycal_test" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.babel88.paycal" />
-      <option name="MAIN_CLASS_NAME" value="com.babel88.paycal.MainTest" />
+      <option name="PACKAGE_NAME" value="com.babel88.paycal.models" />
+      <option name="MAIN_CLASS_NAME" value="com.babel88.paycal.models.PaymentModelMementoTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -876,20 +755,20 @@
       <envs />
       <patterns />
     </configuration>
-    <configuration name="MainTest.PaycalAppCreation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PaymentModelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.babel88.paycal.*" />
+          <option name="PATTERN" value="com.babel88.paycal.models.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="paycal_test" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.babel88.paycal" />
-      <option name="MAIN_CLASS_NAME" value="com.babel88.paycal.MainTest" />
-      <option name="METHOD_NAME" value="PaycalAppCreation" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.babel88.paycal.models" />
+      <option name="MAIN_CLASS_NAME" value="com.babel88.paycal.models.PaymentModelTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -1155,23 +1034,25 @@
       <envs />
       <method />
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-      <item index="1" class="java.lang.String" itemvalue="Application.ForeignPaymentsControllerTestClient" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.MainTest.PaycalAppCreation" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.MainTest" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="JUnit.BusinessLogicRouterTest" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.All in paycal_test" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.PaymentModelTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.PaymentModelMementoTest" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Main" />
     </list>
     <recent_temporary>
-      <list size="4">
+      <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.MainTest" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.MainTest.PaycalAppCreation" />
-        <item index="3" class="java.lang.String" itemvalue="Application.ForeignPaymentsControllerTestClient" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.All in paycal_test" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.PaymentModelMementoTest" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.PaymentModelTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.BusinessLogicRouterTest" />
       </list>
     </recent_temporary>
   </component>
   <component name="SbtLocalSettings">
-    <option name="lastUpdateTimestamp" value="1505218002017" />
+    <option name="lastUpdateTimestamp" value="1505230723975" />
     <option name="externalProjectsViewState">
       <projects_view />
     </option>
@@ -1197,16 +1078,50 @@
       <option name="project" value="LOCAL" />
       <updated>1504463884919</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="deprecated foreign logic classes">
+      <created>1505219880355</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1505219880355</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="MainTest - 2017.09.03 at 21h 57m 08s.xml">
-      <configuration name="MainTest" configurationId="JUnit" />
+    <history-entry file="All_in_paycal_test - 2017.09.12 at 18h 44m 52s.xml">
+      <configuration name="All in paycal_test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_paycal_test - 2017.09.12 at 18h 46m 04s.xml">
+      <configuration name="All in paycal_test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_paycal_test - 2017.09.12 at 18h 47m 48s.xml">
+      <configuration name="All in paycal_test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BusinessLogicRouterTest - 2017.09.12 at 18h 43m 36s.xml">
+      <configuration name="BusinessLogicRouterTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BusinessLogicRouterTest_normal - 2017.09.12 at 18h 38m 25s.xml">
+      <configuration name="BusinessLogicRouterTest.normal" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BusinessLogicRouterTest_normal - 2017.09.12 at 18h 40m 15s.xml">
+      <configuration name="BusinessLogicRouterTest.normal" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BusinessLogicRouterTest_normal - 2017.09.12 at 18h 40m 49s.xml">
+      <configuration name="BusinessLogicRouterTest.normal" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PaymentModelMementoTest - 2017.09.12 at 18h 46m 53s.xml">
+      <configuration name="PaymentModelMementoTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PaymentModelMementoTest - 2017.09.12 at 18h 47m 30s.xml">
+      <configuration name="PaymentModelMementoTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PaymentModelTest - 2017.09.12 at 18h 45m 42s.xml">
+      <configuration name="PaymentModelTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="231" y="43" width="1104" height="658" extended-state="0" />
+    <frame x="217" y="42" width="1104" height="658" extended-state="0" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1216,11 +1131,12 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4608379" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4608379" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34834558" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Jenkins" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Jenkins" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32996324" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24724264" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -1239,7 +1155,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34846267" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="sbt-shell-toolwindow" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1253,7 +1168,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="5" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1262,60 +1177,19 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/controllers/PartialTaxPaymentController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/controllers/ReportControllers.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/controllers/TypicalPaymentsControllers.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/utils/tables/samples/clients/PartialTaxPaymentControllerClient.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/support/undo/UndoRedoAspect.java" />
-    <entry file="jar://$USER_HOME$/.m2/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/cfd5385e0c5ed1c8a5dce57d86e79cf357153a64/logback-classic-1.2.3-sources.jar!/org/slf4j/impl/StaticMarkerBinder.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/StaticLoggerBinder.java" />
-    <entry file="jar://$USER_HOME$/.m2/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/cfd5385e0c5ed1c8a5dce57d86e79cf357153a64/logback-classic-1.2.3-sources.jar!/ch/qos/logback/classic/Logger.java" />
-    <entry file="jar://$USER_HOME$/.m2/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/cfd5385e0c5ed1c8a5dce57d86e79cf357153a64/logback-classic-1.2.3-sources.jar!/org/slf4j/impl/StaticLoggerBinder.java" />
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-625">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModel.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/DefaultPaymentModel.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/NullPaymentModelPassedException.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/ContractorPayments.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/AbstractBaseLogicModel.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/controllers/BaseController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/logic/template/DefaultBaseLogicModel.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/ContractorLogicModel.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/AbstractBaseController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/ContractorPaymentsController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/PaymentParameters.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/controllers/PrepaymentController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/prepayments/PrepaymentControllerImpl.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/Router.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/logic/ExclusiveImportedServiceLogic.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/InitializableLogic.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/PaymentsControllerRunnerImpl.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/controllers/PaymentsControllerRunner.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/DefaultPartialTaxPaymentController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/ContractorPaymentsController.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/DefaultTypicalPaymentsController.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/RentalPaymentsController.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/WithholdingTaxPaymentController.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/utils/tables/samples/ForeignPaymentsControllerTestClient.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/controllers/TTController.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/controllers/ForeignPaymentsController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Beans.xml" />
     <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/logic/base/ExclusiveImportedServiceImplTest.java" />
     <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/MainTest.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/ForeignPaymentsControllerImpl.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/factory/ControllerFactory.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/BusinessLogicRouter.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/factory/LogicFactory.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/PaymentFactory.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/config/factory/GeneralFactory.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/PaycalApp.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/ExclusiveImportedServiceLogicImpl.java" />
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1323,28 +1197,312 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/view/Invoice.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="15" column="14" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+        <state relative-caret-position="38">
+          <caret line="86" column="18" lean-forward="false" selection-start-line="86" selection-start-column="18" selection-end-line="86" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/InvoiceDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="14" column="11" lean-forward="false" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/ExclusiveImportedServiceLogicImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-625">
+          <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/logic/ExclusiveImportedServiceLogic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/WithholdingTaxPaymentControllerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="248" column="43" lean-forward="false" selection-start-line="238" selection-start-column="8" selection-end-line="248" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/delegate/PrepaymentsDelegate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="36" column="77" lean-forward="false" selection-start-line="36" selection-start-column="77" selection-end-line="36" selection-end-column="77" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#791#815#0" expanded="false" />
+            <element signature="e#2158#2185#0" expanded="false" />
+            <element signature="e#2306#2333#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/controllers/PaymentsControllerRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="59" column="39" lean-forward="false" selection-start-line="59" selection-start-column="39" selection-end-line="59" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/logic/Prepayable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-68">
+          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/prepayments/PrepaymentControllerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="41" column="19" lean-forward="false" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/InclusiveTTControllerImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="124" column="29" lean-forward="false" selection-start-line="124" selection-start-column="29" selection-end-line="124" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/controllers/base/TTControllerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="22" column="29" lean-forward="false" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+        <state relative-caret-position="115">
+          <caret line="165" column="56" lean-forward="true" selection-start-line="165" selection-start-column="56" selection-end-line="165" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/TTControllerImplTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/api/logic/InclusiveImportedServiceLogic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="45" column="5" lean-forward="false" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+        <state relative-caret-position="89">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/base/InclusiveImportedServiceLogicImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="74" column="43" lean-forward="false" selection-start-line="74" selection-start-column="43" selection-end-line="74" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/NullTTArguments.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="28" lean-forward="true" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/NullTTArgumentsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="24" column="31" lean-forward="false" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModelCareTaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="34" lean-forward="false" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/PaymentModelMemento.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1462">
+          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/PaymentModelCareTakerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="43" />
+          <folding>
+            <element signature="e#571#572#0" expanded="false" />
+            <element signature="e#615#616#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/ResultsOutput.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/ResultsOutputTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="24" column="29" lean-forward="false" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/models/TTArguments.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="71" column="22" lean-forward="false" selection-start-line="71" selection-start-column="22" selection-end-line="71" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/TTArgumentsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="34" column="5" lean-forward="false" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/util/aspects/LoggingAspect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/controllers/base/ExclusiveTTControllerImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="136" column="5" lean-forward="true" selection-start-line="136" selection-start-column="5" selection-end-line="136" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/AbstractPrepayment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-646">
+          <caret line="25" column="31" lean-forward="false" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/logic/AbstractPrepaymentTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="53" column="80" lean-forward="false" selection-start-line="53" selection-start-column="80" selection-end-line="53" selection-end-column="80" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/config/PaymentParametersTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/PaycalApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="72" column="37" lean-forward="false" selection-start-line="72" selection-start-column="37" selection-end-line="72" selection-end-column="37" />
+          <folding>
+            <element signature="e#2311#2312#0" expanded="true" />
+            <element signature="e#2376#2377#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jcabi/jcabi-aspects/0.22.6/8caded62293aad92cd51ece8a391ec1a9d5e8a32/jcabi-aspects-0.22.6-sources.jar!/com/jcabi/aspects/aj/MethodLogger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-847">
+          <caret line="68" column="19" lean-forward="false" selection-start-line="68" selection-start-column="19" selection-end-line="68" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/logic/BusinessLogicRouter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/logic/BusinessLogicRouterTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="14" column="35" lean-forward="false" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/PaymentModelTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="46" column="8" lean-forward="false" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/utils/TestUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/babel88/paycal/models/PaymentModelMementoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="29" column="31" lean-forward="false" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/babel88/paycal/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="15" column="14" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Beans.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="10" column="37" lean-forward="false" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
           <folding />
         </state>
       </provider>

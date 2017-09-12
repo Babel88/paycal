@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
@@ -17,10 +18,8 @@ import java.util.Arrays;
  * LoggingAspect aspect definition
  * Created by eddard on 5/23/17.
  */
-//@Aspect
+@Aspect
 public class LoggingAspect {
-
-    Logger log = LoggerFactory.getLogger("Log-Aspect");
 
     public LoggingAspect() {
     }
@@ -30,6 +29,7 @@ public class LoggingAspect {
 
     @Before("selectAll()")
     public void beforeAdvice(JoinPoint joinPoint){
+        Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         log.debug("Signature declaring type : " + joinPoint.getSignature().getDeclaringTypeName());
         log.debug("Signature name : " + joinPoint.getSignature().getName());
         log.debug("Arguments : " + Arrays.toString(joinPoint.getArgs()));
@@ -41,6 +41,7 @@ public class LoggingAspect {
      */
     @After("selectAll()")
     public void afterAdvice(JoinPoint joinPoint){
+        Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         log.debug(joinPoint.getSignature().getName()+"()"+" has been called");
     }
 
@@ -51,6 +52,7 @@ public class LoggingAspect {
      */
     @AfterReturning(pointcut = "selectAll()", returning = "retVal")
     public void afterReturningAdvice(JoinPoint joinPoint, Object retVal){
+        Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         log.debug("Exiting from Method :" + joinPoint.getSignature().getName());
         log.debug("Return value :" + retVal.toString());
     }
@@ -61,13 +63,15 @@ public class LoggingAspect {
      */
     @AfterThrowing(pointcut = "selectAll()", throwing = "e")
     public void AfterThrowingAdvice(JoinPoint joinPoint, Throwable e){
+        Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         log.error("An exception has been thrown in " + joinPoint.getSignature().getName() + "()");
-        log.error("Cause :" + e.getCause());
+        log.error("Cause :" + e.getCause()+e.getStackTrace());
     }
 
     @Around("selectAll()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable
     {
+        Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         log.debug("The method " + joinPoint.getSignature().getName() + "() begins with " + Arrays.toString(joinPoint.getArgs()));
         try
         {

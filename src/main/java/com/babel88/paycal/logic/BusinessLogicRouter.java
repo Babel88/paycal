@@ -17,29 +17,18 @@ import org.slf4j.LoggerFactory;
  */
 public class BusinessLogicRouter implements Router {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-
     private PartialTaxPaymentController partialTaxPaymentController;
-
     private DefaultControllers contractorPaymentsController;
-
     private DefaultControllers withholdingTaxPaymentController;
-
     private DefaultControllers rentalPaymentsController;
-
     private DefaultControllers typicalPaymentsController;
-
     private TTController ttController;
 
     public BusinessLogicRouter() {
-
-        log.debug("Creating an instance of the main business logic controller : {}",this);
     }
 
     @Override
     public void normal() {
-
-        //typicalPaymentsController.runCalculation(invoiceAmount);
 
         typicalPaymentsController.runCalculation();
 
