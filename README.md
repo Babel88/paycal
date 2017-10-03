@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ghacupha/paycal.svg?branch=paycal_with_dependency_injection)](https://travis-ci.org/ghacupha/paycal)
+
 # paycal
 a small cli calculator
 
