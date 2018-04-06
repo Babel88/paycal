@@ -51,5 +51,5 @@ public interface Prepayments {
      * @return
      */
     BigDecimal calculateAmountPayable(BigDecimal toPrepay, BigDecimal withHoldingVat);
-    
+
 }

@@ -2,7 +2,6 @@ package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.Contractors;
 import com.babel88.paycal.config.PaymentParameters;
-import com.babel88.paycal.config.factory.LogicFactory;
 
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicReference;
@@ -11,7 +10,7 @@ import static java.math.RoundingMode.HALF_EVEN;
 
 /**
  * Logic class for contractor Payments
- *
+ * <p>
  * Created by edwin.njeru on 10/07/2017.
  */
 public class ContractorPayments implements Contractors {
@@ -60,11 +59,11 @@ public class ContractorPayments implements Contractors {
     public BigDecimal calculateWithholdingTax(BigDecimal total) {
 
 
-        BigDecimal b4Tax = total.divide(vatRate.get().add(BigDecimal.ONE),HALF_EVEN);
+        BigDecimal b4Tax = total.divide(vatRate.get().add(BigDecimal.ONE), HALF_EVEN);
 
         BigDecimal withholdingTax = b4Tax.multiply(withholdingTaxRate.get());
 
-        return withholdingTax.setScale(2,HALF_EVEN);
+        return withholdingTax.setScale(2, HALF_EVEN);
     }
 
     /**
@@ -77,11 +76,11 @@ public class ContractorPayments implements Contractors {
     public BigDecimal calculateWithholdingVat(BigDecimal total) {
 
 
-        BigDecimal amountBeforeTax = total.divide(vatRate.get().add(BigDecimal.ONE),HALF_EVEN);
+        BigDecimal amountBeforeTax = total.divide(vatRate.get().add(BigDecimal.ONE), HALF_EVEN);
 
         BigDecimal vatWithholding = amountBeforeTax.multiply(withholdingVatRate.get());
 
-        return vatWithholding.setScale(2,HALF_EVEN);
+        return vatWithholding.setScale(2, HALF_EVEN);
     }
 
     /**

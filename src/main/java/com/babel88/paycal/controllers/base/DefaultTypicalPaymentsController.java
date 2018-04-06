@@ -27,22 +27,22 @@ import java.math.BigInteger;
  * <p>
  * Created by edwin.njeru on 30/08/2017.
  */
-public class DefaultTypicalPaymentsController implements DefaultControllers,PaymentsControllerRunner {
+public class DefaultTypicalPaymentsController implements DefaultControllers, PaymentsControllerRunner {
 
     private static final Logger log = LoggerFactory.getLogger(RentalPaymentsController.class);
     // new PrepaymentsDelegate(this); injected in IOC container
-    private PrepaymentsDelegate prepaymentsDelegate;
+    private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
 
     // Injected from IOC container
-    private DefaultPaymentModel paymentModel;
-    private InvoiceDetails invoiceDetails;
-    private ResultsViewer resultsViewer;
-    private ReportControllers reportController;
-    private PrepaymentController prepaymentController;
-    private DefaultLogic typicalPaymentsLogic;
-    private Visitor modelViewerVisitor;
-    private Visitor modelPrecisionVisitor;
-    private Visitor reportingVisitor;
+    private final DefaultPaymentModel paymentModel;
+    private final InvoiceDetails invoiceDetails;
+    private final ResultsViewer resultsViewer;
+    private final ReportControllers reportController;
+    private final PrepaymentController prepaymentController;
+    private final DefaultLogic typicalPaymentsLogic;
+    private final Visitor modelViewerVisitor;
+    private final Visitor modelPrecisionVisitor;
+    private final Visitor reportingVisitor;
 
     //DO NOT INJECT
     private ResultsOutput resultsOutput;
@@ -51,9 +51,17 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
 
     private Boolean doAgain;
 
-    public DefaultTypicalPaymentsController(InvoiceDetails invoiceDetails) {
+    public DefaultTypicalPaymentsController(DefaultPaymentModel paymentModel, InvoiceDetails invoiceDetails, ResultsViewer resultsViewer, ReportControllers reportController, PrepaymentController prepaymentController, DefaultLogic typicalPaymentsLogic, Visitor modelViewerVisitor, Visitor modelPrecisionVisitor, Visitor reportingVisitor) {
+        this.paymentModel = paymentModel;
+        this.resultsViewer = resultsViewer;
+        this.reportController = reportController;
+        this.prepaymentController = prepaymentController;
+        this.typicalPaymentsLogic = typicalPaymentsLogic;
+        this.modelViewerVisitor = modelViewerVisitor;
+        this.modelPrecisionVisitor = modelPrecisionVisitor;
+        this.reportingVisitor = reportingVisitor;
         log.debug("Creating a rental payments controller using constructor in PaymentsControllerRunner : {} \n" +
-                "with {} as argument",this,invoiceDetails);
+                "with {} as argument", this, invoiceDetails);
 
         this.invoiceDetails = invoiceDetails;
 
@@ -64,7 +72,7 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
     public void runCalculation() {
         ResultsOutput resultsOutput;
 
-        if(invoiceDetails != null) {
+        if (invoiceDetails != null) {
 
             do {
 
@@ -135,7 +143,8 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
      * Updates the amount to prepay in the payment model
      */
     @Override
-    public @NotNull void updateToPrepay() {
+    public @NotNull
+    void updateToPrepay() {
 
         prepaymentsDelegate.updateToPrepay();
     }
@@ -143,51 +152,6 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
     @Override
     public TTArguments getTtArguments() {
         return new TTArguments();
-    }
-
-    public DefaultTypicalPaymentsController setPaymentModel(DefaultPaymentModel paymentModel) {
-        this.paymentModel = paymentModel;
-        return this;
-    }
-
-    public DefaultTypicalPaymentsController setInvoiceDetails(InvoiceDetails invoiceDetails) {
-        this.invoiceDetails = invoiceDetails;
-        return this;
-    }
-
-    public DefaultTypicalPaymentsController setResultsViewer(ResultsViewer resultsViewer) {
-        this.resultsViewer = resultsViewer;
-        return this;
-    }
-
-    public DefaultTypicalPaymentsController setReportController(ReportControllers reportController) {
-        this.reportController = reportController;
-        return this;
-    }
-
-    public DefaultTypicalPaymentsController setPrepaymentController(PrepaymentController prepaymentController) {
-        this.prepaymentController = prepaymentController;
-        return this;
-    }
-
-    public DefaultTypicalPaymentsController setTypicalPaymentsLogic(DefaultLogic typicalPaymentsLogic) {
-        this.typicalPaymentsLogic = typicalPaymentsLogic;
-        return this;
-    }
-
-    public DefaultTypicalPaymentsController setResultsOutput(ResultsOutput resultsOutput) {
-        this.resultsOutput = resultsOutput;
-        return this;
-    }
-
-    public DefaultTypicalPaymentsController setInvoiceAmount(BigDecimal invoiceAmount) {
-        this.invoiceAmount = invoiceAmount;
-        return this;
-    }
-
-    public DefaultTypicalPaymentsController setDoAgain(Boolean doAgain) {
-        this.doAgain = doAgain;
-        return this;
     }
 
     public PrepaymentsDelegate getPrepaymentsDelegate() {
@@ -199,6 +163,7 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
         return paymentModel;
     }
 
+
     public InvoiceDetails getInvoiceDetails() {
         return invoiceDetails;
     }
@@ -209,21 +174,6 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
 
     public ReportControllers getReportController() {
         return reportController;
-    }
-
-    public DefaultTypicalPaymentsController setModelViewerVisitor(Visitor modelViewerVisitor) {
-        this.modelViewerVisitor = modelViewerVisitor;
-        return this;
-    }
-
-    public DefaultTypicalPaymentsController setModelPrecisionVisitor(Visitor modelPrecisionVisitor) {
-        this.modelPrecisionVisitor = modelPrecisionVisitor;
-        return this;
-    }
-
-    public DefaultTypicalPaymentsController setReportingVisitor(Visitor reportingVisitor) {
-        this.reportingVisitor = reportingVisitor;
-        return this;
     }
 
     @Override
@@ -239,16 +189,26 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
         return resultsOutput;
     }
 
+    public DefaultTypicalPaymentsController setResultsOutput(ResultsOutput resultsOutput) {
+        this.resultsOutput = resultsOutput;
+        return this;
+    }
+
     public BigDecimal getInvoiceAmount() {
         return invoiceAmount;
+    }
+
+    public DefaultTypicalPaymentsController setInvoiceAmount(BigDecimal invoiceAmount) {
+        this.invoiceAmount = invoiceAmount;
+        return this;
     }
 
     public Boolean getDoAgain() {
         return doAgain;
     }
 
-    public DefaultTypicalPaymentsController setPrepaymentsDelegate(PrepaymentsDelegate prepaymentsDelegate) {
-        this.prepaymentsDelegate = prepaymentsDelegate;
+    public DefaultTypicalPaymentsController setDoAgain(Boolean doAgain) {
+        this.doAgain = doAgain;
         return this;
     }
 
@@ -263,4 +223,5 @@ public class DefaultTypicalPaymentsController implements DefaultControllers,Paym
     public Visitor getReportingVisitor() {
         return reportingVisitor;
     }
+
 }

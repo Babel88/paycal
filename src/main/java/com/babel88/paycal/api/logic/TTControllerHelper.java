@@ -18,7 +18,7 @@ public interface TTControllerHelper {
      * Helper method to refactor calculation of total expenses, using ttArguments,and the calculated amount
      * before taxes
      *
-     * @param ttArguments contains payment description
+     * @param ttArguments     contains payment description
      * @param amountBeforeTax calculates in the calling method
      * @return total expenses returned to the caller
      */

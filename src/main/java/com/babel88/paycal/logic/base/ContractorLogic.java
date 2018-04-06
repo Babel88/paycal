@@ -1,11 +1,8 @@
 package com.babel88.paycal.logic.base;
 
-import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.config.PaymentParameters;
-import com.babel88.paycal.config.factory.LogicFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 
@@ -22,7 +19,7 @@ public class ContractorLogic implements com.babel88.paycal.api.logic.DefaultLogi
 
         this.paymentParameters = paymentParameters;
 
-        log.debug("An instance of ContractorLogic has been created : {}",this);
+        log.debug("An instance of ContractorLogic has been created : {}", this);
     }
 
     @Override

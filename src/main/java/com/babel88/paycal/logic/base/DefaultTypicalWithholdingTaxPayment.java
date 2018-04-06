@@ -28,7 +28,7 @@ public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPaymen
 
     public DefaultTypicalWithholdingTaxPayment() {
 
-        log.debug("An instance of the DefaultTypicalWithholdingTaxPayment has been created : {}",this);
+        log.debug("An instance of the DefaultTypicalWithholdingTaxPayment has been created : {}", this);
     }
 
     /**
@@ -39,13 +39,13 @@ public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPaymen
      * @return amountB4Vat
      */
     @Override
-    public BigDecimal calculateAmountBeforeTax(BigDecimal invoiceAmount){
+    public BigDecimal calculateAmountBeforeTax(BigDecimal invoiceAmount) {
 
         return amountBeforeTax(invoiceAmount);
     }
 
     @Override
-    public BigDecimal calculateWithholdingVat(BigDecimal invoiceAmount){
+    public BigDecimal calculateWithholdingVat(BigDecimal invoiceAmount) {
 
         BigDecimal amountBeforeVat =
                 amountBeforeTax(invoiceAmount);
@@ -57,7 +57,7 @@ public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPaymen
     }
 
     @Override
-    public BigDecimal calculateWithholdingTax(BigDecimal invoiceAmount){
+    public BigDecimal calculateWithholdingTax(BigDecimal invoiceAmount) {
 
         BigDecimal amountBeforeVat =
                 amountBeforeTax(invoiceAmount);
@@ -73,17 +73,17 @@ public class DefaultTypicalWithholdingTaxPayment implements WithholdingTaxPaymen
         return invoiceAmount
                 .divide(
                         paymentParameters.getVatRate().add(ONE), HALF_EVEN
-                ).setScale(2,HALF_EVEN);
+                ).setScale(2, HALF_EVEN);
     }
 
     @Override
-    public BigDecimal calculateTotalExpense(BigDecimal invoiceAmount){
+    public BigDecimal calculateTotalExpense(BigDecimal invoiceAmount) {
 
         return invoiceAmount.setScale(2, ROUND_HALF_UP);
     }
 
     @Override
-    public BigDecimal calculateAmountPayable(BigDecimal invoiceAmount){
+    public BigDecimal calculateAmountPayable(BigDecimal invoiceAmount) {
 
         BigDecimal withholdingVat = calculateWithholdingVat(invoiceAmount);
         BigDecimal withholdingTax = calculateWithholdingTax(invoiceAmount);

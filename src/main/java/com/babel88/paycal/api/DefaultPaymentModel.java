@@ -11,6 +11,7 @@ import java.math.BigDecimal;
  * Created by edwin.njeru on 25/08/2017.
  */
 public interface DefaultPaymentModel<T> extends Visitable {
+
     T setWithHoldingVat(BigDecimal invoiceAmount);
 
     T setTotalExpense(BigDecimal totalExpense);
@@ -22,7 +23,6 @@ public interface DefaultPaymentModel<T> extends Visitable {
     T setToPayee(BigDecimal toPayee);
 
     /**
-     *
      * @return amount of total expense
      */
     BigDecimal getTotalExpense();
@@ -39,6 +39,7 @@ public interface DefaultPaymentModel<T> extends Visitable {
      * This method reviews the debits and credits to make sure that the balances are always
      * correct and balanced. Imbalances are adjusted against the total expenses
      * .
+     *
      * @param reviewed model against which the current model is compared
      */
     DefaultPaymentModel reviewLedgerBalances(DefaultPaymentModel reviewed);

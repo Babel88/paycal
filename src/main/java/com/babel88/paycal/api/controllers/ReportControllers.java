@@ -15,7 +15,6 @@ public interface ReportControllers {
      * Prints the report if the internal boolean flag is set to true
      *
      * @param resultsOutput containing the results on the paymentModelView
-     *
      * @return this
      */
     ReportControllers forPayment(ResultsOutput resultsOutput);

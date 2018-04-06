@@ -2,9 +2,7 @@ package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.config.PaymentParameters;
-import com.babel88.paycal.config.factory.LogicFactory;
 import com.google.common.base.Objects;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +14,7 @@ import static java.math.RoundingMode.HALF_EVEN;
 
 /**
  * Default logic for payment of rental requisitions
- *
+ * <p>
  * Created by edwin.njeru on 29/08/2017.
  */
 public class RentalPaymentLogic implements DefaultLogic, Serializable {
@@ -28,7 +26,7 @@ public class RentalPaymentLogic implements DefaultLogic, Serializable {
 
         this.paymentParameters = paymentParameters;
 
-        log.debug("Creating a rental payment logic object : {}",this);
+        log.debug("Creating a rental payment logic object : {}", this);
     }
 
     @Override

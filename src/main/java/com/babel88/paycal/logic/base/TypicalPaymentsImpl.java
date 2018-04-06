@@ -29,17 +29,21 @@ public class TypicalPaymentsImpl implements TypicalPayments, DefaultLogic {
     /* withholding vat rate */
     private final AtomicReference<BigDecimal> withholdVatRate = new AtomicReference<>();
 
-    /** vat rate */
+    /**
+     * vat rate
+     */
     private final AtomicReference<BigDecimal> vatRate = new AtomicReference<>();
 
-    /** to track change in the invoice amount */
+    /**
+     * to track change in the invoice amount
+     */
     private final AtomicReference<BigDecimal> invoiceAmount =
             new AtomicReference<>();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     public TypicalPaymentsImpl(PaymentParameters paymentParameters) {
 
-        log.debug("Creating an instance of the typicalPayment object logic : {}",this);
+        log.debug("Creating an instance of the typicalPayment object logic : {}", this);
 
         vatRate.set(paymentParameters.getVatRate());
 
@@ -48,6 +52,7 @@ public class TypicalPaymentsImpl implements TypicalPayments, DefaultLogic {
 
     /**
      * returns the invoice amount
+     *
      * @return invoice amount requested
      */
     @Override
@@ -76,7 +81,7 @@ public class TypicalPaymentsImpl implements TypicalPayments, DefaultLogic {
      * @return amount before vat
      */
     @Override
-    public BigDecimal calculateWithholdingVat(BigDecimal invoiceAmount){
+    public BigDecimal calculateWithholdingVat(BigDecimal invoiceAmount) {
 
         log.debug("Calculating withholding vat for : {}.", invoiceAmount);
         BigDecimal vat = calculateAmountBeforeTax(invoiceAmount)
@@ -95,7 +100,7 @@ public class TypicalPaymentsImpl implements TypicalPayments, DefaultLogic {
      * @return total expenditure
      */
     @Override
-    public BigDecimal calculateTotalExpense(BigDecimal invoiceAmount){
+    public BigDecimal calculateTotalExpense(BigDecimal invoiceAmount) {
 
         log.debug("Total expense returned as : {}.", invoiceAmount);
 
@@ -129,7 +134,7 @@ public class TypicalPaymentsImpl implements TypicalPayments, DefaultLogic {
      * @return amount before vat
      */
     @Override
-    public BigDecimal calculateAmountBeforeTax(BigDecimal invoiceAmount){
+    public BigDecimal calculateAmountBeforeTax(BigDecimal invoiceAmount) {
 
         BigDecimal amountB4Tax = invoiceAmount.divide(vatRate.get().add(valueOf(1)), ROUND_HALF_UP);
 
@@ -143,7 +148,7 @@ public class TypicalPaymentsImpl implements TypicalPayments, DefaultLogic {
      * @param invoiceAmount invoice amount quoted in the invoice request
      * @return amount before vat
      */
-    public BigDecimal calculateWithholdingTax(BigDecimal invoiceAmount){
+    public BigDecimal calculateWithholdingTax(BigDecimal invoiceAmount) {
 
         log.debug("calculateWithholdingTax has been called...Returning ZERO");
         return BigDecimal.ZERO;

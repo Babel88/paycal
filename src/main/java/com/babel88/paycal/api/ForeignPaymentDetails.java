@@ -12,7 +12,6 @@ public interface ForeignPaymentDetails {
     double vatRate();
 
     /**
-     *
      * The withholding tax rate for foreign payments DTA respective
      *
      * @return withholding tax rate

@@ -24,17 +24,15 @@ import static java.lang.System.out;
  * e) Withholding tax amount
  * f) Payee's name
  */
-public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentDetails,PartialTaxDetails {
+public class Invoice implements InvoiceDetails, PrepaymentDetails, ForeignPaymentDetails, PartialTaxDetails {
 
     private final Logger log = LoggerFactory.getLogger(Invoice.class);
-
-    private FeedBack feedBack;
-
     private final Scanner keyboard;
+    private FeedBack feedBack;
 
     public Invoice(FeedBack feedBack) {
         this.feedBack = feedBack;
-        log.debug("Creating an instance of invoiceDetails : {}",this);
+        log.debug("Creating an instance of invoiceDetails : {}", this);
 
         keyboard = new Scanner(System.in);
         //keyboard = new BufferedInputStream(System.in);
@@ -42,10 +40,11 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
 
     /**
      * Getter method for Invoice amount
+     *
      * @return the string is parsed to remove any spaces and converted to Double
      */
     @Override
-    public BigDecimal invoiceAmount(){
+    public BigDecimal invoiceAmount() {
 
         feedBack.invoiceAmount();
         feedBack.mainPrompt();
@@ -58,7 +57,7 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     }
 
     @Override
-    public double vatAmount(){
+    public double vatAmount() {
 
         feedBack.vatAmount();
         feedBack.mainPrompt();
@@ -71,7 +70,7 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     }
 
     @Override
-    public double withHoldingTaxAmount(){
+    public double withHoldingTaxAmount() {
 
         feedBack.withHoldingTaxAmount();
         feedBack.mainPrompt();
@@ -84,7 +83,7 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     }
 
     @Override
-    public double vatRate(){
+    public double vatRate() {
 
         feedBack.vatRate();
         feedBack.mainPrompt();
@@ -97,7 +96,7 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     }
 
     @Override
-    public double withHoldingTaxRate(){
+    public double withHoldingTaxRate() {
 
         feedBack.withHoldingTaxRate();
         feedBack.mainPrompt();
@@ -110,7 +109,7 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     }
 
     @Override
-    public double withHoldingVatRate(){
+    public double withHoldingVatRate() {
 
         feedBack.withHoldingVatRate();
         feedBack.mainPrompt();
@@ -123,7 +122,7 @@ public class Invoice implements InvoiceDetails,PrepaymentDetails,ForeignPaymentD
     }
 
     @Override
-    public String payeeName(){
+    public String payeeName() {
 
 
         feedBack.payeeName();

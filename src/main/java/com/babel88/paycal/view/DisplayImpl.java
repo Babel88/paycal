@@ -1,13 +1,30 @@
+/*
+ * This file is part of paycal, a commandline business calculations commandline application
+ *
+ *     Copyright (C) 2018  Edwin Njeru
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.babel88.paycal.view;
 
 import com.babel88.paycal.PaycalApp;
 import com.babel88.paycal.api.view.PaymentModelViewInterface;
 import com.babel88.paycal.api.view.Tables;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -28,10 +45,8 @@ import static java.lang.System.out;
 public class DisplayImpl implements PaymentModelViewInterface {
 
     private final Logger log = LoggerFactory.getLogger(DisplayImpl.class);
-
+    private final AtomicReference<BigDecimal> total, vatWithheld, withholdingTax, toPrepay, toPayee;
     private Tables tables;
-
-    private final AtomicReference<BigDecimal> total,vatWithheld,withholdingTax,toPrepay,toPayee;
 
     public DisplayImpl() {
 
@@ -44,7 +59,7 @@ public class DisplayImpl implements PaymentModelViewInterface {
     }
 
     @Override
-    public void displayResults(BigDecimal total,BigDecimal vatWithheld,BigDecimal withholdingTax,BigDecimal toPrepay,BigDecimal toPayee){
+    public void displayResults(BigDecimal total, BigDecimal vatWithheld, BigDecimal withholdingTax, BigDecimal toPrepay, BigDecimal toPayee) {
         // Pending:
         // To convert numbers to string than paymentModelView them
         // Dsiplay zero values for number not given, e.g.
@@ -75,7 +90,7 @@ public class DisplayImpl implements PaymentModelViewInterface {
         //Date timePaid = paycalApp.getNow();
         Date timePaid = PaycalApp.getNow();
 
-        out.println("Calculated at: "+timePaid);
+        out.println("Calculated at: " + timePaid);
 
         out.println();
 
@@ -86,13 +101,13 @@ public class DisplayImpl implements PaymentModelViewInterface {
 
     }
 
-    private String makeString(BigDecimal number){
+    private String makeString(BigDecimal number) {
         Double nbr = new Double(String.valueOf(roundTwoDecimals(number)));
 
         return nbr.toString();
     }
 
-    private String makeStringUp(BigDecimal number){
+    private String makeStringUp(BigDecimal number) {
         Double nbr = new Double(String.valueOf(roundUp(roundTwoDecimals(number))));
 
         return nbr.toString();
@@ -115,7 +130,7 @@ public class DisplayImpl implements PaymentModelViewInterface {
         BigDecimal reviewed;
 
         if (modulusIsZero)
-            // that is if the number is an exact integer
+        // that is if the number is an exact integer
         {
             reviewed = number;
         } else {

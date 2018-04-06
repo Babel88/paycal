@@ -25,10 +25,15 @@ public class LoggingAspect {
     }
 
     @Pointcut("execution(* com.babel88.paycal.*.*(..))")
-    public void selectAll(){}
+    public void selectAll() {
+    }
 
+    /**
+     *
+     * @param joinPoint  The join point here is before method execution
+     */
     @Before("selectAll()")
-    public void beforeAdvice(JoinPoint joinPoint){
+    public void beforeAdvice(JoinPoint joinPoint) {
         Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         log.debug("Signature declaring type : " + joinPoint.getSignature().getDeclaringTypeName());
         log.debug("Signature name : " + joinPoint.getSignature().getName());
@@ -38,20 +43,24 @@ public class LoggingAspect {
 
     /**
      * This method executes after selected method execution
+     *
+     * @param joinPoint The join point here is after the method has run itscourse
      */
     @After("selectAll()")
-    public void afterAdvice(JoinPoint joinPoint){
+    public void afterAdvice(JoinPoint joinPoint) {
         Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
-        log.debug(joinPoint.getSignature().getName()+"()"+" has been called");
+        log.debug(joinPoint.getSignature().getName() + "()" + " has been called");
     }
 
     /**
      * This is the method which I would like to execute
      * when any methods returns
-     * @param retVal
+     *
+     * @param joinPoint Is the point at which the log is made after the method has returned
+     * @param retVal This is the value being returned
      */
     @AfterReturning(pointcut = "selectAll()", returning = "retVal")
-    public void afterReturningAdvice(JoinPoint joinPoint, Object retVal){
+    public void afterReturningAdvice(JoinPoint joinPoint, Object retVal) {
         Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         log.debug("Exiting from Method :" + joinPoint.getSignature().getName());
         log.debug("Return value :" + retVal.toString());
@@ -60,27 +69,32 @@ public class LoggingAspect {
     /**
      * This is the method which will execute if there is an
      * exception raised by any method
+     *
+     * @param joinPoint At which the log should be included
+     * @param e Throwable exception to be thrown
      */
     @AfterThrowing(pointcut = "selectAll()", throwing = "e")
-    public void AfterThrowingAdvice(JoinPoint joinPoint, Throwable e){
+    public void AfterThrowingAdvice(JoinPoint joinPoint, Throwable e) {
         Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         log.error("An exception has been thrown in " + joinPoint.getSignature().getName() + "()");
-        log.error("Cause :" + e.getCause()+e.getStackTrace());
+        log.error("Cause :" + e.getCause() + Arrays.toString(e.getStackTrace()));
     }
 
+    /**
+     *
+     * @param joinPoint At which the log should be included
+     * @return The object being logged
+     * @throws Throwable Object should the method throw exception
+     */
     @Around("selectAll()")
-    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable
-    {
+    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         Logger log = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         log.debug("The method " + joinPoint.getSignature().getName() + "() begins with " + Arrays.toString(joinPoint.getArgs()));
-        try
-        {
+        try {
             Object result = joinPoint.proceed();
             log.debug("The method " + joinPoint.getSignature().getName() + "() ends with " + result.toString());
             return result;
-        }
-        catch (IllegalArgumentException e)
-        {
+        } catch (IllegalArgumentException e) {
             log.error("Illegal argument " + Arrays.toString(joinPoint.getArgs()) + " in " + joinPoint.getSignature().getName() + "()");
             throw e;
         }

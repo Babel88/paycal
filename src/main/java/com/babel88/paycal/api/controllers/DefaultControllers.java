@@ -33,7 +33,8 @@ public interface DefaultControllers {
     /**
      * Updates the amount to prepay in the payment model
      */
-    @NotNull void updateToPrepay();
+    @NotNull
+    void updateToPrepay();
 
     DefaultPaymentModel getPaymentModel();
 }

@@ -1,29 +1,12 @@
 package com.babel88.paycal.config.factory;
 
-import com.babel88.paycal.api.logic.Contractors;
-import com.babel88.paycal.api.logic.DefaultLogic;
-import com.babel88.paycal.api.logic.ExclusiveImportedServiceLogic;
-import com.babel88.paycal.api.logic.InclusiveImportedServiceLogic;
-import com.babel88.paycal.api.logic.PartialTaxPaymentLogic;
-import com.babel88.paycal.api.logic.Prepayable;
-import com.babel88.paycal.api.logic.TelegraphicTransfers;
-import com.babel88.paycal.config.prepaymentConfigurations;
-import com.babel88.paycal.logic.AbstractPrepayment;
-import com.babel88.paycal.logic.base.ContractorLogic;
-import com.babel88.paycal.logic.base.ContractorPayments;
-import com.babel88.paycal.logic.base.DefaultPartialTaxPaymentLogic;
-import com.babel88.paycal.logic.base.ExclusiveImportedServiceLogicImpl;
-import com.babel88.paycal.logic.base.ForeignPayments;
-import com.babel88.paycal.logic.base.InclusiveImportedServiceLogicImpl;
-import com.babel88.paycal.logic.base.RentalPaymentLogic;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Will implement this and other factories while I figure out why the spring IOC
  * is not working
- *
+ * <p>
  * Created by edwin.njeru on 8/23/17.
  */
 @Deprecated
@@ -38,7 +21,7 @@ public class LogicFactory {
         log.debug("Creating Logic factory instance");
     }
 
-    public static LogicFactory getInstance(){
+    public static LogicFactory getInstance() {
 
         return instance;
     }
@@ -72,18 +55,18 @@ public class LogicFactory {
 //        return BusinessLogicRouter.getInstance();
 //    }
 
-//    public static prepaymentConfigurations getPrepaymentConfigurations(){
+//    public static PrepaymentConfigurations getPrepaymentConfigurations(){
 //
-//        log.debug("Returning a singleton instance of prepaymentConfigurations object");
+//        log.debug("Returning a singleton instance of PrepaymentConfigurations object");
 //
-//        return prepaymentConfigurations.getInstance();
+//        return PrepaymentConfigurations.getInstance();
 //    }
 
 //    public static Prepayable getPrepayable(){
 //
 //        log.debug("Returning a singleton instance of Prepayable object");
 //
-//        return AbstractPrepayment.getInstance();
+//        return SimplePrepayments.getInstance();
 //    }
 
 //    public static TelegraphicTransfers getTelegraphicTransfers(){

@@ -8,9 +8,6 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import static java.math.RoundingMode.HALF_EVEN;
-import static java.math.RoundingMode.UNNECESSARY;
-
 /**
  * Created by edwin.njeru on 18/07/2016.
  * This class contains default PaymentParameters for the following:
@@ -32,9 +29,9 @@ public class PaymentParameters implements Serializable {
 
         log = LoggerFactory.getLogger(this.getClass());
         log.debug("\nCreating payment parameters object with : \n" +
-                "Vat Rate : {}. \n" +
-                "Withholding Vat Rate : {}. \n" +
-                "Withholding Tax Rate : {}. \n" +
+                        "Vat Rate : {}. \n" +
+                        "Withholding Vat Rate : {}. \n" +
+                        "Withholding Tax Rate : {}. \n" +
                         "Contractor withholding Tax Rate : {}. \n" +
                         "Withholding tax on Rental payment",
                 "16%", "6%", "5%", "3%", "10%");
@@ -56,33 +53,33 @@ public class PaymentParameters implements Serializable {
     }
 
     @SuppressWarnings(value = "BigDecimal.divide() called without a rounding mode argument")
-    private BigDecimal divPerCent(BigDecimal denominator){
+    private BigDecimal divPerCent(BigDecimal denominator) {
 
-        log.debug("Dividing denominator by 100, to create percentage value for : {}.",denominator);
+        log.debug("Dividing denominator by 100, to create percentage value for : {}.", denominator);
         return denominator.divide(BigDecimal.valueOf(100)).setScale(2);
     }
 
     public BigDecimal getVatRate() {
 
-        log.debug("Vat rate => Ret val : {}.",vatRate);
+        log.debug("Vat rate => Ret val : {}.", vatRate);
         return vatRate;
     }
 
     public BigDecimal getWithholdingVatRate() {
 
-        log.debug("Withholding Vat rate => Ret val : {}.",withholdingVatRate);
+        log.debug("Withholding Vat rate => Ret val : {}.", withholdingVatRate);
         return withholdingVatRate;
     }
 
     public BigDecimal getWithholdingTaxRate() {
 
-        log.debug("Withholding Tax rate => Ret val : {}.",withholdingTaxRate);
+        log.debug("Withholding Tax rate => Ret val : {}.", withholdingTaxRate);
         return withholdingTaxRate;
     }
 
     public BigDecimal getWithholdingTaxContractor() {
 
-        log.debug("Withholding Tax Contractor => Ret val : {}.",withholdingTaxContractor);
+        log.debug("Withholding Tax Contractor => Ret val : {}.", withholdingTaxContractor);
         return withholdingTaxContractor;
     }
 

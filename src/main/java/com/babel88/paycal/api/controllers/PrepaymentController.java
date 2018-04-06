@@ -9,7 +9,7 @@ public interface PrepaymentController {
     /**
      * This method takes the total expense and runs all the methods required to calculate
      * prepayment which is returned to the caller
-     *
+     * <p>
      * Additional value add processes are plugged in in the implementation service to clean
      * up the user input
      *
@@ -21,7 +21,6 @@ public interface PrepaymentController {
     BigDecimal getPrepayment(@Nonnull BigDecimal totalExpense);
 
     /**
-     *
      * @param expenseAmount to be prepaid
      */
     @NotNull

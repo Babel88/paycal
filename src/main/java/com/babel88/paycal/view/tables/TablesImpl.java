@@ -23,7 +23,7 @@ public class TablesImpl implements Tables {
 
     public TablesImpl() {
 
-        log.debug("Creating a new TablesImpl object",this);
+        log.debug("Creating a new TablesImpl object", this);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class TablesImpl implements Tables {
     private void setMaxColumnSize(int colum, String content) {
         int size = content.length();
         Integer currentSize = this._columSizes.get(Integer.valueOf(colum));
-        if(currentSize == null || currentSize != null && currentSize.intValue() < size) {
+        if (currentSize == null || currentSize != null && currentSize.intValue() < size) {
             this._columSizes.put(Integer.valueOf(colum), Integer.valueOf(size));
         }
 
@@ -46,27 +46,27 @@ public class TablesImpl implements Tables {
 
     public int getColumSize(int colum) {
         Integer size = this._columSizes.get(Integer.valueOf(colum));
-        return size == null?0:size.intValue();
+        return size == null ? 0 : size.intValue();
     }
 
     public String getString(int row, int colum) {
         Index index = new Index(row, colum);
         String string = this._strings.get(index);
-        return string == null?"":string;
+        return string == null ? "" : string;
     }
 
     public String getTableAsString(int padding) {
         String out = "";
 
-        for(int r = 0; r < this._numRows; ++r) {
-            for(int c = 0; c < this._numColumns; ++c) {
+        for (int r = 0; r < this._numRows; ++r) {
+            for (int c = 0; c < this._numColumns; ++c) {
                 int columSize = this.getColumSize(c);
                 String content = this.getString(r, c);
-                int pad = c == this._numColumns - 1?0:padding;
+                int pad = c == this._numColumns - 1 ? 0 : padding;
                 out = out + Strings.padEnd(content, columSize + pad, ' ');
             }
 
-            if(r < this._numRows - 1) {
+            if (r < this._numRows - 1) {
                 out = out + "\n";
             }
         }

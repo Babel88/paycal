@@ -1,25 +1,28 @@
 package com.babel88.paycal.logic;
 
-import com.babel88.paycal.config.prepaymentConfigurations;
+import com.babel88.paycal.config.PrepaymentConfigurations;
 import com.babel88.paycal.utils.TestUtils;
 import static java.math.RoundingMode.HALF_EVEN;
 import static org.junit.Assert.*;
+
+import com.babel88.paycal.view.FeedBackImpl;
+import com.babel88.paycal.view.Invoice;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class AbstractPrepaymentTest extends TestUtils<AbstractPrepayment> {
+public class SimplePrepaymentsTest extends TestUtils<SimplePrepayments> {
 
-    private AbstractPrepayment abstractPrepayment;
+    private SimplePrepayments simplePrepayments;
 
     @Before
     public void setUp() throws Exception {
 
-        abstractPrepayment = new AbstractPrepayment(new prepaymentConfigurations());
+        simplePrepayments = new SimplePrepayments(new Invoice(new FeedBackImpl()), new PrepaymentConfigurations());
 
-        abstractPrepayment
+        simplePrepayments
                 .setInvoiceStartDate(LocalDate.of(2017,01,01))
                 .setInvoiceReferenceDate(LocalDate.of(2017,06,30))
                 .setInvoiceEndDate(LocalDate.of(2017,12,31));
@@ -31,15 +34,15 @@ public class AbstractPrepaymentTest extends TestUtils<AbstractPrepayment> {
      * @return
      */
     @Override
-    public AbstractPrepayment getBeanInstance() {
+    public SimplePrepayments getBeanInstance() {
 
-        return abstractPrepayment;
+        return simplePrepayments;
     }
 
     @Test
     public void calculatePrepayment() throws Exception {
 
-        BigDecimal prepayment  = abstractPrepayment.calculatePrepayment(bd(45365.56));
+        BigDecimal prepayment  = simplePrepayments.calculatePrepayment(bd(45365.56));
 
         assertEquals(bd(22932.04),prepayment);
     }
@@ -51,6 +54,6 @@ public class AbstractPrepaymentTest extends TestUtils<AbstractPrepayment> {
 
     @Override
     public void getterAndSetterCorrectness() throws Exception {
-        // The abstractPrepayment bean seems to be having instantiation problems
+        // The simplePrepayments bean seems to be having instantiation problems
     }
 }

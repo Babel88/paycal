@@ -1,19 +1,12 @@
 package com.babel88.paycal.config.factory;
 
-import com.babel88.paycal.api.controllers.*;
-import com.babel88.paycal.controllers.ReportsController;
-import com.babel88.paycal.controllers.base.ContractorPaymentsController;
-import com.babel88.paycal.controllers.base.DefaultTypicalPaymentsController;
-import com.babel88.paycal.controllers.base.RentalPaymentsController;
-import com.babel88.paycal.controllers.base.TTControllerImpl;
-import com.babel88.paycal.controllers.base.WithholdingTaxPaymentController;
-import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
+import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Factory containing all controller objects
- *
+ * <p>
  * Created by edwin.njeru on 8/23/17.
  */
 @Deprecated

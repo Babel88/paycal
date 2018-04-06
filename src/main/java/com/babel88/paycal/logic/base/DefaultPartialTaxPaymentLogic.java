@@ -2,14 +2,12 @@ package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.PartialTaxPaymentLogic;
 import com.babel88.paycal.config.PaymentParameters;
-import com.babel88.paycal.config.factory.LogicFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
-import static java.math.RoundingMode.*;
+import static java.math.RoundingMode.HALF_EVEN;
 
 public class DefaultPartialTaxPaymentLogic implements PartialTaxPaymentLogic {
 
@@ -20,7 +18,7 @@ public class DefaultPartialTaxPaymentLogic implements PartialTaxPaymentLogic {
     public DefaultPartialTaxPaymentLogic() {
 
         log.debug("The default implementation pf the PartialTaxPaymentLogic interface \n" +
-                "has been invoked : {}",this);
+                "has been invoked : {}", this);
     }
 
     /**
@@ -33,15 +31,15 @@ public class DefaultPartialTaxPaymentLogic implements PartialTaxPaymentLogic {
     public BigDecimal calculateWithholdingVat(BigDecimal vatAmount) {
 
         BigDecimal wthVat = null;
-        if(paymentParameters != null && vatAmount != null ) {
-            wthVat  = vatAmount
-                .divide(paymentParameters.getVatRate(), HALF_EVEN)
+        if (paymentParameters != null && vatAmount != null) {
+            wthVat = vatAmount
+                    .divide(paymentParameters.getVatRate(), HALF_EVEN)
                     .multiply(paymentParameters.getWithholdingVatRate());
-        } else{
+        } else {
 
-            if(paymentParameters != null) {
+            if (paymentParameters != null) {
                 log.debug("The vat amount provided is null");
-            } else if(vatAmount != null){
+            } else if (vatAmount != null) {
                 log.debug("The payment parameters object provided is null");
             } else {
                 log.error("Both the vat amount and the payment parameters object are null");

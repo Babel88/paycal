@@ -14,12 +14,14 @@ public class ReportingVisitor implements Visitor {
     private final Logger log = LoggerFactory.getLogger(ReportingVisitor.class);
     private PaymentAdvice paymentAdvice;
     // = new PaymentReportDelegate(this);
-    private PaymentReportDelegate paymentReportDelegate;
+    private final PaymentReportDelegate paymentReportDelegate;
     private DefaultPaymentModel paymentModel;
 
-    public ReportingVisitor() {
+    public ReportingVisitor(FeedBack feedBack) {
 
-        log.debug("Creating a ReportingVisitor : {}",this);
+        log.debug("Creating a ReportingVisitor : {}", this);
+
+        paymentReportDelegate = new PaymentReportDelegate(this, feedBack);
     }
 
     @Override
@@ -32,30 +34,25 @@ public class ReportingVisitor implements Visitor {
         paymentReportDelegate.renderPaymentModelReport();
     }
 
+    public PaymentAdvice getPaymentAdvice() {
+        return paymentAdvice;
+    }
+
     public ReportingVisitor setPaymentAdvice(PaymentAdvice paymentAdvice) {
         this.paymentAdvice = paymentAdvice;
         return this;
-    }
-
-    public PaymentAdvice getPaymentAdvice() {
-        return paymentAdvice;
     }
 
     public PaymentReportDelegate getPaymentReportDelegate() {
         return paymentReportDelegate;
     }
 
-    public ReportingVisitor setPaymentReportDelegate(PaymentReportDelegate paymentReportDelegate) {
-        this.paymentReportDelegate = paymentReportDelegate;
-        return this;
+    public DefaultPaymentModel getPaymentModel() {
+        return paymentModel;
     }
 
     public ReportingVisitor setPaymentModel(DefaultPaymentModel paymentModel) {
         this.paymentModel = paymentModel;
         return this;
-    }
-
-    public DefaultPaymentModel getPaymentModel() {
-        return paymentModel;
     }
 }

@@ -9,7 +9,6 @@ import com.babel88.paycal.api.logic.InclusiveImportedServiceLogic;
 import com.babel88.paycal.api.view.Visitor;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.models.TTArguments;
-import com.google.common.base.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,11 +16,12 @@ import java.math.BigDecimal;
 
 /**
  * Controller for telegraphic transfers
- *
+ * <p>
  * Created by edwin.njeru on 01/09/2017.
  */
 public class TTControllerImpl implements TTController {
 
+    private static final Logger log = LoggerFactory.getLogger(TTControllerImpl.class);
     private ExclusiveImportedServiceLogic exclusiveImportedServiceLogic;
     private InclusiveImportedServiceLogic inclusiveImportedServiceLogic;
     private PrepaymentController prepaymentController;
@@ -30,18 +30,13 @@ public class TTControllerImpl implements TTController {
     private InvoiceDetails invoiceDetails;
     private Visitor modelViewerVisitor;
     private Visitor reportingVisitor;
-
     // new PrepaymentsDelegate(this); injected via IOC
     private PrepaymentsDelegate prepaymentsDelegate;
 
 
-    private static final Logger log = LoggerFactory.getLogger(TTControllerImpl.class);
-
-
-
     public TTControllerImpl(InvoiceDetails invoiceDetails) {
 
-        log.debug("Initializing the TTController... : {}",this);
+        log.debug("Initializing the TTController... : {}", this);
         this.invoiceDetails = invoiceDetails;
     }
 
@@ -78,12 +73,12 @@ public class TTControllerImpl implements TTController {
 
             paymentModel.accept(reportingVisitor);
 
-        } catch (Exception e){
+        } catch (Exception e) {
 
-            if(invoiceDetails == null) {
+            if (invoiceDetails == null) {
                 log.error("The invoice details object is null");
                 e.printStackTrace();
-            } else if(prepaymentsDelegate == null){
+            } else if (prepaymentsDelegate == null) {
 
                 log.error("The prepaymentDelegate object is null");
 
@@ -102,12 +97,12 @@ public class TTControllerImpl implements TTController {
             ttArguments.setTaxExclusionPolicy(invoiceDetails.exclusiveOfWithholdingTax());
         } catch (Exception e) {
 
-            if(invoiceDetails == null){
+            if (invoiceDetails == null) {
 
                 log.error("The invoice details object is null");
 
                 e.printStackTrace();
-            } else if(ttArguments == null){
+            } else if (ttArguments == null) {
 
                 log.error("The TTArguments object is null");
 
@@ -124,7 +119,7 @@ public class TTControllerImpl implements TTController {
 
         log.debug("Standby for total expense update...");
         BigDecimal totalExpense;
-        if(ttArguments.getTaxExclusionPolicy()){
+        if (ttArguments.getTaxExclusionPolicy()) {
             // Supplier of imported service immune to withholding taxes
             log.debug("Imported services vendor immune to withholding tax charges, delegating \n" +
                     "to exclusiveImportedServiceLogic object : {}", exclusiveImportedServiceLogic);
@@ -132,7 +127,7 @@ public class TTControllerImpl implements TTController {
             log.debug("Setting total expenses of {} in payment model : {}", totalExpense, paymentModel);
             paymentModel.setTotalExpense(totalExpense);
             log.debug("Total expense has been set: ", paymentModel.getTotalExpense());
-        } else if(!ttArguments.getTaxExclusionPolicy()){
+        } else if (!ttArguments.getTaxExclusionPolicy()) {
             log.debug("Imported services vendor subject to withholding tax charges, delegating \n" +
                     "to inclusiveImportedServiceLogic object : {}", inclusiveImportedServiceLogic);
             //Supplier of imported service subject to withholding taxes
@@ -150,21 +145,21 @@ public class TTControllerImpl implements TTController {
         log.debug("Standby for update to payee...");
 
         BigDecimal toPayee;
-        if(ttArguments.getTaxExclusionPolicy()){
+        if (ttArguments.getTaxExclusionPolicy()) {
 
             log.debug("Imported services vendor immune to withholding tax charges, delegating \n" +
                     "to exclusiveImportedServiceLogic object : {}", exclusiveImportedServiceLogic);
             toPayee = exclusiveImportedServiceLogic.calculateToPayee(ttArguments);
             log.debug("Setting toPayee of {} in payment model : {}", toPayee, paymentModel);
             paymentModel.setToPayee(toPayee);
-            log.debug("ToPayee amount has been set: ",paymentModel.getToPayee());
+            log.debug("ToPayee amount has been set: ", paymentModel.getToPayee());
 
-        } else if(!ttArguments.getTaxExclusionPolicy()){
+        } else if (!ttArguments.getTaxExclusionPolicy()) {
 
             log.debug("Imported services vendor immune to withholding tax charges, delegating \n" +
                     "to inclusiveImportedServiceLogic object : {}", inclusiveImportedServiceLogic);
             toPayee = inclusiveImportedServiceLogic.calculateToPayee(ttArguments);
-            log.debug("Setting toPayee of {} in payment model : {}", toPayee,paymentModel);
+            log.debug("Setting toPayee of {} in payment model : {}", toPayee, paymentModel);
             paymentModel.setToPayee(toPayee);
             log.debug("ToPayee amount has been set: ", paymentModel.getToPayee());
         }
@@ -178,15 +173,15 @@ public class TTControllerImpl implements TTController {
         log.debug("Standby for update to the withholding tax...");
 
         BigDecimal withholdingTax;
-        if(ttArguments.getTaxExclusionPolicy()){
+        if (ttArguments.getTaxExclusionPolicy()) {
             log.debug("Imported services vendor immune to withholding tax charges, delegating \n" +
                     "to exclusiveImportedServiceLogic object : {}", exclusiveImportedServiceLogic);
             withholdingTax = exclusiveImportedServiceLogic.calculateWithholdingTax(ttArguments);
             log.debug("Setting withholding tax amount of {} in payment model : {}", withholdingTax, paymentModel);
             paymentModel.setWithholdingTax(withholdingTax);
-            log.debug("Withholding tax amount has been set: ",paymentModel.getWithholdingTax());
+            log.debug("Withholding tax amount has been set: ", paymentModel.getWithholdingTax());
 
-        } else if(!ttArguments.getTaxExclusionPolicy()) {
+        } else if (!ttArguments.getTaxExclusionPolicy()) {
             log.debug("Imported services vendor immune to withholding tax charges, delegating \n" +
                     "to inclusiveImportedServiceLogic object : {}", inclusiveImportedServiceLogic);
             withholdingTax = inclusiveImportedServiceLogic.calculateWithholdingTax(ttArguments);
@@ -202,10 +197,10 @@ public class TTControllerImpl implements TTController {
     public DefaultPaymentModel updateWithholdingVat(TTArguments ttArguments) {
 
         BigDecimal withholdingVat;
-        if(ttArguments.getTaxExclusionPolicy()) {
+        if (ttArguments.getTaxExclusionPolicy()) {
             withholdingVat = exclusiveImportedServiceLogic.calculateWithholdingVat(ttArguments);
             paymentModel.setWithHoldingVat(withholdingVat);
-        } else if(!ttArguments.getTaxExclusionPolicy()){
+        } else if (!ttArguments.getTaxExclusionPolicy()) {
             withholdingVat = inclusiveImportedServiceLogic.calculateWithholdingVat(ttArguments);
             paymentModel.setWithHoldingVat(withholdingVat);
         }
@@ -231,6 +226,11 @@ public class TTControllerImpl implements TTController {
         return paymentModel;
     }
 
+    public TTControllerImpl setPaymentModel(DefaultPaymentModel paymentModel) {
+        this.paymentModel = paymentModel;
+        return this;
+    }
+
     /**
      * Returns the PrepaymentController object currently in the foreignPaymentsController's class
      *
@@ -241,11 +241,20 @@ public class TTControllerImpl implements TTController {
         return prepaymentController;
     }
 
+    public TTControllerImpl setPrepaymentController(PrepaymentController prepaymentController) {
+        this.prepaymentController = prepaymentController;
+        return this;
+    }
 
     @Override
     public TTArguments getTtArguments() {
 
         return ttArguments;
+    }
+
+    @Override
+    public void setTtArguments(TTArguments ttArguments) {
+        this.ttArguments = ttArguments;
     }
 
     @SuppressWarnings("all")
@@ -270,16 +279,6 @@ public class TTControllerImpl implements TTController {
         return this;
     }
 
-    public TTControllerImpl setPrepaymentController(PrepaymentController prepaymentController) {
-        this.prepaymentController = prepaymentController;
-        return this;
-    }
-
-    public TTControllerImpl setPaymentModel(DefaultPaymentModel paymentModel) {
-        this.paymentModel = paymentModel;
-        return this;
-    }
-
     @SuppressWarnings("all")
     public InvoiceDetails getInvoiceDetails() {
         return invoiceDetails;
@@ -300,11 +299,6 @@ public class TTControllerImpl implements TTController {
     public TTControllerImpl setPrepaymentsDelegate(PrepaymentsDelegate prepaymentsDelegate) {
         this.prepaymentsDelegate = prepaymentsDelegate;
         return this;
-    }
-
-    @Override
-    public void setTtArguments(TTArguments ttArguments) {
-        this.ttArguments = ttArguments;
     }
 
     public Visitor getModelViewerVisitor() {

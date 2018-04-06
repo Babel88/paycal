@@ -18,13 +18,15 @@ public class PaymentFactory {
 
     private Router businessLogicRouter;
 
-    public PaymentFactory() {
+    public PaymentFactory(Router businessLogicRouter) {
 
-        log.debug("Creating an instance of the PaymentFactory : {}",this);
+        this.businessLogicRouter = businessLogicRouter;
+
+        log.debug("Creating an instance of the PaymentFactory : {}", this);
     }
 
     @NotNull
-    private String usrChoice(){
+    private String usrChoice() {
 
         Scanner keyboard = new Scanner(System.in);
         String choice = keyboard.next();
@@ -38,7 +40,7 @@ public class PaymentFactory {
         // initiating the enum class
         options = mainOptions.valueOf(usrChoice());
 
-        switch (options){
+        switch (options) {
             case a:
                 out.println();
                 out.println("Normal transaction:");
@@ -95,7 +97,7 @@ public class PaymentFactory {
      * for switching between the main options when the applications
      * starts running
      */
-    enum mainOptions{
+    enum mainOptions {
         a,// Normal payment
         b,// Normal payment with withholding taxes
         c,// Payment with prepayments component
@@ -103,10 +105,5 @@ public class PaymentFactory {
         e,// Foreign transactions(Telegraphic Transfers)
         f,// Partially non taxable payment
         g // 3% withholding tax
-    }
-
-    public PaymentFactory setBusinessLogicRouter(Router businessLogicRouter) {
-        this.businessLogicRouter = businessLogicRouter;
-        return this;
     }
 }

@@ -16,36 +16,31 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 
-import static net.sf.dynamicreports.report.builder.DynamicReports.cmp;
-import static net.sf.dynamicreports.report.builder.DynamicReports.col;
-import static net.sf.dynamicreports.report.builder.DynamicReports.report;
-import static net.sf.dynamicreports.report.builder.DynamicReports.sbt;
-import static net.sf.dynamicreports.report.builder.DynamicReports.stl;
-import static net.sf.dynamicreports.report.builder.DynamicReports.type;
+import static net.sf.dynamicreports.report.builder.DynamicReports.*;
 
 /**
  * Created by edwin.njeru on 8/10/17.
  */
-public class PaymentAdvice  {
+public class PaymentAdvice {
 
+    private final java.time.LocalDateTime reportTime = java.time.LocalDateTime.now();
     private Logger log = LoggerFactory.getLogger(PaymentAdvice.class);
     private Boolean printAdvice;
-    private final java.time.LocalDateTime reportTime = java.time.LocalDateTime.now();
     private String password;
 
     public PaymentAdvice() {
 
-        log.debug("Creating payment advice object : {}",this);
+        log.debug("Creating payment advice object : {}", this);
 
     }
 
     public PaymentAdvice setPrintAdvice(Boolean printAdvice) {
 
-        log.debug("Setting print advice as : "+printAdvice.toString());
+        log.debug("Setting print advice as : " + printAdvice.toString());
 
         this.printAdvice = printAdvice;
 
-        log.debug("Print advice set as : "+printAdvice.toString());
+        log.debug("Print advice set as : " + printAdvice.toString());
         return this;
     }
 
@@ -196,21 +191,21 @@ public class PaymentAdvice  {
     public void forPayment(String paid, String vatWithhold, String withHold) {
 
         log.debug("defining payment figures : \n" +
-                "Amount to pay : "+paid+"\n" +
-                "Vat to withhold: "+vatWithhold+"\n" +
-                "Withholding tax: "+withHold+"\n");
+                "Amount to pay : " + paid + "\n" +
+                "Vat to withhold: " + vatWithhold + "\n" +
+                "Withholding tax: " + withHold + "\n");
 
         if (printAdvice) {
 
             log.debug("Conditionally calling the build method to create report : \n" +
-                    "The report is supposed to print? :"+printAdvice.toString());
+                    "The report is supposed to print? :" + printAdvice.toString());
             build(parseBD(paid), parseBD(vatWithhold), parseBD(withHold));
         }
     }
 
     private BigDecimal parseBD(String stringValue) {
 
-        log.debug("Parsing string value : "+stringValue+" into BigDecimal object");
+        log.debug("Parsing string value : " + stringValue + " into BigDecimal object");
 
         return new BigDecimal(Double.parseDouble(stringValue));
     }
@@ -238,9 +233,9 @@ public class PaymentAdvice  {
         dataSource.add(bd(3200),bd(200),bd(0),"93404","BCHQ","0888");*/
 
         log.debug("Adding objects to dynamic reports datasource object : \n" +
-                "amount paid : "+paid.toString()+"\n" +
-                "vat withheld : "+vatWithheld.toString()+"\n" +
-                "withholding tax : "+withheld.toString()+"\n");
+                "amount paid : " + paid.toString() + "\n" +
+                "vat withheld : " + vatWithheld.toString() + "\n" +
+                "withholding tax : " + withheld.toString() + "\n");
         dataSource.add(paid, vatWithheld, withheld, " ", "BCHQ", "0904");
 
         log.debug("Data objects added to dynamic reports datasource object, now \n" +
@@ -269,18 +264,18 @@ public class PaymentAdvice  {
         return new BigDecimal(v);
     }
 
-    public String getReportName(){
+    public String getReportName() {
 
         log.debug("Creating report with creation time naming convention of the format 'ddMMyyyyHHmmssSS'");
-        java.time.format.DateTimeFormatter formatter=
+        java.time.format.DateTimeFormatter formatter =
                 java.time.format.DateTimeFormatter.ofPattern("ddMMyyyyHHmmssSS");
 
         String reportName = formatter.format(reportTime);
 
-        log.debug("The generated report name is {} to be saved in the location {}",reportName,
+        log.debug("The generated report name is {} to be saved in the location {}", reportName,
                 "C:\\fin_reports\\");
 
-        return "C:\\fin_reports\\"+reportName+".pdf";
+        return "C:\\fin_reports\\" + reportName + ".pdf";
     }
 
     // work in progress

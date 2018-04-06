@@ -10,8 +10,9 @@ public interface Tables {
 
     /**
      * This method creates a row with every call
-     * @param row index for the row
-     * @param colum index for the column
+     *
+     * @param row     index for the row
+     * @param colum   index for the column
      * @param content string item to display
      */
     void addString(int row, int colum, String content);
@@ -26,12 +27,12 @@ public interface Tables {
     /**
      * create string table
      *
-     * @param vatWithhold
-     * @param withHold
-     * @param prepayment
-     * @param expensed
-     * @param paid
-     * @param display
+     * @param vatWithhold Amount of withholding VAT
+     * @param withHold Amount of withholding tax
+     * @param prepayment Amount to be prepaid
+     * @param expensed Amount to be expensed
+     * @param paid Amount to be given to the payee
+     * @param display Implementation fo the Display to be used
      * @return table string
      */
     @NotNull
@@ -40,46 +41,46 @@ public interface Tables {
         // to paymentModelView data on the console
 
 
-        addString(0,0,"");
-        addString(0,1,"RESULTS!!!");
-        addString(0,2,"");
+        addString(0, 0, "");
+        addString(0, 1, "RESULTS!!!");
+        addString(0, 2, "");
         // This is the title row
 
-        addString(1,0,"");
-        addString(1,1,"");
-        addString(1,2,"");
+        addString(1, 0, "");
+        addString(1, 1, "");
+        addString(1, 2, "");
         // That should create an empty ROW
 
-        addString(2,0,"Particulars");
-        addString(2,1,"Debit");
-        addString(2,2,"Credit");
+        addString(2, 0, "Particulars");
+        addString(2, 1, "Debit");
+        addString(2, 2, "Credit");
         // That should label the columns
 
-        addString(3,0,"a) Expense");
+        addString(3, 0, "a) Expense");
         addString(4, 0, "b) Prepayment");
-        addString(5,0,"c) Withhold VAT");
-        addString(6,0,"d) Withhold TAX");
-        addString(7,0,"e) To Payee");
+        addString(5, 0, "c) Withhold VAT");
+        addString(6, 0, "d) Withhold TAX");
+        addString(7, 0, "e) To Payee");
         // That should label the rows
 
-        addString(3,1,expensed);
-        addString(3,2,"-");
+        addString(3, 1, expensed);
+        addString(3, 2, "-");
         // That's your expense
 
-        addString(4,1,prepayment);
-        addString(4,2,"-");
+        addString(4, 1, prepayment);
+        addString(4, 2, "-");
         // That your prepayment
 
-        addString(5,1,"-");
-        addString(5,2,vatWithhold);
+        addString(5, 1, "-");
+        addString(5, 2, vatWithhold);
         // That's the withholding VAT
 
-        addString(6,1,"-");
-        addString(6,2,withHold);
+        addString(6, 1, "-");
+        addString(6, 2, withHold);
         // That's the withholding tax chargeable
 
-        addString(7,1,"-");
-        addString(7,2,paid);
+        addString(7, 1, "-");
+        addString(7, 2, paid);
         // That's the amount payable to payee
 
         return this;

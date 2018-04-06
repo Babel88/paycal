@@ -26,7 +26,7 @@ public class ModelViewerDelegate {
     public ModelViewerDelegate(ModelViewerVisitor modelViewerVisitor) {
 
         log.debug("Creating a model viewer delegate {} with {} as argument",
-                this,modelViewerVisitor);
+                this, modelViewerVisitor);
         this.modelViewerVisitor = modelViewerVisitor;
     }
 
@@ -43,70 +43,69 @@ public class ModelViewerDelegate {
 
                 log.error("The payment Model is null");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
 
-        log.debug("Returning a rendered table : {}",tableString);
+        log.debug("Returning a rendered table : {}", tableString);
 
         return tableString;
     }
 
-    private String tableRendering(){
+    private String tableRendering() {
 
         // calculate total expenses
         BigDecimal totalExpenses = modelViewerVisitor.getPaymentModel().getTotalExpense()
                 .add(modelViewerVisitor.getPaymentModel().getToPrepay())
                 .setScale(2, RoundingMode.HALF_EVEN);
 
-        GridTable gridTable = GridTable.of(9,4)
-                .put(0,0, Cell.of("No."))
-                .put(0,1, Cell.of("LEDGER"))
-                .put(0,2, Cell.of("DEBITS"))
-                .put(0,3, Cell.of("CREDITS"))
+        GridTable gridTable = GridTable.of(9, 4)
+                .put(0, 0, Cell.of("No."))
+                .put(0, 1, Cell.of("LEDGER"))
+                .put(0, 2, Cell.of("DEBITS"))
+                .put(0, 3, Cell.of("CREDITS"))
 
-                .put(1,0, Cell.of("==="))
-                .put(1,1, Cell.of("========"))
-                .put(1,2, Cell.of("========"))
-                .put(1,3, Cell.of("========"))
+                .put(1, 0, Cell.of("==="))
+                .put(1, 1, Cell.of("========"))
+                .put(1, 2, Cell.of("========"))
+                .put(1, 3, Cell.of("========"))
 
-                .put(2,0,Cell.of("1."))
-                .put(2,1, Cell.of("Total Expenses"))
-                .put(2,2, Cell.of(modelViewerVisitor.getPaymentModel().getTotalExpense().toString()))
-                .put(2,3,Cell.of(" - "))
+                .put(2, 0, Cell.of("1."))
+                .put(2, 1, Cell.of("Total Expenses"))
+                .put(2, 2, Cell.of(modelViewerVisitor.getPaymentModel().getTotalExpense().toString()))
+                .put(2, 3, Cell.of(" - "))
 
-                .put(3,0,Cell.of("2."))
-                .put(3,1, Cell.of("Prepayment"))
-                .put(3,2, Cell.of(modelViewerVisitor.getPaymentModel().getToPrepay().toString()))
-                .put(3,3,Cell.of(" - "))
+                .put(3, 0, Cell.of("2."))
+                .put(3, 1, Cell.of("Prepayment"))
+                .put(3, 2, Cell.of(modelViewerVisitor.getPaymentModel().getToPrepay().toString()))
+                .put(3, 3, Cell.of(" - "))
 
-                .put(4,0,Cell.of("3."))
-                .put(4,1, Cell.of("Withholding Vat"))
-                .put(4,2, Cell.of(" - "))
-                .put(4,3,Cell.of(modelViewerVisitor.getPaymentModel().getWithholdingVat().toString()))
+                .put(4, 0, Cell.of("3."))
+                .put(4, 1, Cell.of("Withholding Vat"))
+                .put(4, 2, Cell.of(" - "))
+                .put(4, 3, Cell.of(modelViewerVisitor.getPaymentModel().getWithholdingVat().toString()))
 
-                .put(5,0,Cell.of("4."))
-                .put(5,1, Cell.of("Withholding Tax"))
-                .put(5,2, Cell.of(" - "))
-                .put(5,3,Cell.of(modelViewerVisitor.getPaymentModel().getWithholdingTax().toString()))
+                .put(5, 0, Cell.of("4."))
+                .put(5, 1, Cell.of("Withholding Tax"))
+                .put(5, 2, Cell.of(" - "))
+                .put(5, 3, Cell.of(modelViewerVisitor.getPaymentModel().getWithholdingTax().toString()))
 
-                .put(6,0,Cell.of("5."))
-                .put(6,1, Cell.of("To Pay Vendor"))
-                .put(6,2, Cell.of(" - "))
-                .put(6,3,Cell.of(modelViewerVisitor.getPaymentModel().getToPayee().toString()))
+                .put(6, 0, Cell.of("5."))
+                .put(6, 1, Cell.of("To Pay Vendor"))
+                .put(6, 2, Cell.of(" - "))
+                .put(6, 3, Cell.of(modelViewerVisitor.getPaymentModel().getToPayee().toString()))
 
-                .put(7,0,Cell.of(" "))
-                .put(7,1, Cell.of(" "))
-                .put(7,2, Cell.of("---------"))
-                .put(7,3, Cell.of("---------"))
+                .put(7, 0, Cell.of(" "))
+                .put(7, 1, Cell.of(" "))
+                .put(7, 2, Cell.of("---------"))
+                .put(7, 3, Cell.of("---------"))
 
 
-                .put(8,0,Cell.of(" "))
-                .put(8,1, Cell.of("TOTALS"))
-                .put(8,2, Cell.of(totalExpenses.toString()))
-                .put(8,3,Cell.of(totalExpenses.toString()))
-                ;
+                .put(8, 0, Cell.of(" "))
+                .put(8, 1, Cell.of("TOTALS"))
+                .put(8, 2, Cell.of(totalExpenses.toString()))
+                .put(8, 3, Cell.of(totalExpenses.toString()));
 
         configureTable(gridTable);
 
@@ -117,11 +116,11 @@ public class ModelViewerDelegate {
     @Contract(pure = true)
     private GridTable configureTable(GridTable gridTable) {
 
-       gridTable
-                .applyToCol(0,LEFT_ALIGN.withWidth(4).withChar(' '))
-                .applyToCol(1,LEFT_ALIGN.withWidth(16).withChar(' '))
-                .applyToCol(2,RIGHT_ALIGN.withWidth(13).withChar(' '))
-                .applyToCol(3,RIGHT_ALIGN.withWidth(13).withChar(' '))
+        gridTable
+                .applyToCol(0, LEFT_ALIGN.withWidth(4).withChar(' '))
+                .applyToCol(1, LEFT_ALIGN.withWidth(16).withChar(' '))
+                .applyToCol(2, RIGHT_ALIGN.withWidth(13).withChar(' '))
+                .applyToCol(3, RIGHT_ALIGN.withWidth(13).withChar(' '))
 
                 /*.applyToRow(0,VERTICAL_CENTER.withHeight(2).withChar(' '))
                 .applyToRow(1,VERTICAL_CENTER.withHeight(0).withChar(' '))
@@ -132,8 +131,8 @@ public class ModelViewerDelegate {
                 .applyToRow(6,VERTICAL_CENTER.withHeight(2).withChar(' '))
                 .applyToRow(7,VERTICAL_CENTER.withHeight(2).withChar(' '))*/;
 
-       //gridTable = Border.SINGLE_LINE.apply(gridTable);
+        //gridTable = Border.SINGLE_LINE.apply(gridTable);
 
-       return Border.SINGLE_LINE.apply(gridTable);
+        return Border.SINGLE_LINE.apply(gridTable);
     }
 }

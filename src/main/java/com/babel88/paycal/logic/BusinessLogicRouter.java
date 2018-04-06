@@ -4,8 +4,6 @@ import com.babel88.paycal.api.Router;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.PartialTaxPaymentController;
 import com.babel88.paycal.api.controllers.TTController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
@@ -17,14 +15,20 @@ import org.slf4j.LoggerFactory;
  */
 public class BusinessLogicRouter implements Router {
 
-    private PartialTaxPaymentController partialTaxPaymentController;
-    private DefaultControllers contractorPaymentsController;
-    private DefaultControllers withholdingTaxPaymentController;
-    private DefaultControllers rentalPaymentsController;
-    private DefaultControllers typicalPaymentsController;
-    private TTController ttController;
+    private final PartialTaxPaymentController partialTaxPaymentController;
+    private final DefaultControllers contractorPaymentsController;
+    private final DefaultControllers withholdingTaxPaymentController;
+    private final DefaultControllers rentalPaymentsController;
+    private final DefaultControllers typicalPaymentsController;
+    private final TTController ttController;
 
-    public BusinessLogicRouter() {
+    public BusinessLogicRouter(PartialTaxPaymentController partialTaxPaymentController, DefaultControllers contractorPaymentsController, DefaultControllers withholdingTaxPaymentController, DefaultControllers rentalPaymentsController, DefaultControllers typicalPaymentsController, TTController ttController) {
+        this.partialTaxPaymentController = partialTaxPaymentController;
+        this.contractorPaymentsController = contractorPaymentsController;
+        this.withholdingTaxPaymentController = withholdingTaxPaymentController;
+        this.rentalPaymentsController = rentalPaymentsController;
+        this.typicalPaymentsController = typicalPaymentsController;
+        this.ttController = ttController;
     }
 
     @Override
@@ -73,7 +77,7 @@ public class BusinessLogicRouter implements Router {
         ttController.runCalculation();
     }
 
-    public BusinessLogicRouter setPartialTaxPaymentController(PartialTaxPaymentController partialTaxPaymentController) {
+    /*public BusinessLogicRouter setPartialTaxPaymentController(PartialTaxPaymentController partialTaxPaymentController) {
         this.partialTaxPaymentController = partialTaxPaymentController;
         return this;
     }
@@ -101,7 +105,7 @@ public class BusinessLogicRouter implements Router {
     public BusinessLogicRouter setTtController(TTController ttController) {
         this.ttController = ttController;
         return this;
-    }
+    }*/
 }
 
 

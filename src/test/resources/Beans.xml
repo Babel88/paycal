@@ -198,12 +198,12 @@
         <property name="paymentParameters" ref="paymentParameters"/>
     </bean>
 
-    <bean id="prepaymentConfigurations" class="com.babel88.paycal.config.prepaymentConfigurations">
+    <bean id="PrepaymentConfigurations" class="com.babel88.paycal.config.PrepaymentConfigurations">
     </bean>
 
-    <bean id="prepayable" class="com.babel88.paycal.logic.AbstractPrepayment">
+    <bean id="prepayable" class="com.babel88.paycal.logic.SimplePrepayments">
         <property name="prepaymentDetails" ref="prepaymentDetails"/>
-        <constructor-arg ref="prepaymentConfigurations"/>
+        <constructor-arg ref="PrepaymentConfigurations"/>
     </bean>
 
     <bean id="telegraphicTransfers" class="com.babel88.paycal.logic.base.ForeignPayments"/>

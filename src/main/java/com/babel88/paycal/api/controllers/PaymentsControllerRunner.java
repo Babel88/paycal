@@ -61,7 +61,7 @@ public interface PaymentsControllerRunner {
      */
     PrepaymentController getPrepaymentController();
 
-    default TTArguments getTtArguments(){
+    default TTArguments getTtArguments() {
 
         return new NullTTArguments();
     }

@@ -21,12 +21,11 @@ import static java.math.RoundingMode.HALF_EVEN;
  * to submit VAT for self, we have to calculate the VAT, based on the Invoice
  * but in reverse</p>
  */
-@Deprecated
 public class ForeignPayments implements TelegraphicTransfers, Serializable {
 
     private final Logger log = LoggerFactory.getLogger(ForeignPayments.class);
 
-    private BigDecimal reverseInvoice, withholdingVat,withHoldingTaxAmount;
+    private BigDecimal reverseInvoice, withholdingVat, withHoldingTaxAmount;
 
     public ForeignPayments() {
 
@@ -42,16 +41,16 @@ public class ForeignPayments implements TelegraphicTransfers, Serializable {
 
     /**
      * Calculation of the Reverse Invoice Amount
-     * > This is the amount from which we will calculate the VAT
-     * multiplying against the VAT rate
-     * > Calculation of the reverse Invoice amount hinges heavily
+     * <P> This is the amount from which we will calculate the VAT
+     * multiplying against the VAT rate</P>
+     * <P>  Calculation of the reverse Invoice amount hinges heavily
      * on whether or not the amount was invoiced inclusive or
-     * exclusive of the withholding tax.
-     * > If the amount is exclusive then the reverse Invoice amount is
-     * calculated as follows:
+     * exclusive of the withholding tax.</P>
+     * <P> If the amount is exclusive then the reverse Invoice amount is
+     * calculated as follows:</P>
      * Reverse Invoice = (invoiced/(1-(WithTaxRate/100)))
-     * > If the amount invoiced is inclusive, it will construed to be the
-     * the same as the Reverse Invoice.
+     * <P> If the amount invoiced is inclusive, it will construed to be the
+     * the same as the Reverse Invoice.</P>
      *
      * @param invoiced//    "Invoiced" variable in the main method
      * @param withTaxRate// "WithTax_Rate" variable in the main method
@@ -61,35 +60,35 @@ public class ForeignPayments implements TelegraphicTransfers, Serializable {
     public BigDecimal getReverseInvoice(BigDecimal invoiced, BigDecimal withTaxRate, Boolean exclusive) {
 
         log.debug("Calculating the reverse invoice amount for :\n" +
-                "Invoiced amount : {}. \n" +
-                "Withholding tax rate : {}. \n" +
-                "Exclusive withholding tax : {}. \n",
-                invoiced,withTaxRate,exclusive);
+                        "Invoiced amount : {}. \n" +
+                        "Withholding tax rate : {}. \n" +
+                        "Exclusive withholding tax : {}. \n",
+                invoiced, withTaxRate, exclusive);
 
         if (!exclusive) {
 
-            this.reverseInvoice = invoiced.setScale(2,HALF_EVEN);
+            this.reverseInvoice = invoiced.setScale(2, HALF_EVEN);
 
             log.debug("The withholding tax is not exclusive to the invoiced amount  returning \n" +
-                    "reversed invoice amount of : {}.",reverseInvoice);
+                    "reversed invoice amount of : {}.", reverseInvoice);
 
         } else {
 
             BigDecimal reverseCoefficient = ONE.subtract(withTaxRate);
 
             log.debug("The withholding tax is exclusive therefore we calculate the reverseInvoiceCoefficient \n" +
-                    "as : {}.",reverseCoefficient);
+                    "as : {}.", reverseCoefficient);
 
             this.reverseInvoice = invoiced
-                                    .divide(reverseCoefficient,HALF_EVEN)
-                                    .setScale(2,HALF_EVEN);
+                    .divide(reverseCoefficient, HALF_EVEN)
+                    .setScale(2, HALF_EVEN);
 
             log.debug("The withholding tax is exclusive: Dividing invoiced amount {}. with the reverseInvoiceCoefficient\n " +
-                    "of : {}. and reversed invoice amount is given as : {}."
-                    ,invoiced,reverseCoefficient,reverseInvoice);
+                            "of : {}. and reversed invoice amount is given as : {}."
+                    , invoiced, reverseCoefficient, reverseInvoice);
         }
 
-        return this.reverseInvoice.setScale(2,HALF_EVEN);
+        return this.reverseInvoice.setScale(2, HALF_EVEN);
     }
 
     /**
@@ -97,19 +96,18 @@ public class ForeignPayments implements TelegraphicTransfers, Serializable {
      * Here we are now going to use the reverse VAT calculated to
      * calculate the vat amount chargeable
      *
-     * @param reverseInvoiceAmount
-     * @param vatRate
+     * @param reverseInvoiceAmount Amount of recalculated invoice
+     * @param vatRate Rate of the local vat
      * @return //Reverse Vat chargeable
      */
-
     @Override
     public BigDecimal getReverseVat(BigDecimal reverseInvoiceAmount, BigDecimal vatRate) {
 
         this.withholdingVat = reverseInvoiceAmount.multiply(vatRate);
 
         log.debug("Reverse vat calculated when reverseInvoiceAmount is : {}. \n" +
-                "and a vat rate of : {}.",reverseInvoiceAmount,vatRate);
-        return this.withholdingVat.setScale(2,HALF_EVEN);
+                "and a vat rate of : {}.", reverseInvoiceAmount, vatRate);
+        return this.withholdingVat.setScale(2, HALF_EVEN);
     }
 
     /**
@@ -128,10 +126,10 @@ public class ForeignPayments implements TelegraphicTransfers, Serializable {
     public BigDecimal getwithholdingTaxAmount(BigDecimal reverseInvoiceAmount, BigDecimal withHoldingTaxRate) {
 
         log.debug("Withholding tax amount calculated for : {}. with \n" +
-                "withholding tax rate as : {}.",reverseInvoiceAmount,withHoldingTaxRate);
+                "withholding tax rate as : {}.", reverseInvoiceAmount, withHoldingTaxRate);
         return reverseInvoiceAmount
                 .multiply(withHoldingTaxRate)
-                .setScale(2,HALF_EVEN);
+                .setScale(2, HALF_EVEN);
     }
 
     /**
@@ -142,42 +140,41 @@ public class ForeignPayments implements TelegraphicTransfers, Serializable {
      * One thing always holds true. The Total Expense will always be:
      * Total Expense=Reverse Invoice*(1+Vat Rate)
      *
-     * @param reverseInvoice
-     * @param vatRate
+     * @param reverseInvoice Invoice amount recalculated
+     * @param vatRate VAT local
      * @param exclusive      //If   no, the invoiced is not inclusive,
      *                       if yes it is exclusive.
-     * @param invoiced
-     * @param vatAmount
+     * @param invoiced Amount initially invoiced
+     * @param vatAmount The calculated amount of vat
      * @return // "Total Expense=Reverse Invoice*(1+Vat Rate)"
      */
     @Override
-    public BigDecimal getTotalExpense(BigDecimal reverseInvoice, BigDecimal vatRate, Boolean exclusive, BigDecimal invoiced, BigDecimal vatAmount)
-    {
+    public BigDecimal getTotalExpense(BigDecimal reverseInvoice, BigDecimal vatRate, Boolean exclusive, BigDecimal invoiced, BigDecimal vatAmount) {
         BigDecimal totalExpense;
 
         log.debug("Getting total expense amount for : \n" +
-                "reverse invoice : {}. \n" +
-                "vat rate : {}. \n" +
-                "withholding tax exclusive : {}. \n" +
-                "invoiced amount : {}. \n" +
-                "vat amount : {}."
-                ,reverseInvoice,vatRate,exclusive,invoiced,vatAmount);
+                        "reverse invoice : {}. \n" +
+                        "vat rate : {}. \n" +
+                        "withholding tax exclusive : {}. \n" +
+                        "invoiced amount : {}. \n" +
+                        "vat amount : {}."
+                , reverseInvoice, vatRate, exclusive, invoiced, vatAmount);
 
         if (exclusive) {
 
             totalExpense = reverseInvoice.add(vatAmount);
 
-            log.debug("Total expense is : {}.",totalExpense);
+            log.debug("Total expense is : {}.", totalExpense);
 
         } else {
 
             totalExpense = invoiced.multiply(vatRate.add(ONE));
 
-            log.debug("Total expense is : {}.",totalExpense);
+            log.debug("Total expense is : {}.", totalExpense);
 
         }
 
-        return totalExpense.setScale(2,HALF_EVEN);
+        return totalExpense.setScale(2, HALF_EVEN);
     }
 
     /**
@@ -187,9 +184,9 @@ public class ForeignPayments implements TelegraphicTransfers, Serializable {
      * Well, unless the amount invoiced is inclusive of withholding Tax
      * Getting the right figure here is all the rage...
      *
-     * @param total//      This is the figure for total Expense
-     * @param withTax//The withholding tax chargeable
-     * @param vatAmount//The     reverse VAT amount chargeable
+     * @param total//        This is the figure for total Expense
+     * @param withTax//The   withholding tax chargeable
+     * @param vatAmount//The reverse VAT amount chargeable
      * @return // The amounts due to supplier, will always be the balance after
      * taxes are withheld on the total expense incurred by the company
      */
@@ -200,8 +197,8 @@ public class ForeignPayments implements TelegraphicTransfers, Serializable {
         log.debug("Calculating payment to supplier when : \n" +
                 "Total Expense : {}. \n" +
                 "Withholding tax : {}. \n" +
-                "Vat amount : {}.",total,withTax,vatAmount);
-        return total.subtract(withTax).subtract(vatAmount).setScale(2,HALF_EVEN);
+                "Vat amount : {}.", total, withTax, vatAmount);
+        return total.subtract(withTax).subtract(vatAmount).setScale(2, HALF_EVEN);
     }
 
     @Override
