@@ -3,7 +3,7 @@ package com.babel88.paycal.api.view;
 /**
  * Created by edwin.njeru on 10/08/2017.
  */
-public interface FeedBack{
+public interface FeedBack {
     void printIntro();
 
     void mainPrompt();

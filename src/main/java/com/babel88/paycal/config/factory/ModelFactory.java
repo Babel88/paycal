@@ -1,8 +1,5 @@
 package com.babel88.paycal.config.factory;
 
-import com.babel88.paycal.models.PaymentModel;
-import com.babel88.paycal.models.PaymentModelCareTaker;
-import com.babel88.paycal.models.TTArguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +16,7 @@ public class ModelFactory {
         log.debug("Creating a new Model Factory");
     }
 
-    public static ModelFactory getInstance(){
+    public static ModelFactory getInstance() {
 
         log.debug("Returning a singleton instance of the model factory");
         return instance;

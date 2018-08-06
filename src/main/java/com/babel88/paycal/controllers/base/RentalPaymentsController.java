@@ -18,38 +18,36 @@ import java.math.BigDecimal;
 /**
  * Controller for rental payments updates the payment model with assertions based on
  * the rentalPaymentLogic and sends the results to views
- *
+ * <p>
  * Created by edwin.njeru on 29/08/2017.
  */
-public class RentalPaymentsController implements DefaultControllers,PaymentsControllerRunner, Serializable {
+public class RentalPaymentsController implements DefaultControllers, PaymentsControllerRunner, Serializable {
 
     private static final Logger log = LoggerFactory.getLogger(RentalPaymentsController.class);
-
+    protected DefaultPaymentModel paymentModel;
+    // Hold values for the calculations
+    protected BigDecimal invoiceAmount;
     // = new PrepaymentsDelegate(this); Defined as inner bean in the application context
     private PrepaymentsDelegate prepaymentsDelegate;
     private DefaultLogic rentalPaymentLogic;
-    protected DefaultPaymentModel paymentModel;
     private InvoiceDetails invoiceDetails;
     private PrepaymentController prepaymentController;
     private Visitor modelViewerVisitor;
     private Visitor modelPrecisionVisitor;
     private Visitor reportingVisitor;
-
-    // Hold values for the calculations
-    protected BigDecimal invoiceAmount;
     @SuppressWarnings("all")
     private Boolean doAgain;
 
     @SuppressWarnings("all")
     public RentalPaymentsController() {
 
-        log.debug("Creating a rental payments controller using constructor in PaymentsControllerRunner : {}",this);
+        log.debug("Creating a rental payments controller using constructor in PaymentsControllerRunner : {}", this);
     }
 
     @Override
     public void runCalculation() {
 
-        if(invoiceDetails != null) {
+        if (invoiceDetails != null) {
 
             do {
 
@@ -92,7 +90,7 @@ public class RentalPaymentsController implements DefaultControllers,PaymentsCont
     @Override
     public void updateToPayee() {
 
-       paymentModel.setToPayee(
+        paymentModel.setToPayee(
                 rentalPaymentLogic.calculateToPayee(invoiceAmount)
         );
 
@@ -130,9 +128,8 @@ public class RentalPaymentsController implements DefaultControllers,PaymentsCont
         return paymentModel;
     }
 
-    @SuppressWarnings("all")
-    public RentalPaymentsController setRentalPaymentLogic(DefaultLogic rentalPaymentLogic) {
-        this.rentalPaymentLogic = rentalPaymentLogic;
+    public RentalPaymentsController setPaymentModel(DefaultPaymentModel paymentModel) {
+        this.paymentModel = paymentModel;
         return this;
     }
 
@@ -141,8 +138,9 @@ public class RentalPaymentsController implements DefaultControllers,PaymentsCont
         return rentalPaymentLogic;
     }
 
-    public RentalPaymentsController setPaymentModel(DefaultPaymentModel paymentModel) {
-        this.paymentModel = paymentModel;
+    @SuppressWarnings("all")
+    public RentalPaymentsController setRentalPaymentLogic(DefaultLogic rentalPaymentLogic) {
+        this.rentalPaymentLogic = rentalPaymentLogic;
         return this;
     }
 
@@ -171,6 +169,11 @@ public class RentalPaymentsController implements DefaultControllers,PaymentsCont
     @SuppressWarnings("all")
     public PrepaymentsDelegate getPrepaymentsDelegate() {
         return prepaymentsDelegate;
+    }
+
+    public RentalPaymentsController setPrepaymentsDelegate(PrepaymentsDelegate prepaymentsDelegate) {
+        this.prepaymentsDelegate = prepaymentsDelegate;
+        return this;
     }
 
     public BigDecimal getInvoiceAmount() {
@@ -221,11 +224,6 @@ public class RentalPaymentsController implements DefaultControllers,PaymentsCont
     @SuppressWarnings("all")
     public RentalPaymentsController setReportingVisitor(Visitor reportingVisitor) {
         this.reportingVisitor = reportingVisitor;
-        return this;
-    }
-
-    public RentalPaymentsController setPrepaymentsDelegate(PrepaymentsDelegate prepaymentsDelegate) {
-        this.prepaymentsDelegate = prepaymentsDelegate;
         return this;
     }
 }

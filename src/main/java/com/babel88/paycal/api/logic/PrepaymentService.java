@@ -10,7 +10,6 @@ public interface PrepaymentService {
      * This method takes an expense amount and calculates prepayment
      *
      * @param total expense amount
-     *
      * @return prepayment amount
      */
     @Nonnull

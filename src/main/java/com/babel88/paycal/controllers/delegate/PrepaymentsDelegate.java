@@ -16,7 +16,7 @@ public class PrepaymentsDelegate {
 
     public PrepaymentsDelegate(PaymentsControllerRunner paymentsControllerRunner) {
 
-        log.debug("PrepaymentsDelegate {} has been  called with argument... : {}",this, paymentsControllerRunner);
+        log.debug("PrepaymentsDelegate {} has been  called with argument... : {}", this, paymentsControllerRunner);
         this.paymentsControllerRunner = paymentsControllerRunner;
     }
 

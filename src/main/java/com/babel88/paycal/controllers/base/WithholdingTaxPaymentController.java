@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 
 /**
  * Controller for payments with 5% withholding tax
- *
+ * <p>
  * Created by edwin.njeru on 29/08/2017.
  */
 @SuppressWarnings("ALL")
@@ -28,20 +28,27 @@ public class WithholdingTaxPaymentController implements DefaultControllers, Paym
     // new PrepaymentsDelegate(this); inject in IOC
     private PrepaymentsDelegate prepaymentsDelegate;
 
-    private DefaultPaymentModel paymentModel;
-    private InvoiceDetails invoiceDetails;
-    private DefaultLogic withholdingTaxPayments;
-    private PrepaymentController prepaymentController;
-    private Visitor modelViewerVisitor;
-    private Visitor modelPrecisionVisitor;
-    private Visitor reportingVisitor;
+    private final DefaultPaymentModel paymentModel;
+    private final InvoiceDetails invoiceDetails;
+    private final DefaultLogic withholdingTaxPayments;
+    private final PrepaymentController prepaymentController;
+    private final Visitor modelViewerVisitor;
+    private final Visitor modelPrecisionVisitor;
+    private final Visitor reportingVisitor;
 
     private boolean doAgain;
     private BigDecimal invoiceAmount;
 
-    public WithholdingTaxPaymentController() {
+    public WithholdingTaxPaymentController(DefaultPaymentModel paymentModel, InvoiceDetails invoiceDetails, DefaultLogic withholdingTaxPayments, PrepaymentController prepaymentController, Visitor modelViewerVisitor, Visitor modelPrecisionVisitor, Visitor reportingVisitor) {
+        this.paymentModel = paymentModel;
+        this.invoiceDetails = invoiceDetails;
+        this.withholdingTaxPayments = withholdingTaxPayments;
+        this.prepaymentController = prepaymentController;
+        this.modelViewerVisitor = modelViewerVisitor;
+        this.modelPrecisionVisitor = modelPrecisionVisitor;
+        this.reportingVisitor = reportingVisitor;
 
-        log.debug("Withholding tax payments controller created : {}",this);
+        log.debug("Withholding tax payments controller created : {}", this);
     }
 
     @Override
@@ -118,26 +125,6 @@ public class WithholdingTaxPaymentController implements DefaultControllers, Paym
         return paymentModel;
     }
 
-    public WithholdingTaxPaymentController setPaymentModel(DefaultPaymentModel paymentModel) {
-        this.paymentModel = paymentModel;
-        return this;
-    }
-
-    public WithholdingTaxPaymentController setInvoiceDetails(InvoiceDetails invoiceDetails) {
-        this.invoiceDetails = invoiceDetails;
-        return this;
-    }
-
-    public WithholdingTaxPaymentController setWithholdingTaxPayments(DefaultLogic withholdingTaxPayments) {
-        this.withholdingTaxPayments = withholdingTaxPayments;
-        return this;
-    }
-
-    public WithholdingTaxPaymentController setPrepaymentController(PrepaymentController prepaymentController) {
-        this.prepaymentController = prepaymentController;
-        return this;
-    }
-
     public PrepaymentsDelegate getPrepaymentsDelegate() {
         return prepaymentsDelegate;
     }
@@ -164,27 +151,12 @@ public class WithholdingTaxPaymentController implements DefaultControllers, Paym
         return modelViewerVisitor;
     }
 
-    public WithholdingTaxPaymentController setModelViewerVisitor(Visitor modelViewerVisitor) {
-        this.modelViewerVisitor = modelViewerVisitor;
-        return this;
-    }
-
     public Visitor getModelPrecisionVisitor() {
         return modelPrecisionVisitor;
     }
 
-    public WithholdingTaxPaymentController setModelPrecisionVisitor(Visitor modelPrecisionVisitor) {
-        this.modelPrecisionVisitor = modelPrecisionVisitor;
-        return this;
-    }
-
     public Visitor getReportingVisitor() {
         return reportingVisitor;
-    }
-
-    public WithholdingTaxPaymentController setReportingVisitor(Visitor reportingVisitor) {
-        this.reportingVisitor = reportingVisitor;
-        return this;
     }
 
     public boolean isDoAgain() {

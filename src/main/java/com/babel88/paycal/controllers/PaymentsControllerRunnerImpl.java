@@ -19,30 +19,23 @@ import java.math.BigInteger;
 
 /**
  * Implementattion to run the runCalculation method and to call the prepayment delegate
- *
+ * <p>
  * Created by edwin.njeru on 29/08/2017.
  */
 public class PaymentsControllerRunnerImpl implements PaymentsControllerRunner {
 
     private static final Logger log = LoggerFactory.getLogger(RentalPaymentsController.class);
-
-    protected DefaultPaymentModel paymentModel;
-
-    private InvoiceDetails invoiceDetails;
-
-    private ResultsViewer resultsViewer;
-
-    private ReportControllers reportController;
-
-    private PrepaymentController prepaymentController;
-
     private final PrepaymentsDelegate prepaymentsDelegate = new PrepaymentsDelegate(this);
-
+    protected DefaultPaymentModel paymentModel;
     protected BigDecimal invoiceAmount;
+    private InvoiceDetails invoiceDetails;
+    private ResultsViewer resultsViewer;
+    private ReportControllers reportController;
+    private PrepaymentController prepaymentController;
     private Boolean doAgain;
 
     public PaymentsControllerRunnerImpl(InvoiceDetails invoiceDetails) {
-        log.debug("Creating an instance of the PaymentsControllerRunner superclass",this);
+        log.debug("Creating an instance of the PaymentsControllerRunner superclass", this);
         invoiceAmount = new BigDecimal(BigInteger.ZERO);
         this.invoiceDetails = invoiceDetails;
     }
@@ -55,7 +48,7 @@ public class PaymentsControllerRunnerImpl implements PaymentsControllerRunner {
     public void runCalculation() {
         ResultsOutput resultsOutput;
 
-        if(invoiceDetails != null) {
+        if (invoiceDetails != null) {
 
             do {
 
@@ -85,13 +78,25 @@ public class PaymentsControllerRunnerImpl implements PaymentsControllerRunner {
 
     }
 
-    protected void updateTotalExpense(){};
+    protected void updateTotalExpense() {
+    }
 
-    protected void updateToPayee(){};
+    ;
 
-    protected void updateWithholdingTax(){};
+    protected void updateToPayee() {
+    }
 
-    protected void updateWithholdingVat(){};
+    ;
+
+    protected void updateWithholdingTax() {
+    }
+
+    ;
+
+    protected void updateWithholdingVat() {
+    }
+
+    ;
 
     @Override
     public TTArguments getTtArguments() {
@@ -107,12 +112,17 @@ public class PaymentsControllerRunnerImpl implements PaymentsControllerRunner {
         return paymentModel;
     }
 
+    public PaymentsControllerRunnerImpl setPaymentModel(DefaultPaymentModel paymentModel) {
+        this.paymentModel = paymentModel;
+        return this;
+    }
+
     public com.babel88.paycal.api.controllers.PrepaymentController getPrepaymentController() {
         return prepaymentController;
     }
 
-    public PaymentsControllerRunnerImpl setPaymentModel(DefaultPaymentModel paymentModel) {
-        this.paymentModel = paymentModel;
+    public PaymentsControllerRunnerImpl setPrepaymentController(PrepaymentController prepaymentController) {
+        this.prepaymentController = prepaymentController;
         return this;
     }
 
@@ -128,11 +138,6 @@ public class PaymentsControllerRunnerImpl implements PaymentsControllerRunner {
 
     public PaymentsControllerRunnerImpl setReportController(ReportControllers reportController) {
         this.reportController = reportController;
-        return this;
-    }
-
-    public PaymentsControllerRunnerImpl setPrepaymentController(PrepaymentController prepaymentController) {
-        this.prepaymentController = prepaymentController;
         return this;
     }
 

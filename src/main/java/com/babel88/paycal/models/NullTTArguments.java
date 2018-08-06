@@ -16,7 +16,7 @@ public class NullTTArguments extends TTArguments {
 
     public NullTTArguments() {
 
-        log.debug("Someone is trying to access a nullTTArgument : {}",this);
+        log.debug("Someone is trying to access a nullTTArgument : {}", this);
 
         invoiceAmount = BigDecimal.ZERO;
         reverseVatRate = BigDecimal.ZERO;
@@ -26,36 +26,9 @@ public class NullTTArguments extends TTArguments {
     }
 
 
-
     @Override
     public BigDecimal getInvoiceAmount() {
         return BigDecimal.ZERO;
-    }
-
-    @Override
-    public BigDecimal getReverseVatRate() {
-        return BigDecimal.ZERO;
-    }
-
-    @Override
-    public BigDecimal getWithholdingTaxRate() {
-        return BigDecimal.ZERO;
-    }
-
-    @Override
-    public BigDecimal getAmountBeforeTax() {
-        return BigDecimal.ZERO;
-    }
-
-    @Override
-    public Boolean getTaxExclusionPolicy() {
-        return false;
-    }
-
-    @SuppressWarnings("all")
-    public boolean isNill(){
-
-        return true;
     }
 
     @Override
@@ -65,9 +38,19 @@ public class NullTTArguments extends TTArguments {
     }
 
     @Override
+    public BigDecimal getReverseVatRate() {
+        return BigDecimal.ZERO;
+    }
+
+    @Override
     public NullTTArguments setReverseVatRate(BigDecimal reverseVatRate) {
         this.reverseVatRate = reverseVatRate;
         return this;
+    }
+
+    @Override
+    public BigDecimal getWithholdingTaxRate() {
+        return BigDecimal.ZERO;
     }
 
     @Override
@@ -77,14 +60,30 @@ public class NullTTArguments extends TTArguments {
     }
 
     @Override
+    public BigDecimal getAmountBeforeTax() {
+        return BigDecimal.ZERO;
+    }
+
+    @Override
     public NullTTArguments setAmountBeforeTax(BigDecimal amountBeforeTax) {
         this.amountBeforeTax = amountBeforeTax;
         return this;
     }
 
     @Override
+    public Boolean getTaxExclusionPolicy() {
+        return false;
+    }
+
+    @Override
     public NullTTArguments setTaxExclusionPolicy(Boolean taxExclusionPolicy) {
         this.taxExclusionPolicy = taxExclusionPolicy;
         return this;
+    }
+
+    @SuppressWarnings("all")
+    public boolean isNill() {
+
+        return true;
     }
 }

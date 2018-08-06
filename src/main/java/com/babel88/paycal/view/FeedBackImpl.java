@@ -14,12 +14,12 @@ public class FeedBackImpl implements FeedBack {
     private final Logger log = LoggerFactory.getLogger(FeedBackImpl.class);
 
 
-    public FeedBackImpl(){
-        log.debug("Creating an instance of FeedBackImpl : {}",this);
+    public FeedBackImpl() {
+        log.debug("Creating an instance of FeedBackImpl : {}", this);
     }
 
     @Override
-    public void printIntro(){
+    public void printIntro() {
         // To include further info about the app
         // What is it
         // The version
@@ -40,40 +40,38 @@ public class FeedBackImpl implements FeedBack {
 
         out.println(paycal + "4.5-SNAPSHOT \n"
                 + "Payments calculator functions \n"
-                + "Written in java 8 update 141 \n"
-                + "Subject to Oracle Binary code Licence agreement \n"
-                + "http://www.oracle.com/technetwork/java/javase/terms/license/index.html\n"
-                + "Strict Privacy and Confidentiality Conditions Apply\n"
-                + "All rights reserved\n"
-                + "Finance Dept (c)2017\n"
-                + "====================");
+                + "paycal  Copyright (C) 2018  Edwin Njeru \n"
+                + "This program comes with ABSOLUTELY NO WARRANTY; for details option: 'w'.\n"
+                + "This is free software, and you are welcome to redistribute it\n"
+                + " under certain conditions; type option: 'w'. for details.\n"
+                + "==========================================================================");
     }
 
     @Override
-    public void mainPrompt(){
+    public void mainPrompt() {
         out.println();
         String user = new String(getProperty("user.name"));
 
         user.toLowerCase();
         // Get username from the system
-        out.print(user+"@paycal: ");
+        out.print(user + "@paycal: ");
     }
 
     @Override
-    public void payeeName(){
+    public void payeeName() {
         out.println();
         out.println("Kindly provide the name of the payee...");
     }
 
     @Override
-    public void vatRate(){
-       out.println();
+    public void vatRate() {
+        out.println();
         out.println("What is the VAT rate applicable\n" +
                 "Hint: Use whole numbers e.g. 17.5,20,13.5...");
     }
 
     @Override
-    public void withHoldingTaxRate(){
+    public void withHoldingTaxRate() {
         out.println();
         out.println("What is the withholding tax rate applicable \n" +
                 "Hint: Use whole numbers e.g. 17.5,20,13.5...");
@@ -81,7 +79,7 @@ public class FeedBackImpl implements FeedBack {
 
 
     @Override
-    public void initialMenu(){
+    public void initialMenu() {
 
         out.println();
         out.println(" Transaction menu: \n" +
@@ -99,7 +97,7 @@ public class FeedBackImpl implements FeedBack {
     // FeedBackImpl for the Invoice class
 
     @Override
-    public void invoiceAmount(){
+    public void invoiceAmount() {
         out.println();
 
         out.println("What is the amount invoiced?");
@@ -107,7 +105,7 @@ public class FeedBackImpl implements FeedBack {
     }
 
     @Override
-    public void vatAmount(){
+    public void vatAmount() {
         out.println();
 
         out.println("What is the vat amount according to the Invoice?");
@@ -115,7 +113,7 @@ public class FeedBackImpl implements FeedBack {
     }
 
     @Override
-    public void withHoldingTaxAmount(){
+    public void withHoldingTaxAmount() {
         out.println();
 
         out.println("What is the withholding tax amount in the Invoice? ");
@@ -129,7 +127,7 @@ public class FeedBackImpl implements FeedBack {
     }
 
     @Override
-    public void withHoldingVatRate(){
+    public void withHoldingVatRate() {
         out.println();
 
         out.println("What is the withholding vat rate for this transaction? ");

@@ -22,7 +22,10 @@ public interface TTController extends PaymentsControllerRunner, Serializable {
     void updateToPrepay(TTArguments ttArguments);
 
     @Override
-    default void runCalculation(){};
+    default void runCalculation() {
+    }
+
+    ;
 
     void setTtArguments(TTArguments ttArguments);
 }

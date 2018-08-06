@@ -16,7 +16,7 @@ public interface WithholdingTaxPayments {
     /**
      * Calculates the withholding vat
      *
-     * @param invoiceAmount
+     * @param invoiceAmount Amount of requisition
      * @return withholding vat in big decimal
      */
     BigDecimal calculateWithholdingVat(BigDecimal invoiceAmount);
@@ -24,7 +24,7 @@ public interface WithholdingTaxPayments {
     /**
      * Calculating withholding tax
      *
-     * @param invoiceAmount
+     * @param invoiceAmount Amount of requisition
      * @return withholding tax chargeable
      */
     BigDecimal calculateWithholdingTax(BigDecimal invoiceAmount);
@@ -32,7 +32,7 @@ public interface WithholdingTaxPayments {
     /**
      * Calculating total expense
      *
-     * @param invoiceAmount
+     * @param invoiceAmount Amount of requisition
      * @return total expense to the ledger
      */
     BigDecimal calculateTotalExpense(BigDecimal invoiceAmount);
@@ -40,7 +40,7 @@ public interface WithholdingTaxPayments {
     /**
      * Caclulate amount payable to vendor
      *
-     * @param invoiceAmount
+     * @param invoiceAmount Amount of requisition
      * @return amount payable to vendor
      */
     BigDecimal calculateAmountPayable(BigDecimal invoiceAmount);

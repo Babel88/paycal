@@ -15,18 +15,16 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ResultsOutput implements Serializable, ResultsViewer {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-
-    private PaymentModelViewInterface paymentModelViewer;
-
     private final AtomicReference<BigDecimal> total = new AtomicReference<BigDecimal>();
     private final AtomicReference<BigDecimal> vatWithheld = new AtomicReference<BigDecimal>();
     private final AtomicReference<BigDecimal> withholdingTax = new AtomicReference<BigDecimal>();
     private final AtomicReference<BigDecimal> toPrepay = new AtomicReference<BigDecimal>();
     private final AtomicReference<BigDecimal> toPayee = new AtomicReference<BigDecimal>();
+    private PaymentModelViewInterface paymentModelViewer;
 
     public ResultsOutput() {
 
-        log.debug("Creating empty outputFields for : {}, using paymentModelViewer object {} as argument",this, paymentModelViewer);
+        log.debug("Creating empty outputFields for : {}, using paymentModelViewer object {} as argument", this, paymentModelViewer);
 
         total.set(new BigDecimal(BigInteger.ZERO));
         vatWithheld.set(new BigDecimal(BigInteger.ZERO));
@@ -44,23 +42,22 @@ public class ResultsOutput implements Serializable, ResultsViewer {
     @Override
     public ResultsOutput forPayment(PaymentModel paymentModel) {
 
-        if(paymentModel != null && paymentModelViewer != null) {
+        if (paymentModel != null && paymentModelViewer != null) {
 
             createLocalPaymentFieldsFromModel(paymentModel);
 
             paymentModelViewer.displayResults(total.get(), vatWithheld.get(), withholdingTax.get(), toPrepay.get(), toPayee.get());
-        } else if (paymentModel != null){
+        } else if (paymentModel != null) {
 
             log.debug("The payment Model Viewer is null");
-        }
-        else if (paymentModelViewer != null) {
+        } else if (paymentModelViewer != null) {
 
             log.debug("The payment model is null");
         }
         return this;
     }
 
-    private void createLocalPaymentFieldsFromModel(PaymentModel model){
+    private void createLocalPaymentFieldsFromModel(PaymentModel model) {
 
         this.setTotal(model.getTotalExpense());
         this.setVatWithheld(model.getWithHoldingVat());
@@ -131,7 +128,7 @@ public class ResultsOutput implements Serializable, ResultsViewer {
         return toPayee.get();
     }
 
-    public void resetOutput(){
+    public void resetOutput() {
 
         total.set(BigDecimal.ZERO);
         vatWithheld.set(BigDecimal.ZERO);

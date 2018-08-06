@@ -6,19 +6,20 @@ import java.math.BigDecimal;
 public interface TelegraphicTransfers {
     /**
      * Calculation of the Reverse Invoice Amount
-     * > This is the amount from which we will calculate the VAT
-     * multiplying against the VAT rate
-     * > Calculation of the reverse Invoice amount hinges heavily
+     * <P> This is the amount from which we will calculate the VAT
+     * multiplying against the VAT rate</P>
+     * <P> Calculation of the reverse Invoice amount hinges heavily
      * on whether or not the amount was invoiced inclusive or
-     * exclusive of the withholding tax.
-     * > If the amount is exclusive then the reverse Invoice amount is
-     * calculated as follows:
-     * Reverse Invoice = (invoiced/(1-(WithTaxRate/100)))
-     * > If the amount invoiced is inclusive, it will construed to be the
-     * the same as the Reverse Invoice.
+     * exclusive of the withholding tax.</P>
+     * <P> If the amount is exclusive then the reverse Invoice amount is
+     * calculated as follows:</P>
+     * <P>Reverse Invoice = (invoiced/(1-(WithTaxRate/100)))</P>
+     * <P> If the amount invoiced is inclusive, it will construed to be the
+     * the same as the Reverse Invoice.</P>
      *
      * @param Invoiced//    "Invoiced" variable in the main method
      * @param WithTaxRate// "WithTax_Rate" variable in the main method
+     * @param exclusive that is whether or not the payment is exclusive of withholding taxes
      * @return //returns the reverse Invoice amount
      */
     BigDecimal getReverseInvoice(BigDecimal Invoiced, BigDecimal WithTaxRate, Boolean exclusive);
@@ -28,11 +29,10 @@ public interface TelegraphicTransfers {
      * Here we are now going to use the reverse VAT calculated to
      * calculate the vat amount chargeable
      *
-     * @param reverseInvoiceAmount
-     * @param vatRate
+     * @param reverseInvoiceAmount Recalculated invoice amount
+     * @param vatRate The local VAT
      * @return //Reverse Vat chargeable
      */
-
     BigDecimal getReverseVat(BigDecimal reverseInvoiceAmount, BigDecimal vatRate);
 
     /**
@@ -50,19 +50,19 @@ public interface TelegraphicTransfers {
     BigDecimal getwithholdingTaxAmount(BigDecimal reverseInvoiceAmount, BigDecimal withHoldingTaxRate);
 
     /**
-     * Calculating the total expenditure
-     * A lot of variables are going to change once the user decides whether
-     * or not that the amount invoiced is inclusive of withholding tax...
-     * but...
-     * One thing always holds true. The Total Expense will always be:
-     * Total Expense=Reverse Invoice*(1+Vat Rate)
+     * <P>Calculating the total expenditure</P>
+     * <P>A lot of variables are going to change once the user decides whether
+     * or not that the amount invoiced is inclusive of withholding tax...</P>
+     * <P>but...</P>
+     * <P>One thing always holds true. The Total Expense will always be:</P>
+     * <P>Total Expense=Reverse Invoice*(1+Vat Rate)</P>
      *
-     * @param ReverseInvoice
-     * @param vatRate
+     * @param ReverseInvoice Recalculated invoice amount
+     * @param vatRate The local VAT
      * @param exclusive      //If   no, the invoiced is not inclusive,
      *                       if yes it is exclusive.
-     * @param Invoiced
-     * @param VatAmount
+     * @param Invoiced Amount of requisition
+     * @param VatAmount The calculated amount of VAT
      * @return // "Total Expense=Reverse Invoice*(1+Vat Rate)"
      */
     BigDecimal getTotalExpense(BigDecimal ReverseInvoice, BigDecimal vatRate, Boolean exclusive, BigDecimal Invoiced, BigDecimal VatAmount

@@ -32,7 +32,6 @@ public interface Contractors {
      * calculate the total expense for a contractor - involving engagement
      *
      * @param invoiceAmount the amount requested in the payment requisition
-     *
      * @return return amount expendable to ledger in BigDecimal
      */
     BigDecimal calculateTotalExpense(BigDecimal invoiceAmount);

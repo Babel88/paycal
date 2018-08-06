@@ -13,9 +13,9 @@ import java.util.Locale;
  * the locale the date format style can be interacted with.
  * The date format styles must be compliant with the JSR 310
  */
-public class prepaymentConfigurations {
+public class PrepaymentConfigurations {
 
-    Logger log = LoggerFactory.getLogger(prepaymentConfigurations.class);
+    private final static Logger log = LoggerFactory.getLogger(PrepaymentConfigurations.class);
 
     // Keeps track of current date format style
     private Enum<FormatStyle> dateFormatStyle;
@@ -23,7 +23,7 @@ public class prepaymentConfigurations {
     // Keeps track of locale settings
     private Locale locale;
 
-    public prepaymentConfigurations() {
+    public PrepaymentConfigurations() {
 
         log.debug("Creating a general configurations object, with default styles and locale");
 
@@ -34,37 +34,37 @@ public class prepaymentConfigurations {
 
     public Enum<FormatStyle> getDateFormatStyle() {
 
-        log.debug("Ret val: {}. returned from getDateFormatStyle() method",dateFormatStyle.toString());
+        log.debug("Ret val: {}. returned from getDateFormatStyle() method", dateFormatStyle.toString());
         return dateFormatStyle;
+    }
+
+    /**
+     * Sets the date format style used by the date formatter in the SimplePrepayments class
+     *
+     * @param dateFormatStyle The format to be used for the date
+     * @return Prepayment configurations to be applied
+     */
+    public PrepaymentConfigurations setDateFormatStyle(Enum<FormatStyle> dateFormatStyle) {
+        this.dateFormatStyle = dateFormatStyle;
+        log.debug("Date format style set as : ", dateFormatStyle.toString());
+        return this;
     }
 
     public Locale getLocale() {
 
-        log.debug("Ret val: {}. returned from getLocale() method",locale.toString());
+        log.debug("Ret val: {}. returned from getLocale() method", locale.toString());
         return locale;
     }
 
     /**
-     * Sets the date format style used by the date formatter in the AbstractPrepayment class
+     * Sets the Locale used in the date formatter of the SimplePrepayments class
      *
-     * @param dateFormatStyle
-     * @return
+     * @param locale Default locale
+     * @return PrepaymentConfigurations
      */
-    public prepaymentConfigurations setDateFormatStyle(Enum<FormatStyle> dateFormatStyle) {
-        this.dateFormatStyle = dateFormatStyle;
-        log.debug("Date format style set as : ",dateFormatStyle.toString());
-        return this;
-    }
-
-    /**
-     * Sets the Locale used in the date formatter of the AbstractPrepayment class
-     *
-     * @param locale
-     * @return
-     */
-    public prepaymentConfigurations setLocale(Locale locale) {
+    public PrepaymentConfigurations setLocale(Locale locale) {
         this.locale = locale;
-        log.debug("Locale set as : ",locale.toString());
+        log.debug("Locale set as : ", locale.toString());
         return this;
     }
 
@@ -72,7 +72,7 @@ public class prepaymentConfigurations {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        prepaymentConfigurations that = (prepaymentConfigurations) o;
+        PrepaymentConfigurations that = (PrepaymentConfigurations) o;
         return Objects.equal(log, that.log) &&
                 Objects.equal(dateFormatStyle, that.dateFormatStyle) &&
                 Objects.equal(locale, that.locale);

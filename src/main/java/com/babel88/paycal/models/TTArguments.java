@@ -2,21 +2,19 @@ package com.babel88.paycal.models;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
-import static java.math.RoundingMode.*;
+import static java.math.RoundingMode.HALF_EVEN;
 
 /**
  * This class encapsulates the arguments applied in calculations for telegraphic
  * transfers. This is inorder to maintain states between the calculations, the logical
  * models and various delegates and delegators
- *
+ * <p>
  * Created by edwin.njeru on 01/09/2017.
  */
 public class TTArguments implements Serializable {
@@ -29,9 +27,19 @@ public class TTArguments implements Serializable {
     private BigDecimal amountBeforeTax;
     private Boolean taxExclusionPolicy;
 
-    public TTArguments(){
+    public TTArguments() {
 
-        log.debug("TTArguments object instance created : {}",this);
+        log.debug("TTArguments object instance created : {}", this);
+    }
+
+    private BigDecimal setAccuracy(BigDecimal reverseVatRate) {
+
+        return reverseVatRate.divide(BigDecimal.valueOf(100)).setScale(2, HALF_EVEN);
+    }
+
+    public BigDecimal getInvoiceAmount() {
+        log.debug("Invoice amount returned : {}", invoiceAmount);
+        return invoiceAmount;
     }
 
     public TTArguments setInvoiceAmount(BigDecimal invoiceAmount) {
@@ -39,14 +47,19 @@ public class TTArguments implements Serializable {
         return this;
     }
 
+    public BigDecimal getReverseVatRate() {
+        log.debug("Reverse vat rate : {}", reverseVatRate);
+        return reverseVatRate;
+    }
+
     public TTArguments setReverseVatRate(BigDecimal reverseVatRate) {
         this.reverseVatRate = setAccuracy(reverseVatRate);
         return this;
     }
 
-    private BigDecimal setAccuracy(BigDecimal reverseVatRate){
-
-        return reverseVatRate.divide(BigDecimal.valueOf(100)).setScale(2,HALF_EVEN);
+    public BigDecimal getWithholdingTaxRate() {
+        log.debug("Withholding tax rate : {}", withholdingTaxRate);
+        return withholdingTaxRate;
     }
 
     public TTArguments setWithholdingTaxRate(BigDecimal withholdingTaxRate) {
@@ -54,39 +67,24 @@ public class TTArguments implements Serializable {
         return this;
     }
 
+    public BigDecimal getAmountBeforeTax() {
+        log.debug("Amount before tax : {}", amountBeforeTax);
+        return amountBeforeTax;
+    }
+
     public TTArguments setAmountBeforeTax(BigDecimal amountBeforeTax) {
         this.amountBeforeTax = amountBeforeTax;
         return this;
     }
 
+    public Boolean getTaxExclusionPolicy() {
+        log.debug("Withholding tax exclusive : {}", taxExclusionPolicy);
+        return taxExclusionPolicy;
+    }
+
     public TTArguments setTaxExclusionPolicy(Boolean taxExclusionPolicy) {
         this.taxExclusionPolicy = taxExclusionPolicy;
         return this;
-    }
-
-    public BigDecimal getInvoiceAmount() {
-        log.debug("Invoice amount returned : {}",invoiceAmount);
-        return invoiceAmount;
-    }
-
-    public BigDecimal getReverseVatRate() {
-        log.debug("Reverse vat rate : {}",reverseVatRate);
-        return reverseVatRate;
-    }
-
-    public BigDecimal getWithholdingTaxRate() {
-        log.debug("Withholding tax rate : {}",withholdingTaxRate);
-        return withholdingTaxRate;
-    }
-
-    public BigDecimal getAmountBeforeTax() {
-        log.debug("Amount before tax : {}",amountBeforeTax);
-        return amountBeforeTax;
-    }
-
-    public Boolean getTaxExclusionPolicy() {
-        log.debug("Withholding tax exclusive : {}",taxExclusionPolicy);
-        return taxExclusionPolicy;
     }
 
     @Override

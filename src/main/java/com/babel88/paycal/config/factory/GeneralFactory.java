@@ -1,12 +1,10 @@
 package com.babel88.paycal.config.factory;
 
-import com.babel88.paycal.api.view.Tables;
-import com.babel88.paycal.view.tables.TablesImpl;
 import org.jetbrains.annotations.Contract;
 
 /**
  * factory containing general purpose objects
- *
+ * <p>
  * Created by edwin.njeru on 8/23/17.
  */
 @Deprecated

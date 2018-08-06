@@ -4,12 +4,20 @@ import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.PartialTaxPaymentController;
 import com.babel88.paycal.api.controllers.TTController;
+import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.config.PrepaymentConfigurations;
+import com.babel88.paycal.controllers.ReportsController;
 import com.babel88.paycal.controllers.base.DefaultTypicalPaymentsController;
-import com.jcabi.aspects.Loggable;
-import static org.junit.Assert.*;
+import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
+import com.babel88.paycal.logic.base.TypicalPaymentsImpl;
+import com.babel88.paycal.models.PaymentModel;
+import com.babel88.paycal.models.ResultsOutput;
+import com.babel88.paycal.view.FeedBackImpl;
+import com.babel88.paycal.view.Invoice;
+import com.babel88.paycal.view.ModelPrecisionVisitor;
+import com.babel88.paycal.view.ReportingVisitor;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 //TODO include method-calls testing
@@ -25,17 +33,26 @@ public class BusinessLogicRouterTest {
     private TTController ttController;
 
     @Before
-    @Loggable
     public void setUp() throws Exception {
 
         InvoiceDetails invoiceDetails = Mockito.mock(InvoiceDetails.class);
-        typicalPaymentsController = new DefaultTypicalPaymentsController(invoiceDetails);
+        typicalPaymentsController =
+                new DefaultTypicalPaymentsController(
+                        new PaymentModel(),
+                        invoiceDetails,
+                        new ResultsOutput(),
+                        new ReportsController(),
+                        new PrepaymentControllerImpl(new SimplePrepayments(new Invoice(new FeedBackImpl()), new PrepaymentConfigurations()),
+                                new FeedBackImpl()),
+                        new TypicalPaymentsImpl(new PaymentParameters()),
+                        new ModelPrecisionVisitor(),
+                        new ModelPrecisionVisitor(),
+                        new ReportingVisitor(new FeedBackImpl()));
 
         router = Mockito.mock(BusinessLogicRouter.class);
     }
 
     @Test
-    @Loggable
     public void normal() throws Exception {
 
         //router.normal();

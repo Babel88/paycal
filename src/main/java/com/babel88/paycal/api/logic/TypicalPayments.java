@@ -4,9 +4,10 @@ import com.babel88.paycal.logic.GeneralPayments;
 
 import java.math.BigDecimal;
 
-public interface TypicalPayments extends GeneralPayments{
+public interface TypicalPayments extends GeneralPayments {
     /**
      * returns the invoice amount
+     *
      * @return invoice amount requested
      */
     BigDecimal getInvoiceAmount();
@@ -14,8 +15,8 @@ public interface TypicalPayments extends GeneralPayments{
     /**
      * Sets the invoice amount for this object
      *
-     * @param invoiceAmount
-     * @return
+     * @param invoiceAmount Amount of requisition
+     * @return General payments object
      */
     GeneralPayments setInvoiceAmount(BigDecimal invoiceAmount);
 
@@ -30,7 +31,7 @@ public interface TypicalPayments extends GeneralPayments{
     /**
      * Calculates the total amount of expense for a typical payment
      *
-     * @param invoiceAmount
+     * @param invoiceAmount Amount of requisition
      * @return total expenditure
      */
     BigDecimal calculateTotalExpense(BigDecimal invoiceAmount);

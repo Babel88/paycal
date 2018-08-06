@@ -1,10 +1,5 @@
 package com.babel88.paycal.config.factory;
 
-import com.babel88.paycal.api.ResultsViewer;
-import com.babel88.paycal.api.view.PaymentModelViewInterface;
-import com.babel88.paycal.view.DisplayImpl;
-import com.babel88.paycal.models.ResultsOutput;
-import com.babel88.paycal.view.reporting.PaymentAdvice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,13 +9,12 @@ import org.slf4j.LoggerFactory;
 @Deprecated
 public class ModelViewFactory {
     private static final Logger log = LoggerFactory.getLogger(ModelViewFactory.class);
+    private static ModelViewFactory instance = new ModelViewFactory();
 
     public ModelViewFactory() {
 
         log.debug("Creating a model view factory");
     }
-
-    private static ModelViewFactory instance = new ModelViewFactory();
 
     public static ModelViewFactory getInstance() {
         return instance;

@@ -5,16 +5,14 @@ import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.api.view.Visitor;
 import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.config.PrepaymentConfigurations;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
+import com.babel88.paycal.logic.SimplePrepayments;
 import com.babel88.paycal.logic.base.RentalPaymentLogic;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.utils.TestUtils;
-import com.babel88.paycal.view.ModelPrecisionVisitor;
-import com.babel88.paycal.view.ModelViewerDelegate;
-import com.babel88.paycal.view.ModelViewerVisitor;
-import com.babel88.paycal.view.PaymentReportDelegate;
-import com.babel88.paycal.view.ReportingVisitor;
+import com.babel88.paycal.view.*;
 import com.babel88.paycal.view.reporting.PaymentAdvice;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
@@ -22,7 +20,6 @@ import org.junit.Test;
 
 import javax.annotation.Nonnull;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import static java.math.RoundingMode.*;
 import static org.junit.Assert.*;
@@ -55,7 +52,7 @@ public class RentalPaymentsControllerTest extends TestUtils<RentalPaymentsContro
             @Nonnull
             @Override
             public @NotNull Object setExpenseAmount(BigDecimal expenseAmount) {
-                return new PrepaymentControllerImpl();
+                return new PrepaymentControllerImpl(new SimplePrepayments(new Invoice(new FeedBackImpl()), new PrepaymentConfigurations()), feedBack);
             }
         };
 
@@ -189,16 +186,11 @@ public class RentalPaymentsControllerTest extends TestUtils<RentalPaymentsContro
         paymentModel = new PaymentModel();
         modelPrecisionVisitor = new ModelPrecisionVisitor();
         modelViewerVisitor = new ModelViewerVisitor();
-        reportingVisitor = new ReportingVisitor();
+        reportingVisitor = new ReportingVisitor(new FeedBackImpl());
         paymentAdvice = new PaymentAdvice();
-        paymentReportDelegate = new PaymentReportDelegate(reportingVisitor);
-
-        paymentReportDelegate.setFeedBack(feedBack);
-        reportingVisitor.setPaymentReportDelegate(paymentReportDelegate);
+        paymentReportDelegate = new PaymentReportDelegate(reportingVisitor, feedBack);
 
         modelViewerDelegate = new ModelViewerDelegate(modelViewerVisitor);
-
-        modelViewerVisitor.setModelViewerDelegate(modelViewerDelegate);
 
         rentalPaymentsController = new RentalPaymentsController()
                 .setPaymentModel(paymentModel)

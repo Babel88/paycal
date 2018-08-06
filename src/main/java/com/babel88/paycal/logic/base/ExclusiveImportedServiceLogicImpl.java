@@ -2,31 +2,31 @@ package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.ExclusiveImportedServiceLogic;
 import com.babel88.paycal.models.TTArguments;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import static java.math.BigDecimal.*;
-import static java.math.RoundingMode.*;
+import static java.math.BigDecimal.ONE;
+import static java.math.BigDecimal.ROUND_HALF_EVEN;
+import static java.math.RoundingMode.HALF_EVEN;
 
 /**
  * To this class is delegated computations on payments for imported services where
  * the vendor's settlement is immune from withholding taxes
  * Upon creation the amount before tax is calculated and stored and reused in other
  * calculations
- *
+ * <p>
  * Created by edwin.njeru on 01/09/2017.
  */
-public class ExclusiveImportedServiceLogicImpl implements ExclusiveImportedServiceLogic,Serializable {
+public class ExclusiveImportedServiceLogicImpl implements ExclusiveImportedServiceLogic, Serializable {
 
     private static final Logger log = LoggerFactory.getLogger(ExclusiveImportedServiceLogicImpl.class);
 
     public ExclusiveImportedServiceLogicImpl() {
 
-        log.debug("Creating the ExclusiveImportedServiceLogicImpl : {}",this);
+        log.debug("Creating the ExclusiveImportedServiceLogicImpl : {}", this);
     }
 
     /**
@@ -38,23 +38,22 @@ public class ExclusiveImportedServiceLogicImpl implements ExclusiveImportedServi
     @Override
     public BigDecimal calculateTotalExpenses(TTArguments ttArguments) {
 
-        log.debug("CalculateTotalExpenses called with {} as argument",ttArguments);
+        log.debug("CalculateTotalExpenses called with {} as argument", ttArguments);
         BigDecimal totalExpenses;
         BigDecimal amountBeforeTax = null;
-        
-        if(ttArguments != null) {
+
+        if (ttArguments != null) {
             amountBeforeTax = helperCalculateAmountBeforeTax(ttArguments);
 
-            log.debug("Amount before tax calculated as : {}",amountBeforeTax);
-        }
-        else {
+            log.debug("Amount before tax calculated as : {}", amountBeforeTax);
+        } else {
             log.debug("ttArguments object {} is null", ttArguments);
         }
         totalExpenses = helperCalculateTotalExpenses(ttArguments, amountBeforeTax);
 
-        log.debug("Total expenses calculated as : {}",totalExpenses);
+        log.debug("Total expenses calculated as : {}", totalExpenses);
 
-        return totalExpenses.setScale(2,HALF_EVEN);
+        return totalExpenses.setScale(2, HALF_EVEN);
     }
 
     @Override
@@ -70,21 +69,21 @@ public class ExclusiveImportedServiceLogicImpl implements ExclusiveImportedServi
     @Override
     public BigDecimal helperCalculateAmountBeforeTax(TTArguments ttArguments) {
 
-        log.debug("helperCalculateAmountBeforeTax called with {} as argument",ttArguments);
+        log.debug("helperCalculateAmountBeforeTax called with {} as argument", ttArguments);
         BigDecimal amountBeforeTax = null;
 
-        if(ttArguments != null) {
+        if (ttArguments != null) {
             amountBeforeTax = ttArguments.getInvoiceAmount()
                     .divide(
                             (ONE.subtract(ttArguments.getWithholdingTaxRate())),
                             ROUND_HALF_EVEN
                     );
-        } else{
+        } else {
 
             log.debug("ttArguments passed is null");
         }
 
-        log.debug("Amount before tax calculated as {}",amountBeforeTax);
+        log.debug("Amount before tax calculated as {}", amountBeforeTax);
         return amountBeforeTax;
     }
 
@@ -97,15 +96,15 @@ public class ExclusiveImportedServiceLogicImpl implements ExclusiveImportedServi
     @Override
     public BigDecimal calculateToPayee(TTArguments ttArguments) {
 
-        log.debug("calculateToPayee called with {} as argument",ttArguments);
+        log.debug("calculateToPayee called with {} as argument", ttArguments);
         BigDecimal toPayee = null;
-        if(ttArguments!=null){
+        if (ttArguments != null) {
 
             toPayee = ttArguments.getInvoiceAmount();
         }
 
-        log.debug("Amount payable to vendor calculate as : {}",toPayee);
-        return toPayee.setScale(2,HALF_EVEN);
+        log.debug("Amount payable to vendor calculate as : {}", toPayee);
+        return toPayee.setScale(2, HALF_EVEN);
     }
 
     /**
@@ -117,10 +116,10 @@ public class ExclusiveImportedServiceLogicImpl implements ExclusiveImportedServi
     @Override
     public BigDecimal calculateWithholdingTax(TTArguments ttArguments) {
 
-        log.debug("CalculateWithholdingTax called with {} as argument",ttArguments);
+        log.debug("CalculateWithholdingTax called with {} as argument", ttArguments);
         BigDecimal wth = null;
 
-        if(ttArguments!=null){
+        if (ttArguments != null) {
             log.debug("Using helper method to get amount before tax...");
             wth = helperCalculateAmountBeforeTax(ttArguments)
                     .multiply(ttArguments.getWithholdingTaxRate());
@@ -128,8 +127,8 @@ public class ExclusiveImportedServiceLogicImpl implements ExclusiveImportedServi
 
             log.debug("The ttArguments is null");
         }
-        log.debug("WithholdingTax calculated as : {}",wth);
-        return wth.setScale(2,HALF_EVEN);
+        log.debug("WithholdingTax calculated as : {}", wth);
+        return wth.setScale(2, HALF_EVEN);
     }
 
     /**
@@ -143,7 +142,7 @@ public class ExclusiveImportedServiceLogicImpl implements ExclusiveImportedServi
 
         BigDecimal wth = null;
 
-        if(ttArguments!=null){
+        if (ttArguments != null) {
             log.debug("Using helper method to get amount before tax...");
             wth = helperCalculateAmountBeforeTax(ttArguments)
                     .multiply(ttArguments.getReverseVatRate());
@@ -151,7 +150,7 @@ public class ExclusiveImportedServiceLogicImpl implements ExclusiveImportedServi
 
             log.debug("The ttArguments is null");
         }
-        log.debug("WithholdingTax calculated as : {}",wth);
-        return wth.setScale(2,HALF_EVEN);
+        log.debug("WithholdingTax calculated as : {}", wth);
+        return wth.setScale(2, HALF_EVEN);
     }
 }

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * object used to print the report has to be newed here. I know i know the G.O.F. are
  * going to kill me, but hey when you find a way to run a delegate from the container
  * properly come and throw the first stone.
- *
+ * <p>
  * Oh wait! The delegator which is the reportingVisitor happens to be managed by the
  * container. Awesome. We will configure it and inject it here from the reportingVisitor
  */
@@ -23,27 +23,28 @@ public class PaymentReportDelegate {
 
     // To inject this
     private PaymentAdvice paymentAdvice;
-    private FeedBack feedBack;
+    private final FeedBack feedBack;
 
     private boolean printReport;
 
-    public PaymentReportDelegate(ReportingVisitor reportingVisitor) {
+    public PaymentReportDelegate(ReportingVisitor reportingVisitor,final FeedBack feedBack) {
+        this.feedBack = feedBack;
 
-        log.debug("Creating a paymentReportDelegate : {}",this);
+        log.debug("Creating a paymentReportDelegate : {}", this);
 
         this.delegator = reportingVisitor;
     }
 
     public void renderPaymentModelReport() {
 
-        if(paymentAdvice != null) {
+        if (paymentAdvice != null) {
             log.debug("Rendering the payment model report using payment advice object" +
-                    " : {} injected by the DI container",paymentAdvice);
+                    " : {} injected by the DI container", paymentAdvice);
         } else {
             log.warn("The payment advice object is null, newing it from the delegate");
             paymentAdvice = new PaymentAdvice();
             log.warn("A 'newed' up paymentAdice object {} has been created proceeding to set" +
-                    "printing parameters and other paraphenalia",paymentAdvice);
+                    "printing parameters and other paraphenalia", paymentAdvice);
         }
 
         printReport = feedBack.printReport();
@@ -55,7 +56,7 @@ public class PaymentReportDelegate {
                         delegator.getPaymentModel().getWithholdingVat().toString(),
                         delegator.getPaymentModel().getWithholdingTax().toString()
                 );
-        System.out.println("A pdf report has been printed to the following path : "+
+        System.out.println("A pdf report has been printed to the following path : " +
                 paymentAdvice.getReportName());
     }
 
@@ -90,8 +91,4 @@ public class PaymentReportDelegate {
         return feedBack;
     }
 
-    public PaymentReportDelegate setFeedBack(FeedBack feedBack) {
-        this.feedBack = feedBack;
-        return this;
-    }
 }

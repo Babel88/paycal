@@ -23,7 +23,7 @@ public interface PartialTaxPaymentLogic {
      * Calculates the amount payable to vendor give the total expense and the
      * amount of withholding vat.
      *
-     * @param totalExpense calculated at runtime by the  algorithm
+     * @param totalExpense         calculated at runtime by the  algorithm
      * @param withholdingVatAmount calculated at runtime by the  algorithm
      * @return amount payable to vendor
      */

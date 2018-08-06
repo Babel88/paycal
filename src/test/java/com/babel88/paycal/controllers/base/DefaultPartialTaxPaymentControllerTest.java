@@ -5,9 +5,13 @@ import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.logic.PartialTaxPaymentLogic;
 import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.config.PrepaymentConfigurations;
 import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
+import com.babel88.paycal.logic.SimplePrepayments;
 import com.babel88.paycal.logic.base.DefaultPartialTaxPaymentLogic;
 import com.babel88.paycal.models.PaymentModel;
+import com.babel88.paycal.view.FeedBackImpl;
+import com.babel88.paycal.view.Invoice;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -120,7 +124,7 @@ public class DefaultPartialTaxPaymentControllerTest {
         partialTaxPaymentLogic = new DefaultPartialTaxPaymentLogic()
         .setPaymentParameters(new PaymentParameters());
 
-        prepaymentController = new PrepaymentControllerImpl()
+        prepaymentController = new PrepaymentControllerImpl(new SimplePrepayments(new Invoice(new FeedBackImpl()), new PrepaymentConfigurations()), feedBack)
         .setExpenseAmount(BigDecimal.valueOf(116000).setScale(2,HALF_EVEN))
         .setPrepaymentAmount(BigDecimal.valueOf(23000).setScale(2,HALF_EVEN));
 

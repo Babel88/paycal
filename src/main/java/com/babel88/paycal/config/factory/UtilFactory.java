@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Fctory for utilities
- *
+ * <p>
  * Created by edwin.njeru on 8/23/17.
  */
 @Deprecated

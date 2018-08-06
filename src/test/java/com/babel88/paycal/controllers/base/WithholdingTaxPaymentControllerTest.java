@@ -4,16 +4,14 @@ import com.babel88.paycal.api.InvoiceDetails;
 import com.babel88.paycal.api.controllers.PrepaymentController;
 import com.babel88.paycal.api.view.FeedBack;
 import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.config.PrepaymentConfigurations;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
+import com.babel88.paycal.logic.SimplePrepayments;
 import com.babel88.paycal.logic.base.DefaultTypicalWithholdingTaxPayment;
 import com.babel88.paycal.models.PaymentModel;
 import com.babel88.paycal.utils.TestUtils;
-import com.babel88.paycal.view.ModelPrecisionVisitor;
-import com.babel88.paycal.view.ModelViewerDelegate;
-import com.babel88.paycal.view.ModelViewerVisitor;
-import com.babel88.paycal.view.PaymentReportDelegate;
-import com.babel88.paycal.view.ReportingVisitor;
+import com.babel88.paycal.view.*;
 import com.babel88.paycal.view.reporting.PaymentAdvice;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
@@ -33,7 +31,17 @@ public class WithholdingTaxPaymentControllerTest extends TestUtils<WithholdingTa
     @Before
     public void setUp() throws Exception {
 
-        withholdingTaxPaymentController = new WithholdingTaxPaymentController();
+        withholdingTaxPaymentController =
+                new WithholdingTaxPaymentController(
+                        new PaymentModel(),
+                        new Invoice(new FeedBackImpl()),
+                        new DefaultTypicalWithholdingTaxPayment(),
+                        new PrepaymentControllerImpl(new SimplePrepayments(new Invoice(new FeedBackImpl()),
+                                new PrepaymentConfigurations()),
+                                new FeedBackImpl()),
+                        new ModelViewerVisitor(),
+                        new ModelPrecisionVisitor(),
+                        new ReportingVisitor(new FeedBackImpl()));
         InvoiceDetails invoiceDetails = new InvoiceDetails() {
             @Override
             public BigDecimal invoiceAmount() {
@@ -109,99 +117,29 @@ public class WithholdingTaxPaymentControllerTest extends TestUtils<WithholdingTa
                     @Nonnull
                     @Override
                     public @NotNull Object setExpenseAmount(BigDecimal expenseAmount) {
-                        return new PrepaymentControllerImpl();
+                        return new PrepaymentControllerImpl(new SimplePrepayments(new Invoice(new FeedBackImpl()), new PrepaymentConfigurations()), new FeedBackImpl());
                     }
                 };
 
         ReportingVisitor reportingVisitor =
-                new ReportingVisitor();
+                new ReportingVisitor(new FeedBackImpl());
 
 
 
         withholdingTaxPaymentController.setDoAgain(false)
-                .setInvoiceAmount(bd(45365.56))
-                .setInvoiceDetails(invoiceDetails)
-                .setModelPrecisionVisitor(new ModelPrecisionVisitor())
-                .setPaymentModel(new PaymentModel())
-                .setPrepaymentController(prepaymentController)
-                .setModelViewerVisitor(new ModelViewerVisitor())
-                ;
+                .setInvoiceAmount(bd(45365.56));
 
         PaymentAdvice paymentAdvice = new PaymentAdvice();
         paymentAdvice.setPrintAdvice(false);
 
         reportingVisitor
                 .setPaymentModel(withholdingTaxPaymentController.getPaymentModel())
-                .setPaymentAdvice(paymentAdvice)
-                ;
+                .setPaymentAdvice(paymentAdvice);
+
+        FeedBack feedBack = new FeedBackImpl();
+
         PaymentReportDelegate paymentReportDelegate
-                = new PaymentReportDelegate(reportingVisitor);
-
-        paymentReportDelegate.setFeedBack(
-                new FeedBack() {
-                    @Override
-                    public void printIntro() {
-
-                    }
-
-                    @Override
-                    public void mainPrompt() {
-
-                    }
-
-                    @Override
-                    public void payeeName() {
-
-                    }
-
-                    @Override
-                    public void vatRate() {
-
-                    }
-
-                    @Override
-                    public void withHoldingTaxRate() {
-
-                    }
-
-                    @Override
-                    public void initialMenu() {
-
-                    }
-
-                    @Override
-                    public void invoiceAmount() {
-
-                    }
-
-                    @Override
-                    public void vatAmount() {
-
-                    }
-
-                    @Override
-                    public void withHoldingTaxAmount() {
-
-                    }
-
-                    @Override
-                    public void dateInfo(String date) {
-
-                    }
-
-                    @Override
-                    public void withHoldingVatRate() {
-
-                    }
-
-                    @Override
-                    public Boolean printReport() {
-                        return false;
-                    }
-                }
-        );
-
-        reportingVisitor.setPaymentReportDelegate(paymentReportDelegate);
+                = new PaymentReportDelegate(reportingVisitor, feedBack);
 
         DefaultTypicalWithholdingTaxPayment defaultTypicalWithholdingTaxPayment =
                 new DefaultTypicalWithholdingTaxPayment();
@@ -220,15 +158,6 @@ public class WithholdingTaxPaymentControllerTest extends TestUtils<WithholdingTa
         ModelViewerDelegate modelViewerDelegate =
                 new ModelViewerDelegate(modelViewerVisitor);
 
-        modelViewerVisitor
-                .setModelViewerDelegate(modelViewerDelegate);
-
-        withholdingTaxPaymentController
-                .setReportingVisitor(reportingVisitor)
-                .setWithholdingTaxPayments(defaultTypicalWithholdingTaxPayment)
-                .setPrepaymentsDelegate(prepaymentsDelegate)
-                .setModelViewerVisitor(modelViewerVisitor)
-        ;
     }
 
     @Test

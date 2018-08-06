@@ -2,14 +2,13 @@ package com.babel88.paycal.logic.base;
 
 import com.babel88.paycal.api.logic.InclusiveImportedServiceLogic;
 import com.babel88.paycal.models.TTArguments;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 
 import static java.math.BigDecimal.ONE;
-import static java.math.RoundingMode.*;
+import static java.math.RoundingMode.HALF_EVEN;
 
 /**
  * Logic for telegraphic transfers when the vendor is subject to withholding tax
@@ -20,7 +19,7 @@ public class InclusiveImportedServiceLogicImpl implements InclusiveImportedServi
     private final Logger log = LoggerFactory.getLogger(InclusiveImportedServiceLogicImpl.class);
 
     public InclusiveImportedServiceLogicImpl() {
-        log.debug("InclusiveImportedServiceLogic object has been created : {}",this);
+        log.debug("InclusiveImportedServiceLogic object has been created : {}", this);
     }
 
     /**
@@ -32,14 +31,14 @@ public class InclusiveImportedServiceLogicImpl implements InclusiveImportedServi
     @Override
     public BigDecimal calculateTotalExpenses(TTArguments ttArguments) {
 
-        log.debug("helperCalculateTotalExpenses has been called with {} as argument",ttArguments);
+        log.debug("helperCalculateTotalExpenses has been called with {} as argument", ttArguments);
         BigDecimal totalExpenses = null;
 
-        if(ttArguments != null){
+        if (ttArguments != null) {
 
             totalExpenses = helperCalculateTotalExpenses(ttArguments, helperCalculateAmountBeforeTax(ttArguments));
 
-            log.debug("Total expenses calculated : {}",totalExpenses);
+            log.debug("Total expenses calculated : {}", totalExpenses);
         } else {
 
             log.error("the ttArguments is null");
@@ -57,22 +56,22 @@ public class InclusiveImportedServiceLogicImpl implements InclusiveImportedServi
     @Override
     public BigDecimal calculateToPayee(TTArguments ttArguments) {
 
-        log.debug("calculateToPayee has been called with {} as argument",ttArguments);
+        log.debug("calculateToPayee has been called with {} as argument", ttArguments);
         BigDecimal toPayee = null;
 
-        if(ttArguments != null){
+        if (ttArguments != null) {
 
             toPayee = helperCalculateAmountBeforeTax(ttArguments)
                     .multiply(
                             ONE.subtract(ttArguments.getWithholdingTaxRate())
                     );
-            log.debug("Amount to payee : {}",toPayee);
+            log.debug("Amount to payee : {}", toPayee);
         } else {
 
             log.error("The ttArguments is null");
         }
 
-        return toPayee.setScale(2,HALF_EVEN);
+        return toPayee.setScale(2, HALF_EVEN);
     }
 
     /**
@@ -83,21 +82,21 @@ public class InclusiveImportedServiceLogicImpl implements InclusiveImportedServi
      */
     @Override
     public BigDecimal calculateWithholdingTax(TTArguments ttArguments) {
-        log.debug("calculateWithholdingTax has been called with {} as argument",ttArguments);
+        log.debug("calculateWithholdingTax has been called with {} as argument", ttArguments);
         BigDecimal withholdingTax = null;
 
-        if(ttArguments != null){
+        if (ttArguments != null) {
 
             withholdingTax = helperCalculateAmountBeforeTax(ttArguments)
                     .multiply(ttArguments.getWithholdingTaxRate());
 
-            log.debug("Withholding tax : {}",withholdingTax);
+            log.debug("Withholding tax : {}", withholdingTax);
         } else {
 
             log.error("the ttArguments is null");
         }
 
-        return withholdingTax.setScale(2,HALF_EVEN);
+        return withholdingTax.setScale(2, HALF_EVEN);
     }
 
     /**
@@ -109,21 +108,21 @@ public class InclusiveImportedServiceLogicImpl implements InclusiveImportedServi
     @Override
     public BigDecimal calculateWithholdingVat(TTArguments ttArguments) {
 
-        log.debug("calculateWithholdingVat has been called with {} as argument",ttArguments);
+        log.debug("calculateWithholdingVat has been called with {} as argument", ttArguments);
         BigDecimal withholdingVat = null;
 
-        if(ttArguments != null){
+        if (ttArguments != null) {
 
             withholdingVat = helperCalculateAmountBeforeTax(ttArguments)
                     .multiply(ttArguments.getReverseVatRate());
 
-            log.debug("Withholding vat : {}",withholdingVat);
+            log.debug("Withholding vat : {}", withholdingVat);
         } else {
 
             log.error("the ttArguments is null");
         }
 
-        return withholdingVat.setScale(2,HALF_EVEN);
+        return withholdingVat.setScale(2, HALF_EVEN);
     }
 
     /**
@@ -136,12 +135,12 @@ public class InclusiveImportedServiceLogicImpl implements InclusiveImportedServi
     public BigDecimal helperCalculateAmountBeforeTax(TTArguments ttArguments) {
 
         BigDecimal amountBeforeTax = null;
-        log.debug("helperCalculateAmountBeforeTax helper method has been called with {} as argument",ttArguments);
-        if(ttArguments!=null){
+        log.debug("helperCalculateAmountBeforeTax helper method has been called with {} as argument", ttArguments);
+        if (ttArguments != null) {
 
             amountBeforeTax = ttArguments.getInvoiceAmount();
 
-            log.debug("AmountBeforeTax : {}",amountBeforeTax);
+            log.debug("AmountBeforeTax : {}", amountBeforeTax);
         } else {
 
             log.error("The ttArguments is null");
@@ -160,15 +159,15 @@ public class InclusiveImportedServiceLogicImpl implements InclusiveImportedServi
     @Override
     public BigDecimal helperCalculateTotalExpenses(TTArguments ttArguments, BigDecimal amountBeforeTax) {
 
-        log.debug("helperCalculateTotalExpenses method called with {} and {} as arguments",ttArguments, amountBeforeTax);
+        log.debug("helperCalculateTotalExpenses method called with {} and {} as arguments", ttArguments, amountBeforeTax);
 
         BigDecimal totalExpenses = null;
 
-        if(ttArguments!=null){
+        if (ttArguments != null) {
 
             totalExpenses = amountBeforeTax.multiply(ONE.add(ttArguments.getReverseVatRate()));
 
-            log.debug("Total expenses calculated as : {}",totalExpenses);
+            log.debug("Total expenses calculated as : {}", totalExpenses);
         } else {
 
             log.error("ttArguments is null");

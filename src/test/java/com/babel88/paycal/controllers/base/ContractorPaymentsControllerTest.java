@@ -1,16 +1,16 @@
 package com.babel88.paycal.controllers.base;
 
-import com.babel88.paycal.PaycalApp;
 import com.babel88.paycal.config.PaymentParameters;
+import com.babel88.paycal.config.PrepaymentConfigurations;
+import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
+import com.babel88.paycal.logic.SimplePrepayments;
 import com.babel88.paycal.logic.base.ContractorLogic;
 import com.babel88.paycal.models.PaymentModel;
-import com.babel88.paycal.view.FeedBackImpl;
-import com.babel88.paycal.view.Invoice;
+import com.babel88.paycal.view.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import static java.math.RoundingMode.*;
 import static org.junit.Assert.*;
@@ -24,9 +24,13 @@ public class ContractorPaymentsControllerTest {
     @Before
     public void setUp() throws Exception {
 
-        contractorController = new ContractorPaymentsController();
-        contractorController.setContractorLogic(new ContractorLogic(new PaymentParameters()));
-        contractorController.setPaymentModel(new PaymentModel());
+        contractorController = new ContractorPaymentsController( new PaymentModel(),
+                new Invoice(new FeedBackImpl()),
+                new ContractorLogic(new PaymentParameters()),
+                new PrepaymentControllerImpl(new SimplePrepayments(new Invoice(new FeedBackImpl()), new PrepaymentConfigurations()), new FeedBackImpl()),
+                new ModelViewerVisitor(),
+                new ModelPrecisionVisitor(),
+                new ReportingVisitor(new FeedBackImpl()));
 
     }
 
@@ -87,8 +91,6 @@ public class ContractorPaymentsControllerTest {
     public void setPaymentModel() throws Exception {
 
         PaymentModel newPaymentModel = new PaymentModel();
-
-        contractorController.setPaymentModel(newPaymentModel);
 
         assertEquals(newPaymentModel,contractorController.getPaymentModel());
     }
