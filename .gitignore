@@ -1,7 +1,14 @@
 # Created by .ignore support plugin (hsz.mobi)
+/build/
 /src.old/
 /c:/
 /logs/
 /target/
-/out/
-
+.idea/
+.okhttpcache
+out/
+dependency-reduced-pom.xml
+*.iml
+*.ipr
+*.iws
+*.ftl
