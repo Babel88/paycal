@@ -6,6 +6,7 @@
 /target/
 .idea/
 .okhttpcache
+.gradle
 out/
 dependency-reduced-pom.xml
 *.iml
