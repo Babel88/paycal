@@ -4,4 +4,11 @@
 /c:/
 /logs/
 /target/
+.idea/
+*.iml
+*.ipr
+*.iws
+.gradle/
+gradle
+out/
 
