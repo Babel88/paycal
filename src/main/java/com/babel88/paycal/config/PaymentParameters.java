@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import static com.babel88.paycal.models.AppConstants.*;
 import static java.math.RoundingMode.HALF_EVEN;
 import static java.math.RoundingMode.UNNECESSARY;
 
@@ -39,11 +40,11 @@ public class PaymentParameters implements Serializable {
                         "Withholding tax on Rental payment",
                 "16%", "6%", "5%", "3%", "10%");
 
-        vatRate = divPerCent(BigDecimal.valueOf(16));
-        withholdingVatRate = divPerCent(BigDecimal.valueOf(6));
-        withholdingTaxRate = divPerCent(BigDecimal.valueOf(5));
-        withholdingTaxContractor = divPerCent(BigDecimal.valueOf(3));
-        withholdingTaxOnRentalRate = divPerCent(BigDecimal.valueOf(10));
+        vatRate = divPerCent(SYSTEM_VAT_RATE);
+        withholdingVatRate = divPerCent(SYSTEM_WITHHOLDING_VAT_RATE);
+        withholdingTaxRate = divPerCent(SYSTEM_WITHHOLDING_TAX_RATE);
+        withholdingTaxContractor = divPerCent(SYSTEM_WITHHOLDING_TAX_CONTRACTOR_RATE);
+        withholdingTaxOnRentalRate = divPerCent(SYSTEM_WITHHOLDING_TAX_RENT_RATE);
 
         log.debug("\nPayment parameters object created with : \n" +
                         "Vat Rate : {}. \n" +
