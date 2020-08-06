@@ -11,5 +11,4 @@ before_script:
   - chmod +x gradlew
 
 script:
-  - ./gradlew build --scan -s
   - ./gradlew clean test
