@@ -5,7 +5,7 @@ os: linux
 dist: trusty
 jdk: oraclejdk8
 
-before_install:
+before_script:
   - pwd
   - ls -la
   - chmod +x /.gradlew
