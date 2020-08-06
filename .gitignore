@@ -8,10 +8,6 @@
 *.iml
 *.ipr
 *.iws
-.gradle/
-gradle
-gradlew
-gradlew.bat
 dist
 out/
 

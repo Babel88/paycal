@@ -23,4 +23,4 @@ jobs:
             - name: Run backend test
               run: |
                   chmod +x gradlew
-                  ./gradlew clean check
+                  ./gradlew clean test
