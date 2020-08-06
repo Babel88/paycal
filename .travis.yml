@@ -5,5 +5,10 @@ os: linux
 dist: trusty
 jdk: oraclejdk8
 
+before_install:
+  - pwd
+  - ls -la
+  - chmod +x /.gradlew
+
 script:
   - ./gradlew build --scan -s
