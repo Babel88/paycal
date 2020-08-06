@@ -28,7 +28,7 @@ public class DefaultTypicalWithholdingTaxPaymentTest {
 
         BigDecimal amtB4Tax = withholdingTaxLogic.calculateAmountBeforeTax(invoiceAMount);
 
-        Assert.assertEquals(setAccuracy(100000.00), amtB4Tax);
+        Assert.assertEquals(setAccuracy(101754.40), amtB4Tax);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class DefaultTypicalWithholdingTaxPaymentTest {
 
         BigDecimal wth = withholdingTaxLogic.calculateWithholdingVat(invoiceAMount);
 
-        Assert.assertEquals(setAccuracy(6000.00), wth);
+        Assert.assertEquals(setAccuracy(2035.09), wth);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class DefaultTypicalWithholdingTaxPaymentTest {
 
         BigDecimal wth = withholdingTaxLogic.calculateWithholdingTax(invoiceAMount);
 
-        Assert.assertEquals(setAccuracy(5000.00), wth);
+        Assert.assertEquals(setAccuracy(5087.72), wth);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class DefaultTypicalWithholdingTaxPaymentTest {
 
         BigDecimal payee = withholdingTaxLogic.calculateAmountPayable(invoiceAMount);
 
-        Assert.assertEquals(setAccuracy(105000.00), payee);
+        Assert.assertEquals(setAccuracy(108877.19), payee);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class DefaultTypicalWithholdingTaxPaymentTest {
 
         BigDecimal payee = withholdingTaxLogic.calculateToPayee(invoiceAMount);
 
-        Assert.assertEquals(setAccuracy(105000.00), payee);
+        Assert.assertEquals(setAccuracy(108877.19), payee);
     }
 
     private BigDecimal setAccuracy(Double amount) {

@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+import static com.babel88.paycal.utils.TestUtilityFunctions.bd;
 import static java.math.RoundingMode.HALF_EVEN;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -34,12 +35,12 @@ public class DefaultPartialTaxPaymentControllerTest {
             @Override
             public BigDecimal invoiceAmount() {
 
-                return BigDecimal.valueOf(116000).setScale(2, HALF_EVEN);
+                return BigDecimal.valueOf(114000).setScale(2, HALF_EVEN);
             }
 
             @Override
             public double vatAmount() {
-                return 16000.00;
+                return 14000.00;
             }
 
             /**
@@ -142,9 +143,7 @@ public class DefaultPartialTaxPaymentControllerTest {
 
         partialTaxPaymentController.runCalculation();
 
-        assertEquals(BigDecimal.valueOf(6000).setScale(2,HALF_EVEN),
-                partialTaxPaymentController.getPaymentModel().getWithholdingVat()
-        );
+        assertEquals(bd(2000.00), partialTaxPaymentController.getPaymentModel().getWithholdingVat());
 
     }
 
@@ -153,9 +152,7 @@ public class DefaultPartialTaxPaymentControllerTest {
 
         partialTaxPaymentController.runCalculation();
 
-        assertEquals(BigDecimal.valueOf(0).setScale(2,HALF_EVEN),
-                partialTaxPaymentController.getPaymentModel().getWithholdingTax()
-        );
+        assertEquals(bd(0.0),partialTaxPaymentController.getPaymentModel().getWithholdingTax());
 
     }
 
@@ -164,9 +161,7 @@ public class DefaultPartialTaxPaymentControllerTest {
 
         partialTaxPaymentController.runCalculation();
 
-        assertEquals(BigDecimal.valueOf(110000).setScale(2,HALF_EVEN),
-                partialTaxPaymentController.getPaymentModel().getToPayee()
-        );
+        assertEquals(bd(112000.00),partialTaxPaymentController.getPaymentModel().getToPayee());
 
     }
 
@@ -175,9 +170,7 @@ public class DefaultPartialTaxPaymentControllerTest {
 
         partialTaxPaymentController.runCalculation();
 
-        assertEquals(BigDecimal.valueOf(116000).setScale(2,HALF_EVEN),
-                partialTaxPaymentController.getPaymentModel().getTotalExpense()
-        );
+        assertEquals(bd(114000.00),partialTaxPaymentController.getPaymentModel().getTotalExpense());
 
     }
 
@@ -191,12 +184,10 @@ public class DefaultPartialTaxPaymentControllerTest {
 
         partialTaxPaymentController
                 .setPartialTaxPaymentLogic(logic)
-                .setVatAmount(BigDecimal.valueOf(16000))
+                .setVatAmount(BigDecimal.valueOf(14000))
                 .updateWithholdingVat();
 
-        assertEquals(BigDecimal.valueOf(6000).setScale(2,HALF_EVEN),
-                partialTaxPaymentController.getPaymentModel().getWithholdingVat()
-        );
+        assertEquals(bd(2000.00),partialTaxPaymentController.getPaymentModel().getWithholdingVat());
     }
 
     @Test

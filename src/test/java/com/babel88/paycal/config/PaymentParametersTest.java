@@ -5,7 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
+import static com.babel88.paycal.models.AppConstants.SYSTEM_VAT_RATE;
 import static com.babel88.paycal.models.AppConstants.SYSTEM_WITHHOLDING_VAT_RATE;
 import static org.junit.Assert.*;
 
@@ -46,7 +48,7 @@ public class PaymentParametersTest extends TestUtils<PaymentParameters> {
 
         BigDecimal vatRate = paymentParameters.getVatRate();
 
-        assertEquals(bd(0.16),vatRate);
+        assertEquals(SYSTEM_VAT_RATE.divide(bd(100.00)),vatRate);
     }
 
     @Test
@@ -54,7 +56,7 @@ public class PaymentParametersTest extends TestUtils<PaymentParameters> {
 
         BigDecimal vatRate = paymentParameters.getWithholdingVatRate();
 
-        assertEquals(SYSTEM_WITHHOLDING_VAT_RATE,vatRate);
+        assertEquals(SYSTEM_WITHHOLDING_VAT_RATE.divide(BigDecimal.valueOf(100.00)),vatRate);
     }
 
     @Test

@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
 
+import static com.babel88.paycal.utils.TestUtilityFunctions.bd;
 import static java.math.RoundingMode.HALF_EVEN;
 
 /**
@@ -27,7 +28,7 @@ public class ContractorLogicTest {
 
         contractorLogic = new ContractorLogic(new PaymentParameters());
 
-        invoiceAmount = BigDecimal.valueOf(116000.00).setScale(2, HALF_EVEN);
+        invoiceAmount = BigDecimal.valueOf(114000.00).setScale(2, HALF_EVEN);
     }
 
     @Test
@@ -44,9 +45,7 @@ public class ContractorLogicTest {
 
         BigDecimal toPayee = contractorLogic.calculateToPayee(invoiceAmount);
 
-        Assert.assertEquals(
-                BigDecimal.valueOf(107000.00).setScale(2, HALF_EVEN), toPayee
-        );
+        Assert.assertEquals(bd(109000.00), toPayee);
     }
 
     @Test
@@ -64,9 +63,7 @@ public class ContractorLogicTest {
 
         BigDecimal wthVat = contractorLogic.calculateWithholdingVat(invoiceAmount);
 
-        Assert.assertEquals(
-                BigDecimal.valueOf(6000.00).setScale(2, HALF_EVEN), wthVat
-        );
+        Assert.assertEquals(bd(2000.00), wthVat);
     }
 
 }

@@ -49,14 +49,14 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
 
         BigDecimal payee = rentalPaymentLogic.calculateToPayee(invoiceAmount);
 
-        assertEquals(bd(100000.00), payee);
+        assertEquals(bd(103789.47), payee);
     }
 
     @Test
     public void calculateWithholdingTax() throws Exception {
         BigDecimal wth = rentalPaymentLogic.calculateWithholdingTax(invoiceAmount);
 
-        assertEquals(bd(10000.00), wth);
+        assertEquals(bd(10175.44), wth);
     }
 
     @Test
@@ -64,7 +64,7 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
 
         BigDecimal wthVat = rentalPaymentLogic.calculateWithholdingVat(invoiceAmount);
 
-        assertEquals(bd(6000.00), wthVat);
+        assertEquals(bd(2035.09), wthVat);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
     public void calculateToPayee1() throws Exception {
         super.toPayee = rentalPaymentLogic.calculateToPayee(super.invoiceAmount);
 
-        assertEquals(bd(100000.00),toPayee);
+        assertEquals(bd(103789.47),toPayee);
 
     }
 
@@ -87,7 +87,7 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
     public void calculateWithholdingTax1() throws Exception {
         super.wthTax = rentalPaymentLogic.calculateWithholdingTax(super.invoiceAmount);
 
-        assertEquals(bd(10000.00),wthTax);
+        assertEquals(bd(10175.44),wthTax);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class RentalPaymentLogicTest extends TestUtils<RentalPaymentLogic> {
 
         super.wthVat = rentalPaymentLogic.calculateWithholdingVat(super.invoiceAmount);
 
-        assertEquals(bd(6000.00),wthVat);
+        assertEquals(bd(2035.09),wthVat);
     }
 
     @Override

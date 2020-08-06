@@ -38,7 +38,7 @@ public class PaymentParameters implements Serializable {
                 "Withholding Tax Rate : {}. \n" +
                         "Contractor withholding Tax Rate : {}. \n" +
                         "Withholding tax on Rental payment",
-                "16%", "6%", "5%", "3%", "10%");
+                "14%", "2%", "5%", "3%", "10%");
 
         vatRate = divPerCent(SYSTEM_VAT_RATE);
         withholdingVatRate = divPerCent(SYSTEM_WITHHOLDING_VAT_RATE);

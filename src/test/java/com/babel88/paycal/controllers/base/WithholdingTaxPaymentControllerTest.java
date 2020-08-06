@@ -242,11 +242,11 @@ public class WithholdingTaxPaymentControllerTest extends TestUtils<WithholdingTa
         BigDecimal totalExpense = withholdingTaxPaymentController.getPaymentModel().getTotalExpense();
         BigDecimal toPayee = withholdingTaxPaymentController.getPaymentModel().getToPayee();
 
-        assertEquals(bd(1956.00),withholdingTax);
-        assertEquals(bd(2347.00),withholdingVat);
+        assertEquals(bd(1990.00),withholdingTax);
+        assertEquals(bd(796.00),withholdingVat);
         assertEquals(bd(22932.04),prepayment);
         assertEquals(bd(22433.51),totalExpense);
-        assertEquals(bd(41062.55),toPayee);
+        assertEquals(bd(42579.55),toPayee);
     }
 
     @Test
@@ -266,7 +266,7 @@ public class WithholdingTaxPaymentControllerTest extends TestUtils<WithholdingTa
 
         BigDecimal totalExpense = withholdingTaxPaymentController.getPaymentModel().getToPayee();
 
-        assertEquals(bd(41063.66),totalExpense);
+        assertEquals(bd(42579.95),totalExpense);
     }
 
     @Test
@@ -276,7 +276,7 @@ public class WithholdingTaxPaymentControllerTest extends TestUtils<WithholdingTa
 
         BigDecimal withholdingTax = withholdingTaxPaymentController.getPaymentModel().getWithholdingTax();
 
-        assertEquals(bd(1955.41),withholdingTax);
+        assertEquals(bd(1989.72),withholdingTax);
     }
 
     @Test
@@ -286,18 +286,13 @@ public class WithholdingTaxPaymentControllerTest extends TestUtils<WithholdingTa
 
         BigDecimal withholdingVat = withholdingTaxPaymentController.getPaymentModel().getWithholdingVat();
 
-        assertEquals(bd(2346.49),withholdingVat);
+        assertEquals(bd(795.89),withholdingVat);
     }
 
     @Test
     public void getPaymentModel() throws Exception {
 
         assertNotNull(withholdingTaxPaymentController.getPaymentModel());
-    }
-
-    protected BigDecimal bd(Double value){
-
-        return BigDecimal.valueOf(value).setScale(2,HALF_EVEN);
     }
 
     /**

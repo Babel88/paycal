@@ -46,7 +46,7 @@ public class TypicalPaymentTest extends TestUtils<DefaultLogic>{
 
         BigDecimal wth = typicalPayment.calculateWithholdingVat(invoiceAmount);
 
-        assertEquals(bd(6000.00), wth);
+        assertEquals(bd(2035.09), wth);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class TypicalPaymentTest extends TestUtils<DefaultLogic>{
 
         BigDecimal toPayee = typicalPayment.calculateToPayee(invoiceAmount);
 
-        assertEquals(bd(110000.00),toPayee);
+        assertEquals(bd(113964.91),toPayee);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class TypicalPaymentTest extends TestUtils<DefaultLogic>{
 
         BigDecimal beforeTax = typicalPayment.calculateAmountBeforeTax(invoiceAmount);
 
-        assertEquals(bd(100000.00),beforeTax);
+        assertEquals(bd(101754.39),beforeTax);
     }
 
     public TypicalPaymentTest setTypicalPayment(DefaultLogic typicalPayment) {

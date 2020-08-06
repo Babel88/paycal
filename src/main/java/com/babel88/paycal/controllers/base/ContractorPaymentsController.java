@@ -2,18 +2,14 @@ package com.babel88.paycal.controllers.base;
 
 import com.babel88.paycal.api.DefaultPaymentModel;
 import com.babel88.paycal.api.InvoiceDetails;
-import com.babel88.paycal.api.ResultsViewer;
 import com.babel88.paycal.api.controllers.DefaultControllers;
 import com.babel88.paycal.api.controllers.PaymentsControllerRunner;
 import com.babel88.paycal.api.controllers.PrepaymentController;
-import com.babel88.paycal.api.controllers.ReportControllers;
 import com.babel88.paycal.api.logic.DefaultLogic;
 import com.babel88.paycal.api.logic.PrepaymentService;
 import com.babel88.paycal.api.view.Visitor;
 import com.babel88.paycal.controllers.delegate.PrepaymentsDelegate;
 import com.babel88.paycal.controllers.prepayments.PrepaymentControllerImpl;
-import com.babel88.paycal.models.PaymentModel;
-import com.babel88.paycal.models.ResultsOutput;
 import com.babel88.paycal.models.TTArguments;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;

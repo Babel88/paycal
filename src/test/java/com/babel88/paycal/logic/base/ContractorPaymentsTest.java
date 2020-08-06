@@ -46,14 +46,14 @@ public class ContractorPaymentsTest extends TestUtils<DefaultLogic> {
 
         toPayee = contractorLogic.calculateToPayee(invoiceAmount);
 
-        assertEquals(bd(107000.00),toPayee);
+        assertEquals(bd(110912.28),toPayee);
     }
 
     @Test
     public void calculateWithholdingTax() throws Exception {
         wthTax = contractorLogic.calculateWithholdingTax(invoiceAmount);
 
-        assertEquals(bd(3000.00),wthTax);
+        assertEquals(bd(3052.63),wthTax);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class ContractorPaymentsTest extends TestUtils<DefaultLogic> {
 
         wthVat = contractorLogic.calculateWithholdingVat(invoiceAmount);
 
-        assertEquals(bd(6000.00),wthVat);
+        assertEquals(bd(2035.09),wthVat);
     }
 
     @Test

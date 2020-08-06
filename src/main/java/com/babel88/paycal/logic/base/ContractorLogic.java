@@ -36,12 +36,8 @@ public class ContractorLogic implements com.babel88.paycal.api.logic.DefaultLogi
     public BigDecimal calculateToPayee(BigDecimal invoiceAmount) {
 
         return invoiceAmount
-                .subtract(
-                        calculateWithholdingVat(invoiceAmount)
-                )
-                .subtract(
-                        calculateWithholdingTax(invoiceAmount)
-                )
+                .subtract(calculateWithholdingVat(invoiceAmount))
+                .subtract(calculateWithholdingTax(invoiceAmount))
                 .setScale(2, HALF_EVEN);
     }
 
@@ -49,9 +45,7 @@ public class ContractorLogic implements com.babel88.paycal.api.logic.DefaultLogi
     public BigDecimal calculateWithholdingTax(BigDecimal invoiceAmount) {
 
         return calculateAmountBeforeTax(invoiceAmount)
-                .multiply(
-                        paymentParameters.getWithholdingTaxContractor()
-                )
+                .multiply(paymentParameters.getWithholdingTaxContractor())
                 .setScale(2, HALF_EVEN);
     }
 
@@ -59,18 +53,12 @@ public class ContractorLogic implements com.babel88.paycal.api.logic.DefaultLogi
     public BigDecimal calculateWithholdingVat(BigDecimal invoiceAmount) {
 
         return calculateAmountBeforeTax(invoiceAmount)
-                .multiply(
-                        paymentParameters.getWithholdingVatRate()
-                )
+                .multiply(paymentParameters.getWithholdingVatRate())
                 .setScale(2, HALF_EVEN);
     }
 
     private BigDecimal calculateAmountBeforeTax(BigDecimal invoiceAmount) {
 
-        return invoiceAmount.divide(
-                ONE.add(
-                        paymentParameters.getVatRate()
-                ), HALF_EVEN
-        );
+        return invoiceAmount.divide(ONE.add(paymentParameters.getVatRate()), HALF_EVEN);
     }
 }

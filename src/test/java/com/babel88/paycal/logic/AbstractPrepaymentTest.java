@@ -44,11 +44,6 @@ public class AbstractPrepaymentTest extends TestUtils<AbstractPrepayment> {
         assertEquals(bd(22932.04),prepayment);
     }
 
-    protected BigDecimal bd(Double value){
-
-        return BigDecimal.valueOf(value).setScale(2,HALF_EVEN);
-    }
-
     @Override
     public void getterAndSetterCorrectness() throws Exception {
         // The abstractPrepayment bean seems to be having instantiation problems

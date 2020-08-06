@@ -228,11 +228,11 @@ public class RentalPaymentsControllerTest extends TestUtils<RentalPaymentsContro
         BigDecimal totalExpense = rentalPaymentsController.getPaymentModel().getTotalExpense();
         BigDecimal toPayee = rentalPaymentsController.getPaymentModel().getToPayee();
 
-        assertEquals(bd(3911.00),withholdingTax);
-        assertEquals(bd(2347.00),withholdingVat);
+        assertEquals(bd(3980.00),withholdingTax);
+        assertEquals(bd(796.00),withholdingVat);
         assertEquals(bd(22932.04),prepayment);
         assertEquals(bd(22433.51),totalExpense);
-        assertEquals(bd(39107.55),toPayee);
+        assertEquals(bd(40589.55),toPayee);
 
 
     }
@@ -254,7 +254,7 @@ public class RentalPaymentsControllerTest extends TestUtils<RentalPaymentsContro
 
         BigDecimal totalExpense = rentalPaymentsController.getPaymentModel().getToPayee();
 
-        assertEquals(bd(39108.25),totalExpense);
+        assertEquals(bd(40590.23),totalExpense);
     }
 
     @Test
@@ -264,7 +264,7 @@ public class RentalPaymentsControllerTest extends TestUtils<RentalPaymentsContro
 
         BigDecimal withholdingTax = rentalPaymentsController.getPaymentModel().getWithholdingTax();
 
-        assertEquals(bd(3910.82),withholdingTax);
+        assertEquals(bd(3979.44),withholdingTax);
     }
 
     @Test
@@ -274,7 +274,7 @@ public class RentalPaymentsControllerTest extends TestUtils<RentalPaymentsContro
 
         BigDecimal withholdingVat = rentalPaymentsController.getPaymentModel().getWithholdingVat();
 
-        assertEquals(bd(2346.49),withholdingVat);
+        assertEquals(bd(795.89),withholdingVat);
     }
 
     @Test
@@ -292,7 +292,7 @@ public class RentalPaymentsControllerTest extends TestUtils<RentalPaymentsContro
         assertEquals(logic,rentalPaymentsController.getRentalPaymentLogic());
     }
 
-    protected BigDecimal bd(Double value){
+    public static BigDecimal bd(Double value){
 
         return BigDecimal.valueOf(value).setScale(2,HALF_EVEN);
     }

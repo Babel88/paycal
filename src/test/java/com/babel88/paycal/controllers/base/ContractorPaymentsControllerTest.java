@@ -1,27 +1,26 @@
 package com.babel88.paycal.controllers.base;
 
-import com.babel88.paycal.PaycalApp;
 import com.babel88.paycal.config.PaymentParameters;
 import com.babel88.paycal.logic.base.ContractorLogic;
 import com.babel88.paycal.models.PaymentModel;
-import com.babel88.paycal.view.FeedBackImpl;
-import com.babel88.paycal.view.Invoice;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
+import static com.babel88.paycal.models.AppConstants.HUNDRED;
 import static com.babel88.paycal.models.AppConstants.SYSTEM_VAT_RATE;
 import static com.babel88.paycal.models.AppConstants.SYSTEM_WITHHOLDING_VAT_RATE;
-import static java.math.RoundingMode.*;
-import static org.junit.Assert.*;
+import static com.babel88.paycal.utils.TestUtilityFunctions.bd;
+import static java.math.RoundingMode.HALF_EVEN;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class ContractorPaymentsControllerTest {
 
     private ContractorPaymentsController contractorController;
 
-    private BigDecimal invoiceAmount = BigDecimal.valueOf(116000).setScale(2, HALF_EVEN);
+    private BigDecimal invoiceAmount = BigDecimal.valueOf(114000).setScale(2, HALF_EVEN);
 
     @Before
     public void setUp() throws Exception {
@@ -49,7 +48,7 @@ public class ContractorPaymentsControllerTest {
 
         contractorController.updateToPayee();
 
-        assertEquals(BigDecimal.valueOf(107000).setScale(2, HALF_EVEN),contractorController.getPaymentModel().getToPayee());
+        assertEquals(bd(109000.00),contractorController.getPaymentModel().getToPayee());
     }
 
     @Test
@@ -59,7 +58,7 @@ public class ContractorPaymentsControllerTest {
 
         contractorController.updateWithholdingTax();
 
-        assertEquals(BigDecimal.valueOf(3000).setScale(2, HALF_EVEN),contractorController.getPaymentModel().getWithholdingTax());
+        assertEquals(bd(3000.00),contractorController.getPaymentModel().getWithholdingTax());
     }
 
     @Test
@@ -69,10 +68,10 @@ public class ContractorPaymentsControllerTest {
 
         contractorController.updateWithholdingVat();
 
-        assertEquals(
-                BigDecimal.valueOf(invoiceAmount.divide(SYSTEM_VAT_RATE).multiply(SYSTEM_WITHHOLDING_VAT_RATE).doubleValue()).setScale(2, HALF_EVEN),
-                contractorController.getPaymentModel().getWithholdingVat()
-        );
+        BigDecimal vatRate = SYSTEM_VAT_RATE.divide(HUNDRED,2, HALF_EVEN);
+        BigDecimal withTaxRate = SYSTEM_WITHHOLDING_VAT_RATE.divide(HUNDRED,2, HALF_EVEN);
+
+        assertEquals(bd(2000.00),contractorController.getPaymentModel().getWithholdingVat());
     }
 
     @Test
