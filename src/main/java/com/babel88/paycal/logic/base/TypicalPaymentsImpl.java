@@ -21,7 +21,7 @@ import static java.math.RoundingMode.HALF_EVEN;
  * <p>a) The payee is not chargeable for withholding tax for consultancy</p>
  * <p>b) The payee is locally domiciled</p>
  * <p>c) The payee chargeable to VAT tax</p>
- * <p>d) The payee needs to pay 6% withholding tax</p>
+ * <p>d) The payee needs to pay 2% withholding tax</p>
  * <p>e) The Invoice amount is not inclusive of any duties</p>
  */
 public class TypicalPaymentsImpl implements TypicalPayments, DefaultLogic {

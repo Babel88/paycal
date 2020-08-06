@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+import static com.babel88.paycal.models.AppConstants.SYSTEM_WITHHOLDING_VAT_RATE;
 import static org.junit.Assert.*;
 
 /**
@@ -53,7 +54,7 @@ public class PaymentParametersTest extends TestUtils<PaymentParameters> {
 
         BigDecimal vatRate = paymentParameters.getWithholdingVatRate();
 
-        assertEquals(bd(0.06),vatRate);
+        assertEquals(SYSTEM_WITHHOLDING_VAT_RATE,vatRate);
     }
 
     @Test

@@ -12,6 +12,8 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import static com.babel88.paycal.models.AppConstants.SYSTEM_VAT_RATE;
+import static com.babel88.paycal.models.AppConstants.SYSTEM_WITHHOLDING_VAT_RATE;
 import static java.math.RoundingMode.*;
 import static org.junit.Assert.*;
 
@@ -68,7 +70,7 @@ public class ContractorPaymentsControllerTest {
         contractorController.updateWithholdingVat();
 
         assertEquals(
-                BigDecimal.valueOf(6000).setScale(2, HALF_EVEN),
+                BigDecimal.valueOf(invoiceAmount.divide(SYSTEM_VAT_RATE).multiply(SYSTEM_WITHHOLDING_VAT_RATE).doubleValue()).setScale(2, HALF_EVEN),
                 contractorController.getPaymentModel().getWithholdingVat()
         );
     }
